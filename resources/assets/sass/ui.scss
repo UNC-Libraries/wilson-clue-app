@@ -1,0 +1,375 @@
+@import "mixins/variables.ui";
+@import "mixins/variables.font-awesome";
+@import url(//fonts.googleapis.com/css?family=Josefin+Sans:400,700|Montserrat:900);
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "node_modules/font-awesome/scss/font-awesome";
+
+body {
+  margin-top: 50px;
+}
+
+legend {
+  color: $text-color;
+}
+
+.modal, .well {
+  color: $gray-base;
+}
+
+.alert-default {
+  @include alert-variant($alert-default-bg, $alert-default-border, $alert-default-text);
+}
+.alert-primary {
+  @include alert-variant($alert-primary-bg, $alert-primary-border, $alert-primary-text);
+}
+
+/**************
+ SVG Maps
+****************/
+
+.map-base{
+  fill: $gray-darker;
+}
+.map-default{
+  fill: $gray-lighter;
+}
+.map-primary{
+  fill: $brand-primary;
+}
+.map-success{
+  fill: $brand-success;
+}
+.map-danger{
+  fill: $brand-danger;
+}
+.map-warning{
+  fill: $brand-warning;
+}
+.map-info{
+  fill: $brand-info;
+}
+.map-text{
+  font-size: 2em;
+}
+
+/**************
+ SVG DNA
+****************/
+.dna-s {
+  fill: $brand-success;
+}
+.dna-t {
+  fill: $brand-warning;
+}
+.dna-g {
+  fill: $brand-danger;
+}
+.dna-h {
+  fill: $brand-primary;
+}
+.dna-top {
+  fill: $brand-info;
+}
+.dna-bottom {
+  fill: $gray-lighter;
+}
+
+/*****************
+* DNA
+******************/
+.dna-svg use, .dna-svg rect, .dna-svg g{
+  opacity: 0;
+  -webkit-transition: opacity .5s;
+  -moz-transition: opacity .5s;
+  -ms-transition: opacity .5s;
+  -o-transition: opacity .5s;
+  transition: opacity .5s;
+}
+.dna-svg.top use:nth-of-type(odd), .dna-svg.top rect:nth-of-type(1), .dna-svg.top g:nth-of-type(odd){
+  opacity: 1;
+}
+.dna-svg.bottom use:nth-of-type(even), .dna-svg.bottom rect:nth-of-type(2), .dna-svg.bottom g:nth-of-type(even){
+  opacity: 1;
+}
+
+/**************
+ Quest Interface
+****************/
+
+.quest-header {
+  background-color: $gray-base;
+  margin-bottom: 22px;
+  -webkit-box-shadow: 0px 0px 20px 0px $gray-lighter;
+  -moz-box-shadow: 0px 0px 20px 0px $gray-lighter;
+  box-shadow: 0px 0px 20px 0px $gray-lighter;
+  padding: 5px;
+}
+
+.quest-header.info{
+  -webkit-box-shadow: 0px 0px 20px 0px $brand-info;
+  -moz-box-shadow: 0px 0px 20px 0px $brand-info;
+  box-shadow: 0px 0px 20px 0px $brand-info;
+}
+.quest-header.danger{
+  -webkit-box-shadow: 0px 0px 20px 0px $brand-danger;
+  -moz-box-shadow: 0px 0px 20px 0px $brand-danger;
+  box-shadow: 0px 0px 20px 0px $brand-danger;
+}
+.quest-header.warning{
+  -webkit-box-shadow: 0px 0px 20px 0px $brand-warning;
+  -moz-box-shadow: 0px 0px 20px 0px $brand-warning;
+  box-shadow: 0px 0px 20px 0px $brand-warning;
+}
+.quest-header.primary{
+  -webkit-box-shadow: 0px 0px 20px 0px $brand-primary;
+  -moz-box-shadow: 0px 0px 20px 0px $brand-primary;
+  box-shadow: 0px 0px 20px 0px $brand-primary;
+}
+.quest-header.success{
+  -webkit-box-shadow: 0px 0px 20px 0px $brand-success;
+  -moz-box-shadow: 0px 0px 20px 0px $brand-success;
+  box-shadow: 0px 0px 20px 0px $brand-success;
+}
+
+.quest-title {
+  font-size: 2em;
+}
+
+.quest-header-image {
+  height: 105px;
+  width: 105px;
+  border-radius: 34%;
+  margin: 0 auto .2em;
+  box-sizing: content-box;
+}
+
+.quest-map {
+  height: 125px;
+  width: 125px;
+}
+
+@media(min-width: 400px){
+  height: 175px;
+  width: 175px;
+}
+
+/**************
+ Questions
+****************/
+
+.question-div{
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: $gray-lighter;
+  opacity: 1;
+  border: 1px solid darken($gray-light, 10%);
+  border-radius: 4px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -ms-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+  color: $gray-base;
+}
+
+.question-div.submitting{
+  margin-left: -30px;
+  margin-right:-30px;
+  padding-left: 50px;
+  padding-right: 50px;
+  background-color: $gray-light;
+  opacity: .6;
+}
+.question-div.incorrect .question-response{
+  background-color: $gray-dark;
+  margin: 10px 0;
+  padding: 5px;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border: 1px solid $gray-base;
+  color: $gray-lighter;
+}
+
+.question-div.incorrect {
+  background-color: rgba(244,118,108,0.8);
+}
+
+.question-div.correct {
+  font-size: 1.2em;
+  color: #fff;
+}
+
+.question-div.white.correct {
+  background-color: $gray-lighter;
+  color: $gray-darker;
+}
+.question-div.mustard.correct {
+  background-color: $brand-warning;
+  color: $gray-darker;
+}
+
+.question-div.green.correct {
+  background-color: $brand-success;
+}
+.question-div.peacock.correct {
+  background-color: $brand-primary;
+}
+.question-div.plum.correct {
+  background-color: $brand-info;
+}
+.question-div.scarlet.correct {
+  background-color: $brand-danger;
+}
+
+/**************
+ Navigation Buttons
+****************/
+.media{
+  background-color: $gray-light;
+  position: relative;
+  overflow: hidden;
+}
+.media .access-icon{
+  height: 80px;
+  right: 130px;
+  position: absolute;
+}
+.media-body .skew{
+  content: '';
+  position: absolute;
+  left: 80px;
+  bottom: 0;
+  overflow: visible;
+  width: 100%;
+  height: 100%;
+  background: $gray-lighter;
+  -webkit-transform: skewX(-40deg);
+  -moz-transform: skewX(-40deg);
+  -ms-transform: skewX(-40deg);
+  -o-transform: skewX(-40deg);
+  transform: skewX(-40deg);
+  -webkit-backface-visibility: hidden;
+}
+.unskew{
+  -webkit-transform: skewX(40deg);
+  -moz-transform: skewX(40deg);
+  -ms-transform: skewX(40deg);
+  -o-transform: skewX(40deg);
+  transform: skewX(40deg);
+}
+.unskew .title-text{
+  padding-left: 15px;
+  font-weight: 600;
+  margin-top: 45px;
+  color: $gray-base;
+  font-size: 2rem;
+  margin-bottom: 10px;
+  line-height: 1.1;
+  display: block;
+
+}
+.quest-button .media-left, .quest-button .media-body {
+  display: block;
+}
+.quest-button .media-left {
+  position: relative;
+}
+.char-face{
+  max-width: 64px;
+}
+
+/**************
+ Progress Bar
+****************/
+.progress{
+  margin-bottom: 0;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+}
+.progress .progress-bar p {
+  position: absolute;
+  right: 20%;
+}
+.progress-bar-default{
+  background-color: $gray-light;
+}
+.progress-bar-character{
+  margin: 20px;
+}
+
+.expo{
+  border-bottom: 1px solid $text-color;
+}
+
+/**************
+ Indictment Radio Buttons
+****************/
+.flex-form-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.flex-radio {
+  width: 130px;
+  padding: 10px;
+
+  label {
+    position: relative;
+
+  }
+  input[type=radio]{
+    display:none;
+  }
+
+  input[type="radio"] + label span.selected{
+    display: none;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+  }
+
+  input[type="radio"]:checked + label span.selected{
+    display: inline;
+    color: #39FF14;
+  }
+  input[type="radio"]:checked + label {
+    border: 6px solid #39FF14;
+  }
+
+}
+
+/**************
+ Questions
+****************/
+.minigame-image {
+  background: transparent no-repeat center;
+  background-size: cover;
+  height: calc(100vw * .333333333);
+
+  span.order {
+    background: $gray-base;
+    color: #fff;
+    font-size: 1.5em;
+    width: 1.5em;
+    display: block;
+    text-align: center;
+  }
+}
+
+/**************
+ Map
+****************/
+.clip-circle {
+  display: block;
+  height: 94px;
+  width: 94px;
+  border-radius: 50%;
+  margin: 0 auto .2em;
+  box-sizing: content-box;
+  border: 3px solid $gray-dark;
+}

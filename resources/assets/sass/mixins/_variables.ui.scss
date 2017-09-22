@@ -1,0 +1,122 @@
+$gray-base:               #0E0A0A !default;
+$gray-darker:             #281E1E !default;
+$gray-dark:               #302424 !default;
+$gray:                    #554B4B !default;
+$gray-light:              #A09B9B !default;
+$gray-lighter:            #D9D7D7 !default;
+
+
+$brand-primary:         #4C4CFF !default; // #337ab7
+$brand-success:         #57A85A !default;
+$brand-info:            #8E3367 !default;
+$brand-warning:         #EFBC51 !default;
+$brand-danger:          #CE3722 !default;
+
+$accent-green:          #1DEEA4 !default;
+$accent-yellow:         #FFA41F !default;
+$accent-red:            #FA1F56 !default;
+
+
+$body-bg:               $gray !default;
+//** Global text color on `<body>`.
+$text-color:            $gray-lighter !default;
+//** Global textual link color.
+$link-color:            $gray-lighter !default;
+//** Link hover color set via `darken()` function.
+$link-hover-color:      darken($link-color, 15%) !default;
+//** Link hover decoration.
+$link-hover-decoration: underline !default;
+
+$font-family-sans-serif:  "Josefin Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font-size-base:          16px !default;
+
+//== Form states and alerts
+//
+//## Define colors for form feedback states and, by default, alerts.
+
+$state-default-text:             $gray-dark !default;
+$state-default-bg:               $gray-lighter !default;
+$state-default-border:           darken(adjust-hue($state-default-bg, -10), 15%) !default;
+
+$state-primary-text:             darken($brand-primary, 30%) !default;
+$state-primary-bg:               lighten($brand-primary, 30%) !default;
+$state-primary-border:           darken(adjust-hue($state-primary-bg, -10), 15%) !default;
+
+$state-success-text:             darken($brand-success, 20%) !default;
+$state-success-bg:               lighten($brand-success, 40%) !default;
+$state-success-border:           darken(adjust-hue($state-success-bg, -10), 15%) !default;
+
+$state-info-text:                darken($brand-info, 20%) !default;
+$state-info-bg:                  lighten($brand-info, 40%) !default;
+$state-info-border:              darken(adjust-hue($state-info-bg, -10), 15%) !default;
+
+$state-warning-text:             darken($brand-warning, 40%) !default;
+$state-warning-bg:               lighten($brand-warning, 30%) !default;
+$state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 15%) !default;
+
+$state-danger-text:              darken($brand-danger, 20%) !default;
+$state-danger-bg:                lighten($brand-danger, 40%) !default;
+$state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 15%) !default;
+
+
+//== Alerts
+//
+//## Define alert colors, border radius, and padding.
+
+$alert-default-bg:             $state-default-bg !default;
+$alert-default-text:           $state-default-text !default;
+$alert-default-border:         $state-default-border !default;
+
+$alert-primary-bg:             $state-primary-bg !default;
+$alert-primary-text:           $state-primary-text !default;
+$alert-primary-border:         $state-primary-border !default;
+
+$alert-success-bg:            $state-success-bg !default;
+$alert-success-text:          $state-success-text !default;
+$alert-success-border:        $state-success-border !default;
+
+$alert-info-bg:               $state-info-bg !default;
+$alert-info-text:             $state-info-text !default;
+$alert-info-border:           $state-info-border !default;
+
+$alert-warning-bg:            $state-warning-bg !default;
+$alert-warning-text:          $state-warning-text !default;
+$alert-warning-border:        $state-warning-border !default;
+
+$alert-danger-bg:             $state-danger-bg !default;
+$alert-danger-text:           $state-danger-text !default;
+$alert-danger-border:         $state-danger-border !default;
+
+//=== Inverted navbar
+// Reset inverted navbar basics
+$navbar-inverse-color:                      $gray-lighter !default;
+$navbar-inverse-bg:                         $gray-base !default;
+$navbar-inverse-border:                     darken($navbar-inverse-bg, 10%) !default;
+
+// Inverted navbar links
+$navbar-inverse-link-color:                 $gray-lighter !default;
+$navbar-inverse-link-hover-color:           #fff !default;
+$navbar-inverse-link-hover-bg:              transparent !default;
+$navbar-inverse-link-active-color:          $navbar-inverse-link-hover-color !default;
+$navbar-inverse-link-active-bg:             darken($navbar-inverse-bg, 10%) !default;
+$navbar-inverse-link-disabled-color:        #444 !default;
+$navbar-inverse-link-disabled-bg:           transparent !default;
+
+// Inverted navbar brand label
+$navbar-inverse-brand-color:                $navbar-inverse-link-color !default;
+$navbar-inverse-brand-hover-color:          #fff !default;
+$navbar-inverse-brand-hover-bg:             transparent !default;
+
+// Inverted navbar toggle
+$navbar-inverse-toggle-hover-bg:            $gray-darker !default;
+$navbar-inverse-toggle-icon-bar-bg:         $gray-lighter !default;
+$navbar-inverse-toggle-border-color:        $gray-lighter !default;
+
+//== Progress bars
+//
+//##
+
+//** Background color of the whole progress component
+$progress-bg:                 #fff !default;
+//** Progress bar text color
+$progress-bar-color:          $gray-base !default;

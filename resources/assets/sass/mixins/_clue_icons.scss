@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'Clue Icons';
+  src:url('../fonts/clueicons/icomoon.eot');
+  src:url('../fonts/clueicons/icomoon.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/clueicons/icomoon.woff') format('woff'),
+  url('../fonts/clueicons/icomoon.ttf') format('truetype'),
+  url('../fonts/clueicons/icomoon.svg#icomoon') format('svg');
+}
+.clue-icon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Clue Icons';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.clue-icon-archive:before{
+  content:'\e600';
+}
+.clue-icon-shield:before{
+  content:'\e603';
+}
+.clue-icon-ghost:before{
+  content:'\e601';
+}
+.clue-icon-process:before{
+  content:'\e602';
+}
+.clue-icon-suspect:before{
+  content:'\e604';
+}

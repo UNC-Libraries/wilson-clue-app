@@ -1,0 +1,60 @@
+$bootstrap-sass-asset-helper: false !default;
+//
+// Variables
+// --------------------------------------------------
+
+
+//== Colors
+//
+//## Gray and brand colors for use across Bootstrap.
+
+$gray-base:               #0E0A0A !default;
+$gray-darker:             #281E1E !default;
+$gray-dark:               #302424 !default;
+$gray:                    #554B4B !default;
+$gray-light:              #A09B9B !default;
+$gray-lighter:            #D9D7D7 !default;
+
+
+$brand-primary:         #1DEEA4 !default; // #337ab7
+$brand-success:         #1DEEA4 !default;
+$brand-info:            #5bc0de !default;
+$brand-warning:         #FFA41F !default;
+$brand-danger:          #FA1F56 !default;
+
+
+//== Scaffolding
+//
+//## Settings for some of the most global styles.
+
+//** Background color for `<body>`.
+$body-bg:               $gray-darker !default;
+//** Global text color on `<body>`.
+$text-color:            $gray-light !default;
+
+//** Global textual link color.
+$link-color:            $brand-primary !default;
+//** Link hover color set via `darken()` function.
+$link-hover-color:      darken($link-color, 15%) !default;
+//** Link hover decoration.
+$link-hover-decoration: underline !default;
+
+
+//== Typography
+//
+//## Font, line-height, and color for body text, headings, and more.
+
+$font-family-sans-serif:  "Josefin Sans", Helvetica, Arial, sans-serif !default;
+
+$font-size-base:          18px !default;
+
+//== Buttons
+//
+//## For each of Bootstrap's buttons, define text, background and border color.
+$btn-text-color:                $gray-base;
+
+$btn-primary-color:              $btn-text-color !default;
+$btn-success-color:              $btn-text-color !default;
+$btn-info-color:                 $btn-text-color !default;
+$btn-danger-color:               $btn-text-color !default;
+$btn-warning-color:              $btn-text-color !default;

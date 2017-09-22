@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'Social Icons';
+  src:url('../fonts/socialicons/icomoon.eot');
+  src:url('../fonts/socialicons/icomoon.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/socialicons/icomoon.woff') format('woff'),
+  url('../fonts/socialicons/icomoon.ttf') format('truetype'),
+  url('../fonts/socialicons/icomoon.svg#icomoon') format('svg');
+}
+.social-icon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Social Icons';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.social-icon-facebook:before{
+  content:'\e602';
+}
+.social-icon-github:before{
+  content:'\e600';
+}
+.social-icon-linkedin:before{
+  content:'\e603';
+}
+.social-icon-twitter:before{
+  content:'\e601';
+}
+.social-icon-plus:before{
+  content:'\e604';
+}
+.social-icon-flickr:before{
+  content:'\e605';
+}

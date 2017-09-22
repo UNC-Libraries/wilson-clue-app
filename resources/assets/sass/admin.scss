@@ -1,0 +1,194 @@
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+//@import "mixins/fancy_checkboxes";
+@import "mixins/variables.font-awesome.scss";
+@import "node_modules/font-awesome/scss/font-awesome";
+
+$peacock:         #4C4CFF !default; // #337ab7
+$peacock-text:    #fff;
+$green:           #57A85A !default;
+$green-text:      #fff;
+$plum:            #8E3367 !default;
+$plum-text:       #fff;
+$mustard:         #EFBC51 !default;
+$mustard-text:    #000;
+$scarlet:         #CE3722 !default;
+$scarlet-text:    #fff;
+$white:           #fff;
+$white-text:      #000;
+$indictment:      #E5BDFF;
+$indictment-text: #000;
+$evidence: #ffae70;
+$evidence-text:   #000;
+
+#gameContainer {
+  background: $gray-dark;
+  margin-top: -20px;
+  padding-top: 20px;
+
+  #contentWrapper {
+    background: $body-bg;
+    min-height: 100vh;
+  }
+}
+
+
+#subnav {
+  color: $gray-lighter;
+  height: 100%;
+  padding: 0;
+
+  a {
+    padding: 1em 0;
+    color: darken($gray-lighter, 10%);
+    display: block;
+  }
+  a:hover, a:focus {
+    color: $gray-lighter;
+    background-color: $gray-dark;
+  }
+  a.active {
+    color: $brand-primary;
+    background-color: $body-bg;
+    border-left: 5px solid darken($brand-primary, 10%);
+  }
+  a .nav-text {
+    display: block;
+  }
+}
+
+.expo {
+  border-bottom: 1px solid $gray-lighter;
+}
+
+.dash-section {
+
+  padding: 1em 1.3em;
+
+  .dash-section-header {
+    border-bottom: 1px solid $gray-light;
+
+    h3 {
+      margin-top: 0;
+    }
+  }
+  .dash-section-body {
+    padding: 10px;
+    border-left: 4px solid $gray-light;
+  }
+}
+
+.media-object-128{
+  max-width: 128px;
+  max-height: 128px;
+}
+
+.media-object-64{
+  max-width: 64px;
+  max-height: 64px;
+}
+
+.question-media {
+  cursor: move;
+}
+
+.col-top-padding{
+  padding-top: 5px;
+}
+
+.clickable-row:hover {
+  cursor: pointer;
+}
+
+.map-base{
+  fill: #000;
+}
+.map-default{
+  fill: $gray-light;
+}
+.map-primary{
+  fill: $brand-primary;
+}
+.map-success{
+  fill: $brand-success;
+}
+.map-danger{
+  fill: $brand-danger;
+}
+.map-warning{
+  fill: $brand-warning;
+}
+.map-info{
+  fill: $brand-info;
+}
+.map-text{
+  font-size: 2em;
+}
+
+.center-radio-button label{
+  text-align: center;
+}
+.center-radio-button input[type="radio"]{
+  position: relative;
+  margin: 0;
+}
+
+.table {
+  display: table;
+}
+.table-cell-col-2 {
+    display: table-cell;
+    width: 50%;
+    padding: 20px;
+}
+
+.quest-type {
+  display:none;
+}
+
+/**
+  Progress Bars for glados
+ */
+.progress-bar-plum{
+  background-color: $plum;
+  color: $plum-text;
+}
+.progress-bar-white{
+  background-color: $white;
+  color: $white-text;
+}
+.progress-bar-green{
+  background-color: $green;
+  color: $green-text;
+}
+.progress-bar-scarlet{
+  background-color: $scarlet;
+  color: $scarlet-text;
+}
+.progress-bar-mustard{
+  background-color: $mustard;
+  color: $mustard-text;
+}
+.progress-bar-peacock{
+  background-color: $peacock;
+  color: $peacock-text;
+}
+.progress-bar-indictment{
+  background-color: $indictment;
+  color: $indictment-text;
+}
+.progress-bar-evidence{
+  background-color: $evidence;
+  color: $evidence-text;
+}
+.progress-bar-empty{
+  background-color: $gray-lighter;
+  color: #000;
+  -moz-box-shadow:    inset 0 0 3px $gray-dark;
+  -webkit-box-shadow: inset 0 0 3px $gray-dark;
+  box-shadow:         inset 0 0 3px $gray-dark;
+}
+
+#availableQuestions, #availableMinigameImages {
+  max-height: 500px;
+  overflow-y: auto;
+}
