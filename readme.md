@@ -10,7 +10,7 @@ A Laravel / MySQL game management application and player interface for the biann
 * [Ruby](https://www.ruby-lang.org/en/) (for Capistrano)
 
 ## Installation
-1. Get a fresh Jitterbug MySQL production database dump from a UNC library sysadmin.
+1. Get a fresh Clue MySQL production database dump from a UNC library sysadmin.
 2. Create an empty MySQL database locally.
 ```bash
 $ mysql -u username -p
@@ -24,7 +24,7 @@ $ mysql -u username clue < clue-sql-file.sql -p
 
 4. Clone the repo to your local machine ($CLUE_HOME).
 ```bash
-$ git clone git@gitlab.lib.unc.edu:cappdev/clue.git clue
+$ git clone https://github.com/UNC-Libraries/wilson-clue-app.git
 ```
 
 5. Install Clue dependencies.
@@ -40,7 +40,7 @@ $ php artisan key:generate
 ```
 7. Get the images from production to your local machine
 ```bash
-$ rsync -rv iguana.lib.unc.edu:/net/deploy/prod/clue/shared/storage/app/public/* $CLUE_HOME/storage/app/public
+$ rsync -rv production.server.com:/path/to/deploy/code/* $CLUE_HOME/storage/app/public
 ```
 
 8. Symlink the public storage directory into the public directory
