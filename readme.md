@@ -74,5 +74,6 @@ $ php artisan serve
    In your favorite web browser, go to http://localhost:8000/
 
 ---
+For additional information about the application's structure and use, see the [Wiki](https://github.com/UNC-Libraries/wilson-clue-app/wiki)
    
 
