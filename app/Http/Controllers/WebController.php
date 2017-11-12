@@ -60,11 +60,22 @@ class WebController extends Controller
     public function archive(Request $request, $id)
     {
         $game = Game::with('registeredTeams','registeredTeams.players')->findOrFail($id);
-        $first_place = $game->registeredTeams->sortByDesc('score')->first();
-        $second_place = $game->registeredTeams->sortByDesc('score')->slice(1,1)->first();
-        $third_place = $game->registeredTeams->sortByDesc('score')->slice(2,1)->first();
+        $teams = $game->registeredTeams;
 
-        return view('web.archive',compact('game','first_place','second_place','third_place'));
+        $correct_indictments = $teams->filter(function ($team) {
+            return $team->indictment_correct == true;
+        })->sortByDesc('score');
+        $incorrect_indictments = $teams->filter(function ($team) {
+            return $team->indictment_correct == false;
+        })->sortByDesc('score');
+
+        $teams = $correct_indictments->merge($incorrect_indictments);
+
+        $first_place = $teams->first();
+        $second_place = $teams->slice(1,1)->first();
+        $third_place = $teams->slice(2,1)->first();
+
+        return view('web.archive',compact('game','teams','first_place','second_place','third_place'));
     }
 
     /**

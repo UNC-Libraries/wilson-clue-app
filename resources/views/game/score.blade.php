@@ -65,25 +65,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($teams->sortByDesc('score') as $team)
+                    @foreach($teams as $team)
                         <tr class="{{ $team->indictment_correct ? 'info' : 'danger' }}">
                             <td>{{ $team->name }}</td>
                             <td>{{ $team->correctQuestions->count() }}</td>
                             <td>{{ $team->foundDna->count() }}</td>
                             <td>
-                            @if($team->indictment_correct)
-                                Correct
-                            @else
-                                <dl class="list-unstyled">
-                                    <dt>{{ $team->indictment_correct ? 'Correct' : 'Incorrect' }}</dt>
-                                    <dt>Suspect</dt>
-                                    <dd>{{ $team->suspect->name or 'none' }}</dd>
-                                    <dt>Location</dt>
-                                    <dd>{{ $team->location->name or 'none' }}</dd>
-                                    <dt>Evidence</dt>
-                                    <dd>{{ $team->evidence->title or 'none' }}</dd>
-                                </dl>
-                            @endif
+                                @if($team->indictment_correct)
+                                    Correct
+                                @else
+                                    <dl class="list-unstyled">
+                                        <dt>{{ $team->indictment_correct ? 'Correct' : 'Incorrect' }}</dt>
+                                        <dt>Suspect</dt>
+                                        <dd>{{ $team->suspect->name or 'none' }}</dd>
+                                        <dt>Location</dt>
+                                        <dd>{{ $team->location->name or 'none' }}</dd>
+                                        <dt>Evidence</dt>
+                                        <dd>{{ $team->evidence->title or 'none' }}</dd>
+                                    </dl>
+                                @endif
                             </td>
                             <td>{{ $team->indictment_time ? $team->indictment_time->format('g:i:s A') : 'Indictment not submitted' }}</td>
                             <td>{{ $team->bonus_points }}</td>
