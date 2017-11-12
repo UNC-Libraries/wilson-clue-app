@@ -11,11 +11,21 @@
             <p class="lead text-center">Edit the information that shows up on the public archive page</p>
 
             {!! Form::model($game, array('route'=> array('admin.game.update',$game->id), 'method'=>'PUT')) !!}
-                <div class="checkbox">
+            <fieldset>
+                <p>Show this game on the website?</p>
+                <div class="radio">
                     <label>
-                        {!! Form::checkbox('archive') !!} Show this game on the website?
+                        {!! Form::radio('archive',1) !!}
+                        Yes
                     </label>
                 </div>
+                <div class="radio">
+                    <label>
+                        {!! Form::radio('archive',0) !!}
+                        No
+                    </label>
+                </div>
+            </fieldset>
 
             <div class="form-group">
                 {!! Form::label('winning_team','Winning Team') !!}
