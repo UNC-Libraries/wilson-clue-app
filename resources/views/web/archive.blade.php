@@ -45,7 +45,7 @@
                         @endif
                     </div>
                 </div>
-                @foreach($game->registeredTeams->sortByDesc('score')->slice(3)->chunk(3) as $chunk)
+                @foreach($teams->slice(3)->chunk(3) as $chunk)
                 <div class="row">
                     @foreach($chunk as $team)
                         <div class="col-xs-12 col-sm-4">

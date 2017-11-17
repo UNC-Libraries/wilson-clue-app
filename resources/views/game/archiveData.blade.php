@@ -11,11 +11,21 @@
             <p class="lead text-center">Edit the information that shows up on the public archive page</p>
 
             {!! Form::model($game, array('route'=> array('admin.game.update',$game->id), 'method'=>'PUT')) !!}
-                <div class="checkbox">
+            <fieldset>
+                <p>Show this game on the website?</p>
+                <div class="radio">
                     <label>
-                        {!! Form::checkbox('archive') !!} Show this game on the website?
+                        {!! Form::radio('archive',1) !!}
+                        Yes
                     </label>
                 </div>
+                <div class="radio">
+                    <label>
+                        {!! Form::radio('archive',0) !!}
+                        No
+                    </label>
+                </div>
+            </fieldset>
 
             <div class="form-group">
                 {!! Form::label('winning_team','Winning Team') !!}
@@ -28,7 +38,17 @@
             <div class="form-group">
                 {!! Form::label('flickr_start_img', 'Flickr Start Image') !!}
                 {!! Form::text('flickr_start_img',null,array('class' => 'form-control')) !!}
-                <span class="help-block">The url for the image you want to show while the album loads</span>
+                <span class="help-block">
+                    The url for the image you want to show on the homepage. To retrieve a single image's URL from flickr.
+                    <ol>
+                        <li>Select the image from the flickr album.</li>
+                        <li>Click on the <i class="fa fa-download" alt="Download, down arrow w/ bar underneath"></i> icon.</li>
+                        <li>Click "View all sizes" in the pop-up menu.</li>
+                        <li>Select the "Medium 500" Size.</li>
+                        <li>Right-click on the image, and select "Copy Image address"</li>
+                        <li>Paste the url in the input box above.</li>
+                    </ol>
+                </span>
             </div>
             <div class="form-group">
                 {!! Form::label('special_thanks', 'Special Thanks Content') !!}

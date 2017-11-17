@@ -436,7 +436,18 @@ class GameController extends Controller
                 }
                 $team->save();
             }
+
+            $correct_indictments = $teams->filter(function ($team) {
+                return $team->indictment_correct == true;
+            })->sortByDesc('score');
+            $incorrect_indictments = $teams->filter(function ($team) {
+                return $team->indictment_correct == false;
+            })->sortByDesc('score');;
+
+            $teams = $correct_indictments->merge($incorrect_indictments);
+
             return view('game.score', compact('game', 'teams'));
+
         } else {
             return redirect()->back()->with('alert',['type' => 'warning', 'message' => 'Only active games can be scored']);
         }
