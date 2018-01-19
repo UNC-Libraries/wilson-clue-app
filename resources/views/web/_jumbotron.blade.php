@@ -31,21 +31,24 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-12 col-md-6">
                 <div class="row site-nav" role="navigation">
-                    <div class="col-xs-12 col-sm-3 text-center">
+                    <div class="col-xs-12">
                         <a href="#process" class="scrollnav"><span class="clue-icon clue-icon-process"></span>Process</a>
                     </div>
-                    <div class="col-xs-12 col-sm-3 text-center">
+                    <div class="col-xs-12">
                         <a href="#suspects" class="scrollnav"><span class="clue-icon clue-icon-suspect"></span>Suspects</a>
                     </div>
-                    <div class="col-xs-12 col-sm-3 text-center">
-                        <a href="#sia" class="scrollnav"><span class="clue-icon clue-icon-shield"></span> The SIA</a>
+                    <div class="col-xs-12">
+                        <a href="#sia" class="scrollnav"><span class="clue-icon clue-icon-shield"></span>The SIA</a>
                     </div>
-                    <div class="col-xs-12 col-sm-3 text-center">
+                    <div class="col-xs-12">
                         <a href="#archive" class="scrollnav"><span class="clue-icon clue-icon-archive"></span>Archive</a>
                     </div>
                 </div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <img class="img-responsive" id="carouselWrapper" src="{{ asset('images/clue-mag.svg') }}">
             </div>
         </div>
     </div>

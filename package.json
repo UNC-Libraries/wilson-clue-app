@@ -15,6 +15,5 @@
     "sortablejs": "git+https://github.com/RubaXa/Sortable.git",
     "clipboard": "^1.7.1"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
