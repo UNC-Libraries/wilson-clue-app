@@ -72,6 +72,10 @@ class Team extends Model
      */
     public function getIndictmentCorrectAttribute()
     {
+        if(empty($this->game->solution)){
+            return false;
+        }
+
         return [
             'suspect' => $this->suspect_id,
             'location' => $this->location_id,
