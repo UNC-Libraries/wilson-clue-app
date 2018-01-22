@@ -239,11 +239,13 @@ span.notice-text {
 * Clue Icons
 */
 .site-nav div {
-  margin: 1.2em;
+  margin: 1.2em 0;
+  text-align: center;
 }
 .site-nav a {
   color: $gray-light;
 }
+
 .site-nav a:hover {
   color: $brand-primary;
 }
@@ -252,11 +254,21 @@ span.notice-text {
   text-decoration: none;
 }
 .site-nav a .clue-icon {
-  font-size: 2em;
-  margin-right: .4em;
-  margin-top: -10px;
-  display: inline-block;
-  vertical-align: middle;
+  font-size: 4em;
+  display: block;
+}
+
+@media (min-width: 992px) {
+  .site-nav div {
+    text-align: left;
+  }
+  .site-nav a .clue-icon {
+    display: inline-block;
+    font-size: 2em;
+    margin-right: .4em;
+    margin-top: -10px;
+    vertical-align: middle;
+  }
 }
 
 /****************
@@ -270,7 +282,7 @@ span.notice-text {
 }
 
 /****************
-* 
+*
 */
 
 /****************
