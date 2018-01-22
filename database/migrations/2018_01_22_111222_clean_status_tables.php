@@ -41,6 +41,11 @@ class CleanStatusTables extends Migration
                 ]);
             }
         }
+
+        DB::table('ghost_dna_team')->where('created_at', null)->update([
+            'created_at' => $timestamp,
+            'updated_at' => $timestamp
+        ]);
     }
 
     /**
