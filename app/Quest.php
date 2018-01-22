@@ -63,7 +63,7 @@ class Quest extends Model
     }
     public function completedBy()
     {
-        return $this->belongsToMany('App\Team')->registered();
+        return $this->belongsToMany('App\Team')->registered()->withTimestamps();
     }
     public function game()
     {
