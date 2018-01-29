@@ -106,7 +106,7 @@ Route::get('leave', 'Auth\LoginController@logout')->name('player.logout');
 /***************************
  * Admin routes...
  */
-Route::group(['middleware' => ['auth:admin','admin']], function () {
+// Route::group(['middleware' => ['auth:admin','admin']], function () {
 
     // Test game route
     Route::get('/test-game', 'Admin\GameController@overrideInProgress');
@@ -186,8 +186,6 @@ Route::group(['middleware' => ['auth:admin','admin']], function () {
             // GLADOS
             Route::get('glados/viewing', 'GladosController@viewing')->name('admin.game.glados.viewing');
             Route::get('glados/status', 'GladosController@status')->name('admin.game.glados.status');
-            Route::get('glados/judgement', 'GladosController@judgement')->name('admin.game.glados.judgement');
-            Route::get('glados/alerts', 'GladosController@alerts')->name('admin.game.glados.alerts');
 
             // ALERTS
             Route::resource('alert', 'AlertController', ['only' => ['store','destroy'], 'names' => [
@@ -321,4 +319,4 @@ Route::group(['middleware' => ['auth:admin','admin']], function () {
 
 
     });
-});
+// });

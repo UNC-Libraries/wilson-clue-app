@@ -54,13 +54,6 @@ clue = {
     return src;
   },
 
-  getAjaxContent: function(watcher) {
-    if(watcher){
-      let url = watcher.data('url');
-      watcher.load(url);
-    }
-  },
-
   getGlobalAlert: function() {
     var url = $('#alertModal').data('url');
     $.ajax({
@@ -103,17 +96,11 @@ clue = {
 
   initAjaxContentLoaders: function(){
 
-    let watchers = $('.watcher');
-    let w_length = watchers.length;
-    let i = 0;
-    setInterval(function() {
-      let watcher = watchers.eq(i);
-      clue.getAjaxContent(watcher);
-      i++;
-      if (i >= w_length) {
-        i = 0;
-      }
-    }, 5000);
+    $('.refresh-content').click(function(){
+      let url = $(this).data('url');
+      let target = $(this).data('target');
+      $(target).load(url);
+    });
   },
 
   initAutoSubmit: function(){

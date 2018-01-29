@@ -30,7 +30,16 @@
                         <button type="submit" class="btn btn-primary btn-sm"><span class="fa fa-send"></span> Send</button>
                     {!! Form::close() !!}
                     <h4>Sent alerts</h4>
-                    <div class="watcher" data-url="{{ route('admin.game.glados.alerts', $game->id) }}"></div>
+                    <ul class="list-unstyled">
+                        @foreach($game->alerts as $alert)
+                            <li>
+                                <em>{{ $alert->message }}</em>
+                                <small>
+                                    @include('partials._delete_form', ['route' => ['admin.game.alert.destroy', $game->id, $alert->id], 'class' => 'btn-xs'])
+                                </small>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>
@@ -39,9 +48,12 @@
         <div class="col-xs-12">
             <div class="dash-section">
                 <div class="dash-section-header">
-                    <h3>Status</h3>
+                    <h3>
+                        Status
+                        <button class="btn btn-default refresh-content" data-url="{{ route('admin.game.glados.status', $game->id) }}" data-target="#gladosStatus"><i class="fa fa-refresh"></i></button>
+                    </h3>
                 </div>
-                <div class="dash-section-body watcher" data-url="{{ route('admin.game.glados.status', $game->id) }}"></div>
+                <div class="dash-section-body" id="gladosStatus"></div>
             </div>
         </div>
 
@@ -49,19 +61,12 @@
         <div class="col-xs-12">
             <div class="dash-section">
                 <div class="dash-section-header">
-                    <h3>Viewing</h3>
+                    <h3>
+                        Viewing
+                        <button class="btn btn-default refresh-content" data-url="{{ route('admin.game.glados.viewing', $game->id) }}" data-target="#gladosViewing"><i class="fa fa-refresh"></i></button>
+                    </h3>
                 </div>
-                <div class="dash-section-body watcher" data-url="{{ route('admin.game.glados.viewing', $game->id) }}"></div>
-            </div>
-        </div>
-
-        <!-- UnJudged Answers -->
-        <div class="col-xs-12">
-            <div class="dash-section">
-                <div class="dash-section-header">
-                    <h3>Unjudged Answers</h3>
-                </div>
-                <div class="dash-section-body watcher" data-url="{{ route('admin.game.glados.judgement', $game->id) }}"></div>
+                <div class="dash-section-body" id="gladosViewing"></div>
             </div>
         </div>
     </div>

@@ -78,29 +78,4 @@ class GladosController extends Controller
         return view('glados.status', compact('teams','quests'));
     }
 
-    /**
-     * Show questions that need to be judged
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-
-    public function judgement($id)
-    {
-        $game = Game::with('quests')->findOrFail($id);
-        return view('glados.judgement', compact('game'));
-    }
-
-    /**
-     * Show the list of alerts for a game
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function alerts($id)
-    {
-        $game = Game::with('alerts')->findOrFail($id);
-        return view('glados.alerts', compact('game'));
-    }
-
 }
