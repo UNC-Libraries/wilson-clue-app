@@ -16753,26 +16753,6 @@ clue = {
     $('#flash-message').delay(3000).slideUp(300);
   },
 
-  checkQuestionStatus: function() {
-    $('.check-status').each(function(v){
-      var url = $(this).data('url');
-      $.ajax({
-        url: url,
-        type: 'post',
-        data: {_token: $('meta[name="csrf-token"]').attr('content') },
-        dataType: 'json',
-        success: function(data, status, xhr) {
-          if(data.complete){
-            clue.questionCorrect(data.target);
-          }
-        },
-        error: function(xhr, status, error){
-          console.log(xhr);
-        }
-      });
-    });
-  },
-
   dnaCorrect: function(target, dnaId, topOrBottom){
     $(target).closest('.question-div').removeClass('submitting').removeClass('incorrect');
     $(target+'-response').html('');
@@ -17014,19 +16994,6 @@ clue = {
         }
       });
     })
-  },
-
-  initUiAlerts: function(){
-    setInterval(function() {
-      clue.getGlobalAlert();
-    }, 20000);
-  },
-
-  initQuestionChecker: function(){
-    clue.getPageAlert();
-    setInterval(function() {
-      clue.checkQuestionStatus();
-    }, 15000);
   },
 
   initQuestionForm: function(){
@@ -17273,16 +17240,15 @@ CLUE = {
   ui: {
     init: function() {
       clue.initSeenAlert();
-      clue.initUiAlerts();
+      clue.getGlobalAlert();
     },
     index: function() {
-
     },
     dna: function() {
       clue.initDnaForm();
     },
     quest: function() {
-      clue.initQuestionChecker();
+      clue.getPageAlert();
       clue.initQuestionForm();
       clue.initMinigame();
     },

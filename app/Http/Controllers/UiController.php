@@ -217,14 +217,16 @@ class UiController extends Controller
             'attempt' => 'required',
         ]);
         $teamId = $request->session()->get('teamId');
-        $question = Question::with('answers')->findOrFail($id);
+        $question = Question::with('answers','completedBy')->findOrFail($id);
         $attempt = $request->attempt;
 
         $pattern = '/('.$question->answers->implode('text',')|(').')/i';
         $response = [];
 
         if(preg_match($pattern,$attempt)) {
-            $question->completedBy()->attach($teamId);
+            if(!$question->completedBy->pluck('id')->contains($teamId)){
+                $question->completedBy()->attach($teamId);
+            }
             $response = ['correct' => true];
 
         } else {
@@ -268,24 +270,6 @@ class UiController extends Controller
 
         return response()->json($response);
     }
-
-    /**
-     * Get the status of a specific question
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function questionStatus(Request $request, $id)
-    {
-        $teamId = $request->session()->get('teamId');
-        $team = Team::with('correctQuestions')->findOrFail($teamId);
-
-        $response = $team->correctQuestions->contains('id',$id) ? ['complete' => 'true', 'target' => '#question-'.$id] : [];
-
-        return response()->json($response);
-    }
-
 
     /**
      * Show the DNA interface

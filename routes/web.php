@@ -64,7 +64,6 @@ Route::group(['middleware' => ['activeGame']], function()
                 Route::post('attempt/minigame/{id}', 'UiController@attemptMinigame')->name('ui.attempt.minigame');
                 Route::post('set/evidence', 'UiController@setEvidence')->name('ui.set.evidence');
                 Route::post('status/quest/{id}', 'UiController@questStatus')->name('ui.status.quest');
-                Route::post('status/question/{id}', 'UiController@questionStatus')->name('ui.status.question');
             });
             Route::group(['prefix' => 'game/'], function () {
                 Route::get('indictment', 'UiController@indictment')->name('ui.indictment');
@@ -106,7 +105,7 @@ Route::get('leave', 'Auth\LoginController@logout')->name('player.logout');
 /***************************
  * Admin routes...
  */
-// Route::group(['middleware' => ['auth:admin','admin']], function () {
+Route::group(['middleware' => ['auth:admin','admin']], function () {
 
     // Test game route
     Route::get('/test-game', 'Admin\GameController@overrideInProgress');
@@ -319,4 +318,4 @@ Route::get('leave', 'Auth\LoginController@logout')->name('player.logout');
 
 
     });
-// });
+});
