@@ -17,7 +17,7 @@ class CleanStatusTables extends Migration
     public function up()
     {
         $qts = DB::table('quest_team')->get();
-        $timestamp = Carbon::now()->toDateTimeString();
+        $timestamp = Carbon::create(2017,10,30,18)->toDateTimeString();
         foreach($qts as $qt) {
             if ($qt->created_at !== null) {
                 $timestamp = $qt->created_at;
