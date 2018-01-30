@@ -60,7 +60,7 @@ class Question extends Model
     }
     public function completedBy()
     {
-        return $this->belongsToMany('App\Team');
+        return $this->belongsToMany('App\Team')->withTimestamps();
     }
 
     /***********************************
