@@ -8633,4 +8633,21 @@ img.char-card {
     font-size: .9em;
     padding: 2px; }
 
+/******************
+ * Carousel
+ */
+.swiper-button-next,
+.swiper-container-rtl .swiper-button-prev,
+.swiper-button-prev,
+.swiper-container-rtl .swiper-button-next {
+  background-image: none;
+  fill: #1DEEA4; }
+
+.swiper-pagination-bullet {
+  background-color: #FFA41F;
+  opacity: .9; }
+
+.swiper-pagination-bullet-active {
+  background-color: #FA1F56; }
+
 /*# sourceMappingURL=web.css.map */

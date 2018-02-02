@@ -663,3 +663,22 @@ img.char-card{
     }
   }
 }
+
+/******************
+ * Carousel
+ */
+.swiper-button-next,
+.swiper-container-rtl .swiper-button-prev,
+.swiper-button-prev,
+.swiper-container-rtl .swiper-button-next{
+  background-image: none;
+  fill: $brand-success;
+}
+
+.swiper-pagination-bullet {
+  background-color: $brand-warning;
+  opacity: .9;
+}
+.swiper-pagination-bullet-active {
+  background-color: $brand-danger;
+}

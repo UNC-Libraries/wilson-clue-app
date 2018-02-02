@@ -21,8 +21,8 @@ and are used to route JavaScript in router.js --}}
 
     @yield('main.content')
 
-    <script src="{{asset('js/app.js')}}"></script>
     @yield('additional_scripts')
+    <script src="{{asset('js/app.js')}}"></script>
 </body>
 
 </html>

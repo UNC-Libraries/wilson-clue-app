@@ -8,30 +8,25 @@
     ];
 @endphp
 
-<div id="featured-images-carousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
+<!-- Slider main container -->
+<div class="swiper-container" style="height: 427px;">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+        <!-- Slides -->
         @foreach ($featured_images as $index => $image)
-        <li data-target="#featured-images-carousel" data-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}"></li>
-        @endforeach
-    </ol>
-
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox">
-        @foreach ($featured_images as $index => $image)
-        <div class="item {{ $index === 0 ? 'active' : '' }}">
+        <div class="swiper-slide">
             <img src="{{ $image['src'] }}" alt="{{ $image['alt'] }}">
         </div>
         @endforeach
     </div>
+    <!-- If we need pagination -->
+    <div class="swiper-pagination swiper-button-white"></div>
 
-    <!-- Controls -->
-    <a class="left carousel-control" href="#featured-images-carousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#featured-images-carousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 44"><path d="M0,22L22,0l2.1,2.1L4.2,22l19.9,19.9L22,44L0,22L0,22L0,22z"></svg>
+    </div>
+    <div class="swiper-button-next">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 44"><path d="M27,22L27,22L5,44l-2.1-2.1L22.8,22L2.9,2.1L5,0L27,22L27,22z"></svg>
+    </div>
 </div>
