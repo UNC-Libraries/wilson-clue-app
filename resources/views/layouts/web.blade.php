@@ -2,6 +2,7 @@
 
 @section('css')
     <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/css/swiper.min.css">
     <link href="{{ asset('css/web.css') }}" rel="stylesheet" type="text/css" >
 @endsection
 
@@ -15,6 +16,7 @@
 @endsection
 
 @section('additional_scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/js/swiper.min.js"></script>
     <script type="application/ld+json">
         {
             "@context": "http://schema.org",
