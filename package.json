@@ -6,15 +6,16 @@
   },
   "devDependencies": {
     "bootstrap-sass": "^3.3.0",
+    "clipboard": "^1.7.1",
     "eonasdan-bootstrap-datetimepicker": "^4.17.47",
     "font-awesome": "^4.7.0",
     "gulp": "^3.9.1",
     "jquery": "^2.2.4",
     "laravel-elixir": "^5.0.0",
     "moment": "^2.18.1",
-    "sortablejs": "git+https://github.com/RubaXa/Sortable.git",
-    "clipboard": "^1.7.1"
+    "sortablejs": "git+https://github.com/RubaXa/Sortable.git"
   },
   "dependencies": {
+    "npm": "^5.6.0"
   }
 }
