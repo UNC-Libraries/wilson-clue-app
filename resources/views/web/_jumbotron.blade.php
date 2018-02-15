@@ -25,7 +25,7 @@
         <div class="row">
             @if($game && $game->registration)
                 @include('web._special_notice')
-            @else
+            @else
                 @include('web._site_alert')
             @endif
         </div>

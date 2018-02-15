@@ -28,16 +28,15 @@ CLUE = {
   ui: {
     init: function() {
       clue.initSeenAlert();
-      clue.initUiAlerts();
+      clue.getGlobalAlert();
     },
     index: function() {
-
     },
     dna: function() {
       clue.initDnaForm();
     },
     quest: function() {
-      clue.initQuestionChecker();
+      clue.getPageAlert();
       clue.initQuestionForm();
       clue.initMinigame();
     },

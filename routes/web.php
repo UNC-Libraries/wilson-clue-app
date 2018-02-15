@@ -64,7 +64,6 @@ Route::group(['middleware' => ['activeGame']], function()
                 Route::post('attempt/minigame/{id}', 'UiController@attemptMinigame')->name('ui.attempt.minigame');
                 Route::post('set/evidence', 'UiController@setEvidence')->name('ui.set.evidence');
                 Route::post('status/quest/{id}', 'UiController@questStatus')->name('ui.status.quest');
-                Route::post('status/question/{id}', 'UiController@questionStatus')->name('ui.status.question');
             });
             Route::group(['prefix' => 'game/'], function () {
                 Route::get('indictment', 'UiController@indictment')->name('ui.indictment');
@@ -186,8 +185,6 @@ Route::group(['middleware' => ['auth:admin','admin']], function () {
             // GLADOS
             Route::get('glados/viewing', 'GladosController@viewing')->name('admin.game.glados.viewing');
             Route::get('glados/status', 'GladosController@status')->name('admin.game.glados.status');
-            Route::get('glados/judgement', 'GladosController@judgement')->name('admin.game.glados.judgement');
-            Route::get('glados/alerts', 'GladosController@alerts')->name('admin.game.glados.alerts');
 
             // ALERTS
             Route::resource('alert', 'AlertController', ['only' => ['store','destroy'], 'names' => [

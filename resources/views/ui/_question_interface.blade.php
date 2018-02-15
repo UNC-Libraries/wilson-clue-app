@@ -1,6 +1,5 @@
 @foreach($quest->questions as $q)
-    <div class="question-div {{ $quest->suspect->machine }} {{ $q->completedBy()->pluck('id')->contains($team->id) ? 'correct' : 'check-status' }}"
-         data-url="{{ route('ui.status.question', $q->id) }}">
+    <div class="question-div {{ $quest->suspect->machine }} {{ $q->completedBy()->pluck('id')->contains($team->id) ? 'correct' : '' }}">
         <div class="row">
             @if($q->completedBy()->pluck('id')->contains($team->id))
                 <div class="col-xs-12 text-center"><strong>Complete</strong></div>
