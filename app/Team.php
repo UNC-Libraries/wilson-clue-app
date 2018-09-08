@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Team extends Model
 {
 
+    const MINIMUM_PLAYERS = 4;
     use SoftDeletes;
 
     /***********************************

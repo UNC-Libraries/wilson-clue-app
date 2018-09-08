@@ -18,7 +18,6 @@ use Markdown;
 class RegistrationController extends Controller
 {
 
-
     /**
      * Show the enlistment form
      */
@@ -49,9 +48,9 @@ class RegistrationController extends Controller
         if(!$team->waitlist){
             $status_message_key = 'team_status_message:_registered_team';
         } else {
-            if($team->players->count() < 3 && $game->spots_left > 0) {
+            if($team->players->count() < $team::MINIMUM_PLAYERS && $game->spots_left > 0) {
                 $status_message_key = 'team_status_message:_not_enough_players,_open_spots';
-            } elseif($team->players->count() < 3 && $game->spots_left <= 0) {
+            } elseif($team->players->count() < $team::MINIMUM_PLAYERS && $game->spots_left <= 0) {
                 $status_message_key = 'team_status_message:_not_enough_players,_game_full';
             } else {
                 $status_message_key = 'team_status_message:_waitlist';
@@ -61,7 +60,7 @@ class RegistrationController extends Controller
         $status_message = DB::table('globals')->where('key','=',$status_message_key)->first();
         $status_message = $status_message ? $status_message->message : '';
 
-        $canRemove = $team->waitlist || $team->players->count() > 3 ? true : false;
+        $canRemove = $team->waitlist || $team->players->count() > $team::MINIMUM_PLAYERS ? true : false;
 
         return view('web.registration.team_management',compact('user','team','game','canRemove','status_message'));
     }
@@ -112,7 +111,7 @@ class RegistrationController extends Controller
         $team->players()->attach($player);
 
         // Register team if a spot is available and email them
-        if($team->players->count() + 1 >= 3 && $game->spots_left > 0){
+        if($team->players->count() + 1 >= $team::MINIMUM_PLAYERS && $game->spots_left > 0){
             $team->waitlist = false;
             $this->emailTeam($team->id,'email:_fully_registered');
         }
@@ -127,7 +126,7 @@ class RegistrationController extends Controller
         $user = Auth::guard('player')->user();
         $team = $user->teams()->active()->first();
         $team->players()->detach($player);
-        if($team->players()->count() < 3){
+        if($team->players()->count() < $team::MINIMUM_PLAYERS){
             $team->waitlist = true;
         }
         $team->save();

@@ -47,7 +47,7 @@
                             add their replacement <em>first</em>, then remove the player.
                         </p>
                         <p>
-                            If you won't have 3 players for the game, please contact us so we can find a replacement team.
+                            If you won't have 4 players for the game, please contact us so we can find a replacement team.
                         </p>
                     @endif
                 <hr>

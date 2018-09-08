@@ -15,7 +15,7 @@
             <td>{{ $team->name }}</td>
             <td>{{ $team->dietary }}</td>
             <td>
-                @if(count($team->players) < 3)
+                @if(count($team->players) < $team::MINIMUM_PLAYERS)
                     <div class="text-warning"><span class="fa fa-warning"></span> Not Enough Players</div>
                 @endif
             </td>
