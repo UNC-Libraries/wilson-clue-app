@@ -112,20 +112,32 @@
             <div class="row">
                 <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
                     <h3>Edit your team information</h3>
-                    {!! Form::model($team, ['route' => 'enlist.updateTeam', 'id' => 'editTeamInfo']) !!}
+                    @if(\Carbon\Carbon::now() < $team->game->start_time->subDays(3))
+                        <div class="alert alert-warning">
+                            <i class="fa fa-warning"></i> <small>Your team name and dietary restrictions must be final by {{ $team->game->start_time->subDays(3)->format('l, F jS @ g:i A') }}</small>
+                        </div>
+                        {!! Form::model($team, ['route' => 'enlist.updateTeam', 'id' => 'editTeamInfo']) !!}
 
-                    <div class="form-group">
-                        {!! Form::label('name','Team Name') !!}
-                        {!! Form::text('name', null, ['class' => 'form-control']) !!}
-                    </div>
-                    <div class="form-group">
-                        {!! Form::label('dietary', 'Dietary Restrictions') !!}
-                        {!! Form:: textarea('dietary', null, ['class' => 'form-control', 'rows' => '4']) !!}
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                    {!! Form::close() !!}
+                        <div class="form-group">
+                            {!! Form::label('name','Team Name') !!}
+                            {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('dietary', 'Dietary Restrictions') !!}
+                            {!! Form:: textarea('dietary', null, ['class' => 'form-control', 'rows' => '4']) !!}
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                        {!! Form::close() !!}
+                    @else
+                        <div class="alert alert-warning">
+                            <i class="fa fa-warning"></i> <small>
+                                Team information cannot be edited at this time. If you need further assistance, contact us at
+                                <a href="mailto:wilsonclue@listserv.unc.edu" class="alert-link">wilsonclue@listserv.unc.edu</a>
+                            </small>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
