@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use App\Agent;
 
 class LocalAdminSeeder extends Seeder
@@ -18,7 +19,7 @@ class LocalAdminSeeder extends Seeder
             $agent->onyen = 'admin';
             $agent->first_name = 'admin';
             $agent->last_name = 'admin';
-            $agent->password = 'admin';
+            $agent->password = Hash::make('admin');
             $agent->admin = true;
             $agent->save();
         }
