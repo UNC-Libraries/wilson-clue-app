@@ -197,6 +197,9 @@ class UiController extends Controller
         $team->suspect()->associate($request->suspect);
         $team->location()->associate($request->location);
         $team->evidence()->associate($request->evidence);
+        if (empty($team->evidence_selected_at)) {
+            $team->evidence_selected_at = Carbon::now()->subSeconds(5);
+        }
         $team->indictment_time = Carbon::now();
 
         $team->save();

@@ -65,11 +65,11 @@ return [
 
     'providers' => [
         'player' => [
-            'driver' => 'adldap',
+            'driver' => env('APP_AUTH', 'adldap'),
             'model' => App\Player::class,
         ],
         'admin' => [
-            'driver' => env('APP_ADMIN_AUTH', 'adldap'),
+            'driver' => env('APP_AUTH', 'adldap'),
             'model' => App\Agent::class,
         ],
     ],
