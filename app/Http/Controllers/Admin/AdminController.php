@@ -12,6 +12,7 @@ use App\Agent;
 use Illuminate\Support\Facades\Auth;
 use Adldap\Adldap;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection;
 
 class AdminController extends Controller
 {
@@ -62,30 +63,20 @@ class AdminController extends Controller
 
     public function siteMessages()
     {
-        $messages = DB::table('globals')->get();
-        $message_attributes = config('site_messages');
+        $messages = collect(config('site_messages'));
 
-
-        $missing_config_entry = array_diff($messages->pluck('key')->all(), array_keys($message_attributes));
-        $missing_db_entry = array_diff(array_keys($message_attributes), $messages->pluck('key')->all());
-        if($missing_db_entry){
-            foreach($missing_db_entry as $add_entry){
-                DB::table('globals')->insert(['key' => $add_entry, 'message' => '']);
+        $messages = $messages->map(function ($item, $key) {
+            $message = DB::table('globals')->where('key',$key)->first();
+            // if the message doesn't exist, create it
+            if (empty($message)) {
+                DB::table('globals')->insert(['key' => $key, 'message' => '']);
+                $message = DB::table('globals')->where('key',$key)->first();
             }
-            $messages = DB::table('globals')->get();
-        }
+            $item['message'] = $message->message;
+            return $item;
+        });
 
-        foreach($messages as $index => $message){
-            if(!empty($message_attributes[$message->key])){
-                foreach($message_attributes[$message->key] as $key => $value){
-                    $message->{$key} = $value;
-                }
-            } else {
-                unset($messages[$index]);
-            }
-        }
-
-        return view('admin.siteMessages',compact('messages', 'missing_config_entry'));
+        return view('admin.siteMessages',compact('messages'));
     }
 
     public function updateSiteMessage(Request $request, $key)

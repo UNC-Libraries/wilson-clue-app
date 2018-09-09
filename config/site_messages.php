@@ -2,7 +2,7 @@
 
 return [
     'homepage' => [
-        'description' => 'This appears on the homepage just below the jumbotron, above the main navigation when registration is OFF',
+        'description' => 'This appears on the homepage just below the jumbotron, ONLY when all games are DORMANT or ARCHIVED',
         'markdown' => false,
         'vars' => [],
         'rows' => 3
@@ -11,6 +11,15 @@ return [
         'description' => 'This appears on the homepage just below the jumbotron, above the main navigation when registration is ON',
         'markdown' => true,
         'rows' => 7,
+        'vars' => [
+            'game_date' => 'The weekday, month and day of the game',
+            'game_time' => 'The game start time',
+        ]
+    ],
+    'registration_closed' => [
+        'description' => 'This appears on the homepage just below the jumbotron, above the main navigation when registration is OFF and a game is ACTIVE.',
+        'markdown' => true,
+        'rows' => 4,
         'vars' => [
             'game_date' => 'The weekday, month and day of the game',
             'game_time' => 'The game start time',

@@ -30,7 +30,7 @@ class WebController extends Controller
 
         $suspects = Suspect::get();
 
-        $game = Game::active()->where('registration','=','1')->orderBy('start_time','desc')->first();
+        $game = Game::active()->orderBy('start_time','desc')->first();
 
         $agents['active'] = Agent::active()->get();
         $agents['retired'] = Agent::retired()->get();
@@ -40,14 +40,20 @@ class WebController extends Controller
         $homepageAlert = $globals ? $globals->message : '';
 
         if($game){
+            // get the special notice message
             $globals = DB::table('globals')->where('key','special_notice')->first();
             $special_notice = $globals ? str_replace('||game_date||',$game->start_time->format('l, F jS'),
+                str_replace('||game_time||',$game->start_time->format('g:i A'), $globals->message))
+                : '';
+            // get the registration_closed message
+            $globals = DB::table('globals')->where('key','registration_closed')->first();
+            $registration_closed = $globals ? str_replace('||game_date||',$game->start_time->format('l, F jS'),
                 str_replace('||game_time||',$game->start_time->format('g:i A'), $globals->message))
                 : '';
         }
 
 
-        return view('web.welcome', compact('suspects','game','agents','games','homepageAlert','special_notice'));
+        return view('web.welcome', compact('suspects','game','agents','games','homepageAlert','special_notice','registration_closed'));
     }
 
     /**
