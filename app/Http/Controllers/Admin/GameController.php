@@ -184,6 +184,16 @@ class GameController extends Controller
             $request->start_time = date('Y-m-d H:i:s',strtotime($request->start_time));
         }
 
+        // activate the game when opening registration
+        if($request->registration && $request->registration == 1) {
+            $activeGame = Game::active()->get()->first();
+            if(!empty($activeGame)){
+                $activeGame->active = false;
+                $activeGame->save();
+            }
+            $game->active = true;
+        }
+
         foreach($game->getAttributes() as $key => $value){
 
             if(isset($request->{$key}) && $value !== $request->{$key}){
