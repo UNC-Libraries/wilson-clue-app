@@ -61,19 +61,12 @@ class GameController extends Controller
             'students_only' => 'required',
         ]);
 
-        $activeGame = Game::active()->get()->first();
-        if(!empty($activeGame)){
-            $activeGame->active = false;
-            $activeGame->save();
-        }
-
         $game = new Game;
         $game->name = $request->get('name');
         $game->start_time = new Carbon($request->get('start_time'));
         $game->end_time = new Carbon($request->get('end_time'));
         $game->max_teams = $request->get('max_teams');
         $game->students_only = $request->get('students_only');
-        $game->active = true;
         $game->save();
 
         $suspects = Suspect::all();
