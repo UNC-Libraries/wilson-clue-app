@@ -114,7 +114,7 @@
                     <h3>Edit your team information</h3>
                     @if(\Carbon\Carbon::now() < $team->game->start_time->subDays(3))
                         <div class="alert alert-warning">
-                            <i class="fa fa-warning"></i> <small>Your team name and dietary restrictions must be final by {{ $team->game->start_time->subDays(3)->format('l, F jS @ g:i A') }}</small>
+                            <i class="fa fa-warning"></i> <small>Your team name and dietary restrictions must be finalized by {{ $team->game->start_time->subDays(3)->format('l, F jS @ g:i A') }}</small>
                         </div>
                         {!! Form::model($team, ['route' => 'enlist.updateTeam', 'id' => 'editTeamInfo']) !!}
 
