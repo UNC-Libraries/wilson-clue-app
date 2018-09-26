@@ -59,17 +59,17 @@ return [
     | sources which represent each model / table. These sources may then
     | be assigned to any extra authentication guards you have defined.
     |
-    | Supported: "database", "eloquent"
+    | Supported: "database", "eloquent", "adldap"
     |
     */
 
     'providers' => [
         'player' => [
-            'driver' => 'adldap',
+            'driver' => env('APP_AUTH', 'adldap'),
             'model' => App\Player::class,
         ],
         'admin' => [
-            'driver' => 'adldap',
+            'driver' => env('APP_AUTH', 'adldap'),
             'model' => App\Agent::class,
         ],
     ],

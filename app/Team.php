@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Team extends Model
 {
 
+    const MINIMUM_PLAYERS = 4;
     use SoftDeletes;
 
     /***********************************
@@ -112,7 +113,7 @@ class Team extends Model
         $status[] = [
             'name' => 'Evidence Room',
             'color' => empty($this->evidence_id) ? 'empty' : 'evidence',
-            'time' => empty($this->evidence_id) ? $notSet : $this->evidence_selected_at->format('U'),
+            'time' => empty($this->evidence_selected_at) ? $notSet : $this->evidence_selected_at->format('U'),
         ];
 
         return collect($status);

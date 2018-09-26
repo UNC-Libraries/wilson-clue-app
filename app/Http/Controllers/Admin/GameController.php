@@ -61,19 +61,12 @@ class GameController extends Controller
             'students_only' => 'required',
         ]);
 
-        $activeGame = Game::active()->get()->first();
-        if(!empty($activeGame)){
-            $activeGame->active = false;
-            $activeGame->save();
-        }
-
         $game = new Game;
         $game->name = $request->get('name');
         $game->start_time = new Carbon($request->get('start_time'));
         $game->end_time = new Carbon($request->get('end_time'));
         $game->max_teams = $request->get('max_teams');
         $game->students_only = $request->get('students_only');
-        $game->active = true;
         $game->save();
 
         $suspects = Suspect::all();
@@ -189,6 +182,16 @@ class GameController extends Controller
         }
         if($request->end_time){
             $request->start_time = date('Y-m-d H:i:s',strtotime($request->start_time));
+        }
+
+        // activate the game when opening registration
+        if($request->registration && $request->registration == 1) {
+            $activeGame = Game::active()->get()->first();
+            if(!empty($activeGame)){
+                $activeGame->active = false;
+                $activeGame->save();
+            }
+            $game->active = true;
         }
 
         foreach($game->getAttributes() as $key => $value){
