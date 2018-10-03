@@ -38,13 +38,14 @@
                         </ol>
                     </li>
                 </ul>
-
+                <!--
                 <h2>BONUS! - Ghost DNA</h2>
                 <p>The ghost has left ectoplasm around the library. Use your Ghost Goggles to find the DNA sequence</p>
                 <ul>
                     <li>Partial sequencing awards 1 point</li>
                     <li>A full sequence awards 3 points</li>
                 </ul>
+                -->
             </div>
         </div>
     </div>

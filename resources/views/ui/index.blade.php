@@ -35,7 +35,7 @@
                     'progressMessage' => 'Determine the target',
                     'color' => 'default'
                 ])
-                <h3 class="expo">Ghost DNA</h3>
+                <!--<h3 class="expo">Ghost DNA</h3>
                 @include('ui._quest_button',[
                     'route' => route('ui.dna'),
                     'image' => asset('images/dna.png'),
@@ -43,7 +43,7 @@
                     'percentComplete' => $team->foundDna->count() ? ceil($team->foundDna->count() / $dnaCount * 100) : 5,
                     'progressMessage' => $team->foundDna->count().' of '.$dnaCount,
                     'color' => 'default'
-                ])
+                ])-->
                 <h3 class="expo">Solve</h3>
                 @include('ui._quest_button', [
                     'route' => route('ui.indictment'),

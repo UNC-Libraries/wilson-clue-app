@@ -12,7 +12,7 @@
         <div class="collapse navbar-collapse" id="gamenav">
             <ul class="nav navbar-nav">
                 <li><a href="{{ route('ui.map') }}">Wilson Map</a></li>
-                <li><a href="{{ route('ui.dna') }}">Ghost DNA</a></li>
+                <!--<li><a href="{{ route('ui.dna') }}">Ghost DNA</a></li>-->
                 <li><a href="{{ route('ui.indictment') }}">Indictment</a></li>
                 <li><a href="{{ route('player.logout') }}">Logout</a></li>
             </ul>
