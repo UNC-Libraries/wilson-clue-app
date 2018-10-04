@@ -1,5 +1,8 @@
 <?php
 
+use App\Team;
+$team = new Team;
+
 return [
     'homepage' => [
         'description' => 'This appears on the homepage just below the jumbotron, ONLY when all games are DORMANT or ARCHIVED',
@@ -31,17 +34,17 @@ return [
         'rows' => 3,
     ],
     'team_status_message:_waitlist' => [
-        'description' => "Shows up on the team management page. For teams that are on the waitlist AND they have at least 3 players.",
+        'description' => "Shows up on the team management page. For teams that are on the waitlist AND they have at least ".$team::MINIMUM_PLAYERS." players.",
         'markdown' => false,
         'rows' => 3,
     ],
     'team_status_message:_not_enough_players,_open_spots' => [
-        'description' => "Shows up on the team management page. For teams that are on the waitlist because they don't have at least 3 players AND there are open spots available for the game.",
+        'description' => "Shows up on the team management page. For teams that are on the waitlist because they don't have at least ".$team::MINIMUM_PLAYERS." players AND there are open spots available for the game.",
         'markdown' => false,
         'rows' => 3,
     ],
     'team_status_message:_not_enough_players,_game_full' => [
-        'description' => "Shows up on the team management page. For teams that are on the waitlist AND they don't have at least 3 players AND there are NO open spots available for the game.",
+        'description' => "Shows up on the team management page. For teams that are on the waitlist AND they don't have at least ".$team::MINIMUM_PLAYERS." players AND there are NO open spots available for the game.",
         'markdown' => false,
         'rows' => 3,
     ],
