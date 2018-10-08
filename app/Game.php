@@ -99,6 +99,11 @@ class Game extends Model
         return $this->belongsTo('App\Location', 'evidence_location_id');
     }
 
+    public function geographicInvestigationLocation()
+    {
+        return $this->belongsTo('App\Location', 'geographic_investigation_location_id');
+    }
+
     public function solutionSuspect()
     {
         return $this->hasOne('App\Suspect', 'id', 'suspect_id');

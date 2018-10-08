@@ -103,6 +103,31 @@
             @endforeach
         </div>
 
+        <!-- Geographic Investigation Location -->
+        <div class="col-xs-12">
+            <h2 class="expo">Geographic Investigation</h2>
+        </div>
+        <div class="col-xs-12">
+            <div class="dash-section">
+                {!! Form::model($game, ['route'=> ['admin.game.update',$game->id], 'method' => 'put']) !!}
+                <div class="col-sm-12 col-md-3">
+                    <div class="form-group">
+                        {!! Form::label('geographic_investigation_location_id','Location') !!}
+                        {!! Form::select(
+                            'geographic_investigation_location_id',
+                            $locations->pluck('name','id'),
+                            ($game->geographic_investigation_location_id ? $game->geographic_investigation_location_id : null),
+                            array('placeholder' => 'Select a location', 'class' => 'form-control'))
+                        !!}
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+                {!! Form::close() !!}
+            </div>
+        </div>
+
         <!-- Evidence -->
         <div class="col-xs-12">
             <h2 class="expo">Evidence Room</h2>
