@@ -51,6 +51,7 @@ class LocationController extends Controller
         $location = new Location;
 
         $location->fill($request->all());
+        $location->indictment_option = empty($request->get('incitment_option')) ? false : true;
 
         $location->save();
 
@@ -89,6 +90,7 @@ class LocationController extends Controller
         $location = Location::findOrFail($id);
 
         $location->fill($request->all());
+        $location->indictment_option = empty($request->get('incitment_option')) ? false : true;
 
         $location->save();
 
@@ -104,7 +106,8 @@ class LocationController extends Controller
     public function destroy($id){
 
         $location = Location::with('quests')->findOrFail($id);
-        $games = Game::where('evidence_location_id','=',$id)->get();
+        $games = Game::where('evidence_location_id','=',$id)
+            ->orWhere('geographic_investigation_location_id','=',$id)->get();
         if($location->quests->isEmpty() && $games->isEmpty()){
             $location->delete();
             $alert = ['type' => 'success', 'message' => $location->name.' deleted!'];
