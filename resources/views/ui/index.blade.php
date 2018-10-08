@@ -26,7 +26,17 @@
                     ])
                 @endforeach
 
-                <h3 class="expo">Evidence</h3>
+                <h3 class="expo">Portal</h3>
+                @include('ui._quest_button', [
+                    'route' => route('ui.geographicInvestigation'),
+                    'image' => asset('images/compass.png'),
+                    'title' => 'Geographic Investigation',
+                    'percentComplete' =>'0',
+                    'progressMessage' => 'Find the portal',
+                    'color' => 'default'
+                ])
+
+                <h3 class="expo">Item</h3>
                 @include('ui._quest_button', [
                     'route' => route('ui.evidence'),
                     'image' => asset('images/envelope_tiny.png'),
@@ -35,6 +45,7 @@
                     'progressMessage' => 'Determine the target',
                     'color' => 'default'
                 ])
+
                 <!--<h3 class="expo">Ghost DNA</h3>
                 @include('ui._quest_button',[
                     'route' => route('ui.dna'),
@@ -57,7 +68,7 @@
                 <h3 class="expo">Help</h3>
                 @include('ui._quest_button', [
                     'route' => route('ui.map'),
-                    'image' => asset('images/compass.png'),
+                    'image' => asset('images/map.png'),
                     'title' => 'Wilson Map',
                     'percentComplete' => '0',
                     'progressMessage' => 'Find your way',

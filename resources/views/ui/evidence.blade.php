@@ -9,7 +9,7 @@
             'quest_subtitle' => $game->evidenceLocation->name,
             'color' => 'default',
             'map_section' => $game->evidenceLocation->map_section,
-            'map_color' => 'default',
+            'map_color' => 'orange',
             'text' => trans('ui.evidence')
         ])
         <div class="row">

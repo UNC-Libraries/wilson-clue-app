@@ -127,6 +127,18 @@ class UiController extends Controller
     }
 
     /**
+     * Show the geographic investigation information
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function geographicInvestigation(Request $request)
+    {
+        $game = Game::with('geographicInvestigationLocation')->find($request->session()->get('gameId'));
+        return view('ui.geographic_investigation', compact('game'));
+    }
+
+    /**
      * Show a quest location
      *
      * @param  \Illuminate\Http\Request  $request

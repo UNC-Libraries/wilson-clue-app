@@ -19,6 +19,13 @@
                     <li>Some suspects are lying. Look for ways to validate their testimony. If a suspect lies about one thing, you should assume all of that suspect’s testimony is false.</li>
                 </ul>
 
+                <h2>Locate the Portal</h2>
+                <ul>
+                    <li>The ghost uses a portal in Wilson Library to travel back and forth between this world and the supernatural realm.</li>
+                    <li> Use the assets in the Center for Geographic Investigations to track down the location of the portal.</li>
+                    <li>You can complete this phase at any point during the game.</li>
+                </ul>
+
                 <h2>Identify the Evidence</h2>
                 <ul>
                     <li>The ghost is targeting one of our collection items. We need you to figure out which item</li>
@@ -28,8 +35,8 @@
 
                 <h2>Put it all together</h2>
                 <ul>
-                    <li>After interrogating all 6 suspects and identifying the touched item, the indictment interface will appear.</li>
-                    <li>Find a quite corner, analyze your findings and make an indictment</li>
+                    <li>After interrogating all 6 suspects, locating the portal, and identifying the touched item, the indictment interface will appear.</li>
+                    <li>Find a quiet corner, analyze your findings and make an indictment</li>
                     <li>You must correctly identify:
                         <ol>
                             <li>The <strong>Ghost</strong></li>
@@ -46,6 +53,11 @@
                     <li>A full sequence awards 3 points</li>
                 </ul>
                 -->
+
+                <h2>Pro Tip!!!</h2>
+                <ul>
+                    <li>If you’re dead set on winning, submit your indictment as quickly as possible and keep answering questions to rack up the most points.</li>
+                </ul>
             </div>
         </div>
     </div>
