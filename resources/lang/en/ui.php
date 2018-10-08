@@ -14,6 +14,7 @@ return [
                         |{2} Only 1 question left!',
     'questComplete' => "ACCESS GRANTED!!! <br> :count players",
     'evidence' => 'Use the Ghost\'s profile the S.I.A to identify which collection item the Ghost has touched',
+    'geographicInvestigation' => 'Find the portal',
     'minigameStatus' => 'Complete the minigame to gain access.'
 
 ];

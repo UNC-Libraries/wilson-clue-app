@@ -110,6 +110,7 @@ class GameController extends Controller
             'solutionEvidence',
             'evidence',
             'evidenceLocation',
+            'geographicInvestigationLocation',
             'quests.suspect',
             'quests.location'
         )->findOrFail($id);
@@ -136,14 +137,16 @@ class GameController extends Controller
             'solutionEvidence',
             'evidence',
             'evidenceLocation',
+            'geographicInvestigationLocation',
             'quests.suspect',
             'quests.location',
             'quests.questions'
         )->findOrFail($id);
 
         $warnings = $this->getWarnings($game);
+        $locations = Location::get();
 
-        return view('game.edit',compact('game', 'warnings'));
+        return view('game.edit',compact('game', 'warnings', 'locations'));
     }
 
     /**
@@ -275,7 +278,7 @@ class GameController extends Controller
     }
 
     /**
-     * Show the form for editing the game's evidence roome
+     * Show the form for editing the game's evidence room
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -556,6 +559,9 @@ class GameController extends Controller
         }
         if(empty($game->evidenceLocation)){
             $warnings[] = 'No Evidence Room location is set.';
+        }
+        if(empty($game->geographicInvestigationLocation)){
+            $warnings[] = 'No Geographic Investigation location is set.';
         }
 
         foreach($game->quests as $quest){

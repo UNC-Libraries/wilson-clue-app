@@ -19,7 +19,7 @@ class LocationController extends Controller
      */
     public function index()
     {
-        $locations = Location::with('mapSection')->get();
+        $locations = Location::get();
 
         return view('location.index',compact('locations'));
     }
@@ -31,7 +31,7 @@ class LocationController extends Controller
      */
     public function create(){
         $location = new Location;
-        $mapSections = MapSection::get();
+        $mapSections = config('map_sections');
         return view('location.create',compact('location','mapSections'));
     }
 
@@ -45,7 +45,7 @@ class LocationController extends Controller
         $this->validate($request,[
             'name' => 'required',
             'floor' => 'required|integer',
-            'map_section_id' => 'required',
+            'map_section' => 'required',
         ]);
 
         $location = new Location;
@@ -65,8 +65,8 @@ class LocationController extends Controller
      */
     public function edit($id)
     {
-        $location = Location::with('mapSection')->findOrFail($id);
-        $mapSections = MapSection::get();
+        $location = Location::findOrFail($id);
+        $mapSections = config('map_sections');
 
         return view('location.edit',compact('location','mapSections'));
     }
@@ -83,7 +83,7 @@ class LocationController extends Controller
         $this->validate($request,[
             'name' => 'required',
             'floor' => 'required|integer',
-            'map_section_id' => 'required',
+            'map_section' => 'required',
         ]);
 
         $location = Location::findOrFail($id);
@@ -104,7 +104,8 @@ class LocationController extends Controller
     public function destroy($id){
 
         $location = Location::with('quests')->findOrFail($id);
-        $games = Game::where('evidence_location_id','=',$id)->get();
+        $games = Game::where('evidence_location_id','=',$id)
+            ->orWhere('geographic_investigation_location_id','=',$id)->get();
         if($location->quests->isEmpty() && $games->isEmpty()){
             $location->delete();
             $alert = ['type' => 'success', 'message' => $location->name.' deleted!'];

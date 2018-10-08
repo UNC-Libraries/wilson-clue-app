@@ -20,9 +20,9 @@
                 <label>
                     <svg width="100%" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" version="1.1">
                         <use xlink:href="#baseMap"></use>
-                        <use xlink:href="#{{ $section->name }}" class="map-base"></use>
+                        <use xlink:href="#{{ $section }}" class="map-base"></use>
                     </svg>
-                    {!! Form::radio('map_section_id',$section->id) !!}
+                    {!! Form::radio('map_section',$section) !!}
                 </label>
             </div>
         </div>

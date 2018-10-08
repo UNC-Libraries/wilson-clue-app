@@ -8089,6 +8089,12 @@ legend {
 .map-info {
   fill: #8E3367; }
 
+.map-magenta {
+  fill: #C67BAB; }
+
+.map-orange {
+  fill: #EF7B40; }
+
 .map-text {
   font-size: 2em; }
 

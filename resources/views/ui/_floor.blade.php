@@ -6,7 +6,7 @@
                 <svg width="100%" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" version="1.1">
                     <use xlink:href="#baseMap"></use>
                     @foreach($floor as $location)
-                        <use xlink:href="#{{ $location->mapSection->name }}" class="map-{{ $location->quests->first()->suspect->bootstrap_color or 'base'}}"></use>
+                        <use xlink:href="#{{ $location->map_section }}" class="map-{{ $location->quests->first()->suspect->bootstrap_color or 'base'}}"></use>
                     @endforeach
                 </svg>
             </div>
@@ -18,6 +18,9 @@
                 @endforeach
                 @if($floor->first()->floor == $game->evidenceLocation->floor)
                     @include('ui._floor_button', ['route' => route('ui.evidence'), 'image' => 'images/envelope_tiny.png', 'name' => $game->evidenceLocation->name])
+                @endif
+                @if($floor->first()->floor == $game->geographicInvestigationLocation->floor)
+                    @include('ui._floor_button', ['route' => route('ui.geographicInvestigation'), 'image' => 'images/compass.png', 'name' => $game->geographicInvestigationLocation->name])
                 @endif
             </div>
         </div>

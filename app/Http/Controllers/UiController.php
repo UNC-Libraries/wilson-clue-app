@@ -102,9 +102,8 @@ class UiController extends Controller
      */
     public function map(Request $request)
     {
-        $game = Game::with('evidenceLocation')->find($request->session()->get('gameId'));
+        $game = Game::with('evidenceLocation','geographicInvestigationLocation')->find($request->session()->get('gameId'));
         $floors = Location::has('quests')->with([
-            'mapSection',
             'quests' => function($query) use ($request) { $query->where('game_id','=',$request->session()->get('gameId')); },
         ])->get();
 
@@ -123,8 +122,20 @@ class UiController extends Controller
     public function evidence(Request $request)
     {
         $team = Team::with('evidence')->find($request->session()->get('teamId'));
-        $game = Game::with('evidence', 'evidenceLocation', 'evidenceLocation.mapSection')->find($request->session()->get('gameId'));
+        $game = Game::with('evidence', 'evidenceLocation')->find($request->session()->get('gameId'));
         return view('ui.evidence', compact('game','team'));
+    }
+
+    /**
+     * Show the geographic investigation information
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function geographicInvestigation(Request $request)
+    {
+        $game = Game::with('geographicInvestigationLocation')->find($request->session()->get('gameId'));
+        return view('ui.geographic_investigation', compact('game'));
     }
 
     /**
@@ -159,7 +170,7 @@ class UiController extends Controller
     public function indictment(Request $request)
     {
         $team = Team::with('completedQuests','evidence', 'suspect', 'location')->find($request->session()->get('teamId'));
-        $game = Game::with('quests', 'quests.suspect', 'quests.location', 'quests.location.mapSection')->find($request->session()->get('gameId'));
+        $game = Game::with('quests', 'quests.suspect', 'quests.location')->find($request->session()->get('gameId'));
         $warnings = [];
         foreach($game->quests as $q){
             if(!$team->completedQuests->contains($q)){

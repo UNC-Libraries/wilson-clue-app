@@ -55,6 +55,7 @@ Route::group(['middleware' => ['activeGame']], function()
                 Route::group(['prefix' => 'game/'], function () {
                     Route::get('quest/{id}', 'UiController@quest')->name('ui.quest');
                     Route::get('evidence', 'UiController@evidence')->name('ui.evidence');
+                    Route::get('geographic-investigation', 'UiController@geographicInvestigation')->name('ui.geographicInvestigation');
                     Route::post('indictment', 'UiController@setIndictment')->name('ui.set.indictment');
                     Route::get('dna', 'UiController@dna')->name('ui.dna');
                 });
