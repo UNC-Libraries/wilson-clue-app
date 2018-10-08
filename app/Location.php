@@ -20,18 +20,8 @@ class Location extends Model
         'name',
         'floor',
         'description',
-        'map_section',
-        'indictment_option'
+        'map_section'
     );
-
-    /**
-     * Casts
-     *
-     * @var array
-     */
-    protected $casts = [
-        'indictment_option' => 'boolean',
-    ];
 
     /***********************************
      * RELATIONSHIPS
@@ -44,10 +34,6 @@ class Location extends Model
     /***********************************
      * SCOPES
      ***********************************/
-    public function scopeIndictmentOption($query)
-    {
-        return $query->where('indictment_option', 1);
-    }
 
     /***********************************
      * METHODS

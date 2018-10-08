@@ -51,7 +51,6 @@ class LocationController extends Controller
         $location = new Location;
 
         $location->fill($request->all());
-        $location->indictment_option = empty($request->get('incitment_option')) ? false : true;
 
         $location->save();
 
@@ -90,7 +89,6 @@ class LocationController extends Controller
         $location = Location::findOrFail($id);
 
         $location->fill($request->all());
-        $location->indictment_option = empty($request->get('incitment_option')) ? false : true;
 
         $location->save();
 

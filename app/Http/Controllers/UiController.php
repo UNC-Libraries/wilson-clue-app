@@ -102,7 +102,7 @@ class UiController extends Controller
      */
     public function map(Request $request)
     {
-        $game = Game::with('evidenceLocation')->find($request->session()->get('gameId'));
+        $game = Game::with('evidenceLocation','geographicInvestigationLocation')->find($request->session()->get('gameId'));
         $floors = Location::has('quests')->with([
             'quests' => function($query) use ($request) { $query->where('game_id','=',$request->session()->get('gameId')); },
         ])->get();

@@ -1,24 +1,16 @@
 @include('partials._maps')
 <div class="row">
     <!-- Name -->
-    <div class="form-group col-xs-6 col-md-4">
+    <div class="form-group col-xs-8">
         {!! Form::label('name', 'Name') !!}
         {!! Form::text('name', null, array('class'=>'form-control')) !!}
     </div>
 
     <!-- Floor -->
-    <div class="form-group col-xs-6 col-md-4">
+    <div class="form-group col-xs-4">
         {!! Form::label('floor', 'Floor') !!}
         {!! Form::select('floor', array('1' => '1', '2' => '2', '3' => '3', '4' => '4'), $location->floor, array('placeholder' => 'Select a floor', 'class' => 'form-control')) !!}
 
-    </div>
-
-    <!-- Name -->
-    <div class="form-group col-xs-12 col-md-4">
-        <label for="indictment_option">
-            {!! Form::checkbox('indictment_option','true',$location->indictment_option, ['id' => 'indictment_option']) !!} Indictment Option?
-        </label>
-        <div class="text-muted"><small>Check this box if this location should show up as possible <strong>Portal</strong> location in the indictment interface</small></div>
     </div>
 
     <!-- Map section -->
