@@ -26,7 +26,7 @@
     <legend>Where is their portal?</legend>
     <div class="flex-form-group">
         @foreach($game->quests->pluck('location')->sortBy('floor') as $l)
-            @include('ui._indictment_radio_input',['model' => 'location', 'id' => $l->id, 'name' => $l->name, 'selected' => $team->location ? $team->location->id == $l->id : false, 'image' => $l->mapSection->name, 'text' => $l->name])
+            @include('ui._indictment_radio_input',['model' => 'location', 'id' => $l->id, 'name' => $l->name, 'selected' => $team->location ? $team->location->id == $l->id : false, 'image' => $l->mapSection, 'text' => $l->name])
         @endforeach
     </div>
     <legend>Which item did it touch?</legend>

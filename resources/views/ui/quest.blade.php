@@ -8,7 +8,7 @@
             'quest_title' => $quest->suspect->name,
             'quest_subtitle' => $quest->location->name,
             'color' => $quest->suspect->bootstrap_color,
-            'map_section' => $quest->location->mapSection->name,
+            'map_section' => $quest->location->map_section,
             'map_color' => $quest->suspect->bootstrap_color,
             'quest_id' => $quest->id
         ])

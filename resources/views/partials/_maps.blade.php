@@ -32,8 +32,18 @@
         </symbol>
 
         <symbol id="grand">
-            <!--Saltarelli-->
+            <!--FRR All-->
             <polygon stroke="#000" stroke-width="1" points="315,10 380,10 380,390 315,390"></polygon>
+        </symbol>
+
+        <symbol id="frr-west">
+            <!--FRR West-->
+            <polygon stroke="#000" stroke-width="1" points="315,10 380,10 380,195 315,195"></polygon>
+        </symbol>
+
+        <symbol id="frr-east">
+            <!--FRR East-->
+            <polygon stroke="#000" stroke-width="1" points="315,195 380,195 380,390 315,390"></polygon>
         </symbol>
 
     </defs>

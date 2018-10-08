@@ -8,7 +8,7 @@
             'quest_title' => 'Evidence Room',
             'quest_subtitle' => $game->evidenceLocation->name,
             'color' => 'default',
-            'map_section' => $game->evidenceLocation->mapSection->name,
+            'map_section' => $game->evidenceLocation->map_section,
             'map_color' => 'default',
             'text' => trans('ui.evidence')
         ])

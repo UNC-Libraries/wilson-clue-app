@@ -20,17 +20,12 @@ class Location extends Model
         'name',
         'floor',
         'description',
-        'map_section_id',
+        'map_section',
     );
 
     /***********************************
      * RELATIONSHIPS
      ***********************************/
-    public function mapSection()
-    {
-        return $this->belongsTo('App\MapSection');
-    }
-
     public function quests()
     {
         return $this->hasMany('App\Quest');
