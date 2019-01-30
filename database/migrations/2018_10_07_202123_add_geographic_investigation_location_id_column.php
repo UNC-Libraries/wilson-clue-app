@@ -14,7 +14,7 @@ class AddGeographicInvestigationLocationIdColumn extends Migration
     public function up()
     {
         Schema::table('games', function (Blueprint $table) {
-            $table->integer('geographic_investigation_location_id')->after('evidence_location_id');
+            $table->integer('geographic_investigation_location_id')->default(0)->after('evidence_location_id');
         });
     }
 
