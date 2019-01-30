@@ -6,11 +6,12 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "doctrine/dbal": "2.9",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "5.4.*",
-        "andreasindal/laravel-markdown": "^1.0",
-        "davejamesmiller/laravel-breadcrumbs": "^3.0.2",
+        "andreasindal/laravel-markdown": "~1.0",
+        "davejamesmiller/laravel-breadcrumbs": "~3.0.2",
         "adldap2/adldap2-laravel": "3.0.*",
         "phpmailer/phpmailer": "~6.0"
     },
