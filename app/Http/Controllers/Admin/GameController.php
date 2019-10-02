@@ -508,7 +508,7 @@ class GameController extends Controller
                 $return = redirect()->route('admin.game.checkin', $id)->with(
                     'alert', [
                         'type' => 'warning',
-                        'message' => $player->full_name. ' already checked in'
+                        'message' => $player->full_name. ' already checked in. Team: '.$player->teams()->active()->first()->name
                     ]
                 );
             } else {
@@ -517,7 +517,7 @@ class GameController extends Controller
                 $return  = redirect()->route('admin.game.checkin', $id)->with(
                     'alert',[
                         'type' => 'success',
-                        'message' => $player->full_name.' successfully checked in'
+                        'message' => $player->full_name.' successfully checked in. Team: '.$player->teams()->active()->first()->name
                     ]
                 );
             }
