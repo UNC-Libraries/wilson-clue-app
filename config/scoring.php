@@ -3,7 +3,7 @@
 return [
 
 	'time_bonus' => [
-	    'starting_value' => 68,
+	    'starting_value' => 72,
         'decrement' => 4,
     ],
     'dna' => [
