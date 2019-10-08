@@ -6,7 +6,7 @@ $team = new Team;
 return [
     'homepage' => [
         'description' => 'This appears on the homepage just below the jumbotron, ONLY when all games are DORMANT or ARCHIVED',
-        'markdown' => false,
+        'markdown' => true,
         'vars' => [],
         'rows' => 3
     ],
