@@ -2,7 +2,7 @@
     'title' => 'Clue - Game Admin',
     'model_name' => 'player',
     'model' => $player,
-    'delete_message' => 'Are your sure you want to delete '.$player->full_name.'?',
+    'delete_message' => 'Are you sure you want to delete '.$player->full_name.'?',
     'page_title' => 'Edit '.$player->full_name,
 ])
 

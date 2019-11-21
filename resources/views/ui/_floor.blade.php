@@ -6,7 +6,7 @@
                 <svg width="100%" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" version="1.1">
                     <use xlink:href="#baseMap"></use>
                     @foreach($floor as $location)
-                        <use xlink:href="#{{ $location->map_section }}" class="map-{{ $location->quests->first()->suspect->bootstrap_color or 'base'}}"></use>
+                        <use xlink:href="#{{ $location->map_section }}" class="map-{{ $location->quests->first()->suspect->bootstrap_color ?? 'base'}}"></use>
                     @endforeach
                 </svg>
             </div>

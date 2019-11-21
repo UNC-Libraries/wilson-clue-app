@@ -8,7 +8,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <h1>{{ $page_title  or "Add new $model_name" }}</h1>
+                <h1>{{ $page_title ?? "Add new $model_name" }}</h1>
                 @include('admin._form_errors')
 
                 {!! Form::model($model, array('route'=> ["admin.$model_name.store",$model->id], 'files' => true)) !!}

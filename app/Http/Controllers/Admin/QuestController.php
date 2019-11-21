@@ -87,7 +87,7 @@ class QuestController extends Controller
         $minigameImages = MinigameImage::whereNotIn('id',$attachedMinigameImages)
                             ->get();
 
-        return view('quest.edit',compact('game','quest','suspects','questions','evidence','games','minigameImages','locations'));
+        return view('quest.edit',compact('game','quest','suspects','questions','games','minigameImages','locations'));
     }
 
     /**

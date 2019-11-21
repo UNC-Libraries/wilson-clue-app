@@ -1,5 +1,5 @@
 <div class="media quest-button">
-    <a href="{{ $route or '' }}">
+    <a href="{{ $route ?? '' }}">
         <div class="media-left">
             <img src="{{ $image }}" class="media-object">
         </div>
@@ -10,7 +10,7 @@
                 </div>
                 <div class="media-bar">
                     <div class="progress">
-                        <div class="progress-bar progress-bar-{{ $color or 'default' }}"
+                        <div class="progress-bar progress-bar-{{ $color ?? 'default' }}"
                              role="progressbar"
                              aria-valuemin="{{ $percentComplete }}"
                              aria-valuemax="100"
