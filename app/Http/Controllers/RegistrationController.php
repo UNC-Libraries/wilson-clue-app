@@ -10,10 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
 use App\Game;
 use App\Team;
+use App\Mail\Registered;
 use Illuminate\Support\Facades\DB;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use Markdown;
+use Mail;
 
 class RegistrationController extends Controller
 {
@@ -199,49 +198,7 @@ class RegistrationController extends Controller
             return;
         }
 
-        // prepare the email message
-        $message = str_replace('||game_date||',$team->game->start_time->format('l, F jS'),
-            str_replace('||game_time||',$team->game->start_time->format('g:i A'),
-                str_replace('||team_name||', e($team->name),
-                    str_replace('||team_management_url||', route('enlist.teamManagement'), $email_text->message))));
-        $pieces = array_filter(preg_split('/\n|\r\n?/', $message), function ($line){
-            return !empty(trim($line));
-        });
-        $subject = $pieces[0];
-        unset($pieces[0]);
-        $message = array_map(function($line){
-            return Markdown::parse($line);
-        }, $pieces);
-
-        $mail = new PHPMailer(true);
-        $mail->isSMTP(true);
-        $mail->Host = config('mail.host');
-        $mail->SMTPAuth = false;
-        $mail->SMTPSecure = false;
-        $mail->Port = config('mail.port');
-
-        //Recipients
-        foreach($team->players as $player){
-            $mail->addAddress($player->email);
-        }
-
-        //From
-        $mail->setFrom(config('mail.from.address'));
-        $mail->addReplyTo(config('mail.from.address'));
-
-        //Content
-        $mail->isHTML(true);
-        $mail->Subject = $subject;
-        $mail->Body = implode('',$message);
-
-        try {
-            // Mailing doesn't work locally, so if the environment is local, forego sending the email
-            if(env('APP_ENV') !== 'local'){
-                $mail->send();
-            }
-        } catch (Exception $e) {
-            dd(['Message could not be sent.','Mailer Error: ' . $mail->ErrorInfo]);
-        }
+        Mail::to($team->players)->send(new Registered($team, $email_text));
 
     }
 

@@ -11,8 +11,7 @@
         "laravelcollective/html": "5.7.*",
         "andreasindal/laravel-markdown": "^3.0",
         "davejamesmiller/laravel-breadcrumbs": "^5.3.1",
-        "adldap2/adldap2-laravel": "6.0.*",
-        "phpmailer/phpmailer": "~6.0"
+        "adldap2/adldap2-laravel": "6.0.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
