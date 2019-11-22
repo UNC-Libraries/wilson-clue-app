@@ -1,50 +1,43 @@
-var elixir = require('laravel-elixir');
+const mix = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
- | Elixir Asset Management
+ | Mix Asset Management
  |--------------------------------------------------------------------------
  |
- | Elixir provides a clean, fluent API for defining some basic Gulp tasks
+ | Mix provides a clean, fluent API for defining some Webpack build steps
  | for your Laravel application. By default, we are compiling the Sass
- | file for our application, as well as publishing vendor resources.
+ | file for the application as well as bundling up all the JS files.
  |
  */
 
 var paths = {
     "node": "./node_modules/"
-}
+};
 
-elixir(function(mix) {
-    mix
-        //game
-        .sass('ui.scss')
-        //web
-        .sass('web.scss')
+mix.setResourceRoot('../')
+    //game
+    .sass('resources/assets/sass/ui.scss', 'public/css')
+    //web
+    .sass('resources/assets/sass/web.scss', 'public/css')
 
-        //admin scripts
-        .sass(['admin.scss'],'./resources/assets/css/admin.css')
-        .styles([
-            'admin.css',
+    //admin scripts
+    .sass('resources/assets/sass/admin.scss', 'public/css')
+    .styles([
+            'public/css/admin.css',
             paths.node + 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css',
         ],
-        'public/css/admin.css')
+        'public/css/all-admin.css')
 
-        //scripts
-        .scripts([
+    //scripts
+    .scripts([
             paths.node + 'jquery/dist/jquery.js',
             paths.node + 'bootstrap-sass/assets/javascripts/bootstrap.js',
             paths.node + 'moment/moment.js',
             paths.node + 'eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
             paths.node + 'sortablejs/Sortable.min.js',
             paths.node + 'clipboard/dist/clipboard.min.js',
-            'app.js',
-            'router.js'
+            'resources/assets/js/app.js',
+            'resources/assets/js/router.js'
         ],
-        'public/js/app.js')
-
-        //fonts
-        .copy(paths.node+'bootstrap-sass/assets/fonts/bootstrap','public/fonts/bootstrap')
-        .copy(paths.node+'font-awesome/fonts/','public/fonts/font-awesome')
-    ;
-});
+        'public/js/app.js');

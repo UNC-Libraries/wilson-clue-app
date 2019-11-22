@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'Social Icons';
-  src:url('../fonts/socialicons/icomoon.eot');
-  src:url('../fonts/socialicons/icomoon.eot?#iefix') format('embedded-opentype'),
-  url('../fonts/socialicons/icomoon.woff') format('woff'),
-  url('../fonts/socialicons/icomoon.ttf') format('truetype'),
-  url('../fonts/socialicons/icomoon.svg#icomoon') format('svg');
+  src:url('/fonts/socialicon-icomoon.eot');
+  src:url('/fonts/socialicon-icomoon.eot?#iefix') format('embedded-opentype'),
+  url('/fonts/socialicon-icomoon.woff') format('woff'),
+  url('/fonts/socialicon-icomoon.ttf') format('truetype'),
+  url('/fonts/socialicon-icomoon.svg#icomoon') format('svg');
 }
 .social-icon {
   position: relative;

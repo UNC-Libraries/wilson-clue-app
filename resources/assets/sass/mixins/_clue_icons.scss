@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'Clue Icons';
-  src:url('../fonts/clueicons/icomoon.eot');
-  src:url('../fonts/clueicons/icomoon.eot?#iefix') format('embedded-opentype'),
-  url('../fonts/clueicons/icomoon.woff') format('woff'),
-  url('../fonts/clueicons/icomoon.ttf') format('truetype'),
-  url('../fonts/clueicons/icomoon.svg#icomoon') format('svg');
+  src:url('/fonts/clueicon-icomoon.eot');
+  src:url('/fonts/clueicon-icomoon.eot?#iefix') format('embedded-opentype'),
+  url('/fonts/clueicon-icomoon.woff') format('woff'),
+  url('/fonts/clueicon-icomoon.ttf') format('truetype'),
+  url('/fonts/clueicon-icomoon.svg#icomoon') format('svg');
 }
 .clue-icon {
   position: relative;
