@@ -52,7 +52,8 @@
                         <h4 class="modal-title" id="cfModal{{ $key }}Label">{{ $item->title }}</h4>
                     </div>
                     <div class="modal-body">
-                        @markdown($item->text)
+                        @php($Parsedown = new Parsedown())
+                        {!! $Parsedown->text($item->text) !!}
                     </div>
                 </div>
             </div>

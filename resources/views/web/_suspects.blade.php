@@ -24,7 +24,8 @@
                         <div class="col-sm-8">
                             <div class="bio">
                                 <h4>Bio:</h4>
-                                <p>@markdown($suspect->bio)</p>
+                                @php($Parsedown = new Parsedown())
+                                <p>{!! $Parsedown->text($suspect->bio) !!}</p>
                             </div>
                             <blockquote class="blockquote-reverse">
                                 <p>{{$suspect->quote}}</p>
