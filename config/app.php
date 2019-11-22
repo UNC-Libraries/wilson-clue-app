@@ -148,7 +148,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Indal\Markdown\MarkdownServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Adldap\Laravel\AdldapServiceProvider::class,
         Adldap\Laravel\AdldapAuthServiceProvider::class,

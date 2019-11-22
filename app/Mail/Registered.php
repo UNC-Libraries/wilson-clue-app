@@ -7,7 +7,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Markdown;
 
 class Registered extends Mailable
 {
@@ -35,16 +34,13 @@ class Registered extends Mailable
             str_replace('||game_time||',$this->team->game->start_time->format('g:i A'),
                 str_replace('||team_name||', e($this->team->name),
                     str_replace('||team_management_url||', route('enlist.teamManagement'), $this->email_text->message))));
-        $pieces = array_filter(preg_split('/\n|\r\n?/', $message), function ($line){
-            return !empty(trim($line));
+        $pieces = array_filter(preg_split('/(\n|\r\n?)/', $message, NULL, PREG_SPLIT_DELIM_CAPTURE), function ($line){
+            return !empty(trim($line, " \t\0\x0B"));
         });
         $subject = $pieces[0];
         unset($pieces[0]);
-        $message = array_map(function ($line) {
-            return Markdown::parse($line);
-        }, $pieces);
-        $body = implode('', $message);
+        $body = implode('', $pieces);
 
-        return $this->view('emails.registered', ['body' => $body])->subject($subject);
+        return $this->markdown('emails.registered', ['body' => $body])->subject($subject);
     }
 }
