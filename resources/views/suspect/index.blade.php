@@ -18,12 +18,12 @@
                 @foreach($suspects as $suspect)
                 <div class="media">
                     <div class="media-left media-top">
-                        <a href="{{ route('admin.suspect.edit',['id'=>$suspect->id]) }}">
+                        <a href="{{ route('admin.suspect.edit',[$suspect->id]) }}">
                             {!! Html::image(asset($suspect->face_image),$suspect->name,array('class'=>'media-object media-object-128')) !!}
                         </a>
                     </div>
                     <div class="media-body">
-                        <a href="{{ route('admin.suspect.edit',['id'=>$suspect->id]) }}" class="btn btn-primary pull-right"><span class="fa fa-edit"></span></a>
+                        <a href="{{ route('admin.suspect.edit',[$suspect->id]) }}" class="btn btn-primary pull-right"><span class="fa fa-edit"></span></a>
                         <h4 class="media-heading">{{ $suspect->name }}</h4>
                         <div class="row">
                             <div class="col-xs-12">

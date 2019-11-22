@@ -20,7 +20,7 @@
                             @endif
                         </div>
                         <div class="col-xs-3 text-right">
-                            <a href="{{ route('admin.agent.edit',['id'=>$agent->id]) }}" class="btn btn-primary btn-sm">
+                            <a href="{{ route('admin.agent.edit',[$agent->id]) }}" class="btn btn-primary btn-sm">
                                 Edit
                             </a>
                         </div>

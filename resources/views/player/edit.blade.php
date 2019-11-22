@@ -20,7 +20,7 @@
         <h2>Teams</h2>
         <ul>
             @foreach($player->teams as $team)
-                <li><a href="{{ route('admin.team.edit',['id' => $team->id]) }}">{{ $team->name }} ({{ $team->game->name }})</a></li>
+                <li><a href="{{ route('admin.team.edit',[$team->id]) }}">{{ $team->name }} ({{ $team->game->name }})</a></li>
             @endforeach
         </ul>
     </div>
