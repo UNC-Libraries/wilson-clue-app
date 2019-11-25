@@ -28,8 +28,7 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <h5>Bio</h5>
-                                @php($Parsedown = new Parsedown())
-                                <p>{!! $Parsedown->text($suspect->bio) !!}</p>
+                                <p>{!! app(Parsedown::class)->text($suspect->bio) !!}</p>
                                 <h5>Quote</h5>
                                 <p>{{ $suspect->quote }}</p>
                             </div>

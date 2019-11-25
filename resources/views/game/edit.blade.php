@@ -154,8 +154,7 @@
                         <h3>{{ $cf_item->title }}</h3>
                     </div>
                     <div class="dash-section-body">
-                        @php($Parsedown = new Parsedown())
-                        {!! $Parsedown->text($cf_item->text) !!}
+                        {!! app(Parsedown::class)->text($cf_item->text) !!}
                     </div>
                 </div>
             </div>

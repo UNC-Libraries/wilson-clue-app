@@ -2,8 +2,7 @@
     <h2 class="text-right"><span class="special-text">Special</span><span class="notice-text">Notice</span></h2>
     <div class="row">
         <div class="col-xs-12 col-md-8 special-notice-text">
-            @php($Parsedown = new Parsedown())
-            {!! $Parsedown->text($special_notice) !!}
+            {!! app(Parsedown::class)->text($special_notice) !!}
         </div>
         <div class="col-xs-12 col-md-4 text-center" style="margin-bottom: 2em;">
             <h3>{{date('F j',strtotime($game->start_time))}} @ {{date('g:i A',strtotime($game->start_time))}}</h3>
