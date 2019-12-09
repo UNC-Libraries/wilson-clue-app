@@ -60,14 +60,14 @@ The LDAP_\* properties you should get from a UNC sysadmin or from the production
 1. Watch for changes to assets in development mode:
 
    ```bash
-   $ cd $MRBS_HOME
+   $ cd $CLUE_HOME
    $ npm run watch
    ```
 
 1. Re-compile and minify assets before committing changes:
 
    ```bash
-   $ cd $MRBS_HOME
+   $ cd $CLUE_HOME
    $ npm run production
    ```
 
