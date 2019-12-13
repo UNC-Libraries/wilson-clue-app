@@ -16,6 +16,6 @@
     "sortablejs": "git+https://github.com/RubaXa/Sortable.git"
   },
   "dependencies": {
-    "npm": "^5.6.0"
+    "npm": "^6.13.4"
   }
 }
