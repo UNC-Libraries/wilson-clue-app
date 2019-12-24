@@ -138,7 +138,7 @@ class QuestController extends Controller
         }
 
         $quest->save();
-        return redirect()->route('admin.game.edit',['id' => $gameId])->with('alert',array('message' => $quest->location->name.' updated', 'type' => 'success'));
+        return redirect()->route('admin.game.edit',$gameId)->with('alert',array('message' => $quest->location->name.' updated', 'type' => 'success'));
     }
 
     /**
