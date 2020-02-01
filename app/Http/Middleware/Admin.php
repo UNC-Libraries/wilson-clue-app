@@ -12,7 +12,6 @@ class Admin {
 
         if ( !Auth::guard($guard)->check() || !Auth::guard($guard)->user()->admin )
         {
-            dd(Auth::user());
             return redirect('/');
         }
 
