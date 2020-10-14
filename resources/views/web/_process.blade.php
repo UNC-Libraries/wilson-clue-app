@@ -18,7 +18,7 @@
             <div class="col-sm-8 col-sm-offset-4">
                 <div class="row">
                     <div class="col-xs-12 col-sm-9">
-                        <h3>Interrogate Suspets</h3>
+                        <h3>Interrogate Suspects</h3>
                         <p>Analyze character testimonies to find the perpetrator</p>
                     </div>
                     <div class="hidden-xs col-sm-3">
