@@ -39,12 +39,12 @@ elixir(function(mix) {
             paths.node + 'sortablejs/Sortable.min.js',
             paths.node + 'clipboard/dist/clipboard.min.js',
             'app.js',
-            'router.js'
+            'router.js',
+            'chat-widget.js'
         ],
         'public/js/app.js')
 
         //fonts
         .copy(paths.node+'bootstrap-sass/assets/fonts/bootstrap','public/fonts/bootstrap')
-        .copy(paths.node+'font-awesome/fonts/','public/fonts/font-awesome')
-    ;
+        .copy(paths.node+'font-awesome/fonts/','public/fonts/font-awesome');
 });

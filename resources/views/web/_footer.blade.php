@@ -14,6 +14,7 @@
             </div>
 
             <div class="col-sm-12 col-md-4 text-right">
+                <div class="needs-js">chat loading...</div>
             </div>
         </div>
         <div class="row">
