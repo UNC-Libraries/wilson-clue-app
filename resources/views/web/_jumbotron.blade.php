@@ -17,7 +17,7 @@
                     @endforeach
                 </div>
                 <div class="row">
-                    <div class="col-xs-12 text-right">character images by: Ben Penell</div>
+                    <div class="col-xs-12 text-right">character images by: Ben Pennell</div>
                 </div>
             </div>
         </div>
