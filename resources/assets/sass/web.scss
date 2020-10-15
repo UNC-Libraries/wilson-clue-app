@@ -55,6 +55,29 @@ h1, h2, h3 {
   }
 }
 
+/* Chat widget */
+#button2 {
+  height: 55px !important;
+  margin: 0 auto 25px auto;
+  width: 285px !important;
+
+  #closed, #open {
+    width: 200px !important;
+  }
+
+  a {
+    color: #0066cc;
+    font-weight: 400;
+    text-decoration: none;
+  }
+}
+
+.libraryh3lp {
+  iframe {
+    margin-bottom: 25px !important;
+  }
+}
+
 .footer {
   background-color: #3B3538;
   padding: 5rem 0;
@@ -63,11 +86,6 @@ h1, h2, h3 {
 
   a {
     color: $brand-warning;
-  }
-
-  /* Chat widget */
-  #button2 {
-    margin: 25px auto;
   }
 }
 
