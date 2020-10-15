@@ -55,14 +55,38 @@ h1, h2, h3 {
   }
 }
 
-.footer{
+/* Chat widget */
+#button2 {
+  height: 55px !important;
+  margin: 0 auto 25px auto;
+  width: 285px !important;
+
+  #closed, #open {
+    width: 200px !important;
+  }
+
+  a {
+    color: #0066cc;
+    font-weight: 400;
+    text-decoration: none;
+  }
+}
+
+.libraryh3lp {
+  iframe {
+    margin-bottom: 25px !important;
+  }
+}
+
+.footer {
   background-color: #3B3538;
   padding: 5rem 0;
   color: $brand-warning;
   min-height: 300px;
-}
-.footer a {
-  color: $brand-warning;
+
+  a {
+    color: $brand-warning;
+  }
 }
 
 /****************

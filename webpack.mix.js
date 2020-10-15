@@ -38,6 +38,7 @@ mix.setResourceRoot('../')
             paths.node + 'sortablejs/Sortable.min.js',
             paths.node + 'clipboard/dist/clipboard.min.js',
             'resources/assets/js/app.js',
-            'resources/assets/js/router.js'
+            'resources/assets/js/router.js',
+            'resources/assets/js/chat-widget.js'
         ],
         'public/js/app.js');
