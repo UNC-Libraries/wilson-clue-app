@@ -56,7 +56,7 @@
                 @endforeach
             </div>
             <div class="col-xs-12">
-                @markdown($game->team_accolades)
+                {!! app(Parsedown::class)->text($game->team_accolades) !!}
             </div>
         </div>
     </div>
@@ -66,7 +66,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                @markdown($game->special_thanks)
+                {!! app(Parsedown::class)->text($game->special_thanks) !!}
             </div>
         </div>
     </div>

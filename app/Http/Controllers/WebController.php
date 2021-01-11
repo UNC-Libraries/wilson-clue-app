@@ -38,6 +38,8 @@ class WebController extends Controller
         $games = Game::archived()->get();
         $globals = DB::table('globals')->where('key','homepage')->first();
         $homepageAlert = $globals ? $globals->message : '';
+        $special_notice = null;
+        $registration_closed = null;
 
         if($game){
             // get the special notice message

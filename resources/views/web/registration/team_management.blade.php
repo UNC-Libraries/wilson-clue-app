@@ -12,7 +12,7 @@
                 <div class="col-xs-12 text-center">
                     <h2>Team Management</h2>
                     <p>
-                        Use this page to add an remove players from your team, change your team name, and tell us about any dietary restrictions.
+                        Use this page to add and remove players from your team, change your team name, and tell us about any dietary restrictions.
                     </p>
                 </div>
                 <div class="col-xs-12">
@@ -43,7 +43,7 @@
                     <h3>Add / Remove Players</h3>
                     @if(!$canRemove)
                         <p>
-                            Currently you cannot remove any players, as this would unregister your from the game. If you need to remove a player,
+                            Currently you cannot remove any players, as this would unregister you from the game. If you need to remove a player,
                             add their replacement <em>first</em>, then remove the player.
                         </p>
                         <p>

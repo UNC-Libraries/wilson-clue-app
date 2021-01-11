@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-xs-12">
                 @include('admin._form_errors')
-                <h1>{{ $page_title or 'Edit '.$model_name }}</h1>
+                <h1>{{ $page_title ?? 'Edit '.$model_name }}</h1>
 
                 @hasSection('model_edit_inputs')
                     @yield('model_edit_inputs')

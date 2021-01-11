@@ -23,11 +23,11 @@
             <h3>Correct Solution</h3>
             <dl class="row" style="padding: 1em;">
                 <dt class="col-md-3">Suspect</dt>
-                <dd class="col-md-9">{{ $game->solutionSuspect->name or 'none' }}</dd>
+                <dd class="col-md-9">{{ $game->solutionSuspect->name ?? 'none' }}</dd>
                 <dt class="col-md-3">Location</dt>
-                <dd class="col-md-9">{{ $game->solutionLocation->name or 'none' }}</dd>
+                <dd class="col-md-9">{{ $game->solutionLocation->name ?? 'none' }}</dd>
                 <dt class="col-md-3">Evidence</dt>
-                <dd class="col-md-9">{{ $game->solutionEvidence->title or 'none' }}</dd>
+                <dd class="col-md-9">{{ $game->solutionEvidence->title ?? 'none' }}</dd>
             </dl>
         </div>
         <div class="col-xs-12 col-sm-6">
@@ -80,11 +80,11 @@
                                 <dl class="row" style="max-width: 400px;">
                                     <dt class="col-md-12 text-center text-capitalize">{{ $team->indictment_correct ? 'Correct' : 'Incorrect' }}</dt>
                                     <dt class="col-md-3">Suspect</dt>
-                                    <dd class="col-md-9">{{ $team->suspect->name or 'none' }}</dd>
+                                    <dd class="col-md-9">{{ $team->suspect->name ?? 'none' }}</dd>
                                     <dt class="col-md-3">Location</dt>
-                                    <dd class="col-md-9">{{ $team->location->name or 'none' }}</dd>
+                                    <dd class="col-md-9">{{ $team->location->name ?? 'none' }}</dd>
                                     <dt class="col-md-3">Evidence</dt>
-                                    <dd class="col-md-9">{{ $team->evidence->title or 'none' }}</dd>
+                                    <dd class="col-md-9">{{ $team->evidence->title ?? 'none' }}</dd>
                                 </dl>
                             @endif
                         </td>

@@ -10,8 +10,8 @@
             <div class="col-xs-12">
                 @include('admin._alert')
                 <h1>
-                    {{ $page_title or ucfirst(str_plural($model_name)) }}
-                    <a href="{{ $create_route or route("admin.$model_name.create") }}" class="btn btn-success btn-sm pull-right">
+                    {{ $page_title ?? ucfirst(str_plural($model_name)) }}
+                    <a href="{{ $create_route ?? route("admin.$model_name.create") }}" class="btn btn-success btn-sm pull-right">
                         <span class="fa fa-plus-circle"></span> Add New
                     </a>
                 </h1>

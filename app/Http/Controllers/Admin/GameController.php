@@ -381,6 +381,7 @@ class GameController extends Controller
     public function judgement($id)
     {
         $game = Game::with('quests')->findOrFail($id);
+        $quests = $game->quests;
         return view('game.judgement', compact('game','quests'));
 
     }

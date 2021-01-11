@@ -3,7 +3,7 @@ A Laravel / MySQL game management application and player interface for the biann
 
 ## Requirements
 * [MySQL](https://dev.mysql.com/downloads/mysql/)
-* PHP 5.6
+* PHP 7.3
 * [Composer](https://getcomposer.org/)
 * [npm](https://www.npmjs.com/)
 * [Capistrano](http://capistranorb.com/) (for deployment)
@@ -50,27 +50,34 @@ $ ln -nfs $CLUE_HOME/storage/app/public $CLUE_HOME/public/storage
 
 ## Configuration
 1. Copy ```$CLUE_HOME/.env.example``` to ```$CLUE_HOME/.env```.
-2. Edit the DB_\* and ADLDAP_\* properties in ```$CLUE_HOME/.env```. 
+2. Edit the DB_\* and LDAP_\* properties in ```$CLUE_HOME/.env```.
+3. To enable emails, set `MAIL_DRIVER` to `smtp` in ```$CLUE_HOME/.env```.
 
 The DB_\* properties will be determined by you, the developer, based on your database configuration. 
-The ADLDAP_\* properites you should get from a UNC sysadmin or from the production `.env` file.
+The LDAP_\* properties you should get from a UNC sysadmin or from the production `.env` file.
 
 ## Asset Compilation
-1. Run Gulp
+1. Watch for changes to assets in development mode:
 
-```bash
-$ cd $CLUE_HOME
-$ gulp
-$ gulp watch
-```
+   ```bash
+   $ cd $CLUE_HOME
+   $ npm run watch
+   ```
+
+1. Re-compile and minify assets before committing changes:
+
+   ```bash
+   $ cd $CLUE_HOME
+   $ npm run production
+   ```
 
 ## Running
 1. Start the local PHP web server.
 
-```bash
-$ cd $CLUE_HOME
-$ php artisan serve
-```
+   ```bash
+   $ cd $CLUE_HOME
+   $ php artisan serve
+   ```
    In your favorite web browser, go to http://localhost:8000/
 
 ---

@@ -69,9 +69,9 @@
                 </div>
                 <div class="dash-section-body">
                     <ul class="list-unstyled">
-                        <li><strong>Ghost:</strong> {{ $game->solutionSuspect->name or 'No Suspect Selected'}}</li>
-                        <li><strong>Portal:</strong> {{ $game->solutionLocation->name or 'No Location Selected'}}</li>
-                        <li><strong>Evidence:</strong> {{ $game->solutionEvidence->title or 'No Evidence Selected' }}</li>
+                        <li><strong>Ghost:</strong> {{ $game->solutionSuspect->name ?? 'No Suspect Selected'}}</li>
+                        <li><strong>Portal:</strong> {{ $game->solutionLocation->name ?? 'No Location Selected'}}</li>
+                        <li><strong>Evidence:</strong> {{ $game->solutionEvidence->title ?? 'No Evidence Selected' }}</li>
                     </ul>
                 </div>
             </div>
@@ -154,7 +154,7 @@
                         <h3>{{ $cf_item->title }}</h3>
                     </div>
                     <div class="dash-section-body">
-                        @markdown($cf_item->text)
+                        {!! app(Parsedown::class)->text($cf_item->text) !!}
                     </div>
                 </div>
             </div>

@@ -96,7 +96,7 @@
                     <tbody>
                     @foreach($players as $player)
                         <tr>
-                            <td><a href="{{ route('admin.player.edit', ['id' => $player->id]) }}">{{ $player->full_name }}</a></td>
+                            <td><a href="{{ route('admin.player.edit', [$player->id]) }}">{{ $player->full_name }}</a></td>
                             <td>{{ $player->onyen }}</td>
                             <td>{{ $player->email }}</td>
                             <td>{{ $player->pid }}</td>

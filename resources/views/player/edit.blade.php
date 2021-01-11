@@ -2,7 +2,7 @@
     'title' => 'Clue - Game Admin',
     'model_name' => 'player',
     'model' => $player,
-    'delete_message' => 'Are your sure you want to delete '.$player->full_name.'?',
+    'delete_message' => 'Are you sure you want to delete '.$player->full_name.'?',
     'page_title' => 'Edit '.$player->full_name,
 ])
 
@@ -20,7 +20,7 @@
         <h2>Teams</h2>
         <ul>
             @foreach($player->teams as $team)
-                <li><a href="{{ route('admin.team.edit',['id' => $team->id]) }}">{{ $team->name }} ({{ $team->game->name }})</a></li>
+                <li><a href="{{ route('admin.team.edit',[$team->id]) }}">{{ $team->name }} ({{ $team->game->name }})</a></li>
             @endforeach
         </ul>
     </div>
