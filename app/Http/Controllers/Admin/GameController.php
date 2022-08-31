@@ -101,7 +101,7 @@ class GameController extends Controller
     {
         $game = Game::with(
             ['registeredTeams' => function ($query) {
-            $query->orderBy('name');
+                $query->orderBy('name');
             }],
             'waitlistTeams',
             'solutionSuspect',
@@ -333,11 +333,11 @@ class GameController extends Controller
     {
         $game = Game::with(
             ['registeredTeams' => function ($query) {
-            $query->orderBy('name')->registered();
+                $query->orderBy('name')->registered();
             }],
             'registeredTeams.players',
             ['waitlistTeams' => function ($query) {
-            $query->orderBy('name')->registered();
+                $query->orderBy('name')->registered();
             }],
             'waitlistTeams.players'
         )->findOrFail($id);
@@ -574,12 +574,12 @@ class GameController extends Controller
 
         foreach ($game->quests as $quest) {
             if ($game->quests->filter(function ($value) use ($quest) {
-            return $value->location->id == $quest->location->id;
+                return $value->location->id == $quest->location->id;
             })->count() > 1) {
                 $warnings[] = $quest->location->name.' is used in multiple quests';
             }
             if ($game->quests->filter(function ($value) use ($quest) {
-            return $value->suspect->id == $quest->suspect->id;
+                return $value->suspect->id == $quest->suspect->id;
             })->count() > 1) {
                 $warnings[] = $quest->suspect->name.' is used in multiple quests';
             }
