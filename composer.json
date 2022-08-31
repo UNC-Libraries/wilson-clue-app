@@ -25,7 +25,8 @@
         "phpunit/phpunit": "^8.5.8|^9.3.3",
         "fakerphp/faker": "^1.9.1",
         "facade/ignition": "^2.0",
-        "nunomaduro/collision": "^4.3"
+        "nunomaduro/collision": "^4.3",
+        "erusev/parsedown": "^1.7.4"
     },
     "autoload": {
         "classmap": [
