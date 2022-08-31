@@ -36,7 +36,7 @@ class Suspect extends Model
      ***********************************/
     public function quest()
     {
-        return $this->hasMany('App\Quest');
+        return $this->hasMany(\App\Quest::class);
     }
 
     /***********************************

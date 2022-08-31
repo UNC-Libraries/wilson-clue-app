@@ -35,12 +35,12 @@ class IncorrectAnswer extends Model
 
     public function question()
     {
-        return $this->belongsTo('App\Question');
+        return $this->belongsTo(\App\Question::class);
     }
 
     public function team()
     {
-        return $this->belongsTo('App\Team');
+        return $this->belongsTo(\App\Team::class);
     }
 
     /***********************************

@@ -41,32 +41,32 @@ class Quest extends Model
      ***********************************/
     public function location()
     {
-        return $this->belongsTo('App\Location');
+        return $this->belongsTo(\App\Location::class);
     }
 
     public function suspect()
     {
-        return $this->belongsTo('App\Suspect');
+        return $this->belongsTo(\App\Suspect::class);
     }
 
     public function questions()
     {
-        return $this->belongsToMany('App\Question')->withPivot('order')->orderBy('order');
+        return $this->belongsToMany(\App\Question::class)->withPivot('order')->orderBy('order');
     }
 
     public function minigameImages()
     {
-        return $this->belongsToMany('App\MinigameImage');
+        return $this->belongsToMany(\App\MinigameImage::class);
     }
 
     public function completedBy()
     {
-        return $this->belongsToMany('App\Team')->registered()->withTimestamps();
+        return $this->belongsToMany(\App\Team::class)->registered()->withTimestamps();
     }
 
     public function game()
     {
-        return $this->belongsTo('App\Game');
+        return $this->belongsTo(\App\Game::class);
     }
 
     /***********************************

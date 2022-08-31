@@ -25,7 +25,7 @@ class GhostDna extends Model
 
     public function teams()
     {
-        return $this->belongsToMany('App\Team')->withTimestamps();
+        return $this->belongsToMany(\App\Team::class)->withTimestamps();
     }
 
     /***********************************

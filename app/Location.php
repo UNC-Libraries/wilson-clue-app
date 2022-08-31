@@ -26,7 +26,7 @@ class Location extends Model
      ***********************************/
     public function quests()
     {
-        return $this->hasMany('App\Quest');
+        return $this->hasMany(\App\Quest::class);
     }
 
     /***********************************

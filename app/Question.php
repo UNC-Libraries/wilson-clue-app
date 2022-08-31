@@ -39,27 +39,27 @@ class Question extends Model
 
     public function answers()
     {
-        return $this->hasMany('App\Answer');
+        return $this->hasMany(\App\Answer::class);
     }
 
     public function quests()
     {
-        return $this->belongsToMany('App\Quest');
+        return $this->belongsToMany(\App\Quest::class);
     }
 
     public function incorrectAnswers()
     {
-        return $this->hasMany('App\IncorrectAnswer');
+        return $this->hasMany(\App\IncorrectAnswer::class);
     }
 
     public function location()
     {
-        return $this->belongsTo('App\Location');
+        return $this->belongsTo(\App\Location::class);
     }
 
     public function completedBy()
     {
-        return $this->belongsToMany('App\Team')->withTimestamps();
+        return $this->belongsToMany(\App\Team::class)->withTimestamps();
     }
 
     /***********************************

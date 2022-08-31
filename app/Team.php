@@ -129,52 +129,52 @@ class Team extends Model
 
     public function game()
     {
-        return $this->belongsTo('App\Game');
+        return $this->belongsTo(\App\Game::class);
     }
 
     public function players()
     {
-        return $this->belongsToMany('App\Player');
+        return $this->belongsToMany(\App\Player::class);
     }
 
     public function checkedInPlayers()
     {
-        return $this->belongsToMany('App\Player')->checkedIn();
+        return $this->belongsToMany(\App\Player::class)->checkedIn();
     }
 
     public function suspect()
     {
-        return $this->belongsTo('App\Suspect');
+        return $this->belongsTo(\App\Suspect::class);
     }
 
     public function location()
     {
-        return $this->belongsTo('App\Location');
+        return $this->belongsTo(\App\Location::class);
     }
 
     public function evidence()
     {
-        return $this->belongsTo('App\Evidence');
+        return $this->belongsTo(\App\Evidence::class);
     }
 
     public function correctQuestions()
     {
-        return $this->belongsToMany('App\Question')->withTimestamps();
+        return $this->belongsToMany(\App\Question::class)->withTimestamps();
     }
 
     public function completedQuests()
     {
-        return $this->belongsToMany('App\Quest')->withTimestamps();
+        return $this->belongsToMany(\App\Quest::class)->withTimestamps();
     }
 
     public function foundDna()
     {
-        return $this->belongsToMany('App\GhostDna')->withTimestamps();
+        return $this->belongsToMany(\App\GhostDna::class)->withTimestamps();
     }
 
     public function incorrectAnswers()
     {
-        return $this->hasMany('App\IncorrectAnswer');
+        return $this->hasMany(\App\IncorrectAnswer::class);
     }
 
     /***********************************

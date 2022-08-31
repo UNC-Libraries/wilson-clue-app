@@ -26,7 +26,7 @@ class MinigameImage extends Model
      ***********************************/
     public function quests()
     {
-        return $this->belongsToMany('App\Quest');
+        return $this->belongsToMany(\App\Quest::class);
     }
 
     /***********************************

@@ -78,7 +78,7 @@ class Player extends Authenticatable
 
     public function teams()
     {
-        return $this->belongsToMany('App\Team');
+        return $this->belongsToMany(\App\Team::class);
     }
 
     /***********************************
