@@ -181,7 +181,7 @@ Route::middleware('auth:admin', 'admin')->group(function () {
             Route::get('glados/status', [Admin\GladosController::class, 'status'])->name('admin.game.glados.status');
 
             // ALERTS
-            Route::resource('alert', Admin\AlertController::class, [ 'names' => [
+            Route::resource('alert', Admin\AlertController::class, ['names' => [
                 'store' => 'admin.game.alert.store',
                 'destroy' => 'admin.game.alert.destroy',
             ]]);
@@ -229,7 +229,7 @@ Route::middleware('auth:admin', 'admin')->group(function () {
                 'index' => 'admin.ghostDna.index',
                 'store' => 'admin.ghostDna.store',
                 'destroy' => 'admin.ghostDna.destroy',
-            ],]);
+            ], ]);
 
         //PLAYERS
         Route::resource('player', Admin\PlayerController::class, [
