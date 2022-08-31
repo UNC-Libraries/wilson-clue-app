@@ -30,7 +30,7 @@ Route::get('/game-over', function () {
 /***************************
  * Game UI routes...
  */
-Route::group(['middleware' => ['activeGame']], function () {
+Route::middleware('activeGame')->group(function () {
 
     /***************************
      * Registration routes...
@@ -41,12 +41,12 @@ Route::group(['middleware' => ['activeGame']], function () {
     /***************************
      * Requires authentication routes...
      */
-    Route::group(['middleware' => ['auth:player', 'player']], function () {
-        Route::group(['middleware' => ['validTeam']], function () {
+    Route::middleware('auth:player', 'player')->group(function () {
+        Route::middleware('validTeam')->group(function () {
             Route::get('start', 'UiController@index')->name('ui.index');
             // These require and active game
-            Route::group(['middleware' => ['inProgressGame']], function () {
-                Route::group(['prefix' => 'game/'], function () {
+            Route::middleware('inProgressGame')->group(function () {
+                Route::prefix('game/')->group(function () {
                     Route::get('quest/{id}', 'UiController@quest')->name('ui.quest');
                     Route::get('evidence', 'UiController@evidence')->name('ui.evidence');
                     Route::get('geographic-investigation', 'UiController@geographicInvestigation')->name('ui.geographicInvestigation');
@@ -60,7 +60,7 @@ Route::group(['middleware' => ['activeGame']], function () {
                 Route::post('set/evidence', 'UiController@setEvidence')->name('ui.set.evidence');
                 Route::post('status/quest/{id}', 'UiController@questStatus')->name('ui.status.quest');
             });
-            Route::group(['prefix' => 'game/'], function () {
+            Route::prefix('game/')->group(function () {
                 Route::get('indictment', 'UiController@indictment')->name('ui.indictment');
                 Route::get('info', 'UiController@info')->name('ui.info');
                 Route::get('map', 'UiController@map')->name('ui.map');
@@ -96,13 +96,13 @@ Route::get('leave', 'Auth\LoginController@logout')->name('player.logout');
 /***************************
  * Admin routes...
  */
-Route::group(['middleware' => ['auth:admin', 'admin']], function () {
+Route::middleware('auth:admin', 'admin')->group(function () {
 
     // Test game route
     Route::get('/test-game', 'Admin\GameController@overrideInProgress');
 
     Route::get('/admin', 'Admin\AdminController@index')->name('admin');
-    Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
+    Route::namespace('Admin')->prefix('admin')->group(function () {
 
         // Trash
         Route::get('trash', 'AdminController@trash')->name('admin.trash');
@@ -115,7 +115,6 @@ Route::group(['middleware' => ['auth:admin', 'admin']], function () {
 
         //AGENT index, create, show store edit update destroy
         Route::resource('agent', 'AgentController', [
-            'except' => ['show'],
             'names' => [
                 'index' => 'admin.agent.index',
                 'create' => 'admin.agent.create',
@@ -128,7 +127,6 @@ Route::group(['middleware' => ['auth:admin', 'admin']], function () {
 
         //EVIDENCE
         Route::resource('evidence', 'EvidenceController', [
-            'except' => ['show'],
             'names' => [
                 'index' => 'admin.evidence.index',
                 'create' => 'admin.evidence.create',
@@ -139,7 +137,7 @@ Route::group(['middleware' => ['auth:admin', 'admin']], function () {
             ],
         ]);
 
-        Route::group(['prefix' => 'game/{id}'], function () {
+        Route::prefix('game/{id}')->group(function () {
 
             //Activate
             Route::get('/activate', 'GameController@activate')->where('id', '[0-9]+')->name('admin.game.activate');
@@ -176,7 +174,7 @@ Route::group(['middleware' => ['auth:admin', 'admin']], function () {
             Route::get('glados/status', 'GladosController@status')->name('admin.game.glados.status');
 
             // ALERTS
-            Route::resource('alert', 'AlertController', ['only' => ['store', 'destroy'], 'names' => [
+            Route::resource('alert', 'AlertController', [ 'names' => [
                 'store' => 'admin.game.alert.store',
                 'destroy' => 'admin.game.alert.destroy',
             ]]);
@@ -208,7 +206,6 @@ Route::group(['middleware' => ['auth:admin', 'admin']], function () {
 
         //MINIGAME IMAGES
         Route::resource('minigame-image', 'MinigameImageController', [
-            'except' => ['show'],
             'names' => [
                 'index' => 'admin.minigameImage.index',
                 'create' => 'admin.minigameImage.create',
@@ -225,18 +222,10 @@ Route::group(['middleware' => ['auth:admin', 'admin']], function () {
                 'index' => 'admin.ghostDna.index',
                 'store' => 'admin.ghostDna.store',
                 'destroy' => 'admin.ghostDna.destroy',
-            ],
-            'except' => [
-                'create',
-                'show',
-                'edit',
-                'update',
-            ],
-        ]);
+            ],]);
 
         //PLAYERS
         Route::resource('player', 'PlayerController', [
-            'except' => ['store', 'create'],
             'names' => [
                 'index' => 'admin.player.index',
                 'show' => 'admin.player.show',
@@ -251,7 +240,6 @@ Route::group(['middleware' => ['auth:admin', 'admin']], function () {
         Route::post('quest/{id}/remove/{questionId}', 'QuestController@removeQuestion')->where('id', '[0-9]+')->where('questionId', '[0-9]+');
         Route::post('quest/{id}/reorder/{questionId}', 'QuestController@reorderQuestions')->where('id', '[0-9]+')->where('questionId', '[0-9]+');
         Route::resource('game.quest', 'QuestController', [
-            'only' => ['edit', 'update'],
             'names' => [
                 'edit' => 'admin.game.quest.edit',
                 'update' => 'admin.game.quest.update',
@@ -262,7 +250,6 @@ Route::group(['middleware' => ['auth:admin', 'admin']], function () {
         Route::delete('answer/{id}', 'QuestionController@destroyAnswer')->where('id', '[0-9]+')->name('admin.destroy.answer');
         Route::get('answer/new', 'QuestionController@newAnswer')->name('admin.new.answer');
         Route::resource('question', 'QuestionController', [
-            'except' => ['show'],
             'names' => [
                 'index' => 'admin.question.index',
                 'create' => 'admin.question.create',
@@ -275,7 +262,6 @@ Route::group(['middleware' => ['auth:admin', 'admin']], function () {
 
         //SUSPECT
         Route::resource('suspect', 'SuspectController', [
-            'only' => ['index', 'edit', 'update'],
             'names' => [
                 'index' => 'admin.suspect.index',
                 'edit' => 'admin.suspect.edit',
@@ -288,7 +274,6 @@ Route::group(['middleware' => ['auth:admin', 'admin']], function () {
         Route::delete('team/{id}/removePlayer/{playerId}', 'TeamController@removePlayer')->where('id', '[0-9]+')->where('playerId', '[0-9]+')->name('admin.team.removePlayer');
         Route::post('team/{id}/addPlayer', 'TeamController@addPlayer')->where('id', '[0-9]+')->name('admin.team.addPlayer');
         Route::resource('team', 'TeamController', [
-            'only' => ['edit', 'update', 'destroy'],
             'names' => [
                 'edit' => 'admin.team.edit',
                 'update' => 'admin.team.update',
