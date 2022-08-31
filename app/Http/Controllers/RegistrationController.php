@@ -2,33 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Game;
+use App\Mail\Registered;
 use App\Player;
+use App\Team;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-use App\Http\Requests;
-use App\Game;
-use App\Team;
-use App\Mail\Registered;
 use Illuminate\Support\Facades\DB;
 use Mail;
 
 class RegistrationController extends Controller
 {
-
     /**
      * Show the enlistment form
      */
     public function index(Request $request)
     {
         $game = Game::findOrFail($request->session()->get('gameId'));
-        if($game->registration){
-            return view('web.registration.enlist',compact('game'));
+        if ($game->registration) {
+            return view('web.registration.enlist', compact('game'));
         } else {
             return redirect('/');
         }
-
     }
 
     /**
@@ -40,33 +36,33 @@ class RegistrationController extends Controller
         $user = Auth::guard('player')->user();
         $team = $user->teams()->with('players')->active()->first();
 
-        if(empty($team)){
+        if (empty($team)) {
             return redirect()->route('player.logout');
         }
 
-        if(!$team->waitlist){
+        if (! $team->waitlist) {
             $status_message_key = 'team_status_message:_registered_team';
         } else {
-            if($team->players->count() < $team::MINIMUM_PLAYERS && $game->spots_left > 0) {
+            if ($team->players->count() < $team::MINIMUM_PLAYERS && $game->spots_left > 0) {
                 $status_message_key = 'team_status_message:_not_enough_players,_open_spots';
-            } elseif($team->players->count() < $team::MINIMUM_PLAYERS && $game->spots_left <= 0) {
+            } elseif ($team->players->count() < $team::MINIMUM_PLAYERS && $game->spots_left <= 0) {
                 $status_message_key = 'team_status_message:_not_enough_players,_game_full';
             } else {
                 $status_message_key = 'team_status_message:_waitlist';
             }
         }
 
-        $status_message = DB::table('globals')->where('key','=',$status_message_key)->first();
+        $status_message = DB::table('globals')->where('key', '=', $status_message_key)->first();
         $status_message = $status_message ? $status_message->message : '';
 
         $canRemove = $team->waitlist || $team->players->count() > $team::MINIMUM_PLAYERS ? true : false;
 
-        return view('web.registration.team_management',compact('user','team','game','canRemove','status_message'));
+        return view('web.registration.team_management', compact('user', 'team', 'game', 'canRemove', 'status_message'));
     }
 
     public function updateTeam(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'name' => 'required',
         ]);
         $user = Auth::guard('player')->user();
@@ -80,7 +76,7 @@ class RegistrationController extends Controller
 
     public function addPlayer(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'onyen' => 'required',
         ]);
 
@@ -90,7 +86,7 @@ class RegistrationController extends Controller
         $team = $user->teams()->with('players')->active()->first();
 
         // Is the team at max capacity?
-        if($team->players->count() >= 5){
+        if ($team->players->count() >= 5) {
             return redirect()->back()->withErrors('enlist.add_player.full')->withInput();
         }
 
@@ -101,7 +97,7 @@ class RegistrationController extends Controller
         $player->updateFromOnyen($onyen);
         $warnings = $player->getWarnings($game);
 
-        if(!empty($warnings)){
+        if (! empty($warnings)) {
             return redirect()->back()->withErrors($warnings)->withInput();
         }
 
@@ -110,9 +106,9 @@ class RegistrationController extends Controller
         $team->players()->attach($player);
 
         // Register team if a spot is available and email them
-        if($team->players->count() + 1 >= $team::MINIMUM_PLAYERS && $game->spots_left > 0){
+        if ($team->players->count() + 1 >= $team::MINIMUM_PLAYERS && $game->spots_left > 0) {
             $team->waitlist = false;
-            $this->emailTeam($team->id,'email:_fully_registered');
+            $this->emailTeam($team->id, 'email:_fully_registered');
         }
         $team->save();
 
@@ -125,10 +121,11 @@ class RegistrationController extends Controller
         $user = Auth::guard('player')->user();
         $team = $user->teams()->active()->first();
         $team->players()->detach($player);
-        if($team->players()->count() < $team::MINIMUM_PLAYERS){
+        if ($team->players()->count() < $team::MINIMUM_PLAYERS) {
             $team->waitlist = true;
         }
         $team->save();
+
         return redirect()->route('enlist.teamManagement');
     }
 
@@ -142,17 +139,17 @@ class RegistrationController extends Controller
     {
 
         // Validate Form
-        $this->validate($request,[
+        $this->validate($request, [
             'onyen' => 'required',
-            'teamName' => 'required'
+            'teamName' => 'required',
         ]);
         $onyen = $request->get('onyen');
         $teamName = $request->get('teamName');
 
         // Get the active game
-        $game = Game::active()->with('registeredTeams')->where('registration','=','1')->orderBy('start_time','desc')->first();
+        $game = Game::active()->with('registeredTeams')->where('registration', '=', '1')->orderBy('start_time', 'desc')->first();
 
-        if(empty($game) || !$game->registration){
+        if (empty($game) || ! $game->registration) {
             return redirect()->back()->withErrors(['enlist.no_game'])->withInput();
         }
 
@@ -163,7 +160,7 @@ class RegistrationController extends Controller
         $player->updateFromOnyen($onyen);
         $warnings = $player->getWarnings($game);
 
-        if(!empty($warnings)){
+        if (! empty($warnings)) {
             return redirect()->back()->withErrors($warnings)->withInput();
         }
 
@@ -181,25 +178,22 @@ class RegistrationController extends Controller
         $this->emailTeam($team->id, 'email:_initial_registration');
 
         Auth::guard('player')->login($player);
-        return redirect()->route('enlist.teamManagement')->with('status','newTeam');
 
+        return redirect()->route('enlist.teamManagement')->with('status', 'newTeam');
     }
 
     public function emailTeam($id, $email_text_key)
     {
-
         $team = Team::with([
             'players',
-            'game'
+            'game',
         ])->findOrFail($id);
 
-        $email_text = DB::table('globals')->where('key','=',$email_text_key)->first();
-        if(empty($email_text)){
+        $email_text = DB::table('globals')->where('key', '=', $email_text_key)->first();
+        if (empty($email_text)) {
             return;
         }
 
         Mail::to($team->players)->send(new Registered($team, $email_text));
-
     }
-
 }

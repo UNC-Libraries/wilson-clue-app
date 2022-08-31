@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Game extends Model
 {
-
     use SoftDeletes;
 
     /***********************************
@@ -26,11 +25,11 @@ class Game extends Model
      *
      * @var array
      */
-    protected $appends = array(
+    protected $appends = [
         'spots_left' => 0,
         'inProgress' => 0,
-        'solution' => array(),
-    );
+        'solution' => [],
+    ];
 
     /**
      * The fillable attributes
@@ -67,69 +66,70 @@ class Game extends Model
      */
     protected $casts = [
         'active' => 'boolean',
-        'students_only' => 'boolean'
+        'students_only' => 'boolean',
     ];
-
 
     /***********************************
      * RELATIONSHIPS
      ***********************************/
     public function teams()
     {
-        return $this->hasMany('App\Team', 'game_id', 'id');
+        return $this->hasMany(\App\Team::class, 'game_id', 'id');
     }
 
     public function registeredTeams()
     {
-        return $this->hasMany('App\Team', 'game_id', 'id')->registered();
+        return $this->hasMany(\App\Team::class, 'game_id', 'id')->registered();
     }
 
     public function waitlistTeams()
     {
-        return $this->hasMany('App\Team', 'game_id', 'id')->waitlist();
+        return $this->hasMany(\App\Team::class, 'game_id', 'id')->waitlist();
     }
 
     public function winningTeam()
     {
-        return $this->hasOne('App\Team', 'id', 'winning_team');
+        return $this->hasOne(\App\Team::class, 'id', 'winning_team');
     }
 
     public function evidenceLocation()
     {
-        return $this->belongsTo('App\Location', 'evidence_location_id');
+        return $this->belongsTo(\App\Location::class, 'evidence_location_id');
     }
 
     public function geographicInvestigationLocation()
     {
-        return $this->belongsTo('App\Location', 'geographic_investigation_location_id');
+        return $this->belongsTo(\App\Location::class, 'geographic_investigation_location_id');
     }
 
     public function solutionSuspect()
     {
-        return $this->hasOne('App\Suspect', 'id', 'suspect_id');
+        return $this->hasOne(\App\Suspect::class, 'id', 'suspect_id');
     }
 
     public function solutionLocation()
     {
-        return $this->hasOne('App\Location', 'id', 'location_id');
+        return $this->hasOne(\App\Location::class, 'id', 'location_id');
     }
 
     public function solutionEvidence()
     {
-        return $this->hasOne('App\Evidence','id','evidence_id');
+        return $this->hasOne(\App\Evidence::class, 'id', 'evidence_id');
     }
 
     public function quests()
     {
-        return $this->hasMany('App\Quest');
+        return $this->hasMany(\App\Quest::class);
     }
+
     public function evidence()
     {
-        return $this->belongsToMany('App\Evidence');
+        return $this->belongsToMany(\App\Evidence::class);
     }
+
     public function alerts()
     {
-        return $this->hasMany('App\Alert');
+        return $this->hasMany(\App\Alert::class);
     }
 
     /***********************************
@@ -149,7 +149,6 @@ class Game extends Model
     {
         return $query->where('archive', 1)->orderBy('start_time', 'desc');
     }
-
 
     /***********************************
      * METHODS
@@ -185,7 +184,7 @@ class Game extends Model
 
     public function getStatusTextAttribute()
     {
-        if($this->inProgress){
+        if ($this->inProgress) {
             return 'In Progress';
         } elseif ($this->active) {
             return 'Current (active)';
@@ -206,7 +205,6 @@ class Game extends Model
         return ['suspect' => $this->suspect_id, 'location' => $this->location_id, 'evidence' => $this->evidence_id];
     }
 
-
     /***********************************
      * MUTATORS
      ***********************************/
@@ -214,5 +212,4 @@ class Game extends Model
     {
         $this->attributes['case_file_items'] = json_encode($value);
     }
-
 }

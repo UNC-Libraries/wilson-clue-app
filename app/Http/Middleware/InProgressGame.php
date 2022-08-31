@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
 use App\Game;
+use Closure;
 
 class InProgressGame
 {
@@ -25,10 +25,11 @@ class InProgressGame
         if (empty($game)) {
             return redirect()->route('gameover');
         } else {
-            if (!$request->session()->has('gameId')) {
+            if (! $request->session()->has('gameId')) {
                 $request->session()->put('gameId', $game->id);
             }
         }
+
         return $next($request);
     }
 }

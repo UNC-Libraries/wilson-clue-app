@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
-
     /***********************************
      * ATTRIBUTES
      ***********************************/
@@ -15,10 +14,10 @@ class Answer extends Model
      *
      * @var array
      */
-    protected $fillable = array(
+    protected $fillable = [
         'question_id',
         'text',
-    );
+    ];
 
     /***********************************
      * RELATIONSHIPS
@@ -26,7 +25,7 @@ class Answer extends Model
 
     public function question()
     {
-        return $this->belongsTo('App\Question');
+        return $this->belongsTo(\App\Question::class);
     }
 
     /***********************************
@@ -44,7 +43,4 @@ class Answer extends Model
     /***********************************
      * MUTATORS
      ***********************************/
-
-
-
 }

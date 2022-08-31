@@ -3,11 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use DB;
 
 class GhostDna extends Model
 {
-
     /***********************************
      * ATTRIBUTES
      ***********************************/
@@ -16,10 +14,10 @@ class GhostDna extends Model
      *
      * @var array
      */
-    protected $fillable = array(
+    protected $fillable = [
         'sequence',
         'pair',
-    );
+    ];
 
     /***********************************
      * RELATIONSHIPS
@@ -27,7 +25,7 @@ class GhostDna extends Model
 
     public function teams()
     {
-        return $this->belongsToMany('App\Team')->withTimestamps();
+        return $this->belongsToMany(\App\Team::class)->withTimestamps();
     }
 
     /***********************************
@@ -41,16 +39,15 @@ class GhostDna extends Model
     /***********************************
      * ACCESSORS
      ***********************************/
-    public function getFoundStatsAttribute(){
+    public function getFoundStatsAttribute()
+    {
         $teams = $this->teams;
         $teams->load('game');
+
         return $teams->groupBy('game.name');
     }
 
     /***********************************
      * MUTATORS
      ***********************************/
-
-
-
 }

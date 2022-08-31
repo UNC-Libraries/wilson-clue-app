@@ -51,7 +51,7 @@ $ ln -nfs $CLUE_HOME/storage/app/public $CLUE_HOME/public/storage
 ## Configuration
 1. Copy ```$CLUE_HOME/.env.example``` to ```$CLUE_HOME/.env```.
 2. Edit the DB_\* and LDAP_\* properties in ```$CLUE_HOME/.env```.
-3. To enable emails, set `MAIL_DRIVER` to `smtp` in ```$CLUE_HOME/.env```.
+3. To enable emails, set `MAIL_MAILER` to `smtp` in ```$CLUE_HOME/.env```.
 
 The DB_\* properties will be determined by you, the developer, based on your database configuration. 
 The LDAP_\* properties you should get from a UNC sysadmin or from the production `.env` file.

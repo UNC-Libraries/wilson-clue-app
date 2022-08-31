@@ -3,13 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use DB;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 
 class MinigameImage extends Model
 {
-
     /***********************************
      * ATTRIBUTES
      ***********************************/
@@ -18,18 +15,18 @@ class MinigameImage extends Model
      *
      * @var array
      */
-    protected $fillable = array(
+    protected $fillable = [
         'name',
         'year',
         'src',
-    );
+    ];
 
     /***********************************
      * RELATIONSHIPS
      ***********************************/
     public function quests()
     {
-        return $this->belongsToMany('App\Quest');
+        return $this->belongsToMany(\App\Quest::class);
     }
 
     /***********************************
@@ -43,7 +40,7 @@ class MinigameImage extends Model
     {
         $upload_path = config('filesystems.disks.public.root');
         $image_path = $this->attributes['src'];
-        if(File::exists("$upload_path/$image_path")){
+        if (File::exists("$upload_path/$image_path")) {
             File::delete("$upload_path/$image_path");
         }
     }

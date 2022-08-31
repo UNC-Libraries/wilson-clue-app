@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateGlobalsTable extends Migration
 {
@@ -12,7 +12,7 @@ class CreateGlobalsTable extends Migration
      */
     public function up()
     {
-        Schema::create('globals', function(Blueprint $table){
+        Schema::create('globals', function (Blueprint $table) {
             $table->string('key');
             $table->text('message');
         });

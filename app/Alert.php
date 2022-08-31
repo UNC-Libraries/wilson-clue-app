@@ -3,11 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use DB;
 
 class Alert extends Model
 {
-
     /***********************************
      * ATTRIBUTES
      ***********************************/
@@ -16,9 +14,9 @@ class Alert extends Model
      *
      * @var array
      */
-    protected $fillable = array(
+    protected $fillable = [
         'message',
-    );
+    ];
 
     /***********************************
      * RELATIONSHIPS
@@ -26,7 +24,7 @@ class Alert extends Model
 
     public function game()
     {
-        return $this->belongsTo('App\Game');
+        return $this->belongsTo(\App\Game::class);
     }
 
     /***********************************
@@ -44,7 +42,4 @@ class Alert extends Model
     /***********************************
      * MUTATORS
      ***********************************/
-
-
-
 }

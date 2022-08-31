@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreatePlayersTable extends Migration
 {
@@ -12,7 +12,7 @@ class CreatePlayersTable extends Migration
      */
     public function up()
     {
-        Schema::create('players', function(Blueprint $table){
+        Schema::create('players', function (Blueprint $table) {
             $table->increments('id');
             $table->string('onyen')->nullable();
             $table->integer('pid')->nullable();

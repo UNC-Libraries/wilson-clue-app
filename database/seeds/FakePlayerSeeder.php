@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Player;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class FakePlayerSeeder extends Seeder
@@ -14,7 +14,7 @@ class FakePlayerSeeder extends Seeder
     public function run()
     {
         // Only run this if you're on a local environment
-        if(env('APP_ENV') === 'local') {
+        if (env('APP_ENV') === 'local') {
             $max_player_id = $users = DB::table('player_team')
                 ->select(DB::raw('max(player_id) as max_player_id'))->first()->max_player_id;
             for ($x = 0; $x <= $max_player_id; $x++) {

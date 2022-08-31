@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Team;
 use App\Player;
+use App\Team;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class TeamController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -62,12 +61,13 @@ class TeamController extends Controller
      */
     public function edit($id)
     {
-        $team = Team::with('game','players')->findOrFail($id);
+        $team = Team::with('game', 'players')->findOrFail($id);
         $game = $team->game;
         $dummy = new Player;
         $academic_group_options = $dummy::ACADEMIC_GROUP_OPTIONS;
         $class_options = $dummy::CLASS_OPTIONS;
-        return view('team.edit',compact('team','game', 'academic_group_options', 'class_options'));
+
+        return view('team.edit', compact('team', 'game', 'academic_group_options', 'class_options'));
     }
 
     /**
@@ -79,22 +79,21 @@ class TeamController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'name' => 'required',
         ]);
 
         $team = Team::findOrFail($id);
 
-        foreach($team->getAttributes() as $key => $value){
-
-            if(isset($request->{$key}) && $value !== $request->{$key}){
+        foreach ($team->getAttributes() as $key => $value) {
+            if (isset($request->{$key}) && $value !== $request->{$key}) {
                 $team->{$key} = $request->{$key};
             }
         }
 
         $team->save();
 
-        return redirect()->back()->with('alert',array('message'=>'Changes Saved!','type'=>'success'));
+        return redirect()->back()->with('alert', ['message' => 'Changes Saved!', 'type' => 'success']);
     }
 
     /**
@@ -112,46 +111,46 @@ class TeamController extends Controller
         $team->players()->detach();
         $team->delete();
 
-        return redirect()->route('admin.game.teams',array('id'=>$team->game->id))->with('alert',array('message' => $team->name.'  deleted!', 'type' => 'warning'));
+        return redirect()->route('admin.game.teams', ['id' => $team->game->id])->with('alert', ['message' => $team->name.'  deleted!', 'type' => 'warning']);
     }
 
     /**
      * Toggle team's waitlist
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function toggleWaitlist($id)
     {
         $team = Team::findOrFail($id);
-        $team->waitlist = !$team->waitlist;
+        $team->waitlist = ! $team->waitlist;
         $team->save();
 
         $type = $team->waitlist ? 'danger' : 'success';
         $message = $team->waitlist ? $team->name.' moved to the waitlist' : $team->name.' registered';
 
-        return redirect()->back()->with('alert',array('type'=>$type, 'message'=>$message));
+        return redirect()->back()->with('alert', ['type' => $type, 'message' => $message]);
     }
 
     /**
      * Add Player to team
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function addPlayer(Request $request, $id)
     {
-        $team = Team::with('game','players')->findOrFail($id);
+        $team = Team::with('game', 'players')->findOrFail($id);
 
-        if($team->players->count() == 5){
-            redirect()->back()->with('alert',array('type'=>'danger', 'message'=>'Team has 5 players'));
+        if ($team->players->count() == 5) {
+            redirect()->back()->with('alert', ['type' => 'danger', 'message' => 'Team has 5 players']);
         }
-        
+
         $onyen = $request->get('onyen');
         $override = $request->get('override_non_student') ? true : false;
 
-        if($onyen){
+        if ($onyen) {
 
             // Does the player already have an account?
             $match = Player::where('onyen', '=', $onyen)->first();
@@ -159,21 +158,20 @@ class TeamController extends Controller
             // Update the player using the provided onyen
             $player->updateFromOnyen($onyen, $override);
             $warnings = $player->getWarnings($team->game);
-            array_walk($warnings, function(&$v, $k){
+            array_walk($warnings, function (&$v, $k) {
                 $v = trans($v);
             });
-            if(!empty($warnings)){
+            if (! empty($warnings)) {
                 return redirect()->back()->withErrors($warnings)->withInput();
             }
         } else {
-
-            $this->validate($request,[
+            $this->validate($request, [
                 'email' => 'required | email',
                 'password' => 'required',
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'class_code' => 'required',
-                'academic_group_code' => 'required'
+                'academic_group_code' => 'required',
             ]);
 
             $player = new Player();
@@ -189,14 +187,13 @@ class TeamController extends Controller
         $team->save();
 
         return redirect()->back();
-
     }
 
     /**
      * Remove Player from team
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function removePlayer($id, $playerId)
@@ -204,6 +201,7 @@ class TeamController extends Controller
         $team = Team::findOrFail($id);
         $team->players()->detach($playerId);
         $team->save();
+
         return redirect()->back();
     }
 }

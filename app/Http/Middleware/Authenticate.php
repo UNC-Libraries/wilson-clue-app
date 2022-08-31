@@ -21,7 +21,7 @@ class Authenticate
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {
-                switch($guard){
+                switch ($guard) {
                     case 'player':
                         return redirect()->guest('go');
                     case 'admin':

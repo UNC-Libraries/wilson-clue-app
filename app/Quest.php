@@ -3,13 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Suspect;
 
 class Quest extends Model
 {
-
     use SoftDeletes;
 
     /***********************************
@@ -28,46 +25,48 @@ class Quest extends Model
      *
      * @var array
      */
-    protected $fillable = array(
+    protected $fillable = [
         'type',
         'location_id',
-        'suspect_id'
+        'suspect_id',
 
-    );
+    ];
 
-    protected $appends = array(
+    protected $appends = [
         'types',
-    );
+    ];
 
     /***********************************
      * RELATIONSHIPS
      ***********************************/
     public function location()
     {
-        return $this->belongsTo('App\Location');
+        return $this->belongsTo(\App\Location::class);
     }
 
     public function suspect()
     {
-        return $this->belongsTo('App\Suspect');
+        return $this->belongsTo(\App\Suspect::class);
     }
 
     public function questions()
     {
-        return $this->belongsToMany('App\Question')->withPivot('order')->orderBy('order');
+        return $this->belongsToMany(\App\Question::class)->withPivot('order')->orderBy('order');
     }
 
     public function minigameImages()
     {
-        return $this->belongsToMany('App\MinigameImage');
+        return $this->belongsToMany(\App\MinigameImage::class);
     }
+
     public function completedBy()
     {
-        return $this->belongsToMany('App\Team')->registered()->withTimestamps();
+        return $this->belongsToMany(\App\Team::class)->registered()->withTimestamps();
     }
+
     public function game()
     {
-        return $this->belongsTo('App\Game');
+        return $this->belongsTo(\App\Game::class);
     }
 
     /***********************************
@@ -77,6 +76,7 @@ class Quest extends Model
     {
         return $query->where('type', '=', 'minigame');
     }
+
     public function scopeQuestionType($query)
     {
         return $query->where('type', '=', 'question');
@@ -92,20 +92,20 @@ class Quest extends Model
 
     public function getTypesAttribute()
     {
-        return $this->attributes['types'] = array(
+        return $this->attributes['types'] = [
             'question' => 'Question',
             'minigame' => 'First Floor Minigame',
-        );
+        ];
     }
 
     public function getTeamCompletedAttribute($teamId)
     {
-        return in_array($teamId,$this->completedBy()->pluck('id')->all());
+        return in_array($teamId, $this->completedBy()->pluck('id')->all());
     }
 
     public function getNeedsJudgementAttribute()
     {
-        return !$this->questions->where('needs_judgement',true)->isEmpty();
+        return ! $this->questions->where('needs_judgement', true)->isEmpty();
     }
 
     /***********************************

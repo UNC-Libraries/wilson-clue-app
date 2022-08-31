@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\Alert;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class AlertController extends Controller
 {
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, $id)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'message' => 'required|string|max:255',
         ]);
 
@@ -28,7 +26,6 @@ class AlertController extends Controller
         $alert->save();
 
         return redirect()->route('admin.game.show', $id);
-
     }
 
     /**
@@ -42,7 +39,7 @@ class AlertController extends Controller
     {
         $agent = Alert::findOrFail($alertId);
         $agent->delete();
-        return redirect()->route('admin.game.show', $id);
 
+        return redirect()->route('admin.game.show', $id);
     }
 }

@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-
-use App\Http\Requests;
-use App\Location;
-use App\MapSection;
 use App\Game;
+use App\Http\Controllers\Controller;
+use App\Location;
+use Illuminate\Http\Request;
 
 class LocationController extends Controller
 {
@@ -21,7 +18,7 @@ class LocationController extends Controller
     {
         $locations = Location::get();
 
-        return view('location.index',compact('locations'));
+        return view('location.index', compact('locations'));
     }
 
     /**
@@ -29,20 +26,23 @@ class LocationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(){
+    public function create()
+    {
         $location = new Location;
         $mapSections = config('map_sections');
-        return view('location.create',compact('location','mapSections'));
+
+        return view('location.create', compact('location', 'mapSections'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
-        $this->validate($request,[
+    public function store(Request $request)
+    {
+        $this->validate($request, [
             'name' => 'required',
             'floor' => 'required|integer',
             'map_section' => 'required',
@@ -54,7 +54,7 @@ class LocationController extends Controller
 
         $location->save();
 
-        return redirect()->route('admin.location.index')->with('alert',['message' => $location->name.'  created', 'type' => 'success']);
+        return redirect()->route('admin.location.index')->with('alert', ['message' => $location->name.'  created', 'type' => 'success']);
     }
 
     /**
@@ -68,7 +68,7 @@ class LocationController extends Controller
         $location = Location::findOrFail($id);
         $mapSections = config('map_sections');
 
-        return view('location.edit',compact('location','mapSections'));
+        return view('location.edit', compact('location', 'mapSections'));
     }
 
     /**
@@ -80,7 +80,7 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'name' => 'required',
             'floor' => 'required|integer',
             'map_section' => 'required',
@@ -92,27 +92,27 @@ class LocationController extends Controller
 
         $location->save();
 
-        return redirect()->route('admin.location.index')->with('alert',['message' => $location->name.'  updated', 'type' => 'success']);
+        return redirect()->route('admin.location.index')->with('alert', ['message' => $location->name.'  updated', 'type' => 'success']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id){
-
+    public function destroy($id)
+    {
         $location = Location::with('quests')->findOrFail($id);
-        $games = Game::where('evidence_location_id','=',$id)
-            ->orWhere('geographic_investigation_location_id','=',$id)->get();
-        if($location->quests->isEmpty() && $games->isEmpty()){
+        $games = Game::where('evidence_location_id', '=', $id)
+            ->orWhere('geographic_investigation_location_id', '=', $id)->get();
+        if ($location->quests->isEmpty() && $games->isEmpty()) {
             $location->delete();
             $alert = ['type' => 'success', 'message' => $location->name.' deleted!'];
         } else {
             $alert = ['type' => 'danger', 'message' => $location->name.' cannot be deleted. It is was used in a previous game.'];
         }
+
         return redirect()->route('admin.location.index')->with('alert', $alert);
     }
-
 }

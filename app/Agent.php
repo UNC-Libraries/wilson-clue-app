@@ -2,10 +2,8 @@
 
 namespace App;
 
-use Illuminate\Support\Facades\File;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Mockery\Exception;
-
+use Illuminate\Support\Facades\File;
 
 class Agent extends Authenticatable
 {
@@ -18,7 +16,7 @@ class Agent extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = array(
+    protected $fillable = [
         'onyen',
         'first_name',
         'last_name',
@@ -29,28 +27,28 @@ class Agent extends Authenticatable
         'bio',
         'web_display',
         'admin',
-        'src'
-    );
+        'src',
+    ];
 
     /**
      * The additional attributes
      *
      * @var array
      */
-    protected $appends = array(
+    protected $appends = [
         'full_name' => '',
-    );
+    ];
 
     /**
      * The attributes that should be casted to native types.
      *
      * @var array
      */
-    protected $casts = array(
+    protected $casts = [
         'retired' => 'boolean',
         'web_display' => 'boolean',
         'admin' => 'boolean',
-    );
+    ];
 
     /***********************************
      * RELATIONSHIPS
@@ -62,12 +60,12 @@ class Agent extends Authenticatable
 
     public function scopeActive($query)
     {
-        $query->where('retired','=',0)->where('web_display','=',1);
+        $query->where('retired', '=', 0)->where('web_display', '=', 1);
     }
 
     public function scopeRetired($query)
     {
-        $query->where('retired','=',1)->where('web_display','=',1);
+        $query->where('retired', '=', 1)->where('web_display', '=', 1);
     }
 
     /***********************************
@@ -78,11 +76,10 @@ class Agent extends Authenticatable
     {
         $upload_path = config('filesystems.disks.public.root');
         $image_path = $this->attributes['src'];
-        if(File::exists("$upload_path/$image_path")){
+        if (File::exists("$upload_path/$image_path")) {
             File::delete("$upload_path/$image_path");
         }
     }
-
 
     /***********************************
      * ACCESSORS
@@ -151,7 +148,4 @@ class Agent extends Authenticatable
     {
         $this->attributes['last_name'] = utf8_encode(strtolower($value));
     }
-
-
-
 }

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\MinigameImage;
+use Illuminate\Http\Request;
 
 class MinigameImageController extends Controller
 {
@@ -17,7 +16,8 @@ class MinigameImageController extends Controller
     public function index()
     {
         $minigameImages = MinigameImage::orderBy('year')->get();
-        return view('minigameImage.index',compact('minigameImages'));
+
+        return view('minigameImage.index', compact('minigameImages'));
     }
 
     /**
@@ -28,7 +28,8 @@ class MinigameImageController extends Controller
     public function create()
     {
         $minigameImage = new MinigameImage;
-        return view('minigameImage.create',compact('minigameImage'));
+
+        return view('minigameImage.create', compact('minigameImage'));
     }
 
     /**
@@ -39,7 +40,7 @@ class MinigameImageController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'name' => 'required',
             'year' => 'required',
         ]);
@@ -47,20 +48,19 @@ class MinigameImageController extends Controller
         $minigameImage = new MinigameImage;
         $minigameImage->fill($request->all());
         // Add Image
-        if($request->file('new_image_file')){
+        if ($request->file('new_image_file')) {
             $this->validate($request, [
-                'new_image_file' => 'max:512|mimetypes:image/jpeg,image/png,image/svg+xml'
+                'new_image_file' => 'max:512|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
-            $path = $request->file('new_image_file')->store('minigame_images','public');
+            $path = $request->file('new_image_file')->store('minigame_images', 'public');
             $minigameImage->src = $path;
         }
 
         $minigameImage->save();
 
-
         return redirect()
                 ->route('admin.minigameImage.index')
-                ->with('alert',['message' => $minigameImage->name.' saved!', 'type' => 'success']);
+                ->with('alert', ['message' => $minigameImage->name.' saved!', 'type' => 'success']);
     }
 
     /**
@@ -72,7 +72,8 @@ class MinigameImageController extends Controller
     public function edit($id)
     {
         $minigameImage = MinigameImage::findOrFail($id);
-        return view('minigameImage.edit',compact('minigameImage'));
+
+        return view('minigameImage.edit', compact('minigameImage'));
     }
 
     /**
@@ -84,8 +85,7 @@ class MinigameImageController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        $this->validate($request,[
+        $this->validate($request, [
             'name' => 'required',
             'year' => 'required',
         ]);
@@ -93,11 +93,11 @@ class MinigameImageController extends Controller
         $minigameImage = MinigameImage::findOrFail($id);
         $minigameImage->fill($request->all());
         // Update Image
-        if($request->file('new_image_file')){
+        if ($request->file('new_image_file')) {
             $this->validate($request, [
-                'new_image_file' => 'max:512|mimetypes:image/jpeg,image/png,image/svg+xml'
+                'new_image_file' => 'max:512|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
-            $path = $request->file('new_image_file')->store('minigame_images','public');
+            $path = $request->file('new_image_file')->store('minigame_images', 'public');
             $minigameImage->deleteImage();
             $minigameImage->src = $path;
         }
@@ -105,7 +105,7 @@ class MinigameImageController extends Controller
 
         return redirect()
                 ->route('admin.minigameImage.index')
-                ->with('alert',['message' => $minigameImage->name.' updated!', 'type' => 'success']);
+                ->with('alert', ['message' => $minigameImage->name.' updated!', 'type' => 'success']);
     }
 
     /**
@@ -117,11 +117,10 @@ class MinigameImageController extends Controller
     public function destroy($id)
     {
         $minigameImage = MinigameImage::with('quests')->findOrFail($id);
-        if($minigameImage->quests->isEmpty()){
+        if ($minigameImage->quests->isEmpty()) {
             $minigameImage->deleteImage();
             $minigameImage->delete();
             $alert = ['type' => 'success', 'message' => $minigameImage->name.' deleted!'];
-
         } else {
             $alert = ['type' => 'danger', 'message' => $minigameImage->name.' cannot be deleted. It is attached to past games.'];
         }
@@ -129,7 +128,5 @@ class MinigameImageController extends Controller
         return redirect()
                 ->route('admin.minigameImage.index')
                 ->with('alert', $alert);
-
     }
-
 }

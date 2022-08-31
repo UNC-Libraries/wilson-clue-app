@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class IncorrectAnswer extends Model
 {
-
     /***********************************
      * ATTRIBUTES
      ***********************************/
@@ -15,20 +14,20 @@ class IncorrectAnswer extends Model
      *
      * @var array
      */
-    protected $fillable = array(
+    protected $fillable = [
         'team_id',
         'question_id',
         'answer',
-    );
+    ];
 
     /**
      * The attributes that should be casted to native types.
      *
      * @var array
      */
-    protected $casts = array(
+    protected $casts = [
         'judged' => 'boolean',
-    );
+    ];
 
     /***********************************
      * RELATIONSHIPS
@@ -36,12 +35,12 @@ class IncorrectAnswer extends Model
 
     public function question()
     {
-        return $this->belongsTo('App\Question');
+        return $this->belongsTo(\App\Question::class);
     }
 
     public function team()
     {
-        return $this->belongsTo('App\Team');
+        return $this->belongsTo(\App\Team::class);
     }
 
     /***********************************
@@ -50,23 +49,22 @@ class IncorrectAnswer extends Model
 
     public function scopeJudged($query)
     {
-        return $query->where('judged','=',1);
+        return $query->where('judged', '=', 1);
     }
 
     public function scopeNotJudged($query)
     {
-        return $query->where('judged','=',0);
+        return $query->where('judged', '=', 0);
     }
 
     public function scopeOfGame($query, $id)
     {
-        return $query->whereHas('question', function($query) use ($id){
-            $query->whereHas('quests', function($query) use ($id) {
+        return $query->whereHas('question', function ($query) use ($id) {
+            $query->whereHas('quests', function ($query) use ($id) {
                 $query->where('game_id', $id);
             });
         });
     }
-
 
     /***********************************
      * METHODS
@@ -79,7 +77,4 @@ class IncorrectAnswer extends Model
     /***********************************
      * MUTATORS
      ***********************************/
-
-
-
 }

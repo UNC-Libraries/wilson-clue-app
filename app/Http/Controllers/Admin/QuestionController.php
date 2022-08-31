@@ -2,17 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
-
-use App\Question;
-use App\Location;
-use App\Game;
 use App\Answer;
-use App\Quest;
+use App\Game;
+use App\Http\Controllers\Controller;
+use App\Location;
+use App\Question;
+use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
@@ -32,24 +27,24 @@ class QuestionController extends Controller
         $input = $request->all();
 
         $questions = Question::select();
-        if (!empty($location)) {
+        if (! empty($location)) {
             $questions->where('location_id', '=', $location);
         }
 
-        if (!empty($game)) {
+        if (! empty($game)) {
             $questions->whereHas('quests', function ($query) use ($game) {
                 $query->where('game_id', '=', $game);
             });
         }
-        if (!empty($string)) {
-            $searchString = '%' . $string . '%';
-            $questions->where('full_answer','like',$searchString)
-                ->orWhere('text','like',$searchString);
+        if (! empty($string)) {
+            $searchString = '%'.$string.'%';
+            $questions->where('full_answer', 'like', $searchString)
+                ->orWhere('text', 'like', $searchString);
         }
 
         $questions = $questions->with('incorrectAnswers')->get();
 
-        return view('question.index',compact('locations','games','questions','input','location','game','string'));
+        return view('question.index', compact('locations', 'games', 'questions', 'input', 'location', 'game', 'string'));
     }
 
     /**
@@ -61,7 +56,8 @@ class QuestionController extends Controller
     {
         $question = new Question;
         $locations = Location::get();
-        return view('question.create',compact('question','locations'));
+
+        return view('question.create', compact('question', 'locations'));
     }
 
     /**
@@ -74,7 +70,7 @@ class QuestionController extends Controller
     {
 
         //Validate
-        $this->validate($request,[
+        $this->validate($request, [
             'text' => 'required',
             'full_answer' => 'required',
             'answer' => 'required',
@@ -84,13 +80,13 @@ class QuestionController extends Controller
         // Load and fill question
         $question = new Question;
         $question->fill($request->all());
-        $question->type = $request->type ? 1 :0;
+        $question->type = $request->type ? 1 : 0;
         // Add Image
-        if($request->file('new_image_file')){
+        if ($request->file('new_image_file')) {
             $this->validate($request, [
-                'new_image_file' => 'max:512|mimetypes:image/jpeg,image/png,image/svg+xml'
+                'new_image_file' => 'max:512|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
-            $path = $request->file('new_image_file')->store('questions','public');
+            $path = $request->file('new_image_file')->store('questions', 'public');
             $question->src = $path;
         }
 
@@ -98,11 +94,11 @@ class QuestionController extends Controller
         $question->save();
 
         // Update and set new answers
-        $newAnswers = array();
-        foreach($request->answer as $key => $answerText) {
-            if($key == 'new') {
-                foreach($answerText as $newAnswer) {
-                    $newAnswers[] = new Answer(array('text' => $newAnswer));
+        $newAnswers = [];
+        foreach ($request->answer as $key => $answerText) {
+            if ($key == 'new') {
+                foreach ($answerText as $newAnswer) {
+                    $newAnswers[] = new Answer(['text' => $newAnswer]);
                 }
             } else {
                 $answer = Answer::find($key);
@@ -113,7 +109,7 @@ class QuestionController extends Controller
 
         $question->answers()->saveMany($newAnswers);
 
-        return redirect()->route('admin.question.index',array('id' => $question->id))->with('alert',array('message' => 'Question #'.$question->id.' created!', 'type' => 'success'));
+        return redirect()->route('admin.question.index', ['id' => $question->id])->with('alert', ['message' => 'Question #'.$question->id.' created!', 'type' => 'success']);
     }
 
     /**
@@ -124,15 +120,15 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        $question = Question::with('answers','incorrectAnswers')->findOrFail($id);
+        $question = Question::with('answers', 'incorrectAnswers')->findOrFail($id);
         $incorrect = [];
-        foreach($question->incorrectAnswers->groupBy('answer') as $k => $v){
+        foreach ($question->incorrectAnswers->groupBy('answer') as $k => $v) {
             $incorrect[] = ['answer' => $k, 'count' => $v->count()];
         }
-        $incorrect = empty($incorrect) ? null : collect($incorrect) ;
+        $incorrect = empty($incorrect) ? null : collect($incorrect);
         $locations = Location::get();
 
-        return view('question.edit',compact('question','locations', 'incorrect'));
+        return view('question.edit', compact('question', 'locations', 'incorrect'));
     }
 
     /**
@@ -146,7 +142,7 @@ class QuestionController extends Controller
     {
 
         //Validate
-        $this->validate($request,[
+        $this->validate($request, [
             'text' => 'required',
             'full_answer' => 'required',
             'answer' => 'required',
@@ -156,13 +152,13 @@ class QuestionController extends Controller
         // Load and fill question
         $question = Question::findOrFail($id);
         $question->fill($request->all());
-        $question->type = $request->type ? 1 :0;
+        $question->type = $request->type ? 1 : 0;
         // Update Image
-        if($request->file('new_image_file')){
+        if ($request->file('new_image_file')) {
             $this->validate($request, [
-                'new_image_file' => 'max:512|mimetypes:image/jpeg,image/png,image/svg+xml'
+                'new_image_file' => 'max:512|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
-            $path = $request->file('new_image_file')->store('questions','public');
+            $path = $request->file('new_image_file')->store('questions', 'public');
             $question->deleteImage();
             $question->src = $path;
         }
@@ -171,11 +167,11 @@ class QuestionController extends Controller
         $question->save();
 
         // Update and set new answers
-        $newAnswers = array();
-        foreach($request->answer as $key => $answerText) {
-            if($key == 'new') {
-                foreach($answerText as $newAnswer) {
-                    $newAnswers[] = new Answer(array('text' => $newAnswer));
+        $newAnswers = [];
+        foreach ($request->answer as $key => $answerText) {
+            if ($key == 'new') {
+                foreach ($answerText as $newAnswer) {
+                    $newAnswers[] = new Answer(['text' => $newAnswer]);
                 }
             } else {
                 $answer = Answer::find($key);
@@ -186,7 +182,7 @@ class QuestionController extends Controller
 
         $question->answers()->saveMany($newAnswers);
 
-        return redirect()->route('admin.question.index',array('id' => $question->id))->with('alert',['message' => 'Question #'.$question->id.' updated!', 'type' => 'success']);
+        return redirect()->route('admin.question.index', ['id' => $question->id])->with('alert', ['message' => 'Question #'.$question->id.' updated!', 'type' => 'success']);
     }
 
     /**
@@ -198,8 +194,8 @@ class QuestionController extends Controller
     public function destroy($id)
     {
         $question = Question::with('completedBy')->findOrFail($id);
-        if($question->completedBy->isEmpty()){
-            foreach($question->answers as $answer){
+        if ($question->completedBy->isEmpty()) {
+            foreach ($question->answers as $answer) {
                 $this->destroyAnswer($answer->id);
             }
             $question->quests()->detach();
@@ -232,7 +228,7 @@ class QuestionController extends Controller
     public function newAnswer()
     {
         $answer = new Answer;
-        return view('question._answer_input',compact('answer'));
-    }
 
+        return view('question._answer_input', compact('answer'));
+    }
 }

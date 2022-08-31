@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
 use App\Game;
+use Closure;
 
 class ActiveGame
 {
@@ -16,14 +16,15 @@ class ActiveGame
      */
     public function handle($request, Closure $next)
     {
-        if(!$request->session()->has('gameId')){
+        if (! $request->session()->has('gameId')) {
             $game = Game::active()->first();
-            if(empty($game)){
+            if (empty($game)) {
                 return redirect()->route('player.logout');
             } else {
-                $request->session()->put('gameId',$game->id);
+                $request->session()->put('gameId', $game->id);
             }
         }
+
         return $next($request);
     }
 }

@@ -2,12 +2,11 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Adldap\Laravel\Facades\Adldap;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Player extends Authenticatable
 {
-
     /***********************************
      * ATTRIBUTES
      ***********************************/
@@ -59,7 +58,7 @@ class Player extends Authenticatable
         'SOD' => 'School of Dentistry',
         'OUR' => 'Office of the University Registrar',
         'NONS' => 'Non Student',
-        '' => 'Not Found'
+        '' => 'Not Found',
     ];
 
     const CLASS_OPTIONS = [
@@ -70,9 +69,8 @@ class Player extends Authenticatable
         'LAW' => 'Law',
         'PHCY' => 'Pharmacy',
         'NONS' => 'Non Student',
-        '' => 'Not Found'
+        '' => 'Not Found',
     ];
-
 
     /***********************************
      * RELATIONSHIPS
@@ -80,7 +78,7 @@ class Player extends Authenticatable
 
     public function teams()
     {
-        return $this->belongsToMany('App\Team');
+        return $this->belongsToMany(\App\Team::class);
     }
 
     /***********************************
@@ -89,14 +87,14 @@ class Player extends Authenticatable
 
     public function scopeOfGame($query, $gameId)
     {
-        return $query->whereHas('teams', function($scopeQuery) use ($gameId) {
-            $scopeQuery->where('game_id',$gameId);
+        return $query->whereHas('teams', function ($scopeQuery) use ($gameId) {
+            $scopeQuery->where('game_id', $gameId);
         });
     }
 
     public function scopeCheckedIn($query)
     {
-        return $query->where('checked_in',true);
+        return $query->where('checked_in', true);
     }
 
     /***********************************
@@ -107,13 +105,13 @@ class Player extends Authenticatable
      * Check for valid onyen
      *
      * @param onyen string
-     *
-     * @return boolean
+     * @return bool
      */
     public function validOnyen($onyen)
     {
         $search = Adldap::getProvider('people')->search()->where('uid', '=', $onyen)->get();
-        return !$search->isEmpty();
+
+        return ! $search->isEmpty();
     }
 
     /**
@@ -123,8 +121,7 @@ class Player extends Authenticatable
      */
     public function updateFromOnyen($onyen, $override_student = false)
     {
-        if($this->validOnyen($onyen)) {
-
+        if ($this->validOnyen($onyen)) {
             $getPerson = Adldap::getProvider('people')->search()->where('uid', '=', $onyen)->get();
             $uncPerson = $getPerson->first();
 
@@ -145,8 +142,9 @@ class Player extends Authenticatable
             }
         }
 
-        if($override_student) { $this->student = true; }
-
+        if ($override_student) {
+            $this->student = true;
+        }
     }
 
     /**
@@ -156,29 +154,28 @@ class Player extends Authenticatable
      */
     public function getWarnings(Game $game = null)
     {
-
         $warnings = [];
 
-        if(!$this->validOnyen($this->onyen)){
+        if (! $this->validOnyen($this->onyen)) {
             $warnings[] = 'enlist.add_player.onyen_not_found';
         }
 
         // Check that player hasn't been checked in
-        if($this->checked_in){
+        if ($this->checked_in) {
             $warnings[] = 'enlist.add_player.previous';
         }
 
         // Checks that player isn't already registered for this game
         //$this->teams->load();
-        if($this->teams) {
-            if($this->teams->pluck('game.id')->contains($game->id)){
+        if ($this->teams) {
+            if ($this->teams->pluck('game.id')->contains($game->id)) {
                 $warnings[] = 'enlist.add_player.current';
             }
         }
 
         // Check that player is a student (for student only games)
-        if($game){
-            if($game->students_only && !$this->student){
+        if ($game) {
+            if ($game->students_only && ! $this->student) {
                 $warnings[] = 'enlist.add_player.not_student';
             }
         }
@@ -189,7 +186,6 @@ class Player extends Authenticatable
     /***********************************
      * ACCESSORS
      ***********************************/
-
 
     /**
      * Get the player's first name.
@@ -246,7 +242,6 @@ class Player extends Authenticatable
         return self::ACADEMIC_GROUP_OPTIONS[$this->academic_group_code];
     }
 
-
     /***********************************
      * MUTATORS
      ***********************************/
@@ -276,7 +271,7 @@ class Player extends Authenticatable
     /**
      * Set the class code attribute
      *
-     * @param string $value
+     * @param  string  $value
      * @return void
      */
     public function setClassCodeAttribute($value)
@@ -287,14 +282,11 @@ class Player extends Authenticatable
     /**
      * Set the academic group code attribute
      *
-     * @param string $value
+     * @param  string  $value
      * @return void
      */
     public function setAcademicGroupCodeAttribute($value)
     {
         $this->attributes['academic_group_code'] = $value ? $value : '';
     }
-
-
-
 }

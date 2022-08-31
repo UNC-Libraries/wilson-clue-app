@@ -5,11 +5,9 @@ namespace App;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
-use Carbon\Carbon;
 
 class Question extends Model
 {
-
     /***********************************
      * ATTRIBUTES
      ***********************************/
@@ -18,22 +16,22 @@ class Question extends Model
      *
      * @var array
      */
-    protected $fillable = array(
+    protected $fillable = [
         'text',
         'type',
         'full_answer',
         'src',
         'location_id',
-    );
+    ];
 
-    protected $casts = array(
+    protected $casts = [
         'type' => 'boolean',
-    );
+    ];
 
-    protected $hidden = array(
+    protected $hidden = [
         'full_answer',
         'answers',
-    );
+    ];
 
     /***********************************
      * RELATIONSHIPS
@@ -41,26 +39,27 @@ class Question extends Model
 
     public function answers()
     {
-        return $this->hasMany('App\Answer');
+        return $this->hasMany(\App\Answer::class);
     }
 
     public function quests()
     {
-        return $this->belongsToMany('App\Quest');
+        return $this->belongsToMany(\App\Quest::class);
     }
 
     public function incorrectAnswers()
     {
-        return $this->hasMany('App\IncorrectAnswer');
+        return $this->hasMany(\App\IncorrectAnswer::class);
     }
 
     public function location()
     {
-        return $this->belongsTo('App\Location');
+        return $this->belongsTo(\App\Location::class);
     }
+
     public function completedBy()
     {
-        return $this->belongsToMany('App\Team')->withTimestamps();
+        return $this->belongsToMany(\App\Team::class)->withTimestamps();
     }
 
     /***********************************
@@ -68,8 +67,8 @@ class Question extends Model
      ***********************************/
     public function scopeOfQuest($query, $questId)
     {
-        return $query->whereHas('quests', function($scopeQuery) use ($questId) {
-            $scopeQuery->where('id',$questId);
+        return $query->whereHas('quests', function ($scopeQuery) use ($questId) {
+            $scopeQuery->where('id', $questId);
         });
     }
 
@@ -80,7 +79,7 @@ class Question extends Model
     {
         $upload_path = config('filesystems.disks.public.root');
         $image_path = $this->attributes['src'];
-        if(File::exists("$upload_path/$image_path")){
+        if (File::exists("$upload_path/$image_path")) {
             File::delete("$upload_path/$image_path");
         }
     }
@@ -106,11 +105,11 @@ class Question extends Model
     /**
      * Check if the question needs judgement
      *
-     * @return boolean
+     * @return bool
      */
     public function getNeedsJudgementAttribute()
     {
-        return !$this->not_judged_answers->isEmpty();
+        return ! $this->not_judged_answers->isEmpty();
     }
 
     public function getSrcAttribute($value)
@@ -118,11 +117,7 @@ class Question extends Model
         return env('PUBLIC_UPLOADS_PATH')."/$value";
     }
 
-
     /***********************************
      * MUTATORS
      ***********************************/
-
-
-
 }

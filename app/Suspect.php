@@ -14,29 +14,29 @@ class Suspect extends Model
      *
      * @var array
      */
-    protected $fillable = array(
+    protected $fillable = [
         'name',
         'machine',
         'profession',
         'bio',
         'quote',
-    );
+    ];
 
     /**
      * The additional attributes
      *
      * @var array
      */
-    protected $appends = array(
+    protected $appends = [
         'bootstrap_color',
-    );
+    ];
 
     /***********************************
      * RELATIONSHIPS
      ***********************************/
     public function quest()
     {
-        return $this->hasMany('App\Quest');
+        return $this->hasMany(\App\Quest::class);
     }
 
     /***********************************
@@ -72,15 +72,15 @@ class Suspect extends Model
 
     public function getSideAttribute()
     {
-        if(in_array($this->machine,['plum','mustard','green'])){
+        if (in_array($this->machine, ['plum', 'mustard', 'green'])) {
             return 'char-right-page';
         } else {
             return 'char-left-page';
         }
-
     }
 
-    public function getImagePathAttribute(){
+    public function getImagePathAttribute()
+    {
         return 'images/suspects/';
     }
 
@@ -107,6 +107,4 @@ class Suspect extends Model
     /***********************************
      * MUTATORS
      ***********************************/
-
-
 }

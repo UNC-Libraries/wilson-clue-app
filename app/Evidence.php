@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 
 class Evidence extends Model
@@ -17,19 +16,17 @@ class Evidence extends Model
      *
      * @var array
      */
-
-    protected $fillable = array(
+    protected $fillable = [
         'title',
-        'src'
-    );
-
+        'src',
+    ];
 
     /***********************************
      * RELATIONSHIPS
      ***********************************/
     public function games()
     {
-        return $this->belongsToMany('App\Game');
+        return $this->belongsToMany(\App\Game::class);
     }
 
     /***********************************
@@ -43,7 +40,7 @@ class Evidence extends Model
     {
         $upload_path = config('filesystems.disks.public.root');
         $image_path = $this->attributes['src'];
-        if(File::exists("$upload_path/$image_path")){
+        if (File::exists("$upload_path/$image_path")) {
             File::delete("$upload_path/$image_path");
         }
     }

@@ -1,20 +1,19 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class DropMapSectionsTable extends Migration
 {
-
     const OLD_MAP_SECTIONS = [
         1 => 'first',
         2 => 'second',
         3 => 'ncc',
         4 => '2rr',
         5 => 'grand',
-        6 => 'salt'
+        6 => 'salt',
     ];
 
     /**
@@ -33,7 +32,7 @@ class DropMapSectionsTable extends Migration
         });
 
         // Insert the map section name where the id was in the locations table
-        foreach(self::OLD_MAP_SECTIONS as $id => $name) {
+        foreach (self::OLD_MAP_SECTIONS as $id => $name) {
             DB::table('locations')->where('map_section_id', $id)->update(['map_section' => $name]);
         }
 
@@ -56,7 +55,7 @@ class DropMapSectionsTable extends Migration
             $table->integer('map_section_id')->after('name');
         });
         // Insert the old map section id
-        foreach(self::OLD_MAP_SECTIONS as $id => $name) {
+        foreach (self::OLD_MAP_SECTIONS as $id => $name) {
             DB::table('locations')->where('map_section', $name)->update(['map_section_id' => $id]);
         }
         // Drop the map section column
