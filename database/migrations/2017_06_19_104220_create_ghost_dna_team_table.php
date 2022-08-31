@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateGhostDnaTeamTable extends Migration
 {
@@ -12,7 +12,7 @@ class CreateGhostDnaTeamTable extends Migration
      */
     public function up()
     {
-        Schema::create('ghost_dna_team', function(Blueprint $table){
+        Schema::create('ghost_dna_team', function (Blueprint $table) {
             $table->integer('team_id');
             $table->integer('ghost_dna_id');
             $table->timestamps();

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\Suspect;
+use Illuminate\Http\Request;
 
 class SuspectController extends Controller
 {
@@ -17,7 +16,8 @@ class SuspectController extends Controller
     public function index()
     {
         $suspects = Suspect::get();
-        return view('suspect.index',compact('suspects'));
+
+        return view('suspect.index', compact('suspects'));
     }
 
     /**
@@ -29,7 +29,8 @@ class SuspectController extends Controller
     public function edit($id)
     {
         $suspect = Suspect::findOrFail($id);
-        return view('suspect.edit',compact('suspect'));
+
+        return view('suspect.edit', compact('suspect'));
     }
 
     /**
@@ -43,16 +44,14 @@ class SuspectController extends Controller
     {
         $suspect = Suspect::findOrFail($id);
 
-        foreach($suspect->getAttributes() as $key => $value){
-
-            if(isset($request->{$key}) && $value !== $request->{$key}){
+        foreach ($suspect->getAttributes() as $key => $value) {
+            if (isset($request->{$key}) && $value !== $request->{$key}) {
                 $suspect->{$key} = $request->{$key};
             }
         }
 
         $suspect->save();
 
-        return redirect()->route('admin.suspect.index')->with(['message'=>$suspect->name.' updated']);
+        return redirect()->route('admin.suspect.index')->with(['message' => $suspect->name.' updated']);
     }
-
 }

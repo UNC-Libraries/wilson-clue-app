@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Team extends Model
 {
-
     const MINIMUM_PLAYERS = 4;
+
     use SoftDeletes;
 
     /***********************************
@@ -27,31 +27,31 @@ class Team extends Model
      *
      * @var array
      */
-    protected $fillable = array(
+    protected $fillable = [
         'name',
         'dietary',
         'bonus_points',
-    );
+    ];
 
     /**
      * The additional attributes
      *
      * @var array
      */
-    protected $appends = array(
+    protected $appends = [
         'indictment_made',
-        'indictment_correct'
-    );
+        'indictment_correct',
+    ];
 
     /**
      * The attributes that should be casted to native types.
      *
      * @var array
      */
-    protected $casts = array(
+    protected $casts = [
         'waitlist' => 'boolean',
-        'score' => 'float'
-    );
+        'score' => 'float',
+    ];
 
     /***********************************
      * ACCESSORS
@@ -69,19 +69,19 @@ class Team extends Model
     /**
      * Check if an indictment is correct
      *
-     * @return boolean
+     * @return bool
      */
     public function getIndictmentCorrectAttribute()
     {
-        if(empty($this->game->solution)){
+        if (empty($this->game->solution)) {
             return false;
         }
 
         return [
             'suspect' => $this->suspect_id,
             'location' => $this->location_id,
-            'evidence' => $this->evidence_id
-            ] == $this->game->solution;
+            'evidence' => $this->evidence_id,
+        ] == $this->game->solution;
     }
 
     /**
@@ -97,11 +97,11 @@ class Team extends Model
 
         $notSet = $this->updated_at->addYears(1)->format('U');
 
-        foreach($this->game()->first()->quests()->with('suspect')->get() as $quest) {
+        foreach ($this->game()->first()->quests()->with('suspect')->get() as $quest) {
             $status[] = [
-                'name' =>  $quest->suspect->name,
+                'name' => $quest->suspect->name,
                 'color' => $completed->contains('id', $quest->id) ? $quest->suspect->machine : 'empty',
-                'time' => $completed->contains('id', $quest->id) ? $completed->where('id',$quest->id)->first()->pivot->updated_at->format('U') : $notSet
+                'time' => $completed->contains('id', $quest->id) ? $completed->where('id', $quest->id)->first()->pivot->updated_at->format('U') : $notSet,
             ];
         }
         $status[] = [
@@ -137,7 +137,8 @@ class Team extends Model
         return $this->belongsToMany('App\Player');
     }
 
-    public function checkedInPlayers(){
+    public function checkedInPlayers()
+    {
         return $this->belongsToMany('App\Player')->checkedIn();
     }
 
@@ -182,18 +183,18 @@ class Team extends Model
 
     public function scopeRegistered($query)
     {
-        return $query->where('waitlist','=',0);
+        return $query->where('waitlist', '=', 0);
     }
 
     public function scopeWaitlist($query)
     {
-        return $query->where('waitlist','=',1);
+        return $query->where('waitlist', '=', 1);
     }
 
     public function scopeActive($query)
     {
-        return $query->whereHas('game', function($scopeQuery){
-            $scopeQuery->where('active',1);
+        return $query->whereHas('game', function ($scopeQuery) {
+            $scopeQuery->where('active', 1);
         });
     }
 
@@ -203,9 +204,9 @@ class Team extends Model
 
     public function checkPlayerWarnings()
     {
-        foreach($this->players as $player) {
-            foreach($player->warnings as $warning){
-                if(!$warning->isEmpty()){
+        foreach ($this->players as $player) {
+            foreach ($player->warnings as $warning) {
+                if (! $warning->isEmpty()) {
                     return true;
                 }
             }
@@ -213,5 +214,4 @@ class Team extends Model
 
         return false;
     }
-
 }

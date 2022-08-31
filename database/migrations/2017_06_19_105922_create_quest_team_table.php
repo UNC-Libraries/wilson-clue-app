@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateQuestTeamTable extends Migration
 {
@@ -12,7 +12,7 @@ class CreateQuestTeamTable extends Migration
      */
     public function up()
     {
-        Schema::create('quest_team', function(Blueprint $table){
+        Schema::create('quest_team', function (Blueprint $table) {
             $table->integer('team_id');
             $table->integer('quest_id');
             $table->timestamps();

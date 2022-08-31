@@ -2,8 +2,6 @@
 
 namespace App\Validation;
 
-use App\GhostDna;
-
 class ClueValidator
 {
     /*
@@ -14,7 +12,7 @@ class ClueValidator
     {
         $allowedChars = 'ghst';
 
-        if(array_diff(array_unique(str_split($allowedChars)), array_unique(str_split($value)))){
+        if (array_diff(array_unique(str_split($allowedChars)), array_unique(str_split($value)))) {
             return false;
         }
 

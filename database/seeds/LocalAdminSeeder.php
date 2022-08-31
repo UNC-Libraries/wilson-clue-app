@@ -1,8 +1,8 @@
 <?php
 
+use App\Agent;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use App\Agent;
 
 class LocalAdminSeeder extends Seeder
 {
@@ -14,7 +14,7 @@ class LocalAdminSeeder extends Seeder
     public function run()
     {
         // Only run this if you're on a local environment
-        if(env('APP_ENV') === 'local') {
+        if (env('APP_ENV') === 'local') {
             $agent = new Agent;
             $agent->onyen = 'admin';
             $agent->first_name = 'admin';

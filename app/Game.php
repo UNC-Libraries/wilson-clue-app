@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Game extends Model
 {
-
     use SoftDeletes;
 
     /***********************************
@@ -26,11 +25,11 @@ class Game extends Model
      *
      * @var array
      */
-    protected $appends = array(
+    protected $appends = [
         'spots_left' => 0,
         'inProgress' => 0,
-        'solution' => array(),
-    );
+        'solution' => [],
+    ];
 
     /**
      * The fillable attributes
@@ -67,9 +66,8 @@ class Game extends Model
      */
     protected $casts = [
         'active' => 'boolean',
-        'students_only' => 'boolean'
+        'students_only' => 'boolean',
     ];
-
 
     /***********************************
      * RELATIONSHIPS
@@ -116,17 +114,19 @@ class Game extends Model
 
     public function solutionEvidence()
     {
-        return $this->hasOne('App\Evidence','id','evidence_id');
+        return $this->hasOne('App\Evidence', 'id', 'evidence_id');
     }
 
     public function quests()
     {
         return $this->hasMany('App\Quest');
     }
+
     public function evidence()
     {
         return $this->belongsToMany('App\Evidence');
     }
+
     public function alerts()
     {
         return $this->hasMany('App\Alert');
@@ -149,7 +149,6 @@ class Game extends Model
     {
         return $query->where('archive', 1)->orderBy('start_time', 'desc');
     }
-
 
     /***********************************
      * METHODS
@@ -185,7 +184,7 @@ class Game extends Model
 
     public function getStatusTextAttribute()
     {
-        if($this->inProgress){
+        if ($this->inProgress) {
             return 'In Progress';
         } elseif ($this->active) {
             return 'Current (active)';
@@ -206,7 +205,6 @@ class Game extends Model
         return ['suspect' => $this->suspect_id, 'location' => $this->location_id, 'evidence' => $this->evidence_id];
     }
 
-
     /***********************************
      * MUTATORS
      ***********************************/
@@ -214,5 +212,4 @@ class Game extends Model
     {
         $this->attributes['case_file_items'] = json_encode($value);
     }
-
 }

@@ -3,13 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Suspect;
 
 class Quest extends Model
 {
-
     use SoftDeletes;
 
     /***********************************
@@ -28,16 +25,16 @@ class Quest extends Model
      *
      * @var array
      */
-    protected $fillable = array(
+    protected $fillable = [
         'type',
         'location_id',
-        'suspect_id'
+        'suspect_id',
 
-    );
+    ];
 
-    protected $appends = array(
+    protected $appends = [
         'types',
-    );
+    ];
 
     /***********************************
      * RELATIONSHIPS
@@ -61,10 +58,12 @@ class Quest extends Model
     {
         return $this->belongsToMany('App\MinigameImage');
     }
+
     public function completedBy()
     {
         return $this->belongsToMany('App\Team')->registered()->withTimestamps();
     }
+
     public function game()
     {
         return $this->belongsTo('App\Game');
@@ -77,6 +76,7 @@ class Quest extends Model
     {
         return $query->where('type', '=', 'minigame');
     }
+
     public function scopeQuestionType($query)
     {
         return $query->where('type', '=', 'question');
@@ -92,20 +92,20 @@ class Quest extends Model
 
     public function getTypesAttribute()
     {
-        return $this->attributes['types'] = array(
+        return $this->attributes['types'] = [
             'question' => 'Question',
             'minigame' => 'First Floor Minigame',
-        );
+        ];
     }
 
     public function getTeamCompletedAttribute($teamId)
     {
-        return in_array($teamId,$this->completedBy()->pluck('id')->all());
+        return in_array($teamId, $this->completedBy()->pluck('id')->all());
     }
 
     public function getNeedsJudgementAttribute()
     {
-        return !$this->questions->where('needs_judgement',true)->isEmpty();
+        return ! $this->questions->where('needs_judgement', true)->isEmpty();
     }
 
     /***********************************

@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateQuestQuestionTable extends Migration
 {
@@ -12,7 +12,7 @@ class CreateQuestQuestionTable extends Migration
      */
     public function up()
     {
-        Schema::create('quest_question', function(Blueprint $table){
+        Schema::create('quest_question', function (Blueprint $table) {
             $table->integer('quest_id');
             $table->integer('question_id');
             $table->integer('order');

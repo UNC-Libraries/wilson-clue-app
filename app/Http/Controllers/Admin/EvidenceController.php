@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-
 use App\Evidence;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EvidenceController extends Controller
 {
@@ -20,7 +17,8 @@ class EvidenceController extends Controller
     public function index()
     {
         $evidence = Evidence::get();
-        return view('evidence.index',compact('evidence'));
+
+        return view('evidence.index', compact('evidence'));
     }
 
     /**
@@ -30,25 +28,24 @@ class EvidenceController extends Controller
      */
     public function getEvidence(Request $request)
     {
-
         $evidence = Evidence::select();
 
         $gameId = $request->input('game_id');
         $exclude_evidence = $request->input('exclude_evidence');
         $view = $request->input('view') ? $request->input('view') : null;
 
-        if (!empty($gameId)) {
+        if (! empty($gameId)) {
             $evidence->whereHas('games', function ($query) use ($game) {
                 $query->where('game_id', '=', $game);
             });
         }
 
-        if (!empty($exclude_evidence)) {
-            $evidence->whereNotIn('id',explode(',',$exclude_evidence));
+        if (! empty($exclude_evidence)) {
+            $evidence->whereNotIn('id', explode(',', $exclude_evidence));
         }
 
-        if($view){
-            return view($view,compact('questions'));
+        if ($view) {
+            return view($view, compact('questions'));
         } else {
             return response()->json($evidence);
         }
@@ -63,7 +60,7 @@ class EvidenceController extends Controller
     {
         $evidence = new Evidence;
 
-        return view('evidence.create',compact('evidence'));
+        return view('evidence.create', compact('evidence'));
     }
 
     /**
@@ -76,7 +73,7 @@ class EvidenceController extends Controller
     {
 
         //Validate
-        $this->validate($request,[
+        $this->validate($request, [
             'title' => 'required',
         ]);
 
@@ -84,11 +81,11 @@ class EvidenceController extends Controller
         $evidence = new Evidence;
         $evidence->fill($request->all());
         // Add Image
-        if($request->file('new_image_file')){
+        if ($request->file('new_image_file')) {
             $this->validate($request, [
-                'new_image_file' => 'max:512|mimetypes:image/jpeg,image/png,image/svg+xml'
+                'new_image_file' => 'max:512|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
-            $path = $request->file('new_image_file')->store('evidence','public');
+            $path = $request->file('new_image_file')->store('evidence', 'public');
             $evidence->src = $path;
         }
 
@@ -108,7 +105,7 @@ class EvidenceController extends Controller
     {
         $evidence = Evidence::findOrFail($id);
 
-        return view('evidence.edit',compact('evidence'));
+        return view('evidence.edit', compact('evidence'));
     }
 
     /**
@@ -122,7 +119,7 @@ class EvidenceController extends Controller
     {
 
         //Validate
-        $this->validate($request,[
+        $this->validate($request, [
             'title' => 'required',
         ]);
         $imageType = $request->get('image_type');
@@ -132,11 +129,11 @@ class EvidenceController extends Controller
         $evidence->fill($request->all());
         $evidence->fill($request->all());
         // Update Image
-        if($request->file('new_image_file')){
+        if ($request->file('new_image_file')) {
             $this->validate($request, [
-                'new_image_file' => 'max:512|mimetypes:image/jpeg,image/png,image/svg+xml'
+                'new_image_file' => 'max:512|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
-            $path = $request->file('new_image_file')->store('evidence','public');
+            $path = $request->file('new_image_file')->store('evidence', 'public');
             $evidence->deleteImage();
             $evidence->src = $path;
         }
@@ -156,16 +153,14 @@ class EvidenceController extends Controller
     public function destroy($id)
     {
         $evidence = Evidence::with('games')->findOrFail($id);
-        if($evidence->games->isEmpty()){
+        if ($evidence->games->isEmpty()) {
             $evidence->deleteImage();
             $evidence->delete();
             $alert = ['type' => 'success', 'message' => $evidence->title.' deleted!'];
-
         } else {
             $alert = ['type' => 'danger', 'message' => $evidence->title.' cannot be deleted. It is attached to past games.'];
         }
 
         return redirect()->route('admin.evidence.index')->with('alert', $alert);
     }
-
 }

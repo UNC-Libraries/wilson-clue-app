@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateIncorrectAnswersTable extends Migration
 {
@@ -12,7 +12,7 @@ class CreateIncorrectAnswersTable extends Migration
      */
     public function up()
     {
-        Schema::create('incorrect_answers', function(Blueprint $table){
+        Schema::create('incorrect_answers', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('team_id');
             $table->integer('question_id');

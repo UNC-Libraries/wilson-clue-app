@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateEvidenceGameTable extends Migration
 {
@@ -12,7 +12,7 @@ class CreateEvidenceGameTable extends Migration
      */
     public function up()
     {
-        Schema::create('evidence_game', function(Blueprint $table){
+        Schema::create('evidence_game', function (Blueprint $table) {
             $table->integer('evidence_id');
             $table->integer('game_id');
         });

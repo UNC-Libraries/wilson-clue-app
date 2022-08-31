@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-
-use App\Http\Requests;
-use App\Quest;
 use App\Game;
+use App\Http\Controllers\Controller;
 use App\Location;
-use App\Suspect;
-use App\Question;
-use App\Evidence;
 use App\MinigameImage;
-use DB;
+use App\Quest;
+use App\Question;
+use App\Suspect;
+use Illuminate\Http\Request;
 
 class QuestController extends Controller
 {
@@ -24,7 +20,6 @@ class QuestController extends Controller
      */
     public function index()
     {
-
     }
 
     /**
@@ -65,7 +60,7 @@ class QuestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($gameId,$questId)
+    public function edit($gameId, $questId)
     {
         $game = Game::findOrFail($gameId);
         $suspects = Suspect::get();
@@ -78,16 +73,16 @@ class QuestController extends Controller
             'minigameImages',
         ])->findOrFail($questId);
 
-        $questions = Question::where('location_id','=',$quest->location_id)
-                            ->whereNotIn('id',$quest->questions->pluck('id'))
-                            ->orderBy('created_at','desc')
+        $questions = Question::where('location_id', '=', $quest->location_id)
+                            ->whereNotIn('id', $quest->questions->pluck('id'))
+                            ->orderBy('created_at', 'desc')
                             ->get();
 
         $attachedMinigameImages = $quest->minigameImages ? $quest->minigameImages->pluck('id')->all() : [];
-        $minigameImages = MinigameImage::whereNotIn('id',$attachedMinigameImages)
+        $minigameImages = MinigameImage::whereNotIn('id', $attachedMinigameImages)
                             ->get();
 
-        return view('quest.edit',compact('game','quest','suspects','questions','games','minigameImages','locations'));
+        return view('quest.edit', compact('game', 'quest', 'suspects', 'questions', 'games', 'minigameImages', 'locations'));
     }
 
     /**
@@ -103,14 +98,14 @@ class QuestController extends Controller
         $game = Game::findOrFail($gameId);
 
         // Unset the suspect or location from the game solution if they were used.
-        if($quest->location_id != $request->location_id){
-            if($game->location_id == $quest->location_id){
+        if ($quest->location_id != $request->location_id) {
+            if ($game->location_id == $quest->location_id) {
                 $game->location_id = 0;
                 $game->save();
             }
         }
-        if($quest->suspect_id != $request->suspect_id){
-            if($game->suspect_id == $quest->suspect_id){
+        if ($quest->suspect_id != $request->suspect_id) {
+            if ($game->suspect_id == $quest->suspect_id) {
                 $game->suspect_id = 0;
                 $game->save();
             }
@@ -120,25 +115,24 @@ class QuestController extends Controller
         $quest->questions()->detach();
         $quest->minigameImages()->detach();
 
-        switch($quest->type)
-        {
+        switch ($quest->type) {
             case 'question':
                 $attachArray = [];
-                foreach(explode(',',$request->input('question_list')) as $order => $id)
-                {
-                    if($id){
+                foreach (explode(',', $request->input('question_list')) as $order => $id) {
+                    if ($id) {
                         $attachArray[$id] = ['order' => $order];
                     }
                 }
                 $quest->questions()->attach($attachArray);
                 break;
             case 'minigame':
-                $quest->minigameImages()->attach(explode(',',$request->input('minigame_image_list')));
+                $quest->minigameImages()->attach(explode(',', $request->input('minigame_image_list')));
                 break;
         }
 
         $quest->save();
-        return redirect()->route('admin.game.edit',$gameId)->with('alert',array('message' => $quest->location->name.' updated', 'type' => 'success'));
+
+        return redirect()->route('admin.game.edit', $gameId)->with('alert', ['message' => $quest->location->name.' updated', 'type' => 'success']);
     }
 
     /**

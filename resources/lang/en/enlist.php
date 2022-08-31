@@ -18,8 +18,6 @@ return [
         'onyen_not_found' => 'We weren\'t able to find anyone with the Onyen you\'ve provided.',
         'full' => 'Teams cannot have more that 5 players. Please remove a registered player to add a new one.',
     ],
-    'no_game' => ''
-
-
+    'no_game' => '',
 
 ];

@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateViewingTable extends Migration
 {
@@ -12,7 +12,7 @@ class CreateViewingTable extends Migration
      */
     public function up()
     {
-        Schema::create('viewing', function(Blueprint $table){
+        Schema::create('viewing', function (Blueprint $table) {
             $table->integer('player_id');
             $table->integer('game_id');
             $table->string('route');

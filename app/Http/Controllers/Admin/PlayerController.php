@@ -3,16 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Game;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Player;
 use Hash;
-use Adldap\Laravel\Facades\Adldap;
+use Illuminate\Http\Request;
 
 class PlayerController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +26,7 @@ class PlayerController extends Controller
         $selectedSort = $request->get('sort_by') ? $request->get('sort_by') : 'last_name';
         $sortOrder = [
             'asc' => 'asc',
-            'desc' => 'desc'
+            'desc' => 'desc',
         ];
         $selectedSortOrder = $request->get('sort_order') ? $request->get('sort_order') : 'asc';
 
@@ -40,14 +37,14 @@ class PlayerController extends Controller
         //Request Vars
         $game = $request->get('game');
         $class = $request->get('class');
-        if($class){
-            array_walk($class, function(&$v){
+        if ($class) {
+            array_walk($class, function (&$v) {
                 $v = $v === null ? '' : $v;
             });
         }
         $group = $request->get('group');
-        if($group){
-            array_walk($group, function(&$v){
+        if ($group) {
+            array_walk($group, function (&$v) {
                 $v = $v === null ? '' : $v;
             });
         }
@@ -58,20 +55,20 @@ class PlayerController extends Controller
 
         $players = Player::select();
 
-        if (!empty($game)) {
-            $players->whereHas('teams', function($query) use ($game){
-                $query->whereIn('game_id',$game);
+        if (! empty($game)) {
+            $players->whereHas('teams', function ($query) use ($game) {
+                $query->whereIn('game_id', $game);
             });
         }
 
-        if (!empty($class)) {
+        if (! empty($class)) {
             $players->whereIn('class_code', $class);
         }
-        if (!empty($group)) {
+        if (! empty($group)) {
             $players->whereIn('academic_group_code', $group);
         }
-        if(!empty($played)){
-            switch($played){
+        if (! empty($played)) {
+            switch ($played) {
                 case 'yes':
                     $players->where('checked_in', 1);
                     break;
@@ -82,13 +79,13 @@ class PlayerController extends Controller
                     break;
             }
         }
-        if(!empty($nonStudent)){
+        if (! empty($nonStudent)) {
             $players->where('student', 0);
         }
-        if(!empty($manual)){
+        if (! empty($manual)) {
             $players->where('manual', 1);
         }
-        if(!empty($search)){
+        if (! empty($search)) {
             $qs = "%$search%";
             $players->where('first_name', 'like', $qs)
                 ->orWhere('last_name', 'like', $qs)
@@ -97,9 +94,9 @@ class PlayerController extends Controller
                 ->orWhere('onyen', 'like', $qs);
         }
 
-        if($selectedSort == 'team'){
+        if ($selectedSort == 'team') {
             $players = $players->with('teams')->get();
-            if($selectedSortOrder == 'desc'){
+            if ($selectedSortOrder == 'desc') {
                 $players = $players->sortByDesc(function ($player, $key) {
                     return $player->teams->count();
                 });
@@ -112,8 +109,7 @@ class PlayerController extends Controller
             $players = $players->with('teams')->orderBy($selectedSort, $selectedSortOrder)->get();
         }
 
-
-        return view('player.index',compact(
+        return view('player.index', compact(
             'players',
             'games',
             'sortOptions',
@@ -135,9 +131,9 @@ class PlayerController extends Controller
      */
     public function edit($id)
     {
-        $player = Player::with('teams','teams.game')->findOrFail($id);
-        return view('player.edit', compact('player'));
+        $player = Player::with('teams', 'teams.game')->findOrFail($id);
 
+        return view('player.edit', compact('player'));
     }
 
     /**
@@ -152,7 +148,7 @@ class PlayerController extends Controller
         $player = Player::findOrFail($id);
         $player->checked_in = false;
         $player->fill($request->all());
-        if($request->get('password')){
+        if ($request->get('password')) {
             $player->onyen = $request->get('email');
             $player->password = Hash::make($request->get('password'));
         }
@@ -174,6 +170,6 @@ class PlayerController extends Controller
         $player->teams()->detach();
         $player->delete();
 
-        return redirect()->route('admin.player.index')->with('alert',['type' => 'success', 'message' => $message]);
+        return redirect()->route('admin.player.index')->with('alert', ['type' => 'success', 'message' => $message]);
     }
 }

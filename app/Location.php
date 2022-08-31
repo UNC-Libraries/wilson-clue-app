@@ -3,11 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use DB;
 
 class Location extends Model
 {
-
     /***********************************
      * ATTRIBUTES
      ***********************************/
@@ -16,12 +14,12 @@ class Location extends Model
      *
      * @var array
      */
-    protected $fillable = array(
+    protected $fillable = [
         'name',
         'floor',
         'description',
-        'map_section'
-    );
+        'map_section',
+    ];
 
     /***********************************
      * RELATIONSHIPS
@@ -46,12 +44,12 @@ class Location extends Model
     public function getFloorNthAttribute()
     {
         $number = $this->floor;
-        $ends = array('th','st','nd','rd','th','th','th','th','th','th');
-        if (($number %100) >= 11 && ($number%100) <= 13)
-            return $number. 'th';
-        else
-            return $number. $ends[$number % 10];
-
+        $ends = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
+        if (($number % 100) >= 11 && ($number % 100) <= 13) {
+            return $number.'th';
+        } else {
+            return $number.$ends[$number % 10];
+        }
     }
 
     /***********************************

@@ -3,25 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Evidence;
-use App\IncorrectAnswer;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\Game;
-use App\Quest;
+use App\Http\Controllers\Controller;
 use App\Location;
+use App\Player;
+use App\Quest;
 use App\Suspect;
 use App\Team;
-use App\Player;
-use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GameController extends Controller
 {
-
     public function __construct()
     {
-
     }
 
     /**
@@ -42,6 +38,7 @@ class GameController extends Controller
     public function create()
     {
         $game = new Game;
+
         return view('game.create', compact('game'));
     }
 
@@ -71,8 +68,8 @@ class GameController extends Controller
 
         $suspects = Suspect::all();
         $quests = [];
-        foreach($suspects as $s) {
-            switch($s->id){
+        foreach ($suspects as $s) {
+            switch ($s->id) {
                 case '3':
                     $locationId = 4;
                     break;
@@ -103,7 +100,9 @@ class GameController extends Controller
     public function show($id)
     {
         $game = Game::with(
-            ['registeredTeams' => function($query){ $query->orderBy('name'); }],
+            ['registeredTeams' => function ($query) {
+            $query->orderBy('name');
+            }],
             'waitlistTeams',
             'solutionSuspect',
             'solutionLocation',
@@ -119,7 +118,7 @@ class GameController extends Controller
 
         $players = Player::ofGame($id)->get();
 
-        return view('game.dashboard',compact('game','players', 'warnings'));
+        return view('game.dashboard', compact('game', 'players', 'warnings'));
     }
 
     /**
@@ -146,7 +145,7 @@ class GameController extends Controller
         $warnings = $this->getWarnings($game);
         $locations = Location::get();
 
-        return view('game.edit',compact('game', 'warnings', 'locations'));
+        return view('game.edit', compact('game', 'warnings', 'locations'));
     }
 
     /**
@@ -160,53 +159,52 @@ class GameController extends Controller
     {
         $game = Game::findOrFail($id);
 
-        if($request->cf_item){
+        if ($request->cf_item) {
             $cfInput = $request->input('cf_item');
-            $cfItems = array();
-            foreach($cfInput['title'] as $key => $value){
-                $cfItems[$key] = array(
+            $cfItems = [];
+            foreach ($cfInput['title'] as $key => $value) {
+                $cfItems[$key] = [
                     'title' => $value,
                     'type' => $cfInput['type'][$key],
                     'text' => $cfInput['text'][$key],
-                );
+                ];
             }
             $game->case_file_items = $cfItems;
         }
-        if($request->evidence_list){
-            $add_evidence = explode(',',$request->input('evidence_list'));
-            if(!in_array($game->evidence_id,$add_evidence)){
+        if ($request->evidence_list) {
+            $add_evidence = explode(',', $request->input('evidence_list'));
+            if (! in_array($game->evidence_id, $add_evidence)) {
                 $game->evidence_id = 0;
             }
             $game->evidence()->detach();
             $game->evidence()->attach($add_evidence);
         }
-        if($request->end_time){
-            $request->end_time = date('Y-m-d H:i:s',strtotime($request->end_time));
+        if ($request->end_time) {
+            $request->end_time = date('Y-m-d H:i:s', strtotime($request->end_time));
         }
-        if($request->end_time){
-            $request->start_time = date('Y-m-d H:i:s',strtotime($request->start_time));
+        if ($request->end_time) {
+            $request->start_time = date('Y-m-d H:i:s', strtotime($request->start_time));
         }
 
         // activate the game when opening registration
-        if($request->registration && $request->registration == 1) {
+        if ($request->registration && $request->registration == 1) {
             $activeGame = Game::active()->get()->first();
-            if(!empty($activeGame)){
+            if (! empty($activeGame)) {
                 $activeGame->active = false;
                 $activeGame->save();
             }
             $game->active = true;
         }
 
-        foreach($game->getAttributes() as $key => $value){
-
-            if(isset($request->{$key}) && $value !== $request->{$key}){
+        foreach ($game->getAttributes() as $key => $value) {
+            if (isset($request->{$key}) && $value !== $request->{$key}) {
                 $game->{$key} = $request->{$key};
             }
         }
 
         $game->save();
 
-        return redirect()->back()->with('alert',array('message' => 'Game Updated', 'type' => 'success'));
+        return redirect()->back()->with('alert', ['message' => 'Game Updated', 'type' => 'success']);
     }
 
     /**
@@ -238,7 +236,7 @@ class GameController extends Controller
         $activeGame = Game::active()->get()->first();
         $game = Game::findOrFail($id);
 
-        if(!empty($activeGame) && $game->id != $activeGame->id){
+        if (! empty($activeGame) && $game->id != $activeGame->id) {
             $activeGame->active = false;
             $activeGame->save();
         }
@@ -257,7 +255,6 @@ class GameController extends Controller
      */
     public function deactivate($id)
     {
-
         $game = Game::findOrFail($id);
         $game->active = false;
         $game->save();
@@ -273,8 +270,9 @@ class GameController extends Controller
      */
     public function editArchive($id)
     {
-        $game = Game::with('registeredTeams','winningTeam')->findOrFail($id);
-        return view('game.archiveData',compact('game'));
+        $game = Game::with('registeredTeams', 'winningTeam')->findOrFail($id);
+
+        return view('game.archiveData', compact('game'));
     }
 
     /**
@@ -285,14 +283,14 @@ class GameController extends Controller
      */
     public function editEvidence($id)
     {
-        $game = Game::with('evidence','evidenceLocation')->findOrFail($id);
+        $game = Game::with('evidence', 'evidenceLocation')->findOrFail($id);
         $attachedEvidence = $game->evidence ? $game->evidence->pluck('id')->all() : [];
-        $evidence = Evidence::whereNotIn('id',$attachedEvidence)
+        $evidence = Evidence::whereNotIn('id', $attachedEvidence)
             ->get();
         $locations = Location::get();
-        $games = Game::where('id','!=',$id);
+        $games = Game::where('id', '!=', $id);
 
-        return view('game.evidence', compact('game','evidence', 'locations', 'games'));
+        return view('game.evidence', compact('game', 'evidence', 'locations', 'games'));
     }
 
     /**
@@ -304,14 +302,13 @@ class GameController extends Controller
      */
     public function importEvidenceRoom(Request $request, $id)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'game_id' => 'required',
         ]);
 
         $previousGameId = $request->input('game_id');
 
-        if($id !== $previousGameId){
-
+        if ($id !== $previousGameId) {
             $previousGame = Game::with(['evidence'])->findOrFail($previousGameId);
 
             $game = Game::findOrFail($id);
@@ -319,7 +316,7 @@ class GameController extends Controller
             $game->evidence()->detach();
             $game->evidence()->attach($previousGame->evidence->pluck('id')->all());
             $game->case_file_items = $previousGame->case_file_items;
-            $game->evidence_location_id= $previousGame->evidence_location_id;
+            $game->evidence_location_id = $previousGame->evidence_location_id;
             $game->save();
         }
 
@@ -335,24 +332,30 @@ class GameController extends Controller
     public function teams($id)
     {
         $game = Game::with(
-            ['registeredTeams' => function($query){ $query->orderBy('name')->registered(); }],
+            ['registeredTeams' => function ($query) {
+            $query->orderBy('name')->registered();
+            }],
             'registeredTeams.players',
-            ['waitlistTeams' => function($query){ $query->orderBy('name')->registered(); }],
+            ['waitlistTeams' => function ($query) {
+            $query->orderBy('name')->registered();
+            }],
             'waitlistTeams.players'
         )->findOrFail($id);
-        return view('game.teams',['game'=>$game]);
+
+        return view('game.teams', ['game' => $game]);
     }
 
     /**
      * Show the list of quests associated with a game
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function quests($id)
     {
-        $game = Game::with(array('quests.location','quests.suspect','quests.questions'))->findOrFail($id);
-        return view('quest.index',compact('game'));
+        $game = Game::with(['quests.location', 'quests.suspect', 'quests.questions'])->findOrFail($id);
+
+        return view('quest.index', compact('game'));
     }
 
     /**
@@ -369,7 +372,8 @@ class GameController extends Controller
         $team->fill($request->all());
         $game = Game::findOrFail($id);
         $game->teams()->save($team);
-        return redirect()->back()->with('alert',['type' => 'success', 'message' => $team->name.' added']);
+
+        return redirect()->back()->with('alert', ['type' => 'success', 'message' => $team->name.' added']);
     }
 
     /**
@@ -382,8 +386,8 @@ class GameController extends Controller
     {
         $game = Game::with('quests')->findOrFail($id);
         $quests = $game->quests;
-        return view('game.judgement', compact('game','quests'));
 
+        return view('game.judgement', compact('game', 'quests'));
     }
 
     /**
@@ -400,17 +404,17 @@ class GameController extends Controller
         $this->validate($request, ['judgement' => 'required']);
         $team = Team::findOrFail($teamId);
 
-        if($request->get('judgement') == 'correct'){
+        if ($request->get('judgement') == 'correct') {
             $team->correctQuestions()->attach($questionId);
             $team->save();
 
-            if($team->correctQuestions()->count() > 2){
+            if ($team->correctQuestions()->count() > 2) {
                 $team->completedQuests()->attach($questId);
                 $team->save();
             }
-
         }
         DB::table('incorrect_answers')->where('question_id', $questionId)->where('team_id', $teamId)->update(['judged' => 1]);
+
         return redirect()->back();
     }
 
@@ -423,21 +427,21 @@ class GameController extends Controller
     public function score($id, $includeWaitlist = false)
     {
         $scoring = config('scoring');
-        $game = Game::with('solutionSuspect','solutionLocation','solutionEvidence')->findOrFail($id);
+        $game = Game::with('solutionSuspect', 'solutionLocation', 'solutionEvidence')->findOrFail($id);
         $teams = $includeWaitlist == 'waitlist' ?
                     $game->waitlistTeams :
                     $game->registeredTeams;
 
-        if($game->active){
+        if ($game->active) {
             $timeBonus = $scoring['time_bonus']['starting_value'];
 
-            foreach($teams->sortBy('indictment_time') as $team){
-                $teams->load('evidence','suspect','location');
+            foreach ($teams->sortBy('indictment_time') as $team) {
+                $teams->load('evidence', 'suspect', 'location');
                 $qScore = $team->correctQuestions->count() * $scoring['questions'];
                 $dnaScore = $team->foundDna->count() * $scoring['dna']['each'];
                 $dnaPairScore = $team->foundDna->groupBy('pair')->count() * $scoring['dna']['each'];
-                $team->score = $qScore + $dnaScore + $dnaPairScore ;
-                if($team->indictment_correct){
+                $team->score = $qScore + $dnaScore + $dnaPairScore;
+                if ($team->indictment_correct) {
                     $team->score += $timeBonus;
                     $timeBonus -= $scoring['time_bonus']['decrement'];
                 }
@@ -450,16 +454,16 @@ class GameController extends Controller
         })->sortByDesc('score');
         $incorrect_indictments = $teams->filter(function ($team) {
             return $team->indictment_correct == false;
-        })->sortByDesc('score');;
+        })->sortByDesc('score');
         $teams = $correct_indictments->merge($incorrect_indictments);
-        return view('game.score', compact('game', 'teams'));
 
+        return view('game.score', compact('game', 'teams'));
     }
 
     /**
      * Add bonus points to a team
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -480,45 +484,46 @@ class GameController extends Controller
     /**
      * Show the interface for checking in players
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function checkIn($id)
     {
         $game = Game::with('registeredTeams', 'registeredTeams.players')->findOrFail($id);
+
         return view('game.checkin', compact('game'));
     }
 
     /**
      * Check-in the player
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function checkInPlayer(Request $request, $id, $playerId = false)
     {
-        if($playerId){
+        if ($playerId) {
             $player = Player::find($playerId);
         } else {
             $this->validate($request, ['pid' => 'required']);
-            $player = Player::where('pid',$request->get('pid'))->first();
+            $player = Player::where('pid', $request->get('pid'))->first();
         }
 
-        if($player){
-            if($player->checked_id) {
+        if ($player) {
+            if ($player->checked_id) {
                 $return = redirect()->route('admin.game.checkin', $id)->with(
                     'alert', [
                         'type' => 'warning',
-                        'message' => $player->full_name. ' already checked in. Team: '.$player->teams()->active()->first()->name
+                        'message' => $player->full_name.' already checked in. Team: '.$player->teams()->active()->first()->name,
                     ]
                 );
             } else {
                 $player->checked_in = true;
                 $player->save();
-                $return  = redirect()->route('admin.game.checkin', $id)->with(
-                    'alert',[
+                $return = redirect()->route('admin.game.checkin', $id)->with(
+                    'alert', [
                         'type' => 'success',
-                        'message' => $player->full_name.' successfully checked in. Team: '.$player->teams()->active()->first()->name
+                        'message' => $player->full_name.' successfully checked in. Team: '.$player->teams()->active()->first()->name,
                     ]
                 );
             }
@@ -526,54 +531,60 @@ class GameController extends Controller
             $return = redirect()->route('admin.game.checkin', $id)->with(
                 'alert', [
                     'type' => 'danger',
-                    'message' => 'Could not find a player with a PID: '.$request->get('pid')
+                    'message' => 'Could not find a player with a PID: '.$request->get('pid'),
                 ]
             );
         }
 
         return $return;
-
     }
 
     /**
      * Sets a session variable that allows users to test the game even if it is not in progress
-     * @param Request $request
+     *
+     * @param  Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function overrideInProgress(Request $request){
+    public function overrideInProgress(Request $request)
+    {
         $game = Game::active()->first();
-        $request->session()->push('override_in_progress',$game->id);
+        $request->session()->push('override_in_progress', $game->id);
+
         return redirect()->route('ui.index');
     }
 
     public function getWarnings(Game $game)
     {
         $warnings = [];
-        if(empty($game->solutionSuspect)){
+        if (empty($game->solutionSuspect)) {
             $warnings[] = 'No Suspect selected for solution';
         }
-        if(empty($game->solutionLocation)){
+        if (empty($game->solutionLocation)) {
             $warnings[] = 'No Location selected for solution';
         }
-        if(empty($game->solutionEvidence)){
+        if (empty($game->solutionEvidence)) {
             $warnings[] = 'No Evidence item selected for solution. You will need to set the evidence location, case files, and items.';
         }
-        if(empty($game->evidenceLocation)){
+        if (empty($game->evidenceLocation)) {
             $warnings[] = 'No Evidence Room location is set.';
         }
-        if(empty($game->geographicInvestigationLocation)){
+        if (empty($game->geographicInvestigationLocation)) {
             $warnings[] = 'No Geographic Investigation location is set.';
         }
 
-        foreach($game->quests as $quest){
-            if($game->quests->filter(function ($value) use($quest) { return $value->location->id == $quest->location->id; } )->count() > 1){
-                $warnings[] = $quest->location->name. ' is used in multiple quests';
+        foreach ($game->quests as $quest) {
+            if ($game->quests->filter(function ($value) use ($quest) {
+            return $value->location->id == $quest->location->id;
+            })->count() > 1) {
+                $warnings[] = $quest->location->name.' is used in multiple quests';
             }
-            if($game->quests->filter(function ($value) use($quest) { return $value->suspect->id == $quest->suspect->id; } )->count() > 1){
-                $warnings[] = $quest->suspect->name. ' is used in multiple quests';
+            if ($game->quests->filter(function ($value) use ($quest) {
+            return $value->suspect->id == $quest->suspect->id;
+            })->count() > 1) {
+                $warnings[] = $quest->suspect->name.' is used in multiple quests';
             }
         }
+
         return array_unique($warnings);
     }
-
 }

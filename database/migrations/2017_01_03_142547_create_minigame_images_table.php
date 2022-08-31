@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateMinigameImagesTable extends Migration
 {
@@ -12,7 +12,7 @@ class CreateMinigameImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('minigame_images', function(Blueprint $table){
+        Schema::create('minigame_images', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->integer('year');
