@@ -1,7 +1,10 @@
 {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
@@ -11,7 +14,8 @@
         "laravel/framework": "6.5.*",
         "laravel/helpers": "^1.1",
         "laravel/tinker": "~1.0",
-        "laravelcollective/html": "6.0.*"
+        "laravelcollective/html": "6.0.*",
+        "laravel/ui": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
