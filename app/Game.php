@@ -14,13 +14,6 @@ class Game extends Model
      ***********************************/
 
     /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-    protected $dates = ['created_at', 'updated_at', 'start_time', 'end_time', 'deleted_at'];
-
-    /**
      * The additional attributes
      *
      * @var array
@@ -65,9 +58,10 @@ class Game extends Model
      * @var array
      */
     protected $casts = [
+        'start_time' => 'datetime',
+        'end_time' => 'datetime',
         'active' => 'boolean',
-        'students_only' => 'boolean',
-    ];
+        'students_only' => 'boolean',    ];
 
     /***********************************
      * RELATIONSHIPS
