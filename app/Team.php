@@ -16,13 +16,6 @@ class Team extends Model
      ***********************************/
 
     /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-    protected $dates = ['deleted_at', 'indictment_time', 'updated_at', 'created_at', 'evidence_selected_at'];
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -49,9 +42,10 @@ class Team extends Model
      * @var array
      */
     protected $casts = [
+        'indictment_time' => 'datetime',
+        'evidence_selected_at' => 'datetime',
         'waitlist' => 'boolean',
-        'score' => 'float',
-    ];
+        'score' => 'float',    ];
 
     /***********************************
      * ACCESSORS

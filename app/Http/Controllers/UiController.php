@@ -91,7 +91,7 @@ class UiController extends Controller
         $game = Game::with('evidenceLocation', 'geographicInvestigationLocation')->find($request->session()->get('gameId'));
         $floors = Location::has('quests')->with([
             'quests' => function ($query) use ($request) {
-            $query->where('game_id', '=', $request->session()->get('gameId'));
+                $query->where('game_id', '=', $request->session()->get('gameId'));
             },
         ])->get();
 
