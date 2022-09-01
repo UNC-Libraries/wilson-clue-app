@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddGeographicInvestigationLocationIdColumn extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -29,4 +29,4 @@ class AddGeographicInvestigationLocationIdColumn extends Migration
             $table->dropColumn('geographic_investigation_location_id');
         });
     }
-}
+};

@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class DropMapSectionsTable extends Migration
+return new class extends Migration
 {
     const OLD_MAP_SECTIONS = [
         1 => 'first',
@@ -72,4 +72,4 @@ class DropMapSectionsTable extends Migration
             DB::table('map_sections')->insert(['id' => $id, 'name' => $section['svg_id']]);
         }
     }
-}
+};
