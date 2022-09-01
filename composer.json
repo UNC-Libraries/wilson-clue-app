@@ -16,7 +16,6 @@
         "laravel/tinker": "^2.5",
         "laravelcollective/html": "^6.3",
         "laravel/ui": "^3.4",
-        "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3.1|^7.0.1"
     },
     "require-dev": {
