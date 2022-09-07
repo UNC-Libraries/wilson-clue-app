@@ -80,6 +80,11 @@ The LDAP_\* properties you should get from a UNC sysadmin or from the production
    ```
    In your favorite web browser, go to http://localhost:8000/
 
+## Note Todos
+* The breadcrumbs rely on an abandoned package, davejamesmiller/laravel-breadcrumbs. Updating breadcrumbs to use, diglactic/laravel-breadcrumbs, also requires an update to at least bootstrap 4.
+* Laraval-mix has been removed as the default assets manager in favor of vite.
+
+
 ---
 For additional information about the application's structure and use, see the [Wiki](https://github.com/UNC-Libraries/wilson-clue-app/wiki)
    
