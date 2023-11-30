@@ -10,9 +10,4 @@
     @if($team->score > 0)
         <p>Score: {{$team->score}}</p>
     @endif
-    <ul class="list-unstyled list-inline">
-        @foreach($team->players as $player)
-            <li>{{$player->full_name}}</li>
-        @endforeach
-    </ul>
 </div>
