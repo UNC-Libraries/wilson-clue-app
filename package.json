@@ -10,19 +10,18 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "@eonasdan/tempus-dominus": "^6.9.6",
+        "@eonasdan/tempus-dominus": "^6.9.9",
         "@popperjs/core": "^2.11.8",
-        "axios": "^1.6.8",
+        "axios": "^1.7.2",
         "bootstrap": "^5.3.3",
         "clipboard": "^2.0.11",
         "font-awesome": "^4.7.0",
         "jquery": "^3.7.1",
         "laravel-mix": "^6.0.49",
         "lodash": "^4.17.21",
-        "moment": "^2.30.1",
         "postcss": "^8.4.38",
         "resolve-url-loader": "^5.0.0",
-        "sass": "^1.75.0",
+        "sass": "^1.77.3",
         "sass-loader": "^14.2.1",
         "sortablejs": "git+https://github.com/RubaXa/Sortable.git"
     },
