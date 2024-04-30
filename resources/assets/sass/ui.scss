@@ -105,36 +105,36 @@ legend {
 .quest-header {
   background-color: $gray-base;
   margin-bottom: 22px;
-  -webkit-box-shadow: 0px 0px 20px 0px $gray-lighter;
-  -moz-box-shadow: 0px 0px 20px 0px $gray-lighter;
-  box-shadow: 0px 0px 20px 0px $gray-lighter;
+  -webkit-box-shadow: 0 0 20px 0 $gray-lighter;
+  -moz-box-shadow: 0 0 20px 0 $gray-lighter;
+  box-shadow: 0 0 20px 0 $gray-lighter;
   padding: 5px;
 }
 
 .quest-header.info{
-  -webkit-box-shadow: 0px 0px 20px 0px $brand-info;
-  -moz-box-shadow: 0px 0px 20px 0px $brand-info;
-  box-shadow: 0px 0px 20px 0px $brand-info;
+  -webkit-box-shadow: 0 0 20px 0 $brand-info;
+  -moz-box-shadow: 0 0 20px 0 $brand-info;
+  box-shadow: 0 0 20px 0 $brand-info;
 }
 .quest-header.danger{
-  -webkit-box-shadow: 0px 0px 20px 0px $brand-danger;
-  -moz-box-shadow: 0px 0px 20px 0px $brand-danger;
-  box-shadow: 0px 0px 20px 0px $brand-danger;
+  -webkit-box-shadow: 0 0 20px 0 $brand-danger;
+  -moz-box-shadow: 0 0 20px 0 $brand-danger;
+  box-shadow: 0 0 20px 0 $brand-danger;
 }
 .quest-header.warning{
-  -webkit-box-shadow: 0px 0px 20px 0px $brand-warning;
-  -moz-box-shadow: 0px 0px 20px 0px $brand-warning;
-  box-shadow: 0px 0px 20px 0px $brand-warning;
+  -webkit-box-shadow: 0 0 20px 0 $brand-warning;
+  -moz-box-shadow: 0 0 20px 0 $brand-warning;
+  box-shadow: 0 0 20px 0 $brand-warning;
 }
 .quest-header.primary{
-  -webkit-box-shadow: 0px 0px 20px 0px $brand-primary;
-  -moz-box-shadow: 0px 0px 20px 0px $brand-primary;
-  box-shadow: 0px 0px 20px 0px $brand-primary;
+  -webkit-box-shadow: 0 0 20px 0 $brand-primary;
+  -moz-box-shadow: 0 0 20px 0 $brand-primary;
+  box-shadow: 0 0 20px 0 $brand-primary;
 }
 .quest-header.success{
-  -webkit-box-shadow: 0px 0px 20px 0px $brand-success;
-  -moz-box-shadow: 0px 0px 20px 0px $brand-success;
-  box-shadow: 0px 0px 20px 0px $brand-success;
+  -webkit-box-shadow: 0 0 20px 0 $brand-success;
+  -moz-box-shadow: 0 0 20px 0 $brand-success;
+  box-shadow: 0 0 20px 0 $brand-success;
 }
 
 .quest-title {
