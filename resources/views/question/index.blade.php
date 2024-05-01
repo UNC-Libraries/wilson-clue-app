@@ -22,7 +22,7 @@
             <div class="input-group">
                 {!! Form::text('search', $string, array('class'=>'form-control')) !!}
                 <span class="input-group-btn">
-                    <button class="btn btn-default" type="submit"><span class="fa fa-search"></span></button>
+                    <button class="btn btn-secondary" type="submit"><span class="fa fa-search"></span></button>
                 </span>
             </div>
         </div>

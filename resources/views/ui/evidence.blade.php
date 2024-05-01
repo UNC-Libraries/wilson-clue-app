@@ -35,7 +35,7 @@
                             {!! Form::label('evidence', 'Select the Collection Item') !!}
                             {!! Form::select('evidence', $game->evidence->pluck('title','id')->all(), $team->evidence ? $team->evidence->id : null, ['class' => 'form-control']) !!}
                         </div>
-                        <input type="submit" class="btn btn-default" value="Submit">
+                        <input type="submit" class="btn btn-secondary" value="Submit">
                         {!! Form::close() !!}
                     </div>
                 </div>

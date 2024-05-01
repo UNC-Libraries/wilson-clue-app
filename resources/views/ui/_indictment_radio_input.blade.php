@@ -7,7 +7,7 @@
                 <use xlink:href="#{{ $image }}" class="map-base"></use>
             </svg>
         @else
-            <img class="img-responsive" src="{{ asset($image) }}">
+            <img class="img-fluid" src="{{ asset($image) }}">
         @endif
         <span class="fa fa-5x fa-check selected"></span>
     </label>

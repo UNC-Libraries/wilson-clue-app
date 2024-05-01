@@ -31,7 +31,7 @@
                     <label>Filter By:</label>
                     <fieldset>
                         <legend>Played</legend>
-                        <label class="radio-inline" for="playedBoth">
+                        <label class="form-check-inline" for="playedBoth">
                             <input
                                     type="radio"
                                     name="played"
@@ -42,12 +42,12 @@
                                     @if($request && $request->get('played') != 'yes' && $request->get('played') != 'no') checked @endif
                             > Either
                         </label>
-                        <label class="radio-inline" for="playedYes">
+                        <label class="form-check-inline" for="playedYes">
                             <input type="radio" name="played" id="playedYes" value="yes" class="auto-submit"
                                @if($request && $request->get('played') == 'yes') checked @endif
                             > Yes
                         </label>
-                        <label class="radio-inline" for="playedNo">
+                        <label class="form-check-inline" for="playedNo">
                             <input type="radio" name="played" id="playedNo" value="no" class="auto-submit"
                                    @if($request && $request->get('played') == 'no') checked @endif
                             > No

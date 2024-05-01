@@ -13,7 +13,7 @@
                             <i class="fa fa-clipboard"></i>
                             Copy to clipboard
                         </button>
-                        <div class="well-sm well" id="{{$modal_id}}">
+                        <div class="well-sm card card-body" id="{{$modal_id}}">
                             @foreach($teams as $team)
                                 @foreach($team->players as $player)
                                     {{ $player->email }};

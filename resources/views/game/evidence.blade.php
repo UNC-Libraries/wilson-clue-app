@@ -36,7 +36,7 @@
                     @endforeach
                 @endif
 
-                <button type="button" class="btn btn-success pull-right load-case-file-form" data-url="{{ route('admin.casefileItemForm') }}"><span class="fa fa-plus-circle"></span> Add Item</button>
+                <button type="button" class="btn btn-success float-right load-case-file-form" data-url="{{ route('admin.casefileItemForm') }}"><span class="fa fa-plus-circle"></span> Add Item</button>
             </div>
 
 
@@ -47,7 +47,7 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <h4>Evidence Items</h4>
-                            <div class="well" id="evidenceList">
+                            <div class="card card-body" id="evidenceList">
                                 @include('evidence._select_list',array('evidence'=> $game->evidence))
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <h4>Available Items</h4>
-                            <div class="well" id="availableEvidence">
+                            <div class="card card-body" id="availableEvidence">
                                 @include('evidence._select_list',array('evidence'=>$evidence))
                             </div>
                         </div>

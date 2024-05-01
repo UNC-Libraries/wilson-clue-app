@@ -18,7 +18,7 @@
                                 <p class="lead">{{ $message['description'] }}</p>
 
                                 @if(!empty($message['vars']))
-                                    <span class="help-block">
+                                    <span class="form-text">
                                         You can place the following strings within the text and thye will be replaced by the
                                         variable value from the database. Kind of like a shortcode in wordpress.
                                     </span>
@@ -31,7 +31,7 @@
 
                                 {!! Form::textarea($key, $message['message'], ['class' => 'form-control', 'rows' => $message['rows']]) !!}
                                 @if($message['markdown'])
-                                    <span class="help-block">
+                                    <span class="form-text">
                                         <small>Use <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">markdown</a> to style the text</small>
                                     </span>
                                 @endif

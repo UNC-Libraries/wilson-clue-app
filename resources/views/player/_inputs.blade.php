@@ -13,7 +13,7 @@
 
     <!-- Played -->
     <div class="form-group col-xs-12 col-sm-4">
-        <div class="checkbox">
+        <div class="form-check">
             <label>
                 {!! Form::checkbox('checked_in') !!} Played?
             </label>

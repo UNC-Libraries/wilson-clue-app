@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <h4>Current Questions <small><span class="drop-count">{{ $quest->questions->count() }}</span> questions</small></h4>
-                <div class="well" id="questionList">
+                <div class="card card-body" id="questionList">
                     @include('question._list',array('models'=>$quest->questions))
                 </div>
             </div>
@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <h4>Available Questions</h4>
-                <div class="well" id="availableQuestions">
+                <div class="card card-body" id="availableQuestions">
                     @include('question._list',array('models'=>$questions))
                 </div>
             </div>

@@ -10,23 +10,22 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "axios": "^0.27.2",
-        "bootstrap-sass": "^3.4.3",
+        "axios": "^1.6.8",
+        "bootstrap": "^4.6.2",
         "clipboard": "^2.0.11",
         "eonasdan-bootstrap-datetimepicker": "^4.17.49",
         "font-awesome": "^4.7.0",
-        "jquery": "^3.6.0",
+        "jquery": "^3.7.1",
         "laravel-mix": "^6.0.49",
         "lodash": "^4.17.21",
-        "moment": "^2.29.4",
-        "postcss": "^8.4.16",
-        "resolve-url-loader": "^2.3.2",
-        "sass": "^1.54.8",
-        "sass-loader": "^12.6.0",
-        "sortablejs": "git+https://github.com/RubaXa/Sortable.git",
-        "webpack": "^5.74.0"
+        "moment": "^2.30.1",
+        "postcss": "^8.4.38",
+        "resolve-url-loader": "^5.0.0",
+        "sass": "^1.75.0",
+        "sass-loader": "^14.2.1",
+        "sortablejs": "git+https://github.com/RubaXa/Sortable.git"
     },
     "dependencies": {
-        "npm": "^6.14.17"
+        "npm": "^10.7.0"
     }
 }

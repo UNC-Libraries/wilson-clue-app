@@ -18,8 +18,8 @@
                 <div class="col-xs-12">
                     <h3 id="{{$suspect->machine}}">{{$suspect->name}}</h3>
                     <div class="row">
-                        <div class="col-sm-4 hidden-xs">
-                            <img src="{{ asset($suspect->card_image) }}" class=" img-responsive char-card" alt="{{$suspect->machine}}-card">
+                        <div class="col-sm-4 d-none">
+                            <img src="{{ asset($suspect->card_image) }}" class=" img-fluid char-card" alt="{{$suspect->machine}}-card">
                         </div>
                         <div class="col-sm-8">
                             <div class="bio">

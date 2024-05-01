@@ -42,7 +42,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Add points</button>
                 {!! Form::close() !!}
-                <span class="help-block">
+                <span class="form-text">
                     You can remove bonus points by entering a negative number
                 </span>
             @endif

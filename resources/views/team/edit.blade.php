@@ -15,7 +15,7 @@
             @include('admin._form_errors')
 
             <div class="row">
-                <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                <div class="col-xs-12 col-sm-8 offset-sm-2">
                     {!! Form::model($team, ['route' => ['admin.team.update', $team->id], 'method' => 'PUT']) !!}
                     @include('team._team_form_inputs')
                     {!! Form::close() !!}
@@ -29,7 +29,7 @@
             </button>
             @if($team->players->count() < 5)
                 <div class="row">
-                    <div class="col-xs-3 col-xs-offset-9 col-sm-2 col-sm-offset-10 text-right">
+                    <div class="col-xs-3 offset-xs-9 col-sm-2 offset-sm-10 text-right">
                         <button class="btn btn-success" data-toggle="modal" data-target="#addPlayerModal"><span class="fa fa-plus-circle"></span> Add New</button>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                             @if($team->game->students_only)
                                 <div class="form-group col-xs-12">
                                     <label for="override_non_student">
-                                        <input type="checkbox" id="override_non_student" name="override_non_student" value="1"> Override Non-Student?
+                                        <input type="form-check" id="override_non_student" name="override_non_student" value="1"> Override Non-Student?
                                     </label>
                                 </div>
                             @endif

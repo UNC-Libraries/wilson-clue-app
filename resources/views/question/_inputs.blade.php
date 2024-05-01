@@ -1,7 +1,7 @@
 <div class="row">
     <!-- Question type -->
     <div class="form-group col-xs-12 col-sm-4">
-        <div class="checkbox" id="questionType">
+        <div class="form-check" id="questionType">
             <label>
                 {!! Form::checkbox('type') !!} Image?
             </label>
@@ -30,12 +30,12 @@
     <div class="col-xs-12">
         <legend>Answers</legend>
         @if(!empty($incorrect))
-            <div class="well">
+            <div class="card card-body">
                 <p class="lead">Incorrect Attempted Answers</p>
                 <ul class="list-unstyled list-inline">
                     @foreach($incorrect->sortByDesc('count') as $i)
                         <li style="border: 1px solid black; padding: 5px;">
-                            {{ $i['answer'] }} <span class="badge">{{ $i['count'] }}</span>
+                            {{ $i['answer'] }} <span class="badge badge-pill">{{ $i['count'] }}</span>
                         </li>
                     @endforeach
                 </ul>
@@ -45,7 +45,7 @@
             <div class="form-group col-xs-12">
                 {!! Form::label('full_answer', 'Full Answer') !!}
                 {!! Form::text('full_answer',null,array('class' => 'form-control')) !!}
-                <span class="help-block">
+                <span class="form-text">
                     The full answer is context for the judges. You must enter single-word answers below. Usually keywords
                     from the full answer.
                 </span>

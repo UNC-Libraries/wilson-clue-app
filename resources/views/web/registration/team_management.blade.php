@@ -53,7 +53,7 @@
                     @endif
                 <hr>
                 </div>
-                <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+                <div class="col-xs-12 col-md-10 offset-md-1 col-lg-8 -offset-lg-2">
                     @if($errors->count() > 0)
                         <div class="alert alert-danger alert-dismissible text-left" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -68,7 +68,7 @@
                         </div>
                     @endif
                 </div>
-                <div class="col-xs-12 col-md-5 col-md-offset-1 col-lg-3 col-lg-offset-2">
+                <div class="col-xs-12 col-md-5 offset-md-1 col-lg-3 offset-lg-2">
                     <h4>Add a player</h4>
                     {!! Form::open(['route' => 'enlist.updateTeam.addPlayer']) !!}
                     <div class="form-group">
@@ -76,11 +76,11 @@
                         {!! Form::text('onyen',null,['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-default btn-sm">Submit</button>
+                        <button type="submit" class="btn btn-secondary btn-sm">Submit</button>
                     </div>
                     {!! Form::close() !!}
                 </div>
-                <div class="col-xs-12 col-md-5 col-md-offset-1 col-lg-3 col-lg-offset-2">
+                <div class="col-xs-12 col-md-5 offset-md-1 col-lg-3 offset-lg-2">
                     <h4>Current Players</h4>
                     <ul class="list-unstyled current-players">
                         <li>
@@ -111,7 +111,7 @@
     <section class="mid-section">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+                <div class="col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
                     <h3>Edit your team information</h3>
                     @if(\Carbon\Carbon::now() < $team->game->start_time->subDays(3))
                         <div class="alert alert-warning">

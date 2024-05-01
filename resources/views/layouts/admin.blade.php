@@ -38,7 +38,7 @@
                         </ul>
                     </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav ml-auto">
                     <li><a href="{{ route('admin.logout') }}">Logout</a></li>
                 </ul>
             </div>

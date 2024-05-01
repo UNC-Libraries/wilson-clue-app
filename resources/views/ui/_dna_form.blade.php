@@ -5,6 +5,6 @@
             {!! Form::label('attempt', 'Sequence') !!}
             {!! Form::text('attempt', null, ['class' => 'form-control']) !!}
         </div>
-        <input type="submit" class="btn btn-default" value="Submit">
+        <input type="submit" class="btn btn-secondary" value="Submit">
     {!! Form::close() !!}
 </div>

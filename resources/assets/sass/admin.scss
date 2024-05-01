@@ -1,7 +1,8 @@
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "bootstrap";
+@import "font-awesome";
 //@import "mixins/fancy_checkboxes";
+@import "mixins/variables.ui";
 @import "mixins/variables.font-awesome.scss";
-@import "node_modules/font-awesome/scss/font-awesome";
 
 $peacock:         #4C4CFF !default; // #337ab7
 $peacock-text:    #fff;

@@ -29,7 +29,7 @@
 <div class="row">
     <!-- Retired -->
     <div class="form-group col-xs-12 col-sm-4">
-        <div class="checkbox">
+        <div class="form-check">
             <label>
                 {!! Form::checkbox('retired') !!} Retired?
             </label>
@@ -37,7 +37,7 @@
     </div>
     <!-- Display on web -->
     <div class="form-group col-xs-12 col-sm-4">
-        <div class="checkbox">
+        <div class="form-check">
             <label>
                 {!! Form::checkbox('web_display') !!} Display on Website?
             </label>
@@ -45,7 +45,7 @@
     </div>
     <!-- Admin -->
     <div class="form-group col-xs-12 col-sm-4">
-        <div class="checkbox">
+        <div class="form-check">
             <label>
                 {!! Form::checkbox('admin') !!} Admin?
             </label>

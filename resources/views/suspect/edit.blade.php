@@ -9,7 +9,7 @@
         <div class="row">
             @include('admin._form_errors')
 
-            <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+            <div class="col-xs-12 col-sm-8 offset-sm-2">
                 {!! Form::model($suspect, array('route'=> array('admin.suspect.update',$suspect->id), 'method'=>'PUT', 'files' => true)) !!}
 
                     {!! Form::token() !!}

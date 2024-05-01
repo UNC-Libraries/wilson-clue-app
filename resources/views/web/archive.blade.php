@@ -8,7 +8,7 @@
             <div class="col-xs-12 subpage-banner">
                 <h1><a href="{{ route('web.index') }}">Clue</a> <small class="text-right">{{$game->start_time->format('F, jS Y')}}</small></h1>
             </div>
-            <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+            <div class="col-xs-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
                 @if($game->flickr)
                     <h2 class="text-center">Security Footage</h2>
                     <a data-flickr-embed="true"  href="https://www.flickr.com/photos/unclibraries/albums/{{ $game->flickr }}" title="Wilson Library presents Clue, {{ $game->name }}">

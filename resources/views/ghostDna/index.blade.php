@@ -17,7 +17,7 @@
                     <div class="form-group">
                         {!! Form::label('sequence', 'Add a Sequence') !!}
                         {!! Form::text('sequence', null, array('class'=>'form-control', 'maxlength'=>'6', 'minlength'=>'6', 'aria-describedby' => 'sequenceHelpBlock')) !!}
-                        <div id="sequenceHelpBlock" class="help-block">6 characters long, only consisting of g, h, s, or t</div>
+                        <div id="sequenceHelpBlock" class="form-text">6 characters long, only consisting of g, h, s, or t</div>
                     </div>
                     <button type="submit" class="btn btn-success">Add</button>
 

@@ -28,7 +28,7 @@
         <div class="col-xs-12 col-sm-6">
             <div class="dash-section">
                 <div class="dash-section-header">
-                    <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#gameOptions">
+                    <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#gameOptions">
                         <span class="fa fa-edit"></span> Edit
                     </button>
                     <h3>
@@ -62,7 +62,7 @@
         <div class="col-xs-12 col-sm-6">
             <div class="dash-section">
                 <div class="dash-section-header">
-                    <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#gameSolution">
+                    <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#gameSolution">
                         <span class="fa fa-edit"></span> Edit
                     </button>
                     <h3>Solution</h3>
@@ -82,7 +82,7 @@
             <h2 class="expo">Quest Locations</h2>
             @foreach($game->quests as $quest)
             <div class="col-xs-12 col-sm-6 col-md-4">
-                <div class="well">
+                <div class="card card-body">
                     <h3>{{ $quest->location->name }}</h3>
                     <ul class="list-unstyled">
                         @if(!empty($quest->suspect))
@@ -135,7 +135,7 @@
         <div class="col-xs-12">
             <div class="dash-section">
                 <div class="dash-section-header">
-                    <a href="{{ route('admin.game.edit.evidence', $game->id) }}" type="button" class="btn btn-primary btn-sm pull-right">
+                    <a href="{{ route('admin.game.edit.evidence', $game->id) }}" type="button" class="btn btn-primary btn-sm float-right">
                         <span class="fa fa-edit"></span> Edit
                     </a>
                     <h3>Images</h3>
