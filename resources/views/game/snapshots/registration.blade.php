@@ -1,5 +1,5 @@
 <!-- Registration Snapshop -->
-<div class="col-xs-12">
+<div class="col-12">
     <div class="dash-section">
         <div class="dash-section-header">
             <h3>
@@ -41,7 +41,7 @@
             </h4>
             <p><small><em>These numbers include all players who have registered, including waitlist teams</em></small></p>
             <div class="row">
-                <div class="col-xs-12 col-sm-6">
+                <div class="col-12 col-xs-6">
                     <h5>Student Type</h5>
                     <table class="table">
                         <thead>
@@ -54,7 +54,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-xs-12 col-sm-6">
+                <div class="col-12 col-xs-6">
                     <h5>Academic Group</h5>
                     <table class="table">
                         <thead>

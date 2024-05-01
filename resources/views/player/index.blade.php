@@ -10,7 +10,7 @@
 
 
         <div class="row">
-            <div class="col-xs-12 col-sm-4 col-md-3">
+            <div class="col-12 col-xs-4 col-sm-3">
                 {!! Form::open(['route' => ['admin.player.index'], 'method' => 'get']) !!}
                 <div class="form-group">
                     <label>Search:</label>
@@ -19,10 +19,10 @@
                 <div class="form-group">
                     <label>Sort By:</label>
                     <div class="row">
-                        <div class="col-xs-12 col-sm-7">
+                        <div class="col-12 col-xs-7">
                             {{ Form::select('sort_by', $sortOptions, $selectedSort, ['class' => 'form-control auto-submit']) }}
                         </div>
-                        <div class="col-xs-12 col-sm-5">
+                        <div class="col-12 col-xs-5">
                             {{ Form::select('sort_order', $sortOrder, $selectedSortOrder, ['class' => 'form-control auto-submit']) }}
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                 {!! Form::close() !!}
 
             </div>
-            <div class="col-xs-12 col-sm-8 col-md-9">
+            <div class="col-12 col-xs-8 col-sm-9">
                 <h1>Players</h1>
 
                 <p>{{ $players->count() }} players found</p>

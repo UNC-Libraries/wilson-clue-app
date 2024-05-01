@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-xs-12">
+                    <div class="col-12">
                         <button type="button" class="btn btn-primary clipboard-btn" data-clipboard-target="#{{$modal_id}}">
                             <i class="fa fa-clipboard"></i>
                             Copy to clipboard
