@@ -3,5 +3,5 @@
         {!! Form::label('attempt-for-'.$q->id, 'Answer') !!}
         {!! Form::text('attempt', null, ['class' => 'form-control', 'id' => 'attempt-for-'.$q->id]) !!}
     </div>
-    <input type="submit" class="btn btn-{{ $quest->suspect->bootstrap_color }} pull-right" value="Submit">
+    <input type="submit" class="btn btn-{{ $quest->suspect->bootstrap_color }} float-right" value="Submit">
 {!! Form::close() !!}

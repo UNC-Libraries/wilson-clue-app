@@ -59,8 +59,8 @@
                 </dl>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary pull-left" id="indictmentSubmit">Confirm</button>
+                <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary float-left" id="indictmentSubmit">Confirm</button>
             </div>
         </div>
     </div>

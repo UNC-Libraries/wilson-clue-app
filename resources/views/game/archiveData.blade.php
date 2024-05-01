@@ -7,7 +7,7 @@
 @section('game.content')
 
     <div class="row">
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+        <div class="col-12 col-xs-10 offset-sm-1">
             <p class="lead text-center">Edit the information that shows up on the public archive page</p>
 
             {!! Form::model($game, array('route'=> array('admin.game.update',$game->id), 'method'=>'PUT')) !!}
@@ -19,7 +19,7 @@
                         Yes
                     </label>
                 </div>
-                <div class="radio">
+                <div class="form-check">
                     <label>
                         {!! Form::radio('archive',0) !!}
                         No
@@ -38,7 +38,7 @@
             <div class="form-group">
                 {!! Form::label('flickr_start_img', 'Flickr Start Image') !!}
                 {!! Form::text('flickr_start_img',null,array('class' => 'form-control')) !!}
-                <span class="help-block">
+                <span class="form-text">
                     The url for the image you want to show on the homepage. To retrieve a single image's URL from flickr.
                     <ol>
                         <li>Select the image from the flickr album.</li>
@@ -53,12 +53,12 @@
             <div class="form-group">
                 {!! Form::label('special_thanks', 'Special Thanks Content') !!}
                 {!! Form::textarea('special_thanks',null,array('class' => 'form-control', 'rows' => '10')) !!}
-                <span class="help-block">Use <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">markdown</a> to style the text</span>
+                <span class="form-text">Use <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">markdown</a> to style the text</span>
             </div>
             <div class="form-group">
                 {!! Form::label('team_accolades', 'Team Accolades Content') !!}
                 {!! Form::textarea('team_accolades',null,array('class' => 'form-control', 'rows' => '10')) !!}
-                <span class="help-block">Use <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">markdown</a> to style the text</span>
+                <span class="form-text">Use <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">markdown</a> to style the text</span>
             </div>
 
 

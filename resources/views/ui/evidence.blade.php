@@ -13,7 +13,7 @@
             'text' => trans('ui.evidence')
         ])
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-12">
                 <h2>Case File Items</h2>
                 @foreach($game->case_file_items as $key => $item)
                     <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#cfModal{{ $key }}">
@@ -24,10 +24,10 @@
         </div>
         @if(!$team->indictment_made)
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-12">
                     <h2>Evidence Items</h2>
                     <div class="question-div">
-                        <div class="col-xs-12 text-center">
+                        <div class="col-12 text-center">
                             <div id="evidenceForm-response" class="question-response"></div>
                         </div>
                         {!! Form::open(['route' => ['ui.set.evidence'], 'class' => 'evidence-form', 'id' => 'evidenceForm']) !!}
@@ -35,7 +35,7 @@
                             {!! Form::label('evidence', 'Select the Collection Item') !!}
                             {!! Form::select('evidence', $game->evidence->pluck('title','id')->all(), $team->evidence ? $team->evidence->id : null, ['class' => 'form-control']) !!}
                         </div>
-                        <input type="submit" class="btn btn-default" value="Submit">
+                        <input type="submit" class="btn btn-secondary" value="Submit">
                         {!! Form::close() !!}
                     </div>
                 </div>

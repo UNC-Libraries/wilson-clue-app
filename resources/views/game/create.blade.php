@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             {!! Breadcrumbs::render('admin.game.create',$game) !!}
-            <div class="col-xs-12">
+            <div class="col-12">
                 <h1>Create a new game</h1>
 
                 @include('admin._form_errors')

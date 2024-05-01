@@ -1,5 +1,5 @@
 <!-- Registration Snapshop -->
-<div class="col-xs-12">
+<div class="col-12">
     <div class="dash-section">
         <div class="dash-section-header">
             <h3>
@@ -20,7 +20,7 @@
         <div class="dash-section-body">
             <h4>
                 Registration
-                <a href="{{ route('admin.game.teams', $game->id) }}" type="button" class="btn btn-primary btn-xs">
+                <a href="{{ route('admin.game.teams', $game->id) }}" type="button" class="btn btn-primary btn-sm">
                     <span class="fa fa-users"></span> Manage
                 </a>
             </h4>
@@ -35,13 +35,13 @@
 
             <h4>
                 Player Breakdown
-                <a href="{{ route('admin.player.index', $game->id) }}?sort_by=last_name&sort_order=asc&game[]={{ $game->id }}" type="button" class="btn btn-primary btn-xs">
+                <a href="{{ route('admin.player.index', $game->id) }}?sort_by=last_name&sort_order=asc&game[]={{ $game->id }}" type="button" class="btn btn-primary btn-sm">
                     <span class="fa fa-vcard-o"></span> View All
                 </a>
             </h4>
             <p><small><em>These numbers include all players who have registered, including waitlist teams</em></small></p>
             <div class="row">
-                <div class="col-xs-12 col-sm-6">
+                <div class="col-md-12 col-lg-6">
                     <h5>Student Type</h5>
                     <table class="table">
                         <thead>
@@ -54,7 +54,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-xs-12 col-sm-6">
+                <div class="col-md-12 col-lg-6">
                     <h5>Academic Group</h5>
                     <table class="table">
                         <thead>

@@ -5,10 +5,10 @@
 <section class="main-section">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 subpage-banner">
+            <div class="col-12 subpage-banner">
                 <h1><a href="{{ route('web.index') }}">Clue</a> <small class="text-right">{{$game->start_time->format('F, jS Y')}}</small></h1>
             </div>
-            <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 text-center">
+            <div class="col-12 col-sm-10 offset-md-1 col-md-8 offset-lg-2 text-center">
                 <h2>Enlistment Form</h2>
                 @if($game->spots_left == 0)
                     <div class="alert alert-danger">
@@ -31,7 +31,7 @@
                 @endif
             </div>
 
-            <div class="col-xs-12 col-md-8 col-md-offset-2 enlistment-form">
+            <div class="col-12 col-sm-8 offset-md-2 enlistment-form">
                 <p>To the SIA,</p>
                 <p>I would like to enlist my team for the Clue investigation scheduled on {{ $game->start_time->format('l, \t\h\e jS \o\f F, Y') }}.</p>
                 @if($game->students_only)

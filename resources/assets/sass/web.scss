@@ -1,13 +1,14 @@
+@import "bootstrap";
+@import "font-awesome";
 @import "mixins/variables.web";
 @import "mixins/clue_icons";
 @import "mixins/social_icons";
 @import url(//fonts.googleapis.com/css?family=Josefin+Sans:400,700|Montserrat:900);
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "mixins/variables.font-awesome.scss";
-@import "node_modules/font-awesome/scss/font-awesome";
 
+$state-danger-text: darken($brand-danger, 20%) !default;
 
-body{
+body {
   position: relative;
 }
 
@@ -33,6 +34,19 @@ h1, h2, h3 {
   }
 }
 
+.main-section,
+.mid-section {
+  a {
+    color: $brand-primary;
+
+    &:focus,
+    &:hover {
+      color: #0db177;
+      text-decoration: underline;
+    }
+  }
+}
+
 .light-section {
   background-color: $gray-light;
   padding: 5rem 0;
@@ -42,7 +56,6 @@ h1, h2, h3 {
     background: $gray-dark;
     border: 6px solid $gray-dark;
   }
-
 }
 .mid-section {
   background-color: $gray;
@@ -243,7 +256,7 @@ span.notice-text {
   text-align: center;
 }
 .site-nav a {
-  color: $gray-light;
+  color: $gray-light
 }
 
 .site-nav a:hover {
@@ -332,7 +345,7 @@ img.char-card{
   transition: all .6s ease-in-out;
 }
 .char-panel.show{
-  margin-left: 0%;
+  margin-left: 0;
 }
 .char-content{
   padding-top: 60px;
@@ -565,7 +578,6 @@ img.char-card{
   transition: all 200ms ease-out;
   -webkit-transition-delay: 100ms;
   -moz-transition-delay: 100ms;
-  -ms-transition-delay: 100ms;
   -o-transition-delay: 100ms;
   transition-delay: 100ms;
   color: $gray-base;
@@ -681,4 +693,10 @@ img.char-card{
 }
 .swiper-pagination-bullet-active {
   background-color: $brand-danger;
+}
+
+/* Classes from BS 3 that weren't ported to BS 4 */
+.well-sm {
+  border-radius: 3px;
+  padding: 9px
 }

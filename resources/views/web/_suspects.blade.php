@@ -1,7 +1,7 @@
 <section class="light-section special-elite" id="suspects">
     <div class="container char-content">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-12">
                 <div id="suspect-main" class="char-content">
                     <h3>Can you solve the mystery?</h3>
                     <p>One of these suspects is not like the other. He/she/it is a GHOST!</p>
@@ -15,13 +15,13 @@
     <div class="char-panel" id="{{$suspect->machine}}-panel">
         <div class="container">
             <div class="row char-content">
-                <div class="col-xs-12">
+                <div class="col-12">
                     <h3 id="{{$suspect->machine}}">{{$suspect->name}}</h3>
                     <div class="row">
-                        <div class="col-sm-4 hidden-xs">
-                            <img src="{{ asset($suspect->card_image) }}" class=" img-responsive char-card" alt="{{$suspect->machine}}-card">
+                        <div class="col-xs-4 d-none">
+                            <img src="{{ asset($suspect->card_image) }}" class=" img-fluid char-card" alt="{{$suspect->machine}}-card">
                         </div>
-                        <div class="col-sm-8">
+                        <div class="col-xs-8">
                             <div class="bio">
                                 <h4>Bio:</h4>
                                 <p>{!! app(Parsedown::class)->text($suspect->bio) !!}</p>
@@ -45,7 +45,7 @@
             <div class="container">
                 <div class="row character-image-div">
                 @foreach($suspects as $suspect)
-                    <div class="col-sm-2 col-xs-4">
+                    <div class="col-xs-2 col-4">
                         <a href="#{{$suspect->machine}}" class="char-overlay charnav" data-name="{{$suspect->name}}" data-main-target="suspects">
                             <img class="clip-circle circle-dark" src="{{ asset($suspect->face_image) }}" alt="{{$suspect->name}}">
                         </a>

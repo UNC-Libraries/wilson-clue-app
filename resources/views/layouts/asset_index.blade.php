@@ -7,11 +7,11 @@
             {!! Breadcrumbs::render("admin.$model_name.index") !!}
         </div>
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-12">
                 @include('admin._alert')
                 <h1>
                     {{ $page_title ?? ucfirst(str_plural($model_name)) }}
-                    <a href="{{ $create_route ?? route("admin.$model_name.create") }}" class="btn btn-success btn-sm pull-right">
+                    <a href="{{ $create_route ?? route("admin.$model_name.create") }}" class="btn btn-success btn-sm float-right">
                         <span class="fa fa-plus-circle"></span> Add New
                     </a>
                 </h1>

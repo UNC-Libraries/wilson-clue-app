@@ -8,12 +8,12 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-xs-12">
+                    <div class="col-12">
                         <button type="button" class="btn btn-primary clipboard-btn" data-clipboard-target="#{{$modal_id}}">
                             <i class="fa fa-clipboard"></i>
                             Copy to clipboard
                         </button>
-                        <div class="well-sm well" id="{{$modal_id}}">
+                        <div class="well-sm card card-body" id="{{$modal_id}}">
                             @foreach($teams as $team)
                                 @foreach($team->players as $player)
                                     {{ $player->email }};

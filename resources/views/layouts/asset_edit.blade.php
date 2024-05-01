@@ -8,7 +8,7 @@
         </div>
         @include('partials._delete_form', ['route' => ["admin.$model_name.destroy",$model->id], 'message' => empty($delete_message) ? null : $delete_message])
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-12">
                 @include('admin._form_errors')
                 <h1>{{ $page_title ?? 'Edit '.$model_name }}</h1>
 

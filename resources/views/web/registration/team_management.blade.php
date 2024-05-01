@@ -4,18 +4,18 @@
     <section class="main-section">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12">
-                    <div class="col-xs-12 subpage-banner">
+                <div class="col-12">
+                    <div class="col-12 subpage-banner">
                         <h1><a href="{{ route('web.index') }}">Clue</a> <small class="text-right">{{$game->start_time->format('F, jS Y')}}</small></h1>
                     </div>
                 </div>
-                <div class="col-xs-12 text-center">
+                <div class="col-12 text-center">
                     <h2>Team Management</h2>
                     <p>
                         Use this page to add and remove players from your team, change your team name, and tell us about any dietary restrictions.
                     </p>
                 </div>
-                <div class="col-xs-12">
+                <div class="col-12">
                     <h3>Team: {{ $team->name }}</h3>
                     <h4>
                         Status:
@@ -39,7 +39,7 @@
     <section class="light-section">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 text-center">
+                <div class="col-12 text-center">
                     <h3>Add / Remove Players</h3>
                     @if(!$canRemove)
                         <p>
@@ -53,7 +53,7 @@
                     @endif
                 <hr>
                 </div>
-                <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+                <div class="col-12 col-sm-10 offset-md-1 col-md-8 -offset-lg-2">
                     @if($errors->count() > 0)
                         <div class="alert alert-danger alert-dismissible text-left" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -68,7 +68,7 @@
                         </div>
                     @endif
                 </div>
-                <div class="col-xs-12 col-md-5 col-md-offset-1 col-lg-3 col-lg-offset-2">
+                <div class="col-12 col-sm-5 offset-md-1 col-md-3 offset-lg-2">
                     <h4>Add a player</h4>
                     {!! Form::open(['route' => 'enlist.updateTeam.addPlayer']) !!}
                     <div class="form-group">
@@ -76,11 +76,11 @@
                         {!! Form::text('onyen',null,['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-default btn-sm">Submit</button>
+                        <button type="submit" class="btn btn-secondary btn-sm">Submit</button>
                     </div>
                     {!! Form::close() !!}
                 </div>
-                <div class="col-xs-12 col-md-5 col-md-offset-1 col-lg-3 col-lg-offset-2">
+                <div class="col-12 col-sm-5 offset-md-1 col-md-3 offset-lg-2">
                     <h4>Current Players</h4>
                     <ul class="list-unstyled current-players">
                         <li>
@@ -111,7 +111,7 @@
     <section class="mid-section">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+                <div class="col-12 col-sm-10 offset-md-1 col-md-8 offset-lg-2">
                     <h3>Edit your team information</h3>
                     @if(\Carbon\Carbon::now() < $team->game->start_time->subDays(3))
                         <div class="alert alert-warning">

@@ -8,7 +8,7 @@
 
     @if((empty($game->solutionSuspect) || empty($game->solutionLocation) || empty($game->solutionEvidence)))
     <div class="row">
-        <div class="col-xs-12 text-center">
+        <div class="col-12 text-center">
             <p class="lead text-danger">The game solution is not set!</p>
             <p>Go to the <a href="{{ route('admin.game.edit', $game->id) }}">settings</a> and make sure a suspect, location, and evidence item is selected</p>
             <p>Otherwise, <strong>all teams will be shown with a correct indictment</strong>.</p>
@@ -16,21 +16,21 @@
     </div>
     @endif
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-12">
             <p class="lead text-center">The final score!</p>
         </div>
-        <div class="col-xs-12 col-sm-6">
+        <div class="col-12 col-xs-6">
             <h3>Correct Solution</h3>
             <dl class="row" style="padding: 1em;">
-                <dt class="col-md-3">Suspect</dt>
-                <dd class="col-md-9">{{ $game->solutionSuspect->name ?? 'none' }}</dd>
-                <dt class="col-md-3">Location</dt>
-                <dd class="col-md-9">{{ $game->solutionLocation->name ?? 'none' }}</dd>
-                <dt class="col-md-3">Evidence</dt>
-                <dd class="col-md-9">{{ $game->solutionEvidence->title ?? 'none' }}</dd>
+                <dt class="col-sm-3">Suspect</dt>
+                <dd class="col-sm-9">{{ $game->solutionSuspect->name ?? 'none' }}</dd>
+                <dt class="col-sm-3">Location</dt>
+                <dd class="col-sm-9">{{ $game->solutionLocation->name ?? 'none' }}</dd>
+                <dt class="col-sm-3">Evidence</dt>
+                <dd class="col-sm-9">{{ $game->solutionEvidence->title ?? 'none' }}</dd>
             </dl>
         </div>
-        <div class="col-xs-12 col-sm-6">
+        <div class="col-12 col-xs-6">
             @if($game->active)
                 <h3>Bonus Points</h3>
                 {!! Form::open(['route' => ['admin.game.bonus', $game->id], 'class'=> 'form-inline']) !!}
@@ -42,19 +42,19 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Add points</button>
                 {!! Form::close() !!}
-                <span class="help-block">
+                <span class="form-text">
                     You can remove bonus points by entering a negative number
                 </span>
             @endif
         </div>
-        <div class="col-xs-12">
+        <div class="col-12">
             <p class="text-center">
                 <i class="fa fa-warning"></i>
                 <a href="{{ route('admin.game.judgement', $game->id) }}">Remember to judge all answers!</a>
                 <i class="fa fa-warning"></i>
             </p>
         </div>
-        <div class="col-xs-12">
+        <div class="col-12">
             <table class="table">
                 <thead>
                     <tr>
@@ -78,13 +78,13 @@
                                 Correct
                             @else
                                 <dl class="row" style="max-width: 400px;">
-                                    <dt class="col-md-12 text-center text-capitalize">{{ $team->indictment_correct ? 'Correct' : 'Incorrect' }}</dt>
-                                    <dt class="col-md-3">Suspect</dt>
-                                    <dd class="col-md-9">{{ $team->suspect->name ?? 'none' }}</dd>
-                                    <dt class="col-md-3">Location</dt>
-                                    <dd class="col-md-9">{{ $team->location->name ?? 'none' }}</dd>
-                                    <dt class="col-md-3">Evidence</dt>
-                                    <dd class="col-md-9">{{ $team->evidence->title ?? 'none' }}</dd>
+                                    <dt class="col-sm-12 text-center text-capitalize">{{ $team->indictment_correct ? 'Correct' : 'Incorrect' }}</dt>
+                                    <dt class="col-sm-3">Suspect</dt>
+                                    <dd class="col-sm-9">{{ $team->suspect->name ?? 'none' }}</dd>
+                                    <dt class="col-sm-3">Location</dt>
+                                    <dd class="col-sm-9">{{ $team->location->name ?? 'none' }}</dd>
+                                    <dt class="col-sm-3">Evidence</dt>
+                                    <dd class="col-sm-9">{{ $team->evidence->title ?? 'none' }}</dd>
                                 </dl>
                             @endif
                         </td>
@@ -98,7 +98,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12 text-right text-danger">
+        <div class="col-12 text-right text-danger">
             <a class="btn btn-sm btn-warning" href="{{ route('admin.game.score',[$game->id,'waitlist']) }}">Score Waitlist Teams (for game testing purposes)</a>
         </div>
     </div>

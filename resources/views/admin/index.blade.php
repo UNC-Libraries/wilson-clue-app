@@ -9,9 +9,9 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-12">
                 <h2>Games</h2>
-                <a href="{{ route('admin.game.create') }}" class="pull-right btn btn-success"><span class="fa fa-plus"></span> Add New</a>
+                <a href="{{ route('admin.game.create') }}" class="float-right btn btn-success"><span class="fa fa-plus"></span> Add New</a>
                 <table class="table">
                     <thead>
                         <tr><th>Name</th><th>Status</th><th>Activate</th></tr>
@@ -39,13 +39,13 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-xs-12">
+            <div class="col-12">
                 <h2>Site Assets</h2>
                 <div class="row">
                     @foreach($assets as $asset)
-                        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+                        <div class="col-12 col-sm-6 col-md-4">
                             <a href="{{ route($asset['route']) }}">
-                                <div class="well well-sm text-center">
+                                <div class="card card-body well-sm text-center">
                                     <span class="fa fa-5x fa-{{ $asset['icon'] }}"></span>
                                     <span style="display:block; font-size: 1.2em;">{{ $asset['name'] }}</span>
                                 </div>
