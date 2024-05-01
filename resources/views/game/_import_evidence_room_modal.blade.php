@@ -13,8 +13,8 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="Submit" class="btn btn-primary pull-right">Import</button>
+                <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">Close</button>
+                <button type="Submit" class="btn btn-primary float-right">Import</button>
             </div>
         </div><!-- /.modal-content -->
         {!! Form::close() !!}

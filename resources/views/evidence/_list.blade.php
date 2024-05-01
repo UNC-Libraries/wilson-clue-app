@@ -1,7 +1,7 @@
 <div class="row">
     @foreach($evidence as $e)
-        <div class="col-xs-6 col-sm-4 col-md-3">
-            <div class="well text-center">
+        <div class="col-6 col-xs-4 col-sm-3">
+            <div class="card card-body text-center">
                 <div class="text-center">
                     {!! Html::image($e->src,null,array('class'=>'media-object-128')) !!}
                 </div>

@@ -1,8 +1,8 @@
+@import "bootstrap";
+@import "font-awesome";
 @import "mixins/variables.ui";
 @import "mixins/variables.font-awesome";
 @import url(//fonts.googleapis.com/css?family=Josefin+Sans:400,700|Montserrat:900);
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-@import "node_modules/font-awesome/scss/font-awesome";
 
 body {
   margin-top: 50px;

@@ -7,7 +7,7 @@
             {!! Breadcrumbs::render("admin.$model_name.create",$model) !!}
         </div>
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-12">
                 <h1>{{ $page_title ?? "Add new $model_name" }}</h1>
                 @include('admin._form_errors')
 

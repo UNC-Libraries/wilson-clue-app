@@ -9,12 +9,12 @@
     @include('admin._alert')
 
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-12">
             <p class="lead text-center">Judge incorrect answers</p>
         </div>
         @foreach($game->quests as $quest)
             <!-- {{ $quest->id }} -->
-            <div class="col-xs-12">
+            <div class="col-12">
                 <div class="dash-section">
                     <div class="dash-section-header">
                         <h3>{{ $quest->suspect->name }} -- {{ $quest->location->name }}</h3>

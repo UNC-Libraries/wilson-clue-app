@@ -5,7 +5,7 @@
 
     <div class="container-fluid" id="gameContainer">
         <div class="row">
-            <div class="col-xs-1" id="subnav">
+            <div class="col-1" id="subnav">
                 @include('partials.admin.subnav',
                     ['nav_items' => [
                         [
@@ -48,7 +48,7 @@
                     ]]
                 )
             </div>
-            <div class="col-xs-11"  id="contentWrapper">
+            <div class="col-11"  id="contentWrapper">
                 @yield('breadcrumb')
                 <h1 class="text-center">{{ $game->name }} <small>{{ $game->statusText }}</small></h1>
                 @yield('game.content')

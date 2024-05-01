@@ -13,7 +13,7 @@
             'quest_id' => $quest->id
         ])
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-12">
                 @include('ui._'.$quest->type.'_interface')
             </div>
         </div>

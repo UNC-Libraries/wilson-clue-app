@@ -9,11 +9,11 @@
 
     <div class="row">
         {!! Form::model($game, ['route'=> ['admin.game.update',$game->id], 'method' => 'put']) !!}
-        <div class="col-xs-12">
+        <div class="col-12">
             <h2>Evidence Room</h2>
         </div>
 
-        <div class="col-sm-12 col-md-3">
+        <div class="col-xs-12 col-sm-3">
             <div class="form-group">
                 {!! Form::label('evidence_location_id','Location') !!}
                 {!! Form::select('evidence_location_id',$locations->pluck('name','id'), ($game->evidence_location ? $game->evidence_location->id : null), array('placeholder' => 'Select a location', 'class' => 'form-control')) !!}
@@ -26,7 +26,7 @@
                 Import From Previous Game
             </button>
         </div>
-        <div class="col-sm-12 col-md-9">
+        <div class="col-xs-12 col-sm-9">
 
             <legend>Case File Items</legend>
             <div class="form-group" id="caseFileItems">
@@ -36,7 +36,7 @@
                     @endforeach
                 @endif
 
-                <button type="button" class="btn btn-success pull-right load-case-file-form" data-url="{{ route('admin.casefileItemForm') }}"><span class="fa fa-plus-circle"></span> Add Item</button>
+                <button type="button" class="btn btn-success float-right load-case-file-form" data-url="{{ route('admin.casefileItemForm') }}"><span class="fa fa-plus-circle"></span> Add Item</button>
             </div>
 
 
@@ -45,9 +45,9 @@
             <div class="table">
                 <div class="table-cell-col-2">
                     <div class="row">
-                        <div class="col-xs-12">
+                        <div class="col-12">
                             <h4>Evidence Items</h4>
-                            <div class="well" id="evidenceList">
+                            <div class="card card-body" id="evidenceList">
                                 @include('evidence._select_list',array('evidence'=> $game->evidence))
                             </div>
                         </div>
@@ -55,9 +55,9 @@
                 </div>
                 <div class="table-cell-col-2">
                     <div class="row">
-                        <div class="col-xs-12">
+                        <div class="col-12">
                             <h4>Available Items</h4>
-                            <div class="well" id="availableEvidence">
+                            <div class="card card-body" id="availableEvidence">
                                 @include('evidence._select_list',array('evidence'=>$evidence))
                             </div>
                         </div>

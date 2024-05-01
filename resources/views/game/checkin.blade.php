@@ -9,10 +9,10 @@
     @include('admin._alert')
 
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-12">
             <p class="lead text-center">Player Check-in</p>
         </div>
-        <div class="col-xs-12">
+        <div class="col-12">
             {!! Form::open(['route' => ['admin.game.checkin.player', $game->id]]) !!}
                 <div class="form-group">
                     {!! Form::label('pid','Enter the player\'s PID') !!}
@@ -26,7 +26,7 @@
     @foreach($game->registeredTeams->sortBy('name')->chunk(3) as $chunk)
         <div class="row" style="margin-top: 20px;">
             @foreach($chunk as $team)
-                <div class="col-xs-12 col-sm-4">
+                <div class="col-12 col-xs-4">
                     <table class="table">
                         <thead>
                             <tr>

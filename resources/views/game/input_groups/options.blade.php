@@ -28,10 +28,10 @@
 
 <fieldset class="form-group">
     <legend>Restrictions</legend>
-    <label class="radio-inline">
+    <label class="form-check-inline">
         <input type="radio" name="students_only" value="1" {{ $game->students_only === null || $game->students_only ? 'checked' : '' }}> Students Only
     </label>
-    <label class="radio-inline">
+    <label class="form-check-inline">
         <input type="radio" name="students_only" value="0" {{ $game->students_only === false ? 'checked' : '' }}> Any UNC Affiliate
     </label>
 </fieldset>

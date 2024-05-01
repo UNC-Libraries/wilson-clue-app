@@ -8,15 +8,15 @@
 
     @include('admin._alert')
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-12">
             <p class="lead text-center">
                 Add & Remove Teams, Manage waitlist
             </p>
         </div>
-        <div class="col-xs-3 col-xs-offset-9 col-sm-2 col-sm-offset-10 text-right">
+        <div class="col-md-3 offset-xs-9 col-xs-2 offset-md-9 text-right">
             <button class="btn btn-success" data-toggle="modal" data-target="#addTeamModal"><span class="fa fa-plus-circle"></span> Add New</button>
         </div>
-        <div class="col-xs-12">
+        <div class="col-12">
             <h2>Registered <small>{{ $game->registeredTeams->count()}} {{ str_plural('team',$game->registeredTeams->count()) }}</small></h2>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registeredPlayerEmailsModal">
                 <i class="fa fa-envelope-o"></i>
@@ -24,7 +24,7 @@
             </button>
             @include('game._team_table',['teams'=>$game->registeredTeams])
         </div>
-        <div class="col-xs-12">
+        <div class="col-12">
             <h2>Waitlist <small>{{ $game->waitlistTeams->count()}} {{ str_plural('team',$game->waitlistTeams->count()) }}</small></h2>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#waitlistPlayerEmailsModal">
                 <i class="fa fa-envelope-o"></i>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-xs-12">
+                        <div class="col-12">
                             {!! Form::open(['route' => ['admin.game.addTeam',$game->id]]) !!}
                             @include('team._team_form_inputs')
                             {!! Form::close() !!}

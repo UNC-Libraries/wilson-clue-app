@@ -1,8 +1,8 @@
 @foreach($facets as $key => $text)
-<div class="checkbox">
+<div class="form-check">
     <label for="{{ $facetName.$key }}">
         <input
-                type="checkbox"
+                type="form-check"
                 name="{{ $facetName }}[]"
                 id="{{ $facetName.$key }}"
                 value="{{ $key }}"

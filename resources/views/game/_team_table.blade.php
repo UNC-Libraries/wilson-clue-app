@@ -11,7 +11,7 @@
     <tbody>
     @foreach($teams as $team)
         <tr>
-            <td><a href="{{ route('admin.team.edit',array($team->id)) }}" class="btn btn-default">Edit</a></td>
+            <td><a href="{{ route('admin.team.edit',array($team->id)) }}" class="btn btn-secondary">Edit</a></td>
             <td>{{ $team->name }}</td>
             <td>{{ $team->dietary }}</td>
             <td>
