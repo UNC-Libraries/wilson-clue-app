@@ -7,12 +7,12 @@
             {!! Breadcrumbs::render("admin.siteMessages") !!}
         </div>
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-12">
                 @include('admin._alert')
                 <h1>Site Messages</h1>
                 @foreach($messages as $key => $message)
                     <div class="row">
-                        <div class="col-xs-12">
+                        <div class="col-12">
                             {!! Form::open(['route' => ['admin.siteMessages.update',$key]]) !!}
                                 <h2>{{ title_case(str_replace('_',' ',$key)) }}</h2>
                                 <p class="lead">{{ $message['description'] }}</p>

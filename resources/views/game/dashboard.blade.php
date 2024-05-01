@@ -16,7 +16,7 @@
         @endif
 
         <!-- App Alerts -->
-        <div class="col-xs-12">
+        <div class="col-12">
             <div class="dash-section">
                 <div class="dash-section-header">
                     <h3>Send In-game Alert to Players</h3>
@@ -45,7 +45,7 @@
         </div>
 
         <!-- Glados -->
-        <div class="col-xs-12">
+        <div class="col-12">
             <div class="dash-section">
                 <div class="dash-section-header">
                     <h3>
@@ -58,7 +58,7 @@
         </div>
 
         <!-- Viewing -->
-        <div class="col-xs-12">
+        <div class="col-12">
             <div class="dash-section">
                 <div class="dash-section-header">
                     <h3>

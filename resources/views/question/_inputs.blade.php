@@ -1,6 +1,6 @@
 <div class="row">
     <!-- Question type -->
-    <div class="form-group col-xs-12 col-sm-4">
+    <div class="form-group col-12 col-xs-4">
         <div class="form-check" id="questionType">
             <label>
                 {!! Form::checkbox('type') !!} Image?
@@ -8,26 +8,26 @@
         </div>
     </div>
     <!-- Question Location -->
-    <div class="form-group col-xs-12 col-sm-4">
+    <div class="form-group col-12 col-xs-4">
         {!! Form::label('location_id','Location') !!}
         {!! Form::select('location_id',$locations->pluck('name','id'), $question->location ? $question->location->id : null, array('placeholder' => 'Select a location', 'class' => 'form-control', 'required')) !!}
     </div>
 </div>
 <div class="row">
     <!-- Question text -->
-    <div class="form-group col-xs-12">
+    <div class="form-group col-12">
         {!! Form::label('text', 'Question Text') !!}
         {!! Form::text('text', null, ['class'=>'form-control']) !!}
     </div>
 </div>
 <div class="row hidden" id="questionImageRow">
-    <div class="col-xs-12">
+    <div class="col-12">
         <!-- Question Image -->
         @include('partials._image_input',['current' => $question->src, 'alt' => $question->id])
     </div>
 </div>
 <div class="row" style="margin-top: 1em;">
-    <div class="col-xs-12">
+    <div class="col-12">
         <legend>Answers</legend>
         @if(!empty($incorrect))
             <div class="card card-body">
@@ -42,7 +42,7 @@
             </div>
         @endif
         <div class="row">
-            <div class="form-group col-xs-12">
+            <div class="form-group col-12">
                 {!! Form::label('full_answer', 'Full Answer') !!}
                 {!! Form::text('full_answer',null,array('class' => 'form-control')) !!}
                 <span class="form-text">
@@ -55,7 +55,7 @@
             @foreach($question->answers as $answer)
                 @include('question._answer_input')
             @endforeach
-            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 col-top-padding">
+            <div class="col-12 col-xs-4 col-sm-3 col-md-2 col-top-padding">
                 <button type="button" class="btn btn-success" id="addNewAnswer" data-url="{{ route('admin.new.answer') }}">
                     <span class="fa fa-plus-circle"></span>
                 </button>
@@ -65,7 +65,7 @@
 
 </div>
 <div class="row">
-    <div class="form-group col-xs-12 text-right">
+    <div class="form-group col-12 text-right">
         <button type="submit" class="btn btn-primary">Save</button>
     </div>
 </div>

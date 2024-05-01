@@ -13,7 +13,7 @@
         @endif
 
         <div class="row">
-            <div class="col-xs-12 col-sm-8 offset-sm-2">
+            <div class="col-12 col-xs-8 offset-sm-2">
                 <h2>Suspects</h2>
                 @foreach($suspects as $suspect)
                 <div class="media">
@@ -26,7 +26,7 @@
                         <a href="{{ route('admin.suspect.edit',[$suspect->id]) }}" class="btn btn-primary float-right"><span class="fa fa-edit"></span></a>
                         <h4 class="media-heading">{{ $suspect->name }}</h4>
                         <div class="row">
-                            <div class="col-xs-12">
+                            <div class="col-12">
                                 <h5>Bio</h5>
                                 <p>{!! app(Parsedown::class)->text($suspect->bio) !!}</p>
                                 <h5>Quote</h5>

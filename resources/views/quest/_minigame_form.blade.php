@@ -3,7 +3,7 @@
 <div class="table">
     <div class="table-cell-col-2">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-12">
                 <h4>Minigame Images <small><span class="drop-count">{{ $quest->minigameImages->count() }}</span> images</small></h4>
                 <div class="card card-body" id="minigameImageList">
                     @include('minigameImage._select_list',array('images'=> $quest->minigameImages))
@@ -13,7 +13,7 @@
     </div>
     <div class="table-cell-col-2">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-12">
                 <h4>Available Images</h4>
                 <div class="card card-body" id="availableMinigameImages">
                     @include('minigameImage._select_list',array('images'=> $minigameImages))

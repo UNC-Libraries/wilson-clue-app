@@ -1,6 +1,6 @@
 @if(!empty($warnings))
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-12">
             <div class="alert alert-warning">
                 <p class="text-center">
                     <i class="fa fa-warning"></i>

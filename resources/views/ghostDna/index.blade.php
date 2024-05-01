@@ -7,11 +7,11 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-12">
                 <h1>Ghost DNA</h1>
                 @include('admin._alert')
             </div>
-            <div class="col-xs-12 col-md-4">
+            <div class="col-12 col-sm-4">
                 @include('admin._form_errors')
                 {!! Form::open(['route'=>['admin.ghostDna.store']]) !!}
                     <div class="form-group">
@@ -23,7 +23,7 @@
 
                 {!! Form::close() !!}
             </div>
-            <div class="col-xs-12 col-md-8">
+            <div class="col-12 col-sm-8">
                 <p><strong>Current Pairs</strong></p>
                 <table class="table" role="presentation">
                     <tbody>
