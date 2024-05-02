@@ -16,13 +16,6 @@ legend {
   color: $gray-base;
 }
 
-.alert-default {
-  @include alert-variant($alert-default-bg, $alert-default-border, $alert-default-text);
-}
-.alert-primary {
-  @include alert-variant($alert-primary-bg, $alert-primary-border, $alert-primary-text);
-}
-
 /**************
  SVG Maps
 ****************/
