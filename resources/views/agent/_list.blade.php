@@ -1,5 +1,5 @@
 @foreach($models as $agent)
-    <div class="col-xs-12 col-sm-6">
+    <div class="col col-sm-6">
         <div class="card card-body well-sm">
             <div class="row">
                 <div class="d-none col-xs-4 col-md-3">
