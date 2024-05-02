@@ -35,7 +35,7 @@
                             <li>
                                 <em>{{ $alert->message }}</em>
                                 <small>
-                                    @include('partials._delete_form', ['route' => ['admin.game.alert.destroy', $game->id, $alert->id], 'class' => 'btn-xs'])
+                                    @include('partials._delete_form', ['route' => ['admin.game.alert.destroy', $game->id, $alert->id], 'class' => 'btn-sm'])
                                 </small>
                             </li>
                         @endforeach

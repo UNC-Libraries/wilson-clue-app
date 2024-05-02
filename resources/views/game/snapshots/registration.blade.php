@@ -20,7 +20,7 @@
         <div class="dash-section-body">
             <h4>
                 Registration
-                <a href="{{ route('admin.game.teams', $game->id) }}" type="button" class="btn btn-primary btn-xs">
+                <a href="{{ route('admin.game.teams', $game->id) }}" type="button" class="btn btn-primary btn-sm">
                     <span class="fa fa-users"></span> Manage
                 </a>
             </h4>
@@ -35,7 +35,7 @@
 
             <h4>
                 Player Breakdown
-                <a href="{{ route('admin.player.index', $game->id) }}?sort_by=last_name&sort_order=asc&game[]={{ $game->id }}" type="button" class="btn btn-primary btn-xs">
+                <a href="{{ route('admin.player.index', $game->id) }}?sort_by=last_name&sort_order=asc&game[]={{ $game->id }}" type="button" class="btn btn-primary btn-sm">
                     <span class="fa fa-vcard-o"></span> View All
                 </a>
             </h4>
