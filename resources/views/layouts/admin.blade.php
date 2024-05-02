@@ -18,24 +18,24 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.game.create') }}"><span class="fa fa-plus"></span> New Game</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Games <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
+                    <div class="dropdown-menu">
                         @foreach($games->sortBy('start_time') as $game)
-                            <li><a href="{{ route('admin.game.show', $game->id) }}">{{ $game->name }}</a></li>
+                            <a class="dropdown-item" href="{{ route('admin.game.show', $game->id) }}">{{ $game->name }}</a>
                         @endforeach
-                    </ul>
+                    </div>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Assets <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
+                    <div class="dropdown-menu">
                         @foreach($assets as $asset)
-                            <li class="dropdown-item"><a href="{{ route($asset['route']) }}">{{ $asset['name'] }}</a></li>
+                            <a class="dropdown-item" href="{{ route($asset['route']) }}">{{ $asset['name'] }}</a>
                         @endforeach
-                    </ul>
+                    </div>
                 </li>
             </ul>
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="{{ route('admin.logout') }}">Logout</a></li>
             </ul>
         </div>
