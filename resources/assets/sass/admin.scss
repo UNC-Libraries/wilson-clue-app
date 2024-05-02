@@ -197,3 +197,18 @@ $evidence-text:   #000;
 .progress + h4 {
   margin-top: 1rem;
 }
+
+#questionFilterForm .form-check-inline {
+  input[type=radio] {
+    margin-right: 5px;
+  }
+
+  label {
+    width: 100%;
+    justify-content: left;
+  }
+}
+
+#questionIndexTable .table th {
+  border-top: none;
+}
