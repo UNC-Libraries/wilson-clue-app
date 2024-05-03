@@ -16,7 +16,7 @@
             </span>
         </div>
     @endif
-    <div class="col-12">
+    <div class="col-12 mt-3 mb-3">
         <h2>Teams</h2>
         <ul>
             @foreach($player->teams as $team)

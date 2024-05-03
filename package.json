@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "axios": "^1.6.8",
-        "bootstrap": "^4.6.2",
+        "bootstrap": "^5.3.3",
         "clipboard": "^2.0.11",
         "eonasdan-bootstrap-datetimepicker": "^4.17.49",
         "font-awesome": "^4.7.0",

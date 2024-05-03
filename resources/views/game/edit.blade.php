@@ -28,7 +28,7 @@
         <div class="col-12 col-xs-6">
             <div class="dash-section">
                 <div class="dash-section-header">
-                    <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#gameOptions">
+                    <button type="button" class="btn btn-primary btn-sm float-end" data-toggle="modal" data-target="#gameOptions">
                         <span class="fa fa-edit"></span> Edit
                     </button>
                     <h3>
@@ -62,7 +62,7 @@
         <div class="col-12 col-xs-6">
             <div class="dash-section">
                 <div class="dash-section-header">
-                    <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#gameSolution">
+                    <button type="button" class="btn btn-primary btn-sm float-end" data-toggle="modal" data-target="#gameSolution">
                         <span class="fa fa-edit"></span> Edit
                     </button>
                     <h3>Solution</h3>
@@ -135,7 +135,7 @@
         <div class="col-12">
             <div class="dash-section">
                 <div class="dash-section-header">
-                    <a href="{{ route('admin.game.edit.evidence', $game->id) }}" type="button" class="btn btn-primary btn-sm float-right">
+                    <a href="{{ route('admin.game.edit.evidence', $game->id) }}" type="button" class="btn btn-primary btn-sm float-end">
                         <span class="fa fa-edit"></span> Edit
                     </a>
                     <h3>Images</h3>

@@ -37,7 +37,7 @@
     </div>
     @endforeach
 
-    <div class="container text-right" id="suspect-header">
+    <div class="container text-end" id="suspect-header">
         <h2>The Suspects</h2>
     </div>
     <div class="container">

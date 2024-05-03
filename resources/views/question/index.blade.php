@@ -6,19 +6,19 @@
 @section('model_list')
 
 <div class="row">
-    {!! Form::open(['route' => 'admin.question.index', 'id' => 'questionFilterForm', 'class' => 'form-inline', 'method' => 'get']) !!}
-        <div class="form-group col-4">
-            {!! Form::label('location_id','Filter By Location', ['class' => 'font-weight-bold']) !!}
+    {!! Form::open(['route' => 'admin.question.index', 'id' => 'questionFilterForm', 'class' => 'row', 'method' => 'get']) !!}
+        <div class="form-group col-12 col-sm-4">
+            {!! Form::label('location_id','Filter By Location', ['class' => 'fw-bold mb-1']) !!}
             {!! Form::select('location_id',$locations->pluck('name','id'), $location, ['placeholder' => 'Select a location', 'class' => 'form-control auto-submit', 'data-target'=>'#questionFilterForm']) !!}
         </div>
 
-        <div class="form-group col-4">
-            {!! Form::label('game_id','Filter By Game', ['class' => 'font-weight-bold']) !!}
+        <div class="form-group col-12 col-sm-4">
+            {!! Form::label('game_id','Filter By Game', ['class' => 'fw-bold mb-1']) !!}
             {!! Form::select('game_id',$games->pluck('name','id'), $game, ['placeholder' => 'Select a game', 'class' => 'form-control auto-submit', 'data-target'=>'#questionFilterForm']) !!}
         </div>
 
-        <div class="form-group col-4">
-            {!! Form::label('search', 'Search', ['class' => 'font-weight-bold']) !!}
+        <div class="form-group col-12 col-sm-4">
+            {!! Form::label('search', 'Search', ['class' => 'fw-bold mb-1']) !!}
             <div class="input-group">
                 {!! Form::text('search', $string, ['class'=>'form-control']) !!}
                 <span class="input-group-btn">

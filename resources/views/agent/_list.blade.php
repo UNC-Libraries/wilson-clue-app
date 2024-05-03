@@ -11,16 +11,16 @@
                             <div class="col-9">
                                 <h4 class="media-heading"><small>{{ $agent->title }}</small><br>{{ $agent->full_name }} </h4>
                                 @if($agent->admin)
-                                    <span class="badge badge-info">Admin</span>
+                                    <span class="badge bg-info">Admin</span>
                                 @endif
                                 @if($agent->web_display)
-                                    <span class="badge badge-success">Web Display</span>
+                                    <span class="badge bg-success">Web Display</span>
                                 @endif
                                 @if($agent->retired)
-                                    <span class="badge badge-danger">Retired</span>
+                                    <span class="badge bg-danger">Retired</span>
                                 @endif
                             </div>
-                            <div class="col-3 text-right">
+                            <div class="col-3 text-end">
                                 <a href="{{ route('admin.agent.edit',[$agent->id]) }}" class="btn btn-primary btn-sm">
                                     Edit
                                 </a>

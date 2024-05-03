@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row mt-3">
     <div class="col-12">
         <legend>Image</legend>
     </div>
@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-12">
                 <div id="imageFileInput" class="form-group">
-                    {!! Form::label('new_image_file','Select a file') !!}
+                    {!! Form::label('new_image_file','Select a file', ['class' => 'fw-bold']) !!}
                     {!! Form::file('new_image_file',['class'=>'form-control']) !!}
                 </div>
                 <span class="form-text">

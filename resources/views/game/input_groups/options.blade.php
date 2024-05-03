@@ -1,18 +1,18 @@
 <!-- title -->
 <div class="form-group">
-    {!! Form::label('name','Name') !!}
+    {!! Form::label('name','Name', ['class' => 'fw-bold mb-1']) !!}
     {!! Form::text('name',null,array('class' => 'form-control')) !!}
 </div>
 
 <!-- date -->
 <div class="form-group">
-    {!! Form::label('start_time','Start Time') !!}
+    {!! Form::label('start_time','Start Time', ['class' => 'fw-bold mb-1 mt-2']) !!}
     {!! Form::text(
         'start_time',
         '',
         ['class' => 'form-control date datetime-picker', 'data-date-default-date' => $game->start_time ? $game->start_time->toIso8601String() : \Carbon\Carbon::now()->addDays(1)->toIso8601String()]
     ) !!}
-    {!! Form::label('end_time','End Time') !!}
+    {!! Form::label('end_time','End Time', ['class' => 'fw-bold mb-1 mt-2']) !!}
     {!! Form::text(
         'end_time',
         '',
@@ -22,7 +22,7 @@
 
 <!-- max teams -->
 <div class="form-group">
-    {!! Form::label('max_teams','Max Teams') !!}
+    {!! Form::label('max_teams','Max Teams', ['class' => 'fw-bold mb-1 mt-2']) !!}
     {!! Form::number('max_teams',null,array('class' => 'form-control')) !!}
 </div>
 

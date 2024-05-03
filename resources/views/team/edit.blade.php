@@ -29,7 +29,7 @@
             </button>
             @if($team->players->count() < 5)
                 <div class="row">
-                    <div class="col-3 offset-xs-9 col-xs-2 offset-sm-10 text-right">
+                    <div class="col-3 offset-xs-9 col-xs-2 offset-sm-10 text-end">
                         <button class="btn btn-success" data-toggle="modal" data-target="#addPlayerModal"><span class="fa fa-plus-circle"></span> Add New</button>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                             @if($team->game->students_only)
                                 <div class="form-group col-12">
                                     <label for="override_non_student">
-                                        <input type="form-check" id="override_non_student" name="override_non_student" value="1"> Override Non-Student?
+                                        <input type="checkbox" id="override_non_student" class="form-check-input" name="override_non_student" value="1"> Override Non-Student?
                                     </label>
                                 </div>
                             @endif

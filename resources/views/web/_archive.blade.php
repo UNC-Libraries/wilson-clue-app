@@ -1,7 +1,7 @@
 <section class="light-section special-elite" id="archive">
     <div class="container">
         <div class="row">
-            <div class="col-12 text-right">
+            <div class="col-12 text-end">
                 <h2>The Archive</h2>
             </div>
 

@@ -13,7 +13,7 @@
                 <p><a href="mailto:wilsonclue@listserv.unc.edu"><span class="fa fa-envelope"></span> wilsonclue@listserv.unc.edu</a></p>
             </div>
 
-            <div class="col-xs-12 col-sm-4 text-right">
+            <div class="col-xs-12 col-sm-4 text-end">
             </div>
         </div>
         <div class="row">

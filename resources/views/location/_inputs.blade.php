@@ -1,14 +1,14 @@
 @include('partials._maps')
 <div class="row">
     <!-- Name -->
-    <div class="form-group col-8">
-        {!! Form::label('name', 'Name') !!}
+    <div class="form-group col-12 col-sm-8 mb-3">
+        {!! Form::label('name', 'Name', ['class' => 'fw-bold mb-1']) !!}
         {!! Form::text('name', null, array('class'=>'form-control')) !!}
     </div>
 
     <!-- Floor -->
-    <div class="form-group col-4">
-        {!! Form::label('floor', 'Floor') !!}
+    <div class="form-group col-12 col-sm-4 mb-3">
+        {!! Form::label('floor', 'Floor', ['class' => 'fw-bold mb-1']) !!}
         {!! Form::select('floor', array('1' => '1', '2' => '2', '3' => '3', '4' => '4'), $location->floor, array('placeholder' => 'Select a floor', 'class' => 'form-control')) !!}
 
     </div>

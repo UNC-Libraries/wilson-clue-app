@@ -31,8 +31,8 @@ mix.setResourceRoot('../')
 
     //scripts
     .scripts([
-            paths.node + 'jquery/dist/jquery.js',
-            paths.node + 'bootstrap/dist/js/bootstrap.js',
+            paths.node + 'jquery/dist/jquery.min.js',
+            paths.node + 'bootstrap/dist/js/bootstrap.bundle.min.js',
             paths.node + 'moment/moment.js',
             paths.node + 'eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
             paths.node + 'sortablejs/Sortable.min.js',

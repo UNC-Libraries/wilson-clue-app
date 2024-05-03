@@ -33,7 +33,7 @@
                         <div class="col-6">
                             {!! Form::open(['route' => ['admin.game.judgeAnswers', $game->id, $quest->id, $question->id, $answers->first()->team_id]]) !!}
                             <input type="hidden" name="judgement" value="correct">
-                            <button type="submit" class="btn btn-success float-right">
+                            <button type="submit" class="btn btn-success float-end">
                                 <span class="fa fa-check"></span> Correct
                             </button>
                             {!! Form::close() !!}

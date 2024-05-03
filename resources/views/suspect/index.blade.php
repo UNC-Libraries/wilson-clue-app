@@ -16,14 +16,14 @@
             <div class="col-12 col-xs-8">
                 <h2>Suspects</h2>
                 @foreach($suspects as $suspect)
-                <div class="media">
-                    <div class="media-left media-top">
+                <div class="d-flex align-items-top mt-2">
+                    <div class="flex-shrink-0">
                         <a href="{{ route('admin.suspect.edit',[$suspect->id]) }}">
                             {!! Html::image(asset($suspect->face_image),$suspect->name,array('class'=>'media-object media-object-128')) !!}
                         </a>
                     </div>
-                    <div class="media-body">
-                        <a href="{{ route('admin.suspect.edit',[$suspect->id]) }}" class="btn btn-primary float-right"><span class="fa fa-edit"></span></a>
+                    <div class="flex-grow-1 ms-3">
+                        <a href="{{ route('admin.suspect.edit',[$suspect->id]) }}" class="btn btn-primary float-end"><span class="fa fa-edit"></span></a>
                         <h4 class="media-heading">{{ $suspect->name }}</h4>
                         <div class="row">
                             <div class="col-12">

@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="col-12 subpage-banner">
-                        <h1><a href="{{ route('web.index') }}">Clue</a> <small class="text-right">{{$game->start_time->format('F, jS Y')}}</small></h1>
+                        <h1><a href="{{ route('web.index') }}">Clue</a> <small class="text-end">{{$game->start_time->format('F, jS Y')}}</small></h1>
                     </div>
                 </div>
                 <div class="col-12 text-center">

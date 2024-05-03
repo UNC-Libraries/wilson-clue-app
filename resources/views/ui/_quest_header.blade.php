@@ -7,7 +7,7 @@
             </svg>
         </div>
     </div>
-    <div class="col-7 text-right">
+    <div class="col-7 text-end">
         <img src="{{ $img_src }}" class="quest-header-image">
         <div class="quest-title">
             {{ $quest_title }}

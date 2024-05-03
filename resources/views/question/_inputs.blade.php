@@ -1,27 +1,27 @@
 <div class="row">
     <!-- Question type -->
-    <div class="form-group col-12 col-xs-4">
-        <div class="form-check" id="questionType">
+    <div class="form-group col-12 col-sm-3 mb-3">
+        <div id="questionType">
             <label>
                 {!! Form::checkbox('type') !!} Image?
             </label>
         </div>
     </div>
     <!-- Question Location -->
-    <div class="form-group col-12 col-xs-4">
-        {!! Form::label('location_id','Location') !!}
+    <div class="form-group col-12 col-sm-3">
+        {!! Form::label('location_id','Location', ['class' => 'fw-bold mb-1']) !!}
         {!! Form::select('location_id',$locations->pluck('name','id'), $question->location ? $question->location->id : null, array('placeholder' => 'Select a location', 'class' => 'form-control', 'required')) !!}
     </div>
 </div>
 <div class="row">
     <!-- Question text -->
-    <div class="form-group col-12">
-        {!! Form::label('text', 'Question Text') !!}
+    <div class="form-group col-12 col-sm-3">
+        {!! Form::label('text', 'Question Text', ['class' => 'fw-bold mb-1']) !!}
         {!! Form::text('text', null, ['class'=>'form-control']) !!}
     </div>
 </div>
-<div class="row hidden" id="questionImageRow">
-    <div class="col-12">
+<div class="row d-none" id="questionImageRow">
+    <div class="col">
         <!-- Question Image -->
         @include('partials._image_input',['current' => $question->src, 'alt' => $question->id])
     </div>
@@ -43,7 +43,7 @@
         @endif
         <div class="row">
             <div class="form-group col-12">
-                {!! Form::label('full_answer', 'Full Answer') !!}
+                {!! Form::label('full_answer', 'Full Answer', ['class' => 'fw-bold mb-1']) !!}
                 {!! Form::text('full_answer',null,array('class' => 'form-control')) !!}
                 <span class="form-text">
                     The full answer is context for the judges. You must enter single-word answers below. Usually keywords
@@ -65,7 +65,7 @@
 
 </div>
 <div class="row">
-    <div class="form-group col-12 text-right">
+    <div class="form-group col-12 text-end">
         <button type="submit" class="btn btn-primary">Save</button>
     </div>
 </div>

@@ -98,7 +98,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12 text-right text-danger">
+        <div class="col-12 text-end text-danger">
             <a class="btn btn-sm btn-warning" href="{{ route('admin.game.score',[$game->id,'waitlist']) }}">Score Waitlist Teams (for game testing purposes)</a>
         </div>
     </div>

@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-12">
                 <h2>Games</h2>
-                <a href="{{ route('admin.game.create') }}" class="float-right btn btn-success"><span class="fa fa-plus"></span> Add New</a>
+                <a href="{{ route('admin.game.create') }}" class="float-end btn btn-success"><span class="fa fa-plus"></span> Add New</a>
                 <table class="table">
                     <thead>
                         <tr><th>Name</th><th>Status</th><th>Activate</th></tr>
@@ -32,7 +32,7 @@
                         </tr>
                         @endforeach
                         <tr>
-                            <td colspan="3" class="text-right">
+                            <td colspan="3" class="text-end">
                                 <a href="{{ route('admin.trash') }}" class="text-danger">View Deleted games</a>
                             </td>
                         </tr>

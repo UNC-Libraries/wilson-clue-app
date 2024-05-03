@@ -3,7 +3,7 @@
 <div class="row">
     <!-- evidence title -->
     <div class="form-group col-12 col-xs-4">
-        {!! Form::label('title', 'Evidence Title') !!}
+        {!! Form::label('title', 'Evidence Title', ['class' => 'fw-bold']) !!}
         {!! Form::text('title', null, array('class'=>'form-control')) !!}
     </div>
 </div>

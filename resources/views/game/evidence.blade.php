@@ -36,7 +36,7 @@
                     @endforeach
                 @endif
 
-                <button type="button" class="btn btn-success float-right load-case-file-form" data-url="{{ route('admin.casefileItemForm') }}"><span class="fa fa-plus-circle"></span> Add Item</button>
+                <button type="button" class="btn btn-success float-end load-case-file-form" data-url="{{ route('admin.casefileItemForm') }}"><span class="fa fa-plus-circle"></span> Add Item</button>
             </div>
 
 

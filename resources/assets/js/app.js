@@ -16,16 +16,16 @@ clue = {
     $(target).closest('.question-div').removeClass('submitting').removeClass('incorrect');
     $(target+'-response').html('');
     $(dnaId).addClass(topOrBottom);
-    var tOffset = $(dnaId).offset().top;
+    let tOffset = $(dnaId).offset().top;
     $('html,body').animate({scrollTop:tOffset-20},'fast');
   },
 
   generateGoogleDrivePermalink: function(link){
-    var src = link;
+    let src = link;
     if(link.indexOf('drive.google.com') !== -1){
       if(link.indexOf('view?') !== -1){
-        var url_parts = link.split('/');
-        var file_id = url_parts[url_parts.length - 2];
+        let url_parts = link.split('/');
+        let file_id = url_parts[url_parts.length - 2];
         src = 'https://drive.google.com/uc?id=' + file_id
       } else {
         src = link.replace('\/open\?','/uc?')
@@ -35,7 +35,7 @@ clue = {
   },
 
   getGlobalAlert: function() {
-    var url = $('#alertModal').data('url');
+    let url = $('#alertModal').data('url');
     $.ajax({
       url: url,
       type: 'post',
@@ -54,7 +54,7 @@ clue = {
   },
 
   getPageAlert: function() {
-    var url = $('#pageAlert').data('check-alert-url');
+    let url = $('#pageAlert').data('check-alert-url');
     $.ajax({
       url: url,
       type: 'post',
@@ -70,7 +70,7 @@ clue = {
   },
 
   getIndictmentConfirmationText: function(which){
-    var text = $('input[name="'+ which +'"]:checked').data('full-name');
+    let text = $('input[name="'+ which +'"]:checked').data('full-name');
     return text ? text : '<span class="text-danger">YOU HAVE NO '+ which.toUpperCase() +' SELECTED!!!</span>';
   },
 
@@ -85,7 +85,7 @@ clue = {
 
   initAutoSubmit: function(){
       $('.auto-submit').change(function(){
-          var target = $(this).data('target');
+          let target = $(this).data('target');
           if(target){
             $(target).submit();
           } else {
@@ -96,12 +96,11 @@ clue = {
 
   initClipboard: function(){
     new Clipboard('.clipboard-btn');
-
   },
 
   initConfirmSubmit: function(){
       $('.confirm-submit').submit(function() {
-        var message = $(this).data('message');
+        let message = $(this).data('message');
         return confirm(message);
       });
   },
@@ -109,8 +108,8 @@ clue = {
   initCaseFileForm: function(){
       $('.load-case-file-form').on('click',function(e){
           e.preventDefault();
-          var url = $(this).data('url');
-          var button = $(this);
+          let url = $(this).data('url');
+          let button = $(this);
 
           $.ajax({
               url: url,
@@ -130,7 +129,7 @@ clue = {
 
   initDateTimePicker: function(){
       $('.datetime-picker').each(function(i){
-          var date = $(this).data('date-default-date');
+          let date = $(this).data('date-default-date');
           $('.datetime-picker').datetimepicker({
               defaultDate: date
           });
@@ -140,7 +139,7 @@ clue = {
   initDnaForm: function(){
     $('#dnaForm').submit(function(e){
       e.preventDefault();
-      var target = '#' + $(this).prop('id');
+      let target = '#' + $(this).prop('id');
       clue.questionSubmit(target);
 
       $.ajax({
@@ -166,7 +165,7 @@ clue = {
   initEvidenceRoom: function(){
     $('#evidenceForm').submit(function(e){
       e.preventDefault();
-      var target = '#' + $(this).prop('id');
+      let target = '#' + $(this).prop('id');
       clue.questionSubmit(target);
 
       $.ajax({
@@ -188,9 +187,9 @@ clue = {
   initImagePreview: function() {
     $('button.preview-image').click(function(e){
       e.preventDefault();
-      var src = clue.generateGoogleDrivePermalink($('input[name="src"]').val());
+      let src = clue.generateGoogleDrivePermalink($('input[name="src"]').val());
       $('input[name="src"]').val(src);
-      $($(this).data('target')).prop('src',src).removeClass('hidden');
+      $($(this).data('target')).prop('src',src).removeClass('d-none');
     });
   },
 
@@ -209,7 +208,7 @@ clue = {
   initMinigame: function(){
 
     // Sortable
-    var list = document.getElementById('minigameContainer');
+    let list = document.getElementById('minigameContainer');
 
     if(list){
       clue.updateMinigameOrder('#minigameContainer');
@@ -223,7 +222,7 @@ clue = {
       });
 
       $('.minigame-image').click(function(){
-          var target = "#minigameImageModal-" + $(this).data('id');
+          let target = "#minigameImageModal-" + $(this).data('id');
           $(target).modal('show');
       });
     }
@@ -231,7 +230,7 @@ clue = {
     // Ajax Form
     $('#minigameForm').submit(function(e){
       e.preventDefault();
-      var target = '#' + $(this).prop('id');
+      let target = '#' + $(this).prop('id');
 
       clue.questionSubmit(target);
 
@@ -258,7 +257,7 @@ clue = {
   initQuestionForm: function(){
     $('.question-form').submit(function(e){
       e.preventDefault();
-      var target = '#' + $(this).prop('id');
+      let target = '#' + $(this).prop('id');
       clue.questionSubmit(target);
 
       $.ajax({
@@ -294,7 +293,7 @@ clue = {
   },
 
   initQuestDragDrop: function(listId,availableId,stashInputName){
-      var list = document.getElementById(listId),
+      let list = document.getElementById(listId),
         available = document.getElementById(availableId);
 
       if(list && available){
@@ -325,15 +324,15 @@ clue = {
 
       $('#questionType input').change(function(){
           if($(this).prop("checked")) {
-              $('#questionImageRow, #enableQuestionText').removeClass('hidden');
+              $('#questionImageRow, #enableQuestionText').removeClass('d-none');
           }
           else {
-              $('#questionImageRow, #enableQuestionText').addClass('hidden');
+              $('#questionImageRow, #enableQuestionText').addClass('d-none');
           }
       }).trigger("change");
     
       $('body').on('click','.remove-answer',function(e){
-        var url = $(this).data('url');
+        let url = $(this).data('url');
         if(url.length){
           $.ajax({
             url: url,
@@ -346,7 +345,7 @@ clue = {
       });
 
       $('#addNewAnswer').click(function(e){
-          var button = $(this);
+          let button = $(this);
 
           $.ajax({
               url: $(this).data('url'),
@@ -371,35 +370,35 @@ clue = {
 
   initShowHideQuestTypeSetup: function(){
       $('#type').on('change',function(){
-          var type = $(this).val();
+          let type = $(this).val();
           $('.quest-type').css({'display':'none'});
           $('.'+type+'-setup').css({'display':'block'});
       }).change();
   },
 
   questionCorrect: function(target){
-    var element = $(target).closest('.question-div');
+    let element = $(target).closest('.question-div');
     console.log(element);
     console.log(target);
     if(element.length){
       element.addClass('correct').removeClass('submitting check-status').html('<div class="row"><div class="col-xs-12 text-center"><strong>Complete</strong></div></div>');
       clue.getPageAlert();
-      var tOffset = element.offset().top;
+      let tOffset = element.offset().top;
       $('html,body').animate({scrollTop:tOffset-20},'fast');
     }
   },
 
   questionIncorrect: function(target, message){
     message = (typeof message !== 'undefined') ?  message : 'Try Again!';
-    var element = $(target).closest('.question-div');
+    let element = $(target).closest('.question-div');
     element.removeClass('submitting').addClass('incorrect');
     $(target+'-response').html(message);
-    var tOffset = element.offset().top;
+    let tOffset = element.offset().top;
     $('html,body').animate({scrollTop:tOffset-20},'fast');
   },
 
   setEvidence: function(target){
-    var element = $(target).closest('.question-div');
+    let element = $(target).closest('.question-div');
     element.removeClass('submitting');
     $(target+'-response').html('Evidence Set');
   },
@@ -409,8 +408,8 @@ clue = {
   },
 
   updateMinigameOrder: function(target) {
-    var order = 1;
-    var attempt = [];
+    let order = 1;
+    let attempt = [];
 
     $(target).children('.minigame-image').each(function(k,v){
         $(v).children('span').html(order);
@@ -422,7 +421,7 @@ clue = {
   },
 
   updateStash: function(listId, stash){
-      var list = [];
+      let list = [];
       $(listId + ' .media').each(function(){
           list.push($(this).data('id'));
       });
@@ -436,20 +435,20 @@ clue = {
 
   web: function(){
       $('.scrollnav').on("click",function(e){
-          var t= $(this.hash);
-          var t=t.length&&t||$('[name='+this.hash.slice(1)+']');
+          let t= $(this.hash);
+          t = t.length&&t || $('[name='+this.hash.slice(1)+']');
           if(t.length){
-              var tOffset=t.offset().top;
+              let tOffset=t.offset().top;
               $('html,body').animate({scrollTop:tOffset-20},'slow');
               e.preventDefault();
           }
       });
 
       $('.charnav').on('click',function(e){
-          var t = $(this).data('main-target');
-          var hast = $(this).attr('href');
+          let t = $(this).data('main-target');
+          let hast = $(this).attr('href');
           if(t.length){
-              var tOffset=$('#'+t).offset().top;
+              let tOffset=$('#'+t).offset().top;
               $('html,body').animate({scrollTop:tOffset-20},'slow');
               $('.char-panel').removeClass('show');
               $(hast+'-panel').addClass('show');
@@ -464,7 +463,7 @@ clue = {
               $('#homepage-nav').removeClass('scrolled');
           }
       });
-      var swiper = new Swiper('.swiper-container', {
+      let swiper = new Swiper('.swiper-container', {
         loop: true,
         navigation: {
           nextEl: '.swiper-button-next',
