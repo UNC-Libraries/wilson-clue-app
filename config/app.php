@@ -168,10 +168,10 @@ return [
         /*
          * Package Service Providers...
          */
-        Collective\Html\HtmlServiceProvider::class,
         Adldap\Laravel\AdldapServiceProvider::class,
         Adldap\Laravel\AdldapAuthServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
+        Spatie\Html\HtmlServiceProvider::class,
 
         /*
          * Application Service Providers...
