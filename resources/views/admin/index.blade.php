@@ -1,7 +1,7 @@
 @extends('layouts.admin', ['title' => 'Clue - Game Admin'])
 
 @section('content')
-    <div class="jumbotron">
+    <div class="jumbotron h-100 p-5 bg-light border rounded-3">
         <div class="container">
             <h1>Wilson Clue! App Administration</h1>
             <p>Edit/Add assets, manage games, and update site messages.</p>
