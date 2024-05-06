@@ -128,16 +128,30 @@ clue = {
   },
 
   initDateTimePicker: function(){
-      $('.datetime-picker').each(function(i){
+      $('.datetime-picker').each(function(i) {
           let date = $(this).data('date-default-date');
-          $('.datetime-picker').datetimepicker({
-              defaultDate: date
+          // We use FA 4 and default icons are FA 5, so set the FA 4 equivalents below
+          $('.datetime-picker').tempusDominus({
+              defaultDate: new Date(date),
+              display: {
+                  icons: {
+                      time: 'fa fa-clock-o',
+                      date: 'fa fa-calendar',
+                      up: 'fa fa-arrow-up',
+                      down: 'fa fa-arrow-down',
+                      previous: 'fa fa-chevron-left',
+                      next: 'fa fa-chevron-right',
+                      today: 'fa fa-calendar-check-0',
+                      clear: 'fa fa-trash',
+                      close: 'fa fa-close'
+                  }
+              }
           });
       });
   },
 
   initDnaForm: function(){
-    $('#dnaForm').submit(function(e){
+    $('#dnaForm').submit(function(e) {
       e.preventDefault();
       let target = '#' + $(this).prop('id');
       clue.questionSubmit(target);

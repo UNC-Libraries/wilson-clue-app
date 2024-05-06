@@ -25,7 +25,7 @@ mix.setResourceRoot('../')
     .sass('resources/assets/sass/admin.scss', 'public/css')
     .styles([
             'public/css/admin.css',
-            paths.node + 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css',
+            paths.node + '@eonasdan/tempus-dominus/dist/css/tempus-dominus.min.css',
         ],
         'public/css/all-admin.css')
 
@@ -33,8 +33,9 @@ mix.setResourceRoot('../')
     .scripts([
             paths.node + 'jquery/dist/jquery.min.js',
             paths.node + 'bootstrap/dist/js/bootstrap.bundle.min.js',
-            paths.node + 'moment/moment.js',
-            paths.node + 'eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+            paths.node + '@popperjs/core/dist/umd/popper.min.js',
+            paths.node + '@eonasdan/tempus-dominus/dist/js/tempus-dominus.min.js',
+            paths.node + '@eonasdan/tempus-dominus/dist/js/jQuery-provider.min.js',
             paths.node + 'sortablejs/Sortable.min.js',
             paths.node + 'clipboard/dist/clipboard.min.js',
             'resources/assets/js/app.js',
