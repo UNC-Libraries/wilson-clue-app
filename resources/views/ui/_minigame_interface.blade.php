@@ -1,9 +1,9 @@
 <div class="question-div {{ $quest->suspect->machine }} {{ $quest->completedBy->pluck('id')->contains($team->id) ? 'correct' : '' }}">
     <div class="row">
         @if($quest->completedBy->pluck('id')->contains($team->id))
-            <div class="col-xs-12 text-center"><strong>Complete</strong></div>
+            <div class="col-12 text-center"><strong>Complete</strong></div>
         @else
-            <div class="col-xs-12 text-center"><div id="minigameForm-response" class="question-response"></div></div>
+            <div class="col-12 text-center"><div id="minigameForm-response" class="question-response"></div></div>
             <p class="text-center">Find the images and arrange them in chronological order.</p>
             <p class="text-center">Click on an image to enlarge it.</p>
             {!! Form::open(['route' => ['ui.attempt.minigame', $quest->id], 'id' => 'minigameForm', 'class' => 'text-center']) !!}
@@ -17,7 +17,7 @@
 @if(!$quest->completedBy->pluck('id')->contains($team->id))
     <div class="row" id="minigameContainer">
         @foreach($quest->minigameImages->shuffle() as $img)
-            <div class="col-xs-4 minigame-image draggable" style="background-image: url('{{ asset($img->src) }}')" data-id="{{ $img->id }}">
+            <div class="col-4 minigame-image draggable" style="background-image: url('{{ asset($img->src) }}')" data-id="{{ $img->id }}">
                 <span class="order"></span>
             </div>
         @endforeach
@@ -28,7 +28,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <img class="img-responsive" src="{{ asset($img->src) }}">
+                        <img class="img-fluid" src="{{ asset($img->src) }}">
                     </div>
                 </div>
             </div>

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container" style="margin-bottom: 2rem;">
         <div class="row">
-            <div class="col-xs-12" id="indictment">
+            <div class="col-12" id="indictment">
                 @if(empty($game->inProgress))
                     <div class="alert alert-danger text-center" role="alert">
                         <h5>The game has ended, please report back to the lobby!</h5>
@@ -13,7 +13,7 @@
                 @endif
             </div>
 
-            <div class="col-xs-12">
+            <div class="col-12">
                 <h3 class="expo">Suspects</h3>
                 @foreach($game->quests as $q)
                     @include('ui._quest_button', [

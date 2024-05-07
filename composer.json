@@ -10,7 +10,7 @@
     "require": {
         "php": "^8.1",
         "adldap2/adldap2-laravel": "^v6.1",
-        "davejamesmiller/laravel-breadcrumbs": "^5.3",
+        "diglactic/laravel-breadcrumbs": "^v9.0",
         "laravel/framework": "^v10.48",
         "laravel/helpers": "^v1.7",
         "laravel/tinker": "^v2.9",
