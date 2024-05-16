@@ -133,6 +133,12 @@ h1, h2, h3 {
 * Clip Circles
 */
 
+// Add so circles .char-overlay will be absolute relative to it's containing div
+.character-image-div div {
+  position: relative;
+}
+
+
 .char-overlay:after, .char-overlay:before {
   position:absolute;
   opacity:0;
