@@ -16,6 +16,7 @@
                         </a>
                         <script async src="http://embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
                         <p class="text-center"><a href="https://www.flickr.com/photos/unclibraries/sets/{{ $game->flickr }}" target="_blank">View Flickr Album</a></p>
+                        <p class="text-center"><a href="https://unclibraries.photoshelter.com/galleries/C0000EdqU8HktBw8/G0000N8kjElu0Rx8/2024-04-Spring-Clue-Game" target="_blank">View Album</a></p>
                     @endif
                 </div>
             </div>
