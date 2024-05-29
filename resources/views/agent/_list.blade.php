@@ -3,7 +3,7 @@
         <div class="well well-sm">
             <div class="row">
                 <div class="hidden-xs col-sm-4 col-lg-3">
-                    {!! Html::image($agent->src,$agent->full_name, ['class' => 'img-responsive']) !!}
+                    {{ html()->img(asset($agent->src), $agent->full_name)->class('img-responsive') }}
                 </div>
                 <div class="col-xs-12 col-sm-8 col-lg-9">
                     <div class="row">

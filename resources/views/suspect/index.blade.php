@@ -19,7 +19,7 @@
                 <div class="media">
                     <div class="media-left media-top">
                         <a href="{{ route('admin.suspect.edit',[$suspect->id]) }}">
-                            {!! Html::image(asset($suspect->face_image),$suspect->name,array('class'=>'media-object media-object-128')) !!}
+                            {{ html()->img(asset(asset($suspect->face_image)), $suspect->name)->class('media-object media-object-128') }}
                         </a>
                     </div>
                     <div class="media-body">

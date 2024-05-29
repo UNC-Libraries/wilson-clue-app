@@ -18,7 +18,7 @@
     </div>
     @if($current)
         <div class="col-xs-12 col-sm-6 col-md-2">
-            {!! Html::image($current,$alt, ['class'=>'img-responsive img-thumbnail']) !!}
+            {{ html()->img(asset($current), $alt)->class('img-responsive img-thumbnail') }}
         </div>
     @endif
 </div>
