@@ -14,9 +14,9 @@
         "laravel/framework": "^9.27",
         "laravel/helpers": "^1.5",
         "laravel/tinker": "^2.7",
-        "laravelcollective/html": "^6.3",
         "laravel/ui": "^4.0",
-        "guzzlehttp/guzzle": "^7.2"
+        "guzzlehttp/guzzle": "^7.2",
+        "spatie/laravel-html": "^3.2"
     },
     "require-dev": {
         "mockery/mockery": "^1.4.4",
