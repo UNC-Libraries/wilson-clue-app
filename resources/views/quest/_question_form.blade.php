@@ -1,5 +1,5 @@
 <legend>Questions <small>(drag and drop to add/remove)</small></legend>
-{!! Form::hidden('question_list',implode(',',$quest->questions->pluck('id')->all())) !!}
+{{ html()->hidden('question_list', implode(',', $quest->questions->pluck('id')->all())) }}
 <div class="table">
     <div class="table-cell-col-2">
         <div class="row">

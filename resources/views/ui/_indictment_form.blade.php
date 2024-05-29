@@ -16,7 +16,7 @@
 <h3>Click on the icons to make your indictment.</h3>
 <p>You will need 1 suspect, 1 location, and 1 collection item.</p>
 
-{!! Form::open(['route' => 'ui.set.indictment', 'id' => 'indictmentForm']) !!}
+{{ html()->form('POST', route('ui.set.indictment'))->id('indictmentForm')->open() }}
     <legend>Who is the ghost?</legend>
     <div class="flex-form-group">
         @foreach($game->quests->pluck('suspect')->sortBy('machine') as $s)
@@ -35,7 +35,7 @@
             @include('ui._indictment_radio_input',['model' => 'evidence', 'id' => $e->id, 'name' => $e->title, 'selected' => $team->evidence ? $team->evidence->id == $e->id : false, 'image' => $e->src ])
         @endforeach
     </div>
-{!! Form::close() !!}
+{{ html()->form()->close() }}
 <div class="text-center">
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#indictmentConfirmModal">Submit Your Indictment</button>
 </div>

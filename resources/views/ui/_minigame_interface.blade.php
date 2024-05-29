@@ -6,10 +6,10 @@
             <div class="col-xs-12 text-center"><div id="minigameForm-response" class="question-response"></div></div>
             <p class="text-center">Find the images and arrange them in chronological order.</p>
             <p class="text-center">Click on an image to enlarge it.</p>
-            {!! Form::open(['route' => ['ui.attempt.minigame', $quest->id], 'id' => 'minigameForm', 'class' => 'text-center']) !!}
-                {!! Form::hidden('attempt', null, ['class' => 'form-control']) !!}
+            {{ html()->form('POST', route('ui.attempt.minigame', [$quest->id]))->id('minigameForm')->class('text-center')->open() }}
+                {{ html()->hidden('attempt')->class('form-control') }}
                 <input type="submit" class="btn btn-large btn-{{ $quest->suspect->bootstrap_color }}" value="Submit">
-            {!! Form::close() !!}
+            {{ html()->form()->close() }}
         @endif
     </div>
 </div>

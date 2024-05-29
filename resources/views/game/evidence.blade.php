@@ -8,15 +8,15 @@
     @include('admin._alert')
 
     <div class="row">
-        {!! Form::model($game, ['route'=> ['admin.game.update',$game->id], 'method' => 'put']) !!}
+        {{ html()->modelForm($game, 'PUT', route('admin.game.update', [$game->id]))->open() }}
         <div class="col-xs-12">
             <h2>Evidence Room</h2>
         </div>
 
         <div class="col-sm-12 col-md-3">
             <div class="form-group">
-                {!! Form::label('evidence_location_id','Location') !!}
-                {!! Form::select('evidence_location_id',$locations->pluck('name','id'), ($game->evidence_location ? $game->evidence_location->id : null), array('placeholder' => 'Select a location', 'class' => 'form-control')) !!}
+                {{ html()->label('Location', 'evidence_location_id') }}
+                {{ html()->select('evidence_location_id', $locations->pluck('name', 'id'), $game->evidence_location ? $game->evidence_location->id : null)->placeholder('Select a location')->class('form-control') }}
             </div>
 
             <div class="form-group">
@@ -41,7 +41,7 @@
 
 
             <legend>Evidence <small>(drag and drop to add/remove)</small></legend>
-            {!! Form::hidden('evidence_list',implode(',',$game->evidence->pluck('id')->all())) !!}
+            {{ html()->hidden('evidence_list', implode(',', $game->evidence->pluck('id')->all())) }}
             <div class="table">
                 <div class="table-cell-col-2">
                     <div class="row">
@@ -66,7 +66,7 @@
             </div>
 
         </div>
-        {!! Form::close() !!}
+        {{ html()->closeModelForm() }}
     </div>
 @stop
 

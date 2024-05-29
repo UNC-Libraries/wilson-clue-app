@@ -1,29 +1,21 @@
 <!-- title -->
 <div class="form-group">
-    {!! Form::label('name','Name') !!}
-    {!! Form::text('name',null,array('class' => 'form-control')) !!}
+    {{ html()->label('Name', 'name') }}
+    {{ html()->text('name')->class('form-control') }}
 </div>
 
 <!-- date -->
 <div class="form-group">
-    {!! Form::label('start_time','Start Time') !!}
-    {!! Form::text(
-        'start_time',
-        '',
-        ['class' => 'form-control date datetime-picker', 'data-date-default-date' => $game->start_time ? $game->start_time->toIso8601String() : \Carbon\Carbon::now()->addDays(1)->toIso8601String()]
-    ) !!}
-    {!! Form::label('end_time','End Time') !!}
-    {!! Form::text(
-        'end_time',
-        '',
-        ['class' => 'form-control date datetime-picker', 'data-date-default-date' => $game->end_time ? $game->end_time->toIso8601String() : \Carbon\Carbon::now()->addDays(1)->addHours(1)->addMinutes(30)->toIso8601String(),]
-    ) !!}
+    {{ html()->label('Start Time', 'start_time') }}
+    {{ html()->text('start_time', '')->class('form-control date datetime-picker')->data('date-default-date', $game->start_time ? $game->start_time->toIso8601String() : \Carbon\Carbon::now()->addDays(1)->toIso8601String()) }}
+    {{ html()->label('End Time', 'end_time') }}
+    {{ html()->text('end_time', '')->class('form-control date datetime-picker')->data('date-default-date', $game->end_time ? $game->end_time->toIso8601String() : \Carbon\Carbon::now()->addDays(1)->addHours(1)->addMinutes(30)->toIso8601String()) }}
 </div>
 
 <!-- max teams -->
 <div class="form-group">
-    {!! Form::label('max_teams','Max Teams') !!}
-    {!! Form::number('max_teams',null,array('class' => 'form-control')) !!}
+    {{ html()->label('Max Teams', 'max_teams') }}
+    {{ html()->number('max_teams')->class('form-control') }}
 </div>
 
 <fieldset class="form-group">

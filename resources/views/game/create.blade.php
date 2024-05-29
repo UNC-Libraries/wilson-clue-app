@@ -10,10 +10,10 @@
 
                 @include('admin._form_errors')
 
-                {!! Form::model($game, ['route' => ['admin.game.store', $game->id]]) !!}
+                {{ html()->modelForm($game, 'POST', route('admin.game.store', [$game->id]))->open() }}
                     @include('game.input_groups.options')
                     <button type="submit" class="btn btn-primary">Save</button>
-                {!! Form::close() !!}
+                {{ html()->closeModelForm() }}
             </div>
         </div>
     </div>

@@ -3,21 +3,21 @@
     <div class="form-group col-xs-12 col-sm-4">
         <div class="checkbox" id="questionType">
             <label>
-                {!! Form::checkbox('type') !!} Image?
+                {{ html()->checkbox('type', false) }} Image?
             </label>
         </div>
     </div>
     <!-- Question Location -->
     <div class="form-group col-xs-12 col-sm-4">
-        {!! Form::label('location_id','Location') !!}
-        {!! Form::select('location_id',$locations->pluck('name','id'), $question->location ? $question->location->id : null, array('placeholder' => 'Select a location', 'class' => 'form-control', 'required')) !!}
+        {{ html()->label('Location', 'location_id') }}
+        {{ html()->select('location_id', $locations->pluck('name', 'id'), $question->location ? $question->location->id : null)->placeholder('Select a location')->class('form-control')->required() }}
     </div>
 </div>
 <div class="row">
     <!-- Question text -->
     <div class="form-group col-xs-12">
-        {!! Form::label('text', 'Question Text') !!}
-        {!! Form::text('text', null, ['class'=>'form-control']) !!}
+        {{ html()->label('Question Text', 'text') }}
+        {{ html()->text('text')->class('form-control') }}
     </div>
 </div>
 <div class="row hidden" id="questionImageRow">
@@ -43,8 +43,8 @@
         @endif
         <div class="row">
             <div class="form-group col-xs-12">
-                {!! Form::label('full_answer', 'Full Answer') !!}
-                {!! Form::text('full_answer',null,array('class' => 'form-control')) !!}
+                {{ html()->label('Full Answer', 'full_answer') }}
+                {{ html()->text('full_answer')->class('form-control') }}
                 <span class="help-block">
                     The full answer is context for the judges. You must enter single-word answers below. Usually keywords
                     from the full answer.

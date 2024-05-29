@@ -6,8 +6,8 @@
         <div class="row">
             <div class="col-xs-12">
                 <div id="imageFileInput" class="form-group">
-                    {!! Form::label('new_image_file','Select a file') !!}
-                    {!! Form::file('new_image_file',['class'=>'form-control']) !!}
+                    {{ html()->label('Select a file', 'new_image_file') }}
+                    {{ html()->file('new_image_file')->class('form-control') }}
                 </div>
                 <span class="help-block">
                     Files must be smaller than <code>512kb</code>, and be of one of the following filetypes:

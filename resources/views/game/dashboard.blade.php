@@ -22,13 +22,13 @@
                     <h3>Send In-game Alert to Players</h3>
                 </div>
                 <div class="dash-section-body">
-                    {!! Form::open(['route' => ['admin.game.alert.store', $game->id]]) !!}
+                    {{ html()->form('POST', route('admin.game.alert.store', [$game->id]))->open() }}
                         <div class="form-group">
-                            {!! Form::label('message', 'Alert') !!}
-                            {!! Form::text('message',null,['class'=>'form-control']) !!}
+                            {{ html()->label('Alert', 'message') }}
+                            {{ html()->text('message')->class('form-control') }}
                         </div>
                         <button type="submit" class="btn btn-primary btn-sm"><span class="fa fa-send"></span> Send</button>
-                    {!! Form::close() !!}
+                    {{ html()->form()->close() }}
                     <h4>Sent alerts</h4>
                     <ul class="list-unstyled">
                         @foreach($game->alerts as $alert)

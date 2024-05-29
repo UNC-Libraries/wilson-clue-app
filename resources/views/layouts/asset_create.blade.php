@@ -11,7 +11,7 @@
                 <h1>{{ $page_title ?? "Add new $model_name" }}</h1>
                 @include('admin._form_errors')
 
-                {!! Form::model($model, array('route'=> ["admin.$model_name.store",$model->id], 'files' => true)) !!}
+                {{ html()->modelForm($model, 'POST', route("admin.{$model_name}.store", [$model->id]))->acceptsFiles()->open() }}
 
                 @hasSection('model_create_inputs')
                     @yield('model_create_inputs')
@@ -19,7 +19,7 @@
                     @include("$model_name._inputs", [$model_name => $model])
                 @endif
 
-                {!! Form::close() !!}
+                {{ html()->closeModelForm() }}
             </div>
         </div>
     </div>

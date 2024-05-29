@@ -5,15 +5,15 @@
             <h3>
                 Teams
                 @if($game->registration != 1)
-                    {!! Form::open(['route' => ['admin.game.update', $game->id], 'method' => 'PUT', 'style' => 'display: inline-block;']) !!}
+                    {{ html()->form('PUT', route('admin.game.update', [$game->id]))->style('display: inline-block;')->open() }}
                     <input type="hidden" name="registration" value="1">
                     <button type="submit" class="btn btn-success btn-sm">Open Registration</button>
-                    {!! Form::close() !!}
+                    {{ html()->form()->close() }}
                 @else
-                    {!! Form::open(['route' => ['admin.game.update', $game->id], 'method' => 'PUT', 'style' => 'display: inline-block;']) !!}
+                    {{ html()->form('PUT', route('admin.game.update', [$game->id]))->style('display: inline-block;')->open() }}
                     <input type="hidden" name="registration" value="0">
                     <button type="submit" class="btn btn-danger btn-sm">Close Registration</button>
-                    {!! Form::close() !!}
+                    {{ html()->form()->close() }}
                 @endif
             </h3>
         </div>

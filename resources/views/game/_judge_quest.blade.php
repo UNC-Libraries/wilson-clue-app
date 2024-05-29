@@ -23,20 +23,20 @@
                 <div class="well">
                     <div class="row">
                         <div class="col-xs-6">
-                            {!! Form::open(['route' => ['admin.game.judgeAnswers', $game->id, $quest->id, $question->id, $answers->first()->team_id]]) !!}
+                            {{ html()->form('POST', route('admin.game.judgeAnswers', [$game->id, $quest->id, $question->id, $answers->first()->team_id]))->open() }}
                             <input type="hidden" name="judgement" value="wrong">
                             <button type="submit" class="btn btn-danger">
                                 <span class="fa fa-times"></span> Wrong
                             </button>
-                            {!! Form::close() !!}
+                            {{ html()->form()->close() }}
                         </div>
                         <div class="col-xs-6">
-                            {!! Form::open(['route' => ['admin.game.judgeAnswers', $game->id, $quest->id, $question->id, $answers->first()->team_id]]) !!}
+                            {{ html()->form('POST', route('admin.game.judgeAnswers', [$game->id, $quest->id, $question->id, $answers->first()->team_id]))->open() }}
                             <input type="hidden" name="judgement" value="correct">
                             <button type="submit" class="btn btn-success pull-right">
                                 <span class="fa fa-check"></span> Correct
                             </button>
-                            {!! Form::close() !!}
+                            {{ html()->form()->close() }}
                         </div>
                         <div class="col-xs-12 text-center">
                             <p class="lead">{{ $answers->first()->team->name }}</p>

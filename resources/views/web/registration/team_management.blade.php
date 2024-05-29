@@ -70,15 +70,15 @@
                 </div>
                 <div class="col-xs-12 col-md-5 col-md-offset-1 col-lg-3 col-lg-offset-2">
                     <h4>Add a player</h4>
-                    {!! Form::open(['route' => 'enlist.updateTeam.addPlayer']) !!}
+                    {{ html()->form('POST', route('enlist.updateTeam.addPlayer'))->open() }}
                     <div class="form-group">
-                        {!! Form::label('onyen','Onyen') !!}
-                        {!! Form::text('onyen',null,['class' => 'form-control']) !!}
+                        {{ html()->label('Onyen', 'onyen') }}
+                        {{ html()->text('onyen')->class('form-control') }}
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-default btn-sm">Submit</button>
                     </div>
-                    {!! Form::close() !!}
+                    {{ html()->form()->close() }}
                 </div>
                 <div class="col-xs-12 col-md-5 col-md-offset-1 col-lg-3 col-lg-offset-2">
                     <h4>Current Players</h4>
@@ -93,12 +93,11 @@
                             <li>
                                 {{ $player->full_name }}
                                 @if($canRemove)
-                                    {!! Form::open(['route' => ['enlist.updateTeam.removePlayer','playerId' => $player->id],
-                                                    'class' => 'form-inline']) !!}
+                                    {{ html()->form('POST', route('enlist.updateTeam.removePlayer', ['playerId' => $player->id]))->class('form-inline')->open() }}
                                     <button type="submit" class="btn btn-danger">
                                         <i class="fa fa-trash"></i> Remove
                                     </button>
-                                    {!! Form::close() !!}
+                                    {{ html()->form()->close() }}
                                 @endif
                             </li>
                         @endforeach
@@ -117,20 +116,20 @@
                         <div class="alert alert-warning">
                             <i class="fa fa-warning"></i> <small>Your team name and dietary restrictions must be finalized by {{ $team->game->start_time->subDays(3)->format('l, F jS @ g:i A') }}</small>
                         </div>
-                        {!! Form::model($team, ['route' => 'enlist.updateTeam', 'id' => 'editTeamInfo']) !!}
+                        {{ html()->modelForm($team, 'POST', route('enlist.updateTeam'))->id('editTeamInfo')->open() }}
 
                         <div class="form-group">
-                            {!! Form::label('name','Team Name') !!}
-                            {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                            {{ html()->label('Team Name', 'name') }}
+                            {{ html()->text('name')->class('form-control') }}
                         </div>
                         <div class="form-group">
-                            {!! Form::label('dietary', 'Dietary Restrictions') !!}
+                            {{ html()->label('Dietary Restrictions', 'dietary') }}
                             {!! Form:: textarea('dietary', null, ['class' => 'form-control', 'rows' => '4']) !!}
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Save</button>
                         </div>
-                        {!! Form::close() !!}
+                        {{ html()->closeModelForm() }}
                     @else
                         <div class="alert alert-warning">
                             <i class="fa fa-warning"></i> <small>

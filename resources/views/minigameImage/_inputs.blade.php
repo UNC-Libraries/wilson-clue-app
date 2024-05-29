@@ -1,13 +1,13 @@
 <div class="row">
     <!-- Name -->
     <div class="form-group col-xs-12 col-sm-6">
-        {!! Form::label('name', 'Name') !!}
-        {!! Form::text('name', null, array('class'=>'form-control')) !!}
+        {{ html()->label('Name', 'name') }}
+        {{ html()->text('name')->class('form-control') }}
     </div>
     <!-- Year -->
     <div class="form-group col-xs-12 col-sm-6">
-        {!! Form::label('year', 'Year') !!}
-        {!! Form::text('year', null, array('class'=>'form-control')) !!}
+        {{ html()->label('Year', 'year') }}
+        {{ html()->text('year')->class('form-control') }}
     </div>
 </div>
 

@@ -7,9 +7,9 @@
         </span>
 
         @if($answer->id)
-            {!! Form::text('answer['.$answer->id.']', $answer->text, array('class' => 'form-control')) !!}
+            {{ html()->text('answer[' . $answer->id . ']', $answer->text)->class('form-control') }}
         @else
-            {!! Form::text('answer[new][]', $answer->text, array('class' => 'form-control')) !!}
+            {{ html()->text('answer[new][]', $answer->text)->class('form-control') }}
         @endif
     </div>
 </div>

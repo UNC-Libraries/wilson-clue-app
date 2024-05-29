@@ -3,8 +3,8 @@
 <div class="row">
     <!-- evidence title -->
     <div class="form-group col-xs-12 col-sm-4">
-        {!! Form::label('title', 'Evidence Title') !!}
-        {!! Form::text('title', null, array('class'=>'form-control')) !!}
+        {{ html()->label('Evidence Title', 'title') }}
+        {{ html()->text('title')->class('form-control') }}
     </div>
 </div>
     <div class="row">

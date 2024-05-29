@@ -10,34 +10,34 @@
         <div class="col-xs-12 col-sm-10 col-sm-offset-1">
             <p class="lead text-center">Edit the information that shows up on the public archive page</p>
 
-            {!! Form::model($game, array('route'=> array('admin.game.update',$game->id), 'method'=>'PUT')) !!}
+            {{ html()->modelForm($game, 'PUT', route('admin.game.update', [$game->id]))->open() }}
             <fieldset>
                 <p>Show this game on the website?</p>
                 <div class="radio">
                     <label>
-                        {!! Form::radio('archive',1) !!}
+                        {{ html()->radio('archive', false, 1) }}
                         Yes
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        {!! Form::radio('archive',0) !!}
+                        {{ html()->radio('archive', false, 0) }}
                         No
                     </label>
                 </div>
             </fieldset>
 
             <div class="form-group">
-                {!! Form::label('winning_team','Winning Team') !!}
-                {!! Form::select('winning_team',$game->registeredTeams->pluck('name','id'), $game->winningTeam ? $game->winningTeam->id : null, array('placeholder' => 'Select a winner', 'class' => 'form-control')) !!}
+                {{ html()->label('Winning Team', 'winning_team') }}
+                {{ html()->select('winning_team', $game->registeredTeams->pluck('name', 'id'), $game->winningTeam ? $game->winningTeam->id : null)->placeholder('Select a winner')->class('form-control') }}
             </div>
             <div class="form-group">
-                {!! Form::label('flickr', 'Flickr Album ID') !!}
-                {!! Form::text('flickr',null,array('class' => 'form-control')) !!}
+                {{ html()->label('Flickr Album ID', 'flickr') }}
+                {{ html()->text('flickr')->class('form-control') }}
             </div>
             <div class="form-group">
-                {!! Form::label('flickr_start_img', 'Flickr Start Image') !!}
-                {!! Form::text('flickr_start_img',null,array('class' => 'form-control')) !!}
+                {{ html()->label('Flickr Start Image', 'flickr_start_img') }}
+                {{ html()->text('flickr_start_img')->class('form-control') }}
                 <span class="help-block">
                     The url for the image you want to show on the homepage. To retrieve a single image's URL from flickr.
                     <ol>
@@ -51,20 +51,20 @@
                 </span>
             </div>
             <div class="form-group">
-                {!! Form::label('special_thanks', 'Special Thanks Content') !!}
-                {!! Form::textarea('special_thanks',null,array('class' => 'form-control', 'rows' => '10')) !!}
+                {{ html()->label('Special Thanks Content', 'special_thanks') }}
+                {{ html()->textarea('special_thanks')->class('form-control')->rows('10') }}
                 <span class="help-block">Use <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">markdown</a> to style the text</span>
             </div>
             <div class="form-group">
-                {!! Form::label('team_accolades', 'Team Accolades Content') !!}
-                {!! Form::textarea('team_accolades',null,array('class' => 'form-control', 'rows' => '10')) !!}
+                {{ html()->label('Team Accolades Content', 'team_accolades') }}
+                {{ html()->textarea('team_accolades')->class('form-control')->rows('10') }}
                 <span class="help-block">Use <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">markdown</a> to style the text</span>
             </div>
 
 
                 <input type="submit" class="btn btn-lg btn-primary" value="Submit">
 
-            {!! Form::close() !!}
+            {{ html()->closeModelForm() }}
 
         </div>
     </div>

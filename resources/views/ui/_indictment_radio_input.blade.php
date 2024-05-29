@@ -1,5 +1,5 @@
 <div class="flex-radio">
-    {!! Form::radio($model, $id, $selected, ['id' => $model.$id, 'data-full-name' => $name]) !!}
+    {{ html()->radio($model, $selected, $id)->id($model . $id)->data('full-name', $name) }}
     <label for="{{ $model.$id }}">
         @if($model == 'location')
             <svg width="100%" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" version="1.1">

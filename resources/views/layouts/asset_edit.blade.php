@@ -15,9 +15,9 @@
                 @hasSection('model_edit_inputs')
                     @yield('model_edit_inputs')
                 @else
-                    {!! Form::model($model, array('route'=> ["admin.$model_name.update",$model->id], 'method'=>'PUT', 'files' => true)) !!}
+                    {{ html()->modelForm($model, 'PUT', route("admin.{$model_name}.update", [$model->id]))->acceptsFiles()->open() }}
                         @include("$model_name._inputs", [$model_name => $model])
-                    {!! Form::close() !!}
+                    {{ html()->closeModelForm() }}
                 @endif
 
             </div>

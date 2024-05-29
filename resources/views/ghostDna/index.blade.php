@@ -13,15 +13,15 @@
             </div>
             <div class="col-xs-12 col-md-4">
                 @include('admin._form_errors')
-                {!! Form::open(['route'=>['admin.ghostDna.store']]) !!}
+                {{ html()->form('POST', route('admin.ghostDna.store', ))->open() }}
                     <div class="form-group">
-                        {!! Form::label('sequence', 'Add a Sequence') !!}
-                        {!! Form::text('sequence', null, array('class'=>'form-control', 'maxlength'=>'6', 'minlength'=>'6', 'aria-describedby' => 'sequenceHelpBlock')) !!}
+                        {{ html()->label('Add a Sequence', 'sequence') }}
+                        {{ html()->text('sequence')->class('form-control')->maxlength('6')->minlength('6')->attribute('aria-describedby', 'sequenceHelpBlock') }}
                         <div id="sequenceHelpBlock" class="help-block">6 characters long, only consisting of g, h, s, or t</div>
                     </div>
                     <button type="submit" class="btn btn-success">Add</button>
 
-                {!! Form::close() !!}
+                {{ html()->form()->close() }}
             </div>
             <div class="col-xs-12 col-md-8">
                 <p><strong>Current Pairs</strong></p>
