@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div class="row">
     @foreach($models as $agent)
         <div class="col-sm-12 col-md-6">
