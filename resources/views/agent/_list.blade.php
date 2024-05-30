@@ -1,10 +1,11 @@
+<<<<<<< HEAD
 <div class="row">
     @foreach($models as $agent)
         <div class="col-sm-12 col-md-6">
             <div class="card card-body well-sm">
                 <div class="row">
                     <div class="d-none col-xs-4 col-md-3">
-                        {!! Html::image($agent->src,$agent->full_name, ['class' => 'img-fluid']) !!}
+                        {{ html()->img(asset($agent->src), $agent->full_name)->class('img-fluid) }}
                     </div>
                     <div class="col-12 col-xs-8 col-md-9">
                         <div class="row">

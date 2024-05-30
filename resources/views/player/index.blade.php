@@ -11,19 +11,19 @@
 
         <div class="row">
             <div class="col-12 col-xs-4 col-sm-3">
-                {!! Form::open(['route' => ['admin.player.index'], 'method' => 'get']) !!}
+                {{ html()->form('GET', route('admin.player.index', ))->open() }}
                 <div class="form-group">
                     <label class="fw-bold">Search:</label>
-                    {!! Form::text('search',$search,['class' => 'form-control']) !!}
+                    {{ html()->text('search', $search)->class('form-control') }}
                 </div>
                 <div class="form-group mt-3">
                     <label class="fw-bold">Sort By:</label>
                     <div class="row">
                         <div class="col-12 col-xs-7">
-                            {{ Form::select('sort_by', $sortOptions, $selectedSort, ['class' => 'form-control auto-submit']) }}
+                            {{ html()->select('sort_by', $sortOptions, $selectedSort)->class('form-control auto-submit') }}
                         </div>
                         <div class="col-12 col-xs-5">
-                            {{ Form::select('sort_order', $sortOrder, $selectedSortOrder, ['class' => 'form-control auto-submit']) }}
+                            {{ html()->select('sort_order', $sortOrder, $selectedSortOrder)->class('form-control auto-submit') }}
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                     <legend>Academic Groups</legend>
                     @include('partials._facet_filter',['facetName' => 'group', 'facets' => $academic_group_options])
                 </fieldset>
-                {!! Form::close() !!}
+                {{ html()->form()->close() }}
 
             </div>
             <div class="col-12 col-xs-8 col-sm-9">

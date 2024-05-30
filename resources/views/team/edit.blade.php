@@ -16,9 +16,9 @@
 
             <div class="row">
                 <div class="col-12 col-xs-8 offset-sm-2">
-                    {!! Form::model($team, ['route' => ['admin.team.update', $team->id], 'method' => 'PUT']) !!}
+                    {{ html()->modelForm($team, 'PUT', route('admin.team.update', [$team->id]))->open() }}
                     @include('team._team_form_inputs')
-                    {!! Form::close() !!}
+                    {{ html()->closeModelForm() }}
                 </div>
             </div>
 
@@ -92,11 +92,11 @@
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="onyen">
 
-                        {!! Form::open(['route' => ['admin.team.addPlayer', 'id' => $team->id]]) !!}
+                        {{ html()->form('POST', route('admin.team.addPlayer', ['id' => $team->id]))->open() }}
                         <!-- Onyen -->
                             <div class="form-group col-12">
-                                {!! Form::label('onyen', 'Onyen') !!}
-                                {!! Form::text('onyen', null, array('class'=>'form-control')) !!}
+                                {{ html()->label('Onyen', 'onyen') }}
+                                {{ html()->text('onyen')->class('form-control') }}
                             </div>
                             @if($team->game->students_only)
                                 <div class="form-group col-12">
@@ -106,49 +106,49 @@
                                 </div>
                             @endif
                             <button type="submit" class="btn btn-primary">Submit</button>
-                        {!! Form::close() !!}
+                        {{ html()->form()->close() }}
 
                         </div>
                         <div role="tabpanel" class="tab-pane" id="noOnyen">
                             <p class="text-warning">Note: Player will need to login using their email and password.</p>
 
-                        {!! Form::open(['route' => ['admin.team.addPlayer', 'id' => $team->id]]) !!}
+                        {{ html()->form('POST', route('admin.team.addPlayer', ['id' => $team->id]))->open() }}
 
                         <!-- Email -->
                             <div class="form-group col-12 col-xs-6">
-                                {!! Form::label('email', 'Email') !!}
-                                {!! Form::text('email', null, array('class'=>'form-control', 'required')) !!}
+                                {{ html()->label('Email', 'email') }}
+                                {{ html()->text('email')->class('form-control')->required() }}
                             </div>
 
                             <!-- Password -->
                             <div class="form-group col-12 col-xs-6">
-                                {!! Form::label('password', 'Password') !!}
-                                {!! Form::text('password', null, array('class'=>'form-control', 'required')) !!}
+                                {{ html()->label('Password', 'password') }}
+                                {{ html()->text('password')->class('form-control')->required() }}
                             </div>
 
                             <!-- First Name -->
                             <div class="form-group col-12 col-xs-6">
-                                {!! Form::label('first_name', 'First Name') !!}
-                                {!! Form::text('first_name', null, array('class'=>'form-control', 'required')) !!}
+                                {{ html()->label('First Name', 'first_name') }}
+                                {{ html()->text('first_name')->class('form-control')->required() }}
                             </div>
                             <!-- Last Name -->
                             <div class="form-group col-12 col-xs-6">
-                                {!! Form::label('last_name', 'Last Name') !!}
-                                {!! Form::text('last_name', null, array('class'=>'form-control', 'required')) !!}
+                                {{ html()->label('Last Name', 'last_name') }}
+                                {{ html()->text('last_name')->class('form-control')->required() }}
                             </div>
 
                             <!-- Class -->
                             <div class="form-group col-12 col-xs-6">
-                                {!! Form::label('class_code', 'Class') !!}
-                                {!! Form::select('class_code', $class_options, 'new', ['class'=>'form-control', 'placeholder' => 'Select a Class']) !!}
+                                {{ html()->label('Class', 'class_code') }}
+                                {{ html()->select('class_code', $class_options, 'new')->class('form-control')->placeholder('Select a Class') }}
                             </div>
                             <!-- Academic Code -->
                             <div class="form-group col-12 col-xs-6">
-                                {!! Form::label('academic_group_code', 'Academic Group') !!}
-                                {!! Form::select('academic_group_code', $academic_group_options, 'new', ['class'=>'form-control', 'placeholder' => 'Select a Class']) !!}
+                                {{ html()->label('Academic Group', 'academic_group_code') }}
+                                {{ html()->select('academic_group_code', $academic_group_options, 'new')->class('form-control')->placeholder('Select a Class') }}
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
-                            {!! Form::close() !!}
+                            {{ html()->form()->close() }}
                         </div>
                     </div>
                 </div>

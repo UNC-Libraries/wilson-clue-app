@@ -1,10 +1,12 @@
 <div class="question-div">
-    <div class="col-12 text-center"><div id="dnaForm-response" class="question-response"></div></div>
-    {!! Form::open(['route' => ['ui.attempt.dna'], 'id' => 'dnaForm']) !!}
+    <div class="col-12 text-center">
+        <div id="dnaForm-response" class="question-response"></div>
+    </div>
+    {{ html()->form('POST', route('ui.attempt.dna', ))->id('dnaForm')->open() }}
         <div class="form-group">
-            {!! Form::label('attempt', 'Sequence') !!}
-            {!! Form::text('attempt', null, ['class' => 'form-control']) !!}
+            {{ html()->label('Sequence', 'attempt') }}
+            {{ html()->text('attempt')->class('form-control') }}
         </div>
-        <input type="submit" class="btn btn-secondary" value="Submit">
-    {!! Form::close() !!}
+        <input type="submit" class="btn btn-default" value="Submit">
+    {{ html()->form()->close() }}
 </div>

@@ -2,9 +2,9 @@
     <div class="media question-media" data-id="{{ $question->id }}">
         <div class="media-left">
             @if($question->type == 1)
-                {!! Html::image(asset($question->src),'question image',array('class'=>'media-object-64')) !!}
+                {{ html()->img(asset(asset($question->src)), 'question image')->class('media-object-64') }}
             @else
-                {!! Html::image(asset('/images/txt.jpg'),'',array('class'=>'media-object-64')) !!}
+                {{ html()->img(asset(asset('/images/txt.jpg')), '')->class('media-object-64') }}
             @endif
         </div>
         <div class="media-body">

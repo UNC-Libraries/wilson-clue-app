@@ -39,21 +39,21 @@
                 @else
                     <p>By enlisting, I certify that my team members and I have not participated in a previous investigation.</p>
                 @endif
-                {!! Form::open(['route' => 'enlist.submit']) !!}
+                {{ html()->form('POST', route('enlist.submit'))->open() }}
                     <div class="form-group">
-                        {!! Form::label('teamName', 'Team Name') !!}
-                        {!! Form::text('teamName',null,['class'=>'form-control', 'required', 'autofocus']) !!}
+                        {{ html()->label('Team Name', 'teamName') }}
+                        {{ html()->text('teamName')->class('form-control')->required()->autofocus() }}
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label('onyen', 'Onyen') !!}
-                        {!! Form::text('onyen',null,['class'=>'form-control', 'required']) !!}
+                        {{ html()->label('Onyen', 'onyen') }}
+                        {{ html()->text('onyen')->class('form-control')->required() }}
                     </div>
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-lg btn-primary">Enlist!</button>
                     </div>
-                {!! Form::close() !!}
+                {{ html()->form()->close() }}
             </div>
         </div>
     </div>

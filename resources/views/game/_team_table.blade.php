@@ -20,13 +20,13 @@
                 @endif
             </td>
             <td>
-                {!! Form::model($team, array('route' => array('admin.team.waitlist',$team->id))) !!}
+                {{ html()->modelForm($team, 'POST', route('admin.team.waitlist', [$team->id]))->open() }}
                     @if($team->waitlist)
                         <button type="submit" class="btn btn-danger"><span class="fa fa-caret-up"></span></button>
                     @else
                         <button type="submit" class="btn btn-primary"><span class="fa fa-caret-down"></span></button>
                     @endif
-                {!! Form::close() !!}
+                {{ html()->closeModelForm() }}
             </td>
     @endforeach
     </tbody>

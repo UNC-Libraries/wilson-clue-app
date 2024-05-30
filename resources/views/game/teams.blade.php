@@ -48,9 +48,9 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-12">
-                            {!! Form::open(['route' => ['admin.game.addTeam',$game->id]]) !!}
+                            {{ html()->form('POST', route('admin.game.addTeam', [$game->id]))->open() }}
                             @include('team._team_form_inputs')
-                            {!! Form::close() !!}
+                            {{ html()->form()->close() }}
                         </div>
                     </div>
                 </div>

@@ -2,15 +2,14 @@
 <div class="row">
     <!-- Name -->
     <div class="form-group col-12 col-sm-8 mb-3">
-        {!! Form::label('name', 'Name', ['class' => 'fw-bold mb-1']) !!}
-        {!! Form::text('name', null, array('class'=>'form-control')) !!}
+        {{ html()->label('Name', 'name')->class('fw-bold mb-1') }}
+        {{ html()->text('name')->class('form-control') }}
     </div>
 
     <!-- Floor -->
     <div class="form-group col-12 col-sm-4 mb-3">
-        {!! Form::label('floor', 'Floor', ['class' => 'fw-bold mb-1']) !!}
-        {!! Form::select('floor', array('1' => '1', '2' => '2', '3' => '3', '4' => '4'), $location->floor, array('placeholder' => 'Select a floor', 'class' => 'form-control')) !!}
-
+        {{ html()->label('Floor', 'floor')->class('fw-bold mb-1')  }}
+        {{ html()->select('floor', ['1' => '1', '2' => '2', '3' => '3', '4' => '4'], $location->floor)->placeholder('Select a floor')->class('form-control') }}
     </div>
 
     <!-- Map section -->
@@ -22,7 +21,7 @@
                         <use xlink:href="#baseMap"></use>
                         <use xlink:href="#{{ $section }}" class="map-base"></use>
                     </svg>
-                    {!! Form::radio('map_section',$section) !!}
+                    {{ html()->radio('map_section', false, $section) }}
                 </label>
             </div>
         </div>

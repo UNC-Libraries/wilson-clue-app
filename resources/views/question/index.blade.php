@@ -6,27 +6,27 @@
 @section('model_list')
 
 <div class="row">
-    {!! Form::open(['route' => 'admin.question.index', 'id' => 'questionFilterForm', 'class' => 'row', 'method' => 'get']) !!}
+    {{ html()->form('GET', route('admin.question.index'))->id('questionFilterForm')->class('row')->open() }}
         <div class="form-group col-12 col-sm-4">
-            {!! Form::label('location_id','Filter By Location', ['class' => 'fw-bold mb-1']) !!}
-            {!! Form::select('location_id',$locations->pluck('name','id'), $location, ['placeholder' => 'Select a location', 'class' => 'form-control auto-submit', 'data-target'=>'#questionFilterForm']) !!}
+            {{ html()->label('Filter By Location', 'location_id')->class('fw-bold mb-1') }}
+            {{ html()->select('location_id', $locations->pluck('name', 'id'), $location)->placeholder('Select a location')->class('form-control auto-submit')->data('target', '#questionFilterForm') }}}
         </div>
 
         <div class="form-group col-12 col-sm-4">
-            {!! Form::label('game_id','Filter By Game', ['class' => 'fw-bold mb-1']) !!}
-            {!! Form::select('game_id',$games->pluck('name','id'), $game, ['placeholder' => 'Select a game', 'class' => 'form-control auto-submit', 'data-target'=>'#questionFilterForm']) !!}
+            {{ html()->label('Filter By Game', 'game_id')->class('fw-bold mb-1') }}
+            {{ html()->select('game_id', $games->pluck('name', 'id'), $game)->placeholder('Select a game')->class('form-control auto-submit')->data('target', '#questionFilterForm') }}
         </div>
 
         <div class="form-group col-12 col-sm-4">
-            {!! Form::label('search', 'Search', ['class' => 'fw-bold mb-1']) !!}
+            {{ html()->label('Search', 'search')->class('fw-bold mb-1')  }}
             <div class="input-group">
-                {!! Form::text('search', $string, ['class'=>'form-control']) !!}
+                {{ html()->text('search', $string)->class('form-control') }}
                 <span class="input-group-btn">
                     <button class="btn btn-secondary" type="submit"><span class="fa fa-search"></span></button>
                 </span>
             </div>
         </div>
-    {!! Form::close() !!}
+    {{ html()->form()->close() }}
 </div>
 <div class="row">
     <div class="col-12">

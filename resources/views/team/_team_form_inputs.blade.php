@@ -1,13 +1,13 @@
 <!-- Team name -->
 <div class="form-group col-12">
-    {!! Form::label('name', 'Team Name', ['class' => 'fw-bold mb-1']) !!}
-    {!! Form::text('name', null, array('class'=>'form-control')) !!}
+    {{ html()->label('Team Name', 'name')->class('fw-bold mb-1')  }}
+    {{ html()->text('name')->class('form-control') }}
 </div>
 
 <!-- Dietary -->
 <div class="form-group col-12">
-    {!! Form::label('dietary', 'Dietary Restrictions', ['class' => 'fw-bold mb-1']) !!}
-    {!! Form::text('dietary', null, array('class'=>'form-control')) !!}
+    {{ html()->label('Dietary Restrictions', 'dietary')->class('fw-bold mb-1') }}
+    {{ html()->text('dietary')->class('form-control') }}
 </div>
 
 <div class="form-group col-12 text-end mt-3">

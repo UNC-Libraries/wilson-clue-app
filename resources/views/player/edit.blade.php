@@ -26,9 +26,9 @@
     </div>
     <div class="col-12">
         <h2>Player Info</h2>
-        {!! Form::model($player, array('route'=> ["admin.player.update",$player->id], 'method'=>'PUT')) !!}
+        {{ html()->modelForm($player, 'PUT', route("admin.player.update", [$player->id]))->open() }}
             @include('player._inputs')
-        {!! Form::close() !!}
+        {{ html()->closeModelForm() }}
     </div>
 </div>
 @stop

@@ -13,7 +13,7 @@
                 @foreach($messages as $key => $message)
                     <div class="row">
                         <div class="col-12">
-                            {!! Form::open(['route' => ['admin.siteMessages.update',$key]]) !!}
+                            {{ html()->form('POST', route('admin.siteMessages.update', [$key]))->open() }}
                                 <h2>{{ title_case(str_replace('_',' ',$key)) }}</h2>
                                 <p class="lead">{{ $message['description'] }}</p>
 
@@ -29,14 +29,14 @@
                                     </ul>
                                 @endif
 
-                                {!! Form::textarea($key, $message['message'], ['class' => 'form-control', 'rows' => $message['rows']]) !!}
+                                {{ html()->textarea($key, $message['message'])->class('form-control')->rows($message['rows']) }}
                                 @if($message['markdown'])
                                     <div class="form-text">
                                         <small>Use <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">markdown</a> to style the text</small>
                                     </div>
                                 @endif
                                 <button class="btn-primary btn mt-3">Save</button>
-                            {!! Form::close() !!}
+                            {{ html()->form()->close() }}
                         </div>
                     </div>
                     <hr>

@@ -109,22 +109,17 @@
         </div>
         <div class="col-12">
             <div class="dash-section">
-                {!! Form::model($game, ['route'=> ['admin.game.update',$game->id], 'method' => 'put']) !!}
+                {{ html()->modelForm($game, 'PUT', route('admin.game.update', [$game->id]))->open() }}
                 <div class="col-xs-12 col-sm-3">
                     <div class="form-group">
-                        {!! Form::label('geographic_investigation_location_id','Location') !!}
-                        {!! Form::select(
-                            'geographic_investigation_location_id',
-                            $locations->pluck('name','id'),
-                            ($game->geographic_investigation_location_id ? $game->geographic_investigation_location_id : null),
-                            array('placeholder' => 'Select a location', 'class' => 'form-control'))
-                        !!}
+                        {{ html()->label('Location', 'geographic_investigation_location_id') }}
+                        {{ html()->select('geographic_investigation_location_id', $locations->pluck('name', 'id'), $game->geographic_investigation_location_id ? $game->geographic_investigation_location_id : null)->placeholder('Select a location')->class('form-control') }}
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </div>
-                {!! Form::close() !!}
+                {{ html()->closeModelForm() }}
             </div>
         </div>
 

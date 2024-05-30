@@ -4,7 +4,7 @@
             <div class="card card-body text-center">
                 <p class="lead">{{ $mini->name }}</p>
                 <div class="text-center">
-                    {!! Html::image($mini->src,null,array('class'=>'media-object-128')) !!}
+                    {{ html()->img(asset($mini->src))->class('media-object-128') }}
                 </div>
                 <p>{{ $mini->year }}</p>
                 <a href="{{ route('admin.minigameImage.edit', $mini->id) }}" class="btn btn-primary btn-sm">

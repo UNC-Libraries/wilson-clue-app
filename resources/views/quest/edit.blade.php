@@ -8,25 +8,25 @@
     @include('admin._alert')
 
     <div class="row">
-        {!! Form::model($quest, ['route'=> ['admin.game.quest.update',$game->id,$quest->id], 'method' => 'put']) !!}
+        {{ html()->modelForm($quest, 'PUT', route('admin.game.quest.update', [$game->id, $quest->id]))->open() }}
         <div class="col-12">
             <h1>{{ $quest->location->name }}</h1>
         </div>
 
         <div class="col-xs-12 col-sm-3">
             <div class="form-group">
-                {!! Form::label('suspect_id','Suspect') !!}
-                {!! Form::select('suspect_id',$suspects->pluck('name','id'), ($quest->suspect ? $quest->suspect->id : null), array('placeholder' => 'Select a suspect', 'class' => 'form-control')) !!}
+                {{ html()->label('Suspect', 'suspect_id') }}
+                {{ html()->select('suspect_id', $suspects->pluck('name', 'id'), $quest->suspect ? $quest->suspect->id : null)->placeholder('Select a suspect')->class('form-control') }}
             </div>
 
             <div class="form-group">
-                {!! Form::label('location_id','Location') !!}
-                {!! Form::select('location_id',$locations->pluck('name','id'), ($quest->location ? $quest->location->id : null), array('placeholder' => 'Select a location', 'class' => 'form-control')) !!}
+                {{ html()->label('Location', 'location_id') }}
+                {{ html()->select('location_id', $locations->pluck('name', 'id'), $quest->location ? $quest->location->id : null)->placeholder('Select a location')->class('form-control') }}
             </div>
 
             <div class="form-group">
-                {!! Form::label('type','Quest Type') !!}
-                {!! Form::select('type',$quest->types, null, array('placeholder' => 'Select a type', 'class' => 'form-control')) !!}
+                {{ html()->label('Quest Type', 'type') }}
+                {{ html()->select('type', $quest->types)->placeholder('Select a type')->class('form-control') }}
             </div>
 
             <div class="form-group">
@@ -47,6 +47,6 @@
             </div>
 
         </div>
-        {!! Form::close() !!}
+        {{ html()->closeModelForm() }}
     </div>
 @stop

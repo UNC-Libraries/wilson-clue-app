@@ -3,21 +3,21 @@
     <div class="form-group col-12 col-sm-3 mb-3">
         <div id="questionType">
             <label>
-                {!! Form::checkbox('type') !!} Image?
+                {{ html()->checkbox('type', false) }} Image?
             </label>
         </div>
     </div>
     <!-- Question Location -->
     <div class="form-group col-12 col-sm-3">
-        {!! Form::label('location_id','Location', ['class' => 'fw-bold mb-1']) !!}
-        {!! Form::select('location_id',$locations->pluck('name','id'), $question->location ? $question->location->id : null, array('placeholder' => 'Select a location', 'class' => 'form-control', 'required')) !!}
+        {{ html()->label('Location', 'location_id')->class('fw-bold mb-1') }}
+        {{ html()->select('location_id', $locations->pluck('name', 'id'), $question->location ? $question->location->id : null)->placeholder('Select a location')->class('form-control')->required() }}
     </div>
 </div>
 <div class="row">
     <!-- Question text -->
     <div class="form-group col-12 col-sm-3">
-        {!! Form::label('text', 'Question Text', ['class' => 'fw-bold mb-1']) !!}
-        {!! Form::text('text', null, ['class'=>'form-control']) !!}
+        {{ html()->label('Question Text', 'text')->class('fw-bold mb-1') }}
+        {{ html()->text('text')->class('form-control') }}
     </div>
 </div>
 <div class="row d-none" id="questionImageRow">
@@ -43,8 +43,8 @@
         @endif
         <div class="row">
             <div class="form-group col-12">
-                {!! Form::label('full_answer', 'Full Answer', ['class' => 'fw-bold mb-1']) !!}
-                {!! Form::text('full_answer',null,array('class' => 'form-control')) !!}
+                {{ html()->label('Full Answer', 'full_answer')->class('fw-bold mb-1') }}
+                {{ html()->text('full_answer')->class('form-control') }}
                 <span class="form-text">
                     The full answer is context for the judges. You must enter single-word answers below. Usually keywords
                     from the full answer.

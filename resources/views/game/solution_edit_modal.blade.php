@@ -7,10 +7,10 @@
                 <h4 class="modal-title">Solution</h4>
             </div>
             <div class="modal-body">
-                {!! Form::open(['route' => ['admin.game.update',$game->id], 'method' => 'PUT']) !!}
+                {{ html()->form('PUT', route('admin.game.update', [$game->id]))->open() }}
                     @include('game.input_groups.solution')
                     <button type="submit" class="btn btn-primary">Submit</button>
-                {!! Form::close() !!}
+                {{ html()->form()->close() }}
             </div>
         </div>
     </div>

@@ -33,15 +33,16 @@
         <div class="col-12 col-xs-6">
             @if($game->active)
                 <h3>Bonus Points</h3>
-                {!! Form::open(['route' => ['admin.game.bonus', $game->id], 'class'=> 'form-inline']) !!}
+                {{ html()->form('POST', route('admin.game.bonus', [$game->id]))->class('form-inline')->open() }}
                     <div class="form-group">
-                        {!! Form::select('team_id',$teams->sortBy('name')->pluck('name','id')->all(),null,['placeholder'=>'Select a team', 'class' => 'form-control']) !!}
+                        {{ html()->select('team_id', $teams->sortBy('name')->pluck('name', 'id')->all())->placeholder('Select a team')->class('form-control') }}
                     </div>
                     <div class="form-group">
-                        {!! Form::number('points',0,['class' => 'form-control']) !!}
+                        {{ html()->number('points', 0)->class('form-control') }}
                     </div>
                     <button type="submit" class="btn btn-primary">Add points</button>
-                {!! Form::close() !!}
+
+                {{ html()->form()->close() }}
                 <span class="form-text">
                     You can remove bonus points by entering a negative number
                 </span>

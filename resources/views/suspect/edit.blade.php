@@ -10,28 +10,27 @@
             @include('admin._form_errors')
 
             <div class="col col-xs-8 offset-sm-2">
-                {!! Form::model($suspect, array('route'=> array('admin.suspect.update',$suspect->id), 'method'=>'PUT', 'files' => true)) !!}
-
-                    {!! Form::token() !!}
+                {{ html()->modelForm($suspect, 'PUT', route('admin.suspect.update', [$suspect->id]))->acceptsFiles()->open() }}
+                    {{ html()->token() }}
 
                     <div class="row">
                         <!-- Name -->
-                        <div class="form-group col-12">
-                            {!! Form::label('name', 'Name', ['class' => 'fw-bold mb-1']) !!}
-                            {!! Form::text('name', null, array('class'=>'form-control')) !!}
+                        <div class="form-group col-xs-12">
+                            {{ html()->label('Name', 'name')->class('fw-bold mb-1') }}
+                            {{ html()->text('name')->class('form-control') }}
                         </div>
 
                         <!-- Bio -->
-                        <div class="form-group col-12">
-                            {!! Form::label('bio', 'Bio', ['class' => 'fw-bold mb-1 mt-2']) !!}
+                        <div class="form-group col-xs-12">
+                            {{ html()->label('Bio', 'bio')->class('fw-bold mb-1 mt-2')  }}
                             <small>Use <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">markdown</a> to style the text</small>
-                            {!! Form::textarea('bio', null, array('class'=>'form-control')) !!}
+                            {{ html()->textarea('bio')->class('form-control') }}
                         </div>
 
                         <!-- Quote -->
-                        <div class="form-group col-12">
-                            {!! Form::label('quote','Quote', ['class' => 'fw-bold mb-1 mt-2']) !!}
-                            {!! Form::text('quote', null, array('class'=>'form-control')) !!}
+                        <div class="form-group col-xs-12">
+                            {{ html()->label('Quote', 'quote')->class('fw-bold mb-1 mt-2') }}
+                            {{ html()->text('quote')->class('form-control') }}
                         </div>
 
                         <div class="form-group col mt-3">
@@ -39,7 +38,7 @@
                         </div>
                     </div>
 
-                {!! Form::close() !!}
+                {{ html()->closeModelForm() }}
             </div>
         </div>
     </div>

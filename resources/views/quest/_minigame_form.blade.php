@@ -1,5 +1,5 @@
 <legend>Minigame Images <small>(drag and drop to add/remove)</small></legend>
-{!! Form::hidden('minigame_image_list',implode(',',$quest->minigameImages->pluck('id')->all())) !!}
+{{ html()->hidden('minigame_image_list', implode(',', $quest->minigameImages->pluck('id')->all())) }}
 <div class="table">
     <div class="table-cell-col-2">
         <div class="row">

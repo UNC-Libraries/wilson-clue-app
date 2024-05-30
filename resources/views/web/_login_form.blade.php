@@ -12,25 +12,25 @@
 
 
     @if(Route::currentRouteName() == 'admin.login.form')
-        {!! Form::open(['route' => 'admin.login']) !!}
+        {{ html()->form('POST', route('admin.login'))->open() }}
         <legend class="text-danger">Admin Login Form</legend>
     @elseif(Route::currentRouteName() == 'player.login.form')
-        {!! Form::open(['route' => 'player.login']) !!}
+        {{ html()->form('POST', route('player.login'))->open() }}
     @endif
 
     <div class="form-group">
-        {!! Form::label('onyen', 'Onyen') !!}
-        {!! Form::text('onyen', null, ['class'=>'form-control', 'placeholder'=>'onyen']) !!}
+        {{ html()->label('Onyen', 'onyen') }}
+        {{ html()->text('onyen')->class('form-control')->placeholder('onyen') }}
     </div>
 
     <div class="form-group">
-        {!! Form::label('password', 'Password') !!}
-        {!! Form::password('password', ['class'=>'form-control', 'placeholder'=>'password']) !!}
+        {{ html()->label('Password', 'password') }}
+        {{ html()->password('password')->class('form-control')->attribute('placeholder', 'password') }}
     </div>
 
     <button type="submit" class="btn btn-primary">Login</button>
 
-    {!! Form::close() !!}
+    {{ html()->form()->close() }}
 
     </div>
 

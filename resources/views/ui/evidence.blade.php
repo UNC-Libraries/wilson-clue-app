@@ -30,13 +30,13 @@
                         <div class="col-12 text-center">
                             <div id="evidenceForm-response" class="question-response"></div>
                         </div>
-                        {!! Form::open(['route' => ['ui.set.evidence'], 'class' => 'evidence-form', 'id' => 'evidenceForm']) !!}
+                        {{ html()->form('POST', route('ui.set.evidence', ))->class('evidence-form')->id('evidenceForm')->open() }}
                         <div class="form-group">
-                            {!! Form::label('evidence', 'Select the Collection Item') !!}
-                            {!! Form::select('evidence', $game->evidence->pluck('title','id')->all(), $team->evidence ? $team->evidence->id : null, ['class' => 'form-control']) !!}
+                            {{ html()->label('Select the Collection Item', 'evidence') }}
+                            {{ html()->select('evidence', $game->evidence->pluck('title', 'id')->all(), $team->evidence ? $team->evidence->id : null)->class('form-control') }}
                         </div>
                         <input type="submit" class="btn btn-secondary" value="Submit">
-                        {!! Form::close() !!}
+                        {{ html()->form()->close() }}
                     </div>
                 </div>
             </div>
