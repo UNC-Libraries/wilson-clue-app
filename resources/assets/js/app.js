@@ -95,7 +95,7 @@ clue = {
   },
 
   initClipboard: function(){
-    new Clipboard('.clipboard-btn');
+    new ClipboardJS('.clipboard-btn');
   },
 
   initConfirmSubmit: function(){
