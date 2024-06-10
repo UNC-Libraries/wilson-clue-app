@@ -3,8 +3,8 @@
         {{ html()->form('POST', route('admin.game.import-evidence-room', [$game->id]))->open() }}
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <h4 class="modal-title">Import Evidence Room From Previous Game</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
 
