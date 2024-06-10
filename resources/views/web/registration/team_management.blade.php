@@ -56,7 +56,7 @@
                 <div class="col-12 col-sm-10 offset-md-1 col-md-8 -offset-lg-2">
                     @if($errors->count() > 0)
                         <div class="alert alert-danger alert-dismissible text-left" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             <p class="lead text-center">Uh-oh!</p>
                             <p>We had some trouble enlisting your team...</p>
                             <ul>

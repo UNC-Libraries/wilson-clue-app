@@ -22,7 +22,7 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importEvidenceRoomModal">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#importEvidenceRoomModal">
                 Import From Previous Game
             </button>
         </div>

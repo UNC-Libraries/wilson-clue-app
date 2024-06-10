@@ -23,14 +23,14 @@
             </div>
 
             <h3>Players</h3>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#teamEmailsModal">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#teamEmailsModal">
                 <i class="fa fa-envelope-o"></i>
                 Emails
             </button>
             @if($team->players->count() < 5)
                 <div class="row">
                     <div class="col-3 offset-xs-9 col-xs-2 offset-sm-10 text-end">
-                        <button class="btn btn-success" data-toggle="modal" data-target="#addPlayerModal"><span class="fa fa-plus-circle"></span> Add New</button>
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addPlayerModal"><span class="fa fa-plus-circle"></span> Add New</button>
                     </div>
                 </div>
             @endif
@@ -78,7 +78,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     <h4 class="modal-title" id="addPlayerModalLabel">Add player to {{ $team->name }}</h4>
                 </div>
                 <div class="modal-body">

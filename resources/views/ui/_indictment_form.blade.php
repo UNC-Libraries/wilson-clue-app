@@ -37,7 +37,7 @@
     </div>
 {{ html()->form()->close() }}
 <div class="text-center">
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#indictmentConfirmModal">Submit Your Indictment</button>
+    <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#indictmentConfirmModal">Submit Your Indictment</button>
 </div>
 
 <!-- Modal -->
@@ -45,7 +45,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <h4 class="modal-title" id="indictmentConfirmModalLabel">Are you sure you want to submit the following?</h4>
             </div>
             <div class="modal-body" id="indictment-feedback">
@@ -59,7 +59,7 @@
                 </dl>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary float-end" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary float-end" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary float-start" id="indictmentSubmit">Confirm</button>
             </div>
         </div>

@@ -16,7 +16,7 @@
             <div class="col-12">
                 <h2>Case File Items</h2>
                 @foreach($game->case_file_items as $key => $item)
-                    <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#cfModal{{ $key }}">
+                    <button type="button" class="btn btn-primary btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#cfModal{{ $key }}">
                         {{ $item->title }}
                     </button>
                 @endforeach
@@ -48,7 +48,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         <h4 class="modal-title" id="cfModal{{ $key }}Label">{{ $item->title }}</h4>
                     </div>
                     <div class="modal-body">

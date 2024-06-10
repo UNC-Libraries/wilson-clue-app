@@ -14,11 +14,11 @@
             </p>
         </div>
         <div class="col-md-3 offset-xs-9 col-xs-2 offset-md-9 text-end">
-            <button class="btn btn-success" data-toggle="modal" data-target="#addTeamModal"><span class="fa fa-plus-circle"></span> Add New</button>
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addTeamModal"><span class="fa fa-plus-circle"></span> Add New</button>
         </div>
         <div class="col-12">
             <h2>Registered <small>{{ $game->registeredTeams->count()}} {{ str_plural('team',$game->registeredTeams->count()) }}</small></h2>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registeredPlayerEmailsModal">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registeredPlayerEmailsModal">
                 <i class="fa fa-envelope-o"></i>
                 Registered Emails
             </button>
@@ -26,7 +26,7 @@
         </div>
         <div class="col-12">
             <h2>Waitlist <small>{{ $game->waitlistTeams->count()}} {{ str_plural('team',$game->waitlistTeams->count()) }}</small></h2>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#waitlistPlayerEmailsModal">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#waitlistPlayerEmailsModal">
                 <i class="fa fa-envelope-o"></i>
                 Waitlist Emails
             </button>
@@ -42,7 +42,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     <h4 class="modal-title" id="addPlayerModalLabel">Add team to {{ $game->name }}</h4>
                 </div>
                 <div class="modal-body">

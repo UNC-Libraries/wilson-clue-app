@@ -28,7 +28,7 @@
         <div class="col-12 col-xs-6">
             <div class="dash-section">
                 <div class="dash-section-header">
-                    <button type="button" class="btn btn-primary btn-sm float-end" data-toggle="modal" data-target="#gameOptions">
+                    <button type="button" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal" data-bs-target="#gameOptions">
                         <span class="fa fa-edit"></span> Edit
                     </button>
                     <h3>
@@ -62,7 +62,7 @@
         <div class="col-12 col-xs-6">
             <div class="dash-section">
                 <div class="dash-section-header">
-                    <button type="button" class="btn btn-primary btn-sm float-end" data-toggle="modal" data-target="#gameSolution">
+                    <button type="button" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal" data-bs-target="#gameSolution">
                         <span class="fa fa-edit"></span> Edit
                     </button>
                     <h3>Solution</h3>
