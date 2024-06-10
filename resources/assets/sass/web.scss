@@ -1,15 +1,20 @@
-@import "bootstrap";
-@import "font-awesome";
+@import url(//fonts.googleapis.com/css?family=Josefin+Sans:400,700|Montserrat:900);
+@import "mixins/variables.font-awesome.scss";
+@import "node_modules/font-awesome/scss/font-awesome";
 @import "mixins/variables.web";
 @import "mixins/clue_icons";
 @import "mixins/social_icons";
-@import url(//fonts.googleapis.com/css?family=Josefin+Sans:400,700|Montserrat:900);
-@import "mixins/variables.font-awesome.scss";
+@import "node_modules/bootstrap/scss/bootstrap";
 
 $state-danger-text: darken($brand-danger, 20%) !default;
 
 body {
   position: relative;
+  background-color: #281e1e;
+  color: #a09b9b;
+  font-family: Josefin Sans,Helvetica,Arial,sans-serif;
+  font-size: 18px;
+  line-height: 1.428571429;
 }
 
 h1, h2, h3 {
@@ -706,4 +711,23 @@ img.char-card{
 .well-sm {
   border-radius: 3px;
   padding: 9px
+}
+
+legend {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.login-form {
+  button {
+    background-color: #1deea4;
+    border-color: #11e197;
+    color: #0e0a0a;
+    margin-top: 15px;
+
+    &:hover,
+    &:focus {
+      background-color: #0fc987;
+      border-color: #0da871;
+    }
+  }
 }

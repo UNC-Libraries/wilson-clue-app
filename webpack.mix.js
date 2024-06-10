@@ -20,7 +20,6 @@ mix.setResourceRoot('../')
     .sass('resources/assets/sass/ui.scss', 'public/css')
     //web
     .sass('resources/assets/sass/web.scss', 'public/css')
-
     //admin scripts
     .sass('resources/assets/sass/admin.scss', 'public/css')
     .styles([

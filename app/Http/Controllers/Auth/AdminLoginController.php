@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class AdminLoginController extends Controller
 {
     /*
@@ -47,6 +48,18 @@ class AdminLoginController extends Controller
     public function username()
     {
         return 'onyen';
+    }
+
+    protected function credentials(Request $request)
+    {
+        // 'samaccountname' is the attribute we are using to
+        // locate users in our LDAP directory with. The
+        // value of the key must be the input name of
+        // our HTML input, as shown above:
+        return [
+            'samaccountname' => $request->get('onyen'),
+            'password' => $request->get('password'),
+        ];
     }
 
     /**

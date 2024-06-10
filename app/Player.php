@@ -2,11 +2,14 @@
 
 namespace App;
 
-use Adldap\Laravel\Facades\Adldap;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
+use LdapRecord\Laravel\Auth\LdapAuthenticatable;
+use LdapRecord\Models\ActiveDirectory\User;
 
-class Player extends Authenticatable
+class Player extends  Authenticatable implements LdapAuthenticatable
 {
+    use AuthenticatesWithLdap;
     /***********************************
      * ATTRIBUTES
      ***********************************/
@@ -72,13 +75,23 @@ class Player extends Authenticatable
         '' => 'Not Found',
     ];
 
+    public function getLdapDomainColumn(): string
+    {
+        return 'onyen';
+    }
+
+    public function getLdapGuidColumn(): string
+    {
+        return 'objectguid';
+    }
+
     /***********************************
      * RELATIONSHIPS
      ***********************************/
 
     public function teams()
     {
-        return $this->belongsToMany(\App\Team::class);
+        return $this->belongsToMany(Team::class);
     }
 
     /***********************************
@@ -109,7 +122,7 @@ class Player extends Authenticatable
      */
     public function validOnyen($onyen)
     {
-        $search = Adldap::getProvider('people')->search()->where('uid', '=', $onyen)->get();
+        $search = User::where('uid', '=', $onyen)->get();
 
         return ! $search->isEmpty();
     }
@@ -122,7 +135,7 @@ class Player extends Authenticatable
     public function updateFromOnyen($onyen, $override_student = false)
     {
         if ($this->validOnyen($onyen)) {
-            $getPerson = Adldap::getProvider('people')->search()->where('uid', '=', $onyen)->get();
+            $getPerson = User::where('uid', '=', $onyen)->get();
             $uncPerson = $getPerson->first();
 
             $this->onyen = $onyen;
@@ -135,7 +148,7 @@ class Player extends Authenticatable
                 $this->class_code = 'NONS';
                 $this->student = false;
             } else {
-                $getStudentInfo = Adldap::getProvider('people')->search()->findByDn($uncPerson->uncstudentrecord[0]);
+                $getStudentInfo = User::find($uncPerson->uncstudentrecord[0]);
                 $this->academic_group_code = $getStudentInfo->uncacademicgroupcode[0];
                 $this->class_code = $getStudentInfo->unccareercode[0];
                 $this->student = true;

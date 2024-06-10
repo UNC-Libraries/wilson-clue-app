@@ -4,9 +4,12 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\File;
+use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
+use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 
-class Agent extends Authenticatable
+class Agent extends Authenticatable implements LdapAuthenticatable
 {
+    use AuthenticatesWithLdap;
     /***********************************
      * ATTRIBUTES
      ***********************************/
@@ -49,6 +52,16 @@ class Agent extends Authenticatable
         'web_display' => 'boolean',
         'admin' => 'boolean',
     ];
+
+    public function getLdapDomainColumn(): string
+    {
+        return 'onyen';
+    }
+
+    public function getLdapGuidColumn(): string
+    {
+        return 'objectguid';
+    }
 
     /***********************************
      * RELATIONSHIPS
