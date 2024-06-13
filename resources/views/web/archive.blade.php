@@ -11,11 +11,18 @@
                 <div class="col-12 col-sm-10 offset-md-1 col-md-8 offset-lg-2">
                     @if($game->flickr)
                         <h2 class="text-center">Security Footage</h2>
-                        <a data-flickr-embed="true"  href="https://www.flickr.com/photos/unclibraries/albums/{{ $game->flickr }}" title="Wilson Library presents Clue, {{ $game->name }}">
-                            <img width="100%" height="auto" src="{{ $game->flickr_start_img }}" alt="Wilson Library presents Clue, {{  $game->name }}">
-                        </a>
-                        <script async src="http://embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
-                        <p class="text-center"><a href="https://www.flickr.com/photos/unclibraries/sets/{{ $game->flickr }}" target="_blank">View Flickr Album</a></p>
+                        @if(str_contains($game->flickr, 'photoshelter'))
+                            <a href="{{ $game->flickr }}" title="Wilson Library presents Clue, {{ $game->name }}">
+                                <img width="100%" height="auto" src="{{ $game->flickr_start_img }}" alt="Wilson Library presents Clue, {{  $game->name }}">
+                            </a>
+                            <p class="text-center"><a href="{{ $game->flickr }}" target="_blank">View PhotoShelter Album</a></p>
+                        @else
+                            <a data-flickr-embed="true"  href="https://www.flickr.com/photos/unclibraries/albums/{{ $game->flickr }}" title="Wilson Library presents Clue, {{ $game->name }}">
+                                <img width="100%" height="auto" src="{{ $game->flickr_start_img }}" alt="Wilson Library presents Clue, {{  $game->name }}">
+                            </a>
+                            <script async src="http://embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+                            <p class="text-center"><a href="https://www.flickr.com/photos/unclibraries/sets/{{ $game->flickr }}" target="_blank">View Flickr Album</a></p>
+                        @endif
                     @endif
                 </div>
             </div>
