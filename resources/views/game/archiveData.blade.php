@@ -19,7 +19,7 @@
                         Yes
                     </label>
                 </div>
-                <div class="form-check">
+                <div class="form-check spacing">
                     <label>
                         {{ html()->radio('archive', false, 0) }}
                         No
