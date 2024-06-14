@@ -61,14 +61,14 @@ The LDAP_\* properties you should get from a UNC sysadmin or from the production
 
    ```bash
    $ cd $CLUE_HOME
-   $ npm run watch
+   $ npm run dev
    ```
 
 1. Re-compile and minify assets before committing changes:
 
    ```bash
    $ cd $CLUE_HOME
-   $ npm run production
+   $ npm run build
    ```
 
 ## Running
