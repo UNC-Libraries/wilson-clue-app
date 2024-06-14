@@ -41,7 +41,7 @@
 ### Added
 - Added `optimize-autoloader` to `config` in `composer.json` ([#4189](https://github.com/laravel/laravel/pull/4189))
 - Added `.vagrant` directory to `.gitignore` ([#4191](https://github.com/laravel/laravel/pull/4191))
-- Added `npm run development` and `npm run prod` commands ([#4190](https://github.com/laravel/laravel/pull/4190), [#4193](https://github.com/laravel/laravel/pull/4193))
+- Added `npm run dev` and `npm run build` commands ([#4190](https://github.com/laravel/laravel/pull/4190), [#4193](https://github.com/laravel/laravel/pull/4193))
 - Added `APP_NAME` environment variable ([#4204](https://github.com/laravel/laravel/pull/4204))
 
 ### Changed
