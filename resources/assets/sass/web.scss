@@ -1,20 +1,17 @@
 @import url(//fonts.googleapis.com/css?family=Josefin+Sans:400,700|Montserrat:900);
 @import "mixins/variables.font-awesome.scss";
 @import "node_modules/font-awesome/scss/font-awesome";
+@import "node_modules/bootstrap/scss/bootstrap";
 @import "mixins/variables.web";
 @import "mixins/clue_icons";
 @import "mixins/social_icons";
-@import "node_modules/bootstrap/scss/bootstrap";
 
 $state-danger-text: darken($brand-danger, 20%) !default;
 
 body {
   position: relative;
-  background-color: #281e1e;
   color: #a09b9b;
   font-family: Josefin Sans,Helvetica,Arial,sans-serif;
-  font-size: 18px;
-  line-height: 1.428571429;
 }
 
 h1, h2, h3 {
@@ -718,6 +715,9 @@ legend {
 }
 
 .login-form {
+  border-radius: 5px;
+  padding: 0 30px;
+
   button {
     background-color: #1deea4;
     border-color: #11e197;

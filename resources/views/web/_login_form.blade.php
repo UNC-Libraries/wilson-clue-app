@@ -1,5 +1,5 @@
 <div class="login-div" style="height: 96vh;">
-    <div class="login-form" style="position: absolute; top:0; left:0; right:0; bottom: 0; margin:auto; height: 320px; width:320px;">
+    <div class="login-form" style="background-color:white; position: absolute; top:0; left:0; right:0; bottom: 0; margin:auto; height: 320px; width:320px;">
 
         <div style="margin-bottom: 1em">
             <p class="text-center text-warning">
