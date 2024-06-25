@@ -2,19 +2,19 @@
     <div class="question-div {{ $quest->suspect->machine }} {{ $q->completedBy()->pluck('id')->contains($team->id) ? 'correct' : '' }}">
         <div class="row">
             @if($q->completedBy()->pluck('id')->contains($team->id))
-                <div class="col-xs-12 text-center"><strong>Complete</strong></div>
+                <div class="col-12 text-center"><strong>Complete</strong></div>
             @else
-                <div class="col-xs-12 text-center"><div id="question-{{ $q->id }}-response" class="question-response"></div></div>
+                <div class="col-12 text-center"><div id="question-{{ $q->id }}-response" class="question-response"></div></div>
                 @if($q->type == 1)
-                    <div class="col-xs-6 col-sm-3">
-                        <img src="{{ asset($q->src) }}" class="img-responsive">
+                    <div class="col-6 col-xs-3">
+                        <img src="{{ asset($q->src) }}" class="img-fluid">
                     </div>
-                    <div class="col-xs-6 col-sm-9">
+                    <div class="col-6 col-xs-9">
                         <p class="lead">{{ $q->text }}</p>
                         @include('ui._question_form')
                     </div>
                 @else
-                    <div class="col-xs-12">
+                    <div class="col-12">
                         <p class="lead">{{ $q->text }}</h3>
                         @include('ui._question_form')
                     </div>

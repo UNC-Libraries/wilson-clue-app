@@ -5,10 +5,10 @@
 <section class="main-section">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 subpage-banner">
-                <h1><a href="{{ route('web.index') }}">Clue</a> <small class="text-right">{{$game->start_time->format('F, jS Y')}}</small></h1>
+            <div class="col-12 subpage-banner">
+                <h1><a href="{{ route('web.index') }}">Clue</a> <small class="text-end">{{$game->start_time->format('F, jS Y')}}</small></h1>
             </div>
-            <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 text-center">
+            <div class="col-12 col-sm-10 offset-md-1 col-md-8 offset-lg-2 text-center">
                 <h2>Enlistment Form</h2>
                 @if($game->spots_left == 0)
                     <div class="alert alert-danger">
@@ -18,7 +18,7 @@
                 @endif
                 @if($errors->count() > 0)
                     <div class="alert alert-danger alert-dismissible text-left" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         <p class="lead text-center">Uh-oh!</p>
                         <p>We had some trouble enlisting your team...</p>
                         <ul>
@@ -31,7 +31,7 @@
                 @endif
             </div>
 
-            <div class="col-xs-12 col-md-8 col-md-offset-2 enlistment-form">
+            <div class="col-12 col-sm-8 offset-md-2 enlistment-form">
                 <p>To the SIA,</p>
                 <p>I would like to enlist my team for the Clue investigation scheduled on {{ $game->start_time->format('l, \t\h\e jS \o\f F, Y') }}.</p>
                 @if($game->students_only)
@@ -39,21 +39,21 @@
                 @else
                     <p>By enlisting, I certify that my team members and I have not participated in a previous investigation.</p>
                 @endif
-                {!! Form::open(['route' => 'enlist.submit']) !!}
+                {{ html()->form('POST', route('enlist.submit'))->open() }}
                     <div class="form-group">
-                        {!! Form::label('teamName', 'Team Name') !!}
-                        {!! Form::text('teamName',null,['class'=>'form-control', 'required', 'autofocus']) !!}
+                        {{ html()->label('Team Name', 'teamName') }}
+                        {{ html()->text('teamName')->class('form-control')->required()->autofocus() }}
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label('onyen', 'Onyen') !!}
-                        {!! Form::text('onyen',null,['class'=>'form-control', 'required']) !!}
+                        {{ html()->label('Onyen', 'onyen') }}
+                        {{ html()->text('onyen')->class('form-control')->required() }}
                     </div>
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-lg btn-primary">Enlist!</button>
                     </div>
-                {!! Form::close() !!}
+                {{ html()->form()->close() }}
             </div>
         </div>
     </div>

@@ -13,7 +13,7 @@
             'text' => trans('ui.geographicInvestigation')
         ])
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-12">
                 <p class="lead">Everything you need to track down the portal is in the Center for Geographic Investigations in the Fearrington Reading Room.</p>
             </div>
         </div>

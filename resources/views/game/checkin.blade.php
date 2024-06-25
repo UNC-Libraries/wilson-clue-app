@@ -9,24 +9,24 @@
     @include('admin._alert')
 
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-12">
             <p class="lead text-center">Player Check-in</p>
         </div>
-        <div class="col-xs-12">
-            {!! Form::open(['route' => ['admin.game.checkin.player', $game->id]]) !!}
+        <div class="col-12">
+            {{ html()->form('POST', route('admin.game.checkin.player', [$game->id]))->open() }}
                 <div class="form-group">
-                    {!! Form::label('pid','Enter the player\'s PID') !!}
-                    {!! Form::text('pid',null,['class'=>'form-control','autofocus']) !!}
+                    {{ html()->label('Enter the player\'s PID', 'pid') }}
+                    {{ html()->text('pid')->class('form-control')->autofocus() }}
                 </div>
                 <button type="submit" class="btn btn-primary">Check In</button>
-            {!! Form::close() !!}
+            {{ html()->form()->close() }}
         </div>
     </div>
 
     @foreach($game->registeredTeams->sortBy('name')->chunk(3) as $chunk)
         <div class="row" style="margin-top: 20px;">
             @foreach($chunk as $team)
-                <div class="col-xs-12 col-sm-4">
+                <div class="col-12 col-xs-4">
                     <table class="table">
                         <thead>
                             <tr>
@@ -43,12 +43,12 @@
                             <td><a href="{{ route('admin.player.edit', $player->id) }}">{{ $player->full_name }}</a></td>
                             <td>
                                 @if(!$player->checked_in)
-                                    {!! Form::open(['route' => ['admin.game.checkin.player', 'id' => $game->id, 'playerId' => $player->id]]) !!}
+                                    {{ html()->form('POST', route('admin.game.checkin.player', ['id' => $game->id, 'playerId' => $player->id]))->open() }}
                                         <button type="submit"
                                                 class="btn btn-success btn-sm">
                                             <span class="fa fa-check"></span>
                                         </button>
-                                    {!! Form::close() !!}
+                                    {{ html()->form()->close() }}
                                 @endif
                             </td>
                         </tr>

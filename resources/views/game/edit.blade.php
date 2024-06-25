@@ -9,26 +9,26 @@
 
     <div class="row">
 
-        <div class="col-xs-12 text-center">
+        <div class="col-12 text-center">
             @include('partials._delete_form', ['route' => ['admin.game.destroy', $game->id]])
             <p class="lead">
                 Edit the game settings, solution, quest locations, and evidence room
             </p>
         </div>
 
-        <div class="col-xs-12">
+        <div class="col-12">
             @include('admin._alert')
         </div>
 
         <!-- Game Settings -->
-        <div class="col-xs-12">
+        <div class="col-12">
             <h2 class="expo">Settings</h2>
         </div>
         <!-- Options -->
-        <div class="col-xs-12 col-sm-6">
+        <div class="col-12 col-xs-6">
             <div class="dash-section">
                 <div class="dash-section-header">
-                    <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#gameOptions">
+                    <button type="button" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal" data-bs-target="#gameOptions">
                         <span class="fa fa-edit"></span> Edit
                     </button>
                     <h3>
@@ -59,10 +59,10 @@
         </div>
 
         <!-- Scoring -->
-        <div class="col-xs-12 col-sm-6">
+        <div class="col-12 col-xs-6">
             <div class="dash-section">
                 <div class="dash-section-header">
-                    <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#gameSolution">
+                    <button type="button" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal" data-bs-target="#gameSolution">
                         <span class="fa fa-edit"></span> Edit
                     </button>
                     <h3>Solution</h3>
@@ -78,11 +78,11 @@
         </div>
 
         <!-- Quests -->
-        <div class="col-xs-12">
+        <div class="col-12">
             <h2 class="expo">Quest Locations</h2>
             @foreach($game->quests as $quest)
-            <div class="col-xs-12 col-sm-6 col-md-4">
-                <div class="well">
+            <div class="col-12 col-xs-6 col-sm-4">
+                <div class="card card-body">
                     <h3>{{ $quest->location->name }}</h3>
                     <ul class="list-unstyled">
                         @if(!empty($quest->suspect))
@@ -104,38 +104,33 @@
         </div>
 
         <!-- Geographic Investigation Location -->
-        <div class="col-xs-12">
+        <div class="col-12">
             <h2 class="expo">Geographic Investigation</h2>
         </div>
-        <div class="col-xs-12">
+        <div class="col-12">
             <div class="dash-section">
-                {!! Form::model($game, ['route'=> ['admin.game.update',$game->id], 'method' => 'put']) !!}
-                <div class="col-sm-12 col-md-3">
+                {{ html()->modelForm($game, 'PUT', route('admin.game.update', [$game->id]))->open() }}
+                <div class="col-xs-12 col-sm-3">
                     <div class="form-group">
-                        {!! Form::label('geographic_investigation_location_id','Location') !!}
-                        {!! Form::select(
-                            'geographic_investigation_location_id',
-                            $locations->pluck('name','id'),
-                            ($game->geographic_investigation_location_id ? $game->geographic_investigation_location_id : null),
-                            array('placeholder' => 'Select a location', 'class' => 'form-control'))
-                        !!}
+                        {{ html()->label('Location', 'geographic_investigation_location_id') }}
+                        {{ html()->select('geographic_investigation_location_id', $locations->pluck('name', 'id'), $game->geographic_investigation_location_id ? $game->geographic_investigation_location_id : null)->placeholder('Select a location')->class('form-control') }}
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </div>
-                {!! Form::close() !!}
+                {{ html()->closeModelForm() }}
             </div>
         </div>
 
         <!-- Evidence -->
-        <div class="col-xs-12">
+        <div class="col-12">
             <h2 class="expo">Evidence Room</h2>
         </div>
-        <div class="col-xs-12">
+        <div class="col-12">
             <div class="dash-section">
                 <div class="dash-section-header">
-                    <a href="{{ route('admin.game.edit.evidence', $game->id) }}" type="button" class="btn btn-primary btn-sm pull-right">
+                    <a href="{{ route('admin.game.edit.evidence', $game->id) }}" type="button" class="btn btn-primary btn-sm float-end">
                         <span class="fa fa-edit"></span> Edit
                     </a>
                     <h3>Images</h3>
@@ -148,7 +143,7 @@
 
         @if($game->case_file_items)
             @foreach($game->case_file_items as $cf_item)
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="col-12 col-xs-6 col-sm-4 col-md-3">
                 <div class="dash-section">
                     <div class="dash-section-header">
                         <h3>{{ $cf_item->title }}</h3>

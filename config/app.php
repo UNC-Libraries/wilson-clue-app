@@ -168,9 +168,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Collective\Html\HtmlServiceProvider::class,
-        Adldap\Laravel\AdldapServiceProvider::class,
-        Adldap\Laravel\AdldapAuthServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
 
         /*
@@ -196,10 +193,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'Adldap' => Adldap\Laravel\Facades\Adldap::class,
         'ClueValidator' => App\Validation\ClueValidator::class,
-        'Form' => Collective\Html\FormFacade::class,
-        'Html' => Collective\Html\HtmlFacade::class,
         'Redis' => Illuminate\Support\Facades\Redis::class,
     ])->toArray(),
 

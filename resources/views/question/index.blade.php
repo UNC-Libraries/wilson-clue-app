@@ -6,30 +6,30 @@
 @section('model_list')
 
 <div class="row">
-    {!! Form::open(['route' => 'admin.question.index', 'id' => 'questionFilterForm', 'method' => 'get']) !!}
-        <div class="form-group col-xs-4">
-            {!! Form::label('location_id','Filter By Location') !!}
-            {!! Form::select('location_id',$locations->pluck('name','id'), $location, array('placeholder' => 'Select a location', 'class' => 'form-control auto-submit', 'data-target'=>'#questionFilterForm')) !!}
+    {{ html()->form('GET', route('admin.question.index'))->id('questionFilterForm')->class('row')->open() }}
+        <div class="form-group col-12 col-sm-4">
+            {{ html()->label('Filter By Location', 'location_id')->class('fw-bold mb-1') }}
+            {{ html()->select('location_id', $locations->pluck('name', 'id'), $location)->placeholder('Select a location')->class('form-control auto-submit')->data('target', '#questionFilterForm') }}}
         </div>
 
-        <div class="form-group col-xs-4">
-            {!! Form::label('game_id','Filter By Game') !!}
-            {!! Form::select('game_id',$games->pluck('name','id'), $game, array('placeholder' => 'Select a game', 'class' => 'form-control auto-submit', 'data-target'=>'#questionFilterForm')) !!}
+        <div class="form-group col-12 col-sm-4">
+            {{ html()->label('Filter By Game', 'game_id')->class('fw-bold mb-1') }}
+            {{ html()->select('game_id', $games->pluck('name', 'id'), $game)->placeholder('Select a game')->class('form-control auto-submit')->data('target', '#questionFilterForm') }}
         </div>
 
-        <div class="form-group col-xs-4">
-            {!! Form::label('search', 'Search') !!}
+        <div class="form-group col-12 col-sm-4">
+            {{ html()->label('Search', 'search')->class('fw-bold mb-1')  }}
             <div class="input-group">
-                {!! Form::text('search', $string, array('class'=>'form-control')) !!}
+                {{ html()->text('search', $string)->class('form-control') }}
                 <span class="input-group-btn">
-                    <button class="btn btn-default" type="submit"><span class="fa fa-search"></span></button>
+                    <button class="btn btn-secondary" type="submit"><span class="fa fa-search"></span></button>
                 </span>
             </div>
         </div>
-    {!! Form::close() !!}
+    {{ html()->form()->close() }}
 </div>
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-12">
         @include('question._table_list', ['models' => $questions])
     </div>
 </div>

@@ -3,14 +3,14 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Solution</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['route' => ['admin.game.update',$game->id], 'method' => 'PUT']) !!}
+                {{ html()->form('PUT', route('admin.game.update', [$game->id]))->open() }}
                     @include('game.input_groups.solution')
                     <button type="submit" class="btn btn-primary">Submit</button>
-                {!! Form::close() !!}
+                {{ html()->form()->close() }}
             </div>
         </div>
     </div>

@@ -2,46 +2,42 @@
 
 @section('css')
     <!-- css -->
-    <link href="{{ asset('css/admin.css') }}" rel="stylesheet" type="text/css" >
+    <link href="{{ asset('css/all-admin.css') }}" rel="stylesheet" type="text/css" >
 @endsection
 
 
 @section('main.content')
-    <nav class="navbar navbar-default" id="homepage-nav">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#the-nav" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{ route('admin') }}">Clue Administration</a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar">
-                    <li><a href="{{ route('admin.game.create') }}"><span class="fa fa-plus"></span> New Game</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Games <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            @foreach($games->sortBy('start_time') as $game)
-                                <li><a href="{{ route('admin.game.show', $game->id) }}">{{ $game->name }}</a></li>
-                            @endforeach
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Assets <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            @foreach($assets as $asset)
-                                <li><a href="{{ route($asset['route']) }}">{{ $asset['name'] }}</a></li>
-                            @endforeach
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{ route('admin.logout') }}">Logout</a></li>
-                </ul>
-            </div>
+    <nav class="navbar navbar-expand-md navbar-light bg-light px-4" id="homepage-nav">
+        <a class="navbar-brand" href="{{ route('admin') }}">Clue Administration</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#the-nav" aria-controls="the-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="the-nav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.game.create') }}"><span class="fa fa-plus"></span> New Game</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="gamesDropdown" data-bs-toggle="dropdown" role="button" aria-expanded="false">Games</a>
+                    <ul class="dropdown-menu" aria-labelledby="gamesDropdown">
+                        @foreach($games->sortBy('start_time') as $game)
+                            <li><a class="dropdown-item" href="{{ route('admin.game.show', $game->id) }}">{{ $game->name }}</a></li>
+                        @endforeach
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="assetsDropdown" data-bs-toggle="dropdown" role="button" aria-expanded="false">Assets</a>
+                    <ul class="dropdown-menu" aria-labelledby="gamesDropdown">
+                        @foreach($assets as $asset)
+                            <li><a class="dropdown-item" href="{{ route($asset['route']) }}">{{ $asset['name'] }}</a></li>
+                        @endforeach
+                    </ul>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="{{ route('admin.logout') }}">Logout</a></li>
+            </ul>
         </div>
     </nav>
 

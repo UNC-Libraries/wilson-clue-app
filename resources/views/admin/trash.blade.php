@@ -19,9 +19,9 @@
                 @foreach($games as $game)
                     <tr>
                         <td>
-                            {!! Form::open(['route' => ['admin.restore',$game->id]]) !!}
+                            {{ html()->form('POST', route('admin.restore', [$game->id]))->open() }}
                             <button type="submit" class="btn btn-primary"><span class="fa fa-history"></span> Restore</button>
-                            {!! Form::close() !!}
+                            {{ html()->form()->close() }}
                         </td>
                         <td>{{ $game->name }}</td>
                         <td>{{ $game->start_time->format('M d Y') }}</td>

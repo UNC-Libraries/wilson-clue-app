@@ -1,7 +1,8 @@
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "bootstrap";
+@import "font-awesome";
 //@import "mixins/fancy_checkboxes";
+@import "mixins/variables.ui";
 @import "mixins/variables.font-awesome.scss";
-@import "node_modules/font-awesome/scss/font-awesome";
 
 $peacock:         #4C4CFF !default; // #337ab7
 $peacock-text:    #fff;
@@ -188,7 +189,111 @@ $evidence-text:   #000;
   box-shadow:         inset 0 0 3px $gray-dark;
 }
 
+// BS 4 overrides/additions
 #availableQuestions, #availableMinigameImages {
   max-height: 500px;
   overflow-y: auto;
+}
+
+.progress + h4 {
+  margin-top: 1rem;
+}
+
+.form-check-inline {
+  input[type=radio] {
+    margin-right: 5px;
+  }
+}
+
+.breadcrumb {
+  margin-bottom: 20px;
+  padding: 8px 15px;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.breadcrumb > li + li::before {
+  color: #ccc;
+  content: "/ ";
+  padding: 0 5px;
+}
+
+.media {
+  padding-top: 10px;
+
+  h4 {
+     margin-left: 15px;
+   }
+}
+
+.card {
+  background-color: #f5f5f5;
+  border: 1px solid #e3e3e3;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+  margin-bottom: 20px;
+  min-height: 20px;
+}
+
+@media (min-width: 576px) {
+  .form-inline {
+    label {
+      width: 100%;
+      justify-content: left;
+    }
+  }
+
+  .table th {
+    border-top: none;
+  }
+}
+
+// BS 5 overrides/additions
+a {
+  text-decoration: none;
+
+  &:focus,
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.form-check {
+  margin-top: .125rem;
+}
+
+legend {
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 20px;
+}
+
+.spacing {
+  padding-left: 0;
+  padding-bottom: 15px;
+}
+
+code {
+  background-color: #f9f2f4;
+  border-radius: 4px;
+}
+
+.breadcrumb {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.jumbotron {
+  margin: 25px auto;
+
+  h1 {
+    font-size: 3.9rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+}
+
+.form-group,
+.clipboard-btn {
+  margin-bottom: 15px;
 }

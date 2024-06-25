@@ -11,7 +11,7 @@
         <tr class='clickable-row' data-href='{{ route('admin.question.edit',array($question->id)) }}'>
             <td>
                 @if($question->type == 1)
-                    {!! Html::image(asset($question->src),'question-image',array('class'=>'media-object-128')) !!}
+                    {{ html()->img(asset(asset($question->src)), 'question-image')->class('media-object-128') }}
                 @else
                     {{ $question->text }}
                 @endif

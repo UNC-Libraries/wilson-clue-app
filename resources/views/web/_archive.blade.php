@@ -1,12 +1,12 @@
 <section class="light-section special-elite" id="archive">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 text-right">
+            <div class="col-12 text-end">
                 <h2>The Archive</h2>
             </div>
 
             @foreach($games as $game)
-                <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="col-12 col-xs-6 col-sm-4">
                     <!-- Sideswipe -->
                     <div class="archive-card-wrapper">
                         <div class="archive-card {{ next($colors) == FALSE ? reset($colors) : current($colors) }}">

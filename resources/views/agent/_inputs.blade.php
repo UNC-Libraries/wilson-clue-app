@@ -1,80 +1,80 @@
 <div class="row">
     <!-- Onyen -->
-    <div class="form-group col-xs-12 col-sm-6">
-        {!! Form::label('onyen', 'Onyen') !!}
-        {!! Form::text('onyen', null, array('class'=>'form-control')) !!}
+    <div class="form-group col col-sm-6">
+        {{ html()->label('Onyen', 'onyen')->class('fw-bold mb-1') }}
+        {{ html()->text('onyen')->class('form-control') }}
     </div>
 
     <!-- Email -->
-    <div class="form-group col-xs-12 col-sm-6">
-        {!! Form::label('email', 'Email') !!}
-        {!! Form::text('email', null, array('class'=>'form-control')) !!}
+    <div class="form-group col col-sm-6">
+        {{ html()->label('Email', 'email')->class('fw-bold mb-1') }}
+        {{ html()->text('email')->class('form-control') }}
     </div>
 </div>
 
-<div class="row">
+<div class="row mt-3">
     <!-- Onyen -->
-    <div class="form-group col-xs-12 col-sm-6">
-        {!! Form::label('first_name', 'First Name') !!}
-        {!! Form::text('first_name', null, array('class'=>'form-control')) !!}
+    <div class="form-group col-12 col-sm-6">
+        {{ html()->label('First Name', 'first_name')->class('fw-bold mb-1') }}
+        {{ html()->text('first_name')->class('form-control') }}
     </div>
 
     <!-- Email -->
-    <div class="form-group col-xs-12 col-sm-6">
-        {!! Form::label('last_name', 'Last Name') !!}
-        {!! Form::text('last_name', null, array('class'=>'form-control')) !!}
+    <div class="form-group col-12 col-sm-6">
+        {{ html()->label('Last Name', 'last_name')->class('fw-bold mb-1') }}
+        {{ html()->text('last_name')->class('form-control') }}
     </div>
 </div>
 
-<div class="row">
+<div class="row mt-3">
     <!-- Retired -->
-    <div class="form-group col-xs-12 col-sm-4">
-        <div class="checkbox">
+    <div class="form-group col-12 col-sm-4">
+        <div class="form-check">
             <label>
-                {!! Form::checkbox('retired') !!} Retired?
+                {{ html()->checkbox('retired', false) }} Retired?
             </label>
         </div>
     </div>
     <!-- Display on web -->
-    <div class="form-group col-xs-12 col-sm-4">
-        <div class="checkbox">
+    <div class="form-group col-12 col-sm-4">
+        <div class="form-check">
             <label>
-                {!! Form::checkbox('web_display') !!} Display on Website?
+                {{ html()->checkbox('web_display', false) }} Display on Website?
             </label>
         </div>
     </div>
     <!-- Admin -->
-    <div class="form-group col-xs-12 col-sm-4">
-        <div class="checkbox">
+    <div class="form-group col-12 col-sm-4">
+        <div class="form-check">
             <label>
-                {!! Form::checkbox('admin') !!} Admin?
+                {{ html()->checkbox('admin', false) }} Admin?
             </label>
         </div>
     </div>
 </div>
 
-<div class="row">
+<div class="row mt-3">
     <!-- Agent Title -->
-    <div class="form-group col-xs-12 col-sm-4">
-        {!! Form::label('title', 'Agent Title') !!}
-        {!! Form::text('title', null, array('class'=>'form-control')) !!}
+    <div class="form-group col-12 col-sm-4">
+        {{ html()->label('Agent Title', 'title')->class('fw-bold mb-1') }}
+        {{ html()->text('title')->class('form-control') }}
     </div>
 
     <!-- Location -->
-    <div class="form-group col-xs-12 col-sm-4">
-        {!! Form::label('location', 'Location') !!}
-        {!! Form::text('location', null, array('class'=>'form-control')) !!}
+    <div class="form-group col-12 col-sm-4">
+        {{ html()->label('Location', 'location')->class('fw-bold mb-1') }}
+        {{ html()->text('location')->class('form-control') }}
     </div>
 </div>
 
-<div class="row">
-    <div class="form-group col-xs-12">
+<div class="row mt-2">
+    <div class="form-group col-12">
         @include('partials._image_input',['current' => $agent->src, 'alt' => $agent->full_name])
     </div>
 </div>
 
 <div class="row">
-    <div class="form-group col-xs-12 text-right">
+    <div class="form-group col-12 text-end">
         <button type="submit" class="btn btn-primary">Save</button>
     </div>
 </div>

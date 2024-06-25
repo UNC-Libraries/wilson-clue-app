@@ -8,25 +8,25 @@
 
     @include('admin._alert')
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-12">
             <p class="lead text-center">
                 Add & Remove Teams, Manage waitlist
             </p>
         </div>
-        <div class="col-xs-3 col-xs-offset-9 col-sm-2 col-sm-offset-10 text-right">
-            <button class="btn btn-success" data-toggle="modal" data-target="#addTeamModal"><span class="fa fa-plus-circle"></span> Add New</button>
+        <div class="col-md-3 offset-xs-9 col-xs-2 offset-md-9 text-end">
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addTeamModal"><span class="fa fa-plus-circle"></span> Add New</button>
         </div>
-        <div class="col-xs-12">
+        <div class="col-12">
             <h2>Registered <small>{{ $game->registeredTeams->count()}} {{ str_plural('team',$game->registeredTeams->count()) }}</small></h2>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registeredPlayerEmailsModal">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registeredPlayerEmailsModal">
                 <i class="fa fa-envelope-o"></i>
                 Registered Emails
             </button>
             @include('game._team_table',['teams'=>$game->registeredTeams])
         </div>
-        <div class="col-xs-12">
+        <div class="col-12">
             <h2>Waitlist <small>{{ $game->waitlistTeams->count()}} {{ str_plural('team',$game->waitlistTeams->count()) }}</small></h2>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#waitlistPlayerEmailsModal">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#waitlistPlayerEmailsModal">
                 <i class="fa fa-envelope-o"></i>
                 Waitlist Emails
             </button>
@@ -42,15 +42,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="addPlayerModalLabel">Add team to {{ $game->name }}</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-xs-12">
-                            {!! Form::open(['route' => ['admin.game.addTeam',$game->id]]) !!}
+                        <div class="col-12">
+                            {{ html()->form('POST', route('admin.game.addTeam', [$game->id]))->open() }}
                             @include('team._team_form_inputs')
-                            {!! Form::close() !!}
+                            {{ html()->form()->close() }}
                         </div>
                     </div>
                 </div>

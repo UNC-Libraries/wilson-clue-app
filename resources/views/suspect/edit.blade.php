@@ -9,37 +9,36 @@
         <div class="row">
             @include('admin._form_errors')
 
-            <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-                {!! Form::model($suspect, array('route'=> array('admin.suspect.update',$suspect->id), 'method'=>'PUT', 'files' => true)) !!}
-
-                    {!! Form::token() !!}
+            <div class="col col-xs-8 offset-sm-2">
+                {{ html()->modelForm($suspect, 'PUT', route('admin.suspect.update', [$suspect->id]))->acceptsFiles()->open() }}
+                    {{ html()->token() }}
 
                     <div class="row">
                         <!-- Name -->
                         <div class="form-group col-xs-12">
-                            {!! Form::label('name', 'Name') !!}
-                            {!! Form::text('name', null, array('class'=>'form-control')) !!}
+                            {{ html()->label('Name', 'name')->class('fw-bold mb-1') }}
+                            {{ html()->text('name')->class('form-control') }}
                         </div>
 
                         <!-- Bio -->
                         <div class="form-group col-xs-12">
-                            {!! Form::label('bio', 'Bio') !!}
+                            {{ html()->label('Bio', 'bio')->class('fw-bold mb-1 mt-2')  }}
                             <small>Use <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">markdown</a> to style the text</small>
-                            {!! Form::textarea('bio', null, array('class'=>'form-control')) !!}
+                            {{ html()->textarea('bio')->class('form-control') }}
                         </div>
 
                         <!-- Quote -->
                         <div class="form-group col-xs-12">
-                            {!! Form::label('quote','Quote') !!}
-                            {!! Form::text('quote', null, array('class'=>'form-control')) !!}
+                            {{ html()->label('Quote', 'quote')->class('fw-bold mb-1 mt-2') }}
+                            {{ html()->text('quote')->class('form-control') }}
                         </div>
 
-                        <div class="form-group col-xs-12">
+                        <div class="form-group col mt-3">
                             <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </div>
 
-                {!! Form::close() !!}
+                {{ html()->closeModelForm() }}
             </div>
         </div>
     </div>

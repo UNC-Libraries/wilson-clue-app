@@ -49,6 +49,18 @@ class LoginController extends Controller
         return 'onyen';
     }
 
+    protected function credentials(Request $request)
+    {
+        // 'samaccountname' is the attribute we are using to
+        // locate users in our LDAP directory with. The
+        // value of the key must be the input name of
+        // our HTML input, as shown above:
+        return [
+            'samaccountname' => $request->get('onyen'),
+            'password' => $request->get('password'),
+        ];
+    }
+
     /*public function logout()
     {
         Auth::logout();

@@ -16,7 +16,7 @@
 <h3>Click on the icons to make your indictment.</h3>
 <p>You will need 1 suspect, 1 location, and 1 collection item.</p>
 
-{!! Form::open(['route' => 'ui.set.indictment', 'id' => 'indictmentForm']) !!}
+{{ html()->form('POST', route('ui.set.indictment'))->id('indictmentForm')->open() }}
     <legend>Who is the ghost?</legend>
     <div class="flex-form-group">
         @foreach($game->quests->pluck('suspect')->sortBy('machine') as $s)
@@ -35,9 +35,9 @@
             @include('ui._indictment_radio_input',['model' => 'evidence', 'id' => $e->id, 'name' => $e->title, 'selected' => $team->evidence ? $team->evidence->id == $e->id : false, 'image' => $e->src ])
         @endforeach
     </div>
-{!! Form::close() !!}
+{{ html()->form()->close() }}
 <div class="text-center">
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#indictmentConfirmModal">Submit Your Indictment</button>
+    <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#indictmentConfirmModal">Submit Your Indictment</button>
 </div>
 
 <!-- Modal -->
@@ -45,8 +45,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="indictmentConfirmModalLabel">Are you sure you want to submit the following?</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="indictment-feedback">
                 <dl>
@@ -59,8 +59,8 @@
                 </dl>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary pull-left" id="indictmentSubmit">Confirm</button>
+                <button type="button" class="btn btn-secondary float-end" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary float-start" id="indictmentSubmit">Confirm</button>
             </div>
         </div>
     </div>

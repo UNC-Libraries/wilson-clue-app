@@ -10,28 +10,28 @@
 
 
         <div class="row">
-            <div class="col-xs-12 col-sm-4 col-md-3">
-                {!! Form::open(['route' => ['admin.player.index'], 'method' => 'get']) !!}
+            <div class="col-12 col-xs-4 col-sm-3">
+                {{ html()->form('GET', route('admin.player.index', ))->open() }}
                 <div class="form-group">
-                    <label>Search:</label>
-                    {!! Form::text('search',$search,['class' => 'form-control']) !!}
+                    <label class="fw-bold">Search:</label>
+                    {{ html()->text('search', $search)->class('form-control') }}
                 </div>
-                <div class="form-group">
-                    <label>Sort By:</label>
+                <div class="form-group mt-3">
+                    <label class="fw-bold">Sort By:</label>
                     <div class="row">
-                        <div class="col-xs-12 col-sm-7">
-                            {{ Form::select('sort_by', $sortOptions, $selectedSort, ['class' => 'form-control auto-submit']) }}
+                        <div class="col-12 col-xs-7">
+                            {{ html()->select('sort_by', $sortOptions, $selectedSort)->class('form-control auto-submit') }}
                         </div>
-                        <div class="col-xs-12 col-sm-5">
-                            {{ Form::select('sort_order', $sortOrder, $selectedSortOrder, ['class' => 'form-control auto-submit']) }}
+                        <div class="col-12 col-xs-5">
+                            {{ html()->select('sort_order', $sortOrder, $selectedSortOrder)->class('form-control auto-submit') }}
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Filter By:</label>
-                    <fieldset>
+                <div class="form-group mt-3">
+                    <label class="fw-bold">Filter By:</label>
+                    <fieldset class="mt-3">
                         <legend>Played</legend>
-                        <label class="radio-inline" for="playedBoth">
+                        <label class="form-check-inline" for="playedBoth">
                             <input
                                     type="radio"
                                     name="played"
@@ -42,40 +42,40 @@
                                     @if($request && $request->get('played') != 'yes' && $request->get('played') != 'no') checked @endif
                             > Either
                         </label>
-                        <label class="radio-inline" for="playedYes">
+                        <label class="form-check-inline" for="playedYes">
                             <input type="radio" name="played" id="playedYes" value="yes" class="auto-submit"
                                @if($request && $request->get('played') == 'yes') checked @endif
                             > Yes
                         </label>
-                        <label class="radio-inline" for="playedNo">
+                        <label class="form-check-inline" for="playedNo">
                             <input type="radio" name="played" id="playedNo" value="no" class="auto-submit"
                                    @if($request && $request->get('played') == 'no') checked @endif
                             > No
                         </label>
                     </fieldset>
                 </div>
-                <fieldset>
+                <fieldset class="mt-3">
                     @include('partials._facet_filter',['facetName' => 'non_student', 'facets' => ['1' => 'Non-Student']])
                 </fieldset>
-                <fieldset>
+                <fieldset class="mt-3">
                     @include('partials._facet_filter',['facetName' => 'manual', 'facets' => ['1' => 'Manually Entered']])
                 </fieldset>
-                <fieldset>
+                <fieldset class="mt-3">
                     <legend>Games</legend>
                     @include('partials._facet_filter',['facetName' => 'game', 'facets' => $games->pluck('name','id')->all()])
                 </fieldset>
-                <fieldset>
+                <fieldset class="mt-3">
                     <legend>Class</legend>
                     @include('partials._facet_filter',['facetName' => 'class', 'facets' => $class_options])
                 </fieldset>
-                <fieldset>
+                <fieldset class="mt-3">
                     <legend>Academic Groups</legend>
                     @include('partials._facet_filter',['facetName' => 'group', 'facets' => $academic_group_options])
                 </fieldset>
-                {!! Form::close() !!}
+                {{ html()->form()->close() }}
 
             </div>
-            <div class="col-xs-12 col-sm-8 col-md-9">
+            <div class="col-12 col-xs-8 col-sm-9">
                 <h1>Players</h1>
 
                 <p>{{ $players->count() }} players found</p>

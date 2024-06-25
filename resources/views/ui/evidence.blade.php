@@ -13,10 +13,10 @@
             'text' => trans('ui.evidence')
         ])
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-12">
                 <h2>Case File Items</h2>
                 @foreach($game->case_file_items as $key => $item)
-                    <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#cfModal{{ $key }}">
+                    <button type="button" class="btn btn-primary btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#cfModal{{ $key }}">
                         {{ $item->title }}
                     </button>
                 @endforeach
@@ -24,19 +24,19 @@
         </div>
         @if(!$team->indictment_made)
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-12">
                     <h2>Evidence Items</h2>
                     <div class="question-div">
-                        <div class="col-xs-12 text-center">
+                        <div class="col-12 text-center">
                             <div id="evidenceForm-response" class="question-response"></div>
                         </div>
-                        {!! Form::open(['route' => ['ui.set.evidence'], 'class' => 'evidence-form', 'id' => 'evidenceForm']) !!}
+                        {{ html()->form('POST', route('ui.set.evidence', ))->class('evidence-form')->id('evidenceForm')->open() }}
                         <div class="form-group">
-                            {!! Form::label('evidence', 'Select the Collection Item') !!}
-                            {!! Form::select('evidence', $game->evidence->pluck('title','id')->all(), $team->evidence ? $team->evidence->id : null, ['class' => 'form-control']) !!}
+                            {{ html()->label('Select the Collection Item', 'evidence') }}
+                            {{ html()->select('evidence', $game->evidence->pluck('title', 'id')->all(), $team->evidence ? $team->evidence->id : null)->class('form-control') }}
                         </div>
-                        <input type="submit" class="btn btn-default" value="Submit">
-                        {!! Form::close() !!}
+                        <input type="submit" class="btn btn-secondary" value="Submit">
+                        {{ html()->form()->close() }}
                     </div>
                 </div>
             </div>
@@ -48,8 +48,8 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="cfModal{{ $key }}Label">{{ $item->title }}</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         {!! app(Parsedown::class)->text($item->text) !!}
