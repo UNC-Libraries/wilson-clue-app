@@ -141,18 +141,11 @@ class Player extends  Authenticatable implements LdapAuthenticatable
             $this->onyen = $onyen;
             $this->firstName = $uncPerson->givenname[0];
             $this->lastName = $uncPerson->sn[0];
-            $this->pid = $uncPerson->pid[0];
+            $this->pid = $uncPerson->employeeid[0];
             $this->email = $uncPerson->mail[0];
-            if (empty($uncPerson->uncstudentrecord[0])) {
-                $this->academic_group_code = 'NONS';
-                $this->class_code = 'NONS';
-                $this->student = false;
-            } else {
-                $getStudentInfo = User::find($uncPerson->uncstudentrecord[0]);
-                $this->academic_group_code = $getStudentInfo->uncacademicgroupcode[0];
-                $this->class_code = $getStudentInfo->unccareercode[0];
-                $this->student = true;
-            }
+            $this->academic_group_code = 'NONS';
+            $this->class_code = 'NONS';
+            $this->student = false;
         }
 
         if ($override_student) {
