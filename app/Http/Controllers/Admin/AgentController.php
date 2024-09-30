@@ -90,11 +90,16 @@ class AgentController extends Controller
         ]);
 
         $agent = Agent::findOrFail($id);
-        $agent->fill($request->all());
 
+        // Reset for stupid checkboxes
+        $agent->retired = false;
+        $agent->web_display = false;
+        $agent->admin = true;
+
+        $agent->fill($request->all());
         if ($request->file('new_image_file')) {
             $this->validate($request, [
-                'new_image_file' => 'max:512|mimetypes:image/jpeg,image/png,image/svg+xml',
+                'new_image_file' => 'max:1024|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
             $path = $request->file('new_image_file')->store('agents', 'public');
             $agent->deleteImage();
