@@ -51,7 +51,7 @@ class AgentController extends Controller
 
         if ($request->file('new_image_file')) {
             $this->validate($request, [
-                'new_image_file' => 'max:512|mimetypes:image/jpeg,image/png,image/svg+xml',
+                'new_image_file' => 'max:1024|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
             $path = $request->file('new_image_file')->store('agents', 'public');
             $agent->src = $path;
@@ -99,7 +99,7 @@ class AgentController extends Controller
         $agent->fill($request->all());
         if ($request->file('new_image_file')) {
             $this->validate($request, [
-                'new_image_file' => 'max:512|mimetypes:image/jpeg,image/png,image/svg+xml',
+                'new_image_file' => 'max:1024|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
             $path = $request->file('new_image_file')->store('agents', 'public');
             $agent->deleteImage();
