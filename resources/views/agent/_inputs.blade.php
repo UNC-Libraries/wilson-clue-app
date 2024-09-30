@@ -31,7 +31,7 @@
     <div class="form-group col-12 col-sm-4">
         <div class="form-check">
             <label>
-                {{ html()->checkbox('retired', false) }} Retired?
+                {{ html()->checkbox('retired') }} Retired?
             </label>
         </div>
     </div>
@@ -39,7 +39,7 @@
     <div class="form-group col-12 col-sm-4">
         <div class="form-check">
             <label>
-                {{ html()->checkbox('web_display', false) }} Display on Website?
+                {{ html()->checkbox('web_display') }} Display on Website?
             </label>
         </div>
     </div>
@@ -47,7 +47,7 @@
     <div class="form-group col-12 col-sm-4">
         <div class="form-check">
             <label>
-                {{ html()->checkbox('admin', false) }} Admin?
+                {{ html()->checkbox('admin') }} Admin?
             </label>
         </div>
     </div>
