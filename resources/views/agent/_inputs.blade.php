@@ -25,7 +25,7 @@
         {{ html()->text('last_name')->class('form-control') }}
     </div>
 </div>
-<?php print_r($agent); ?>
+
 <div class="row mt-3">
     <!-- Retired -->
     <div class="form-group col-12 col-sm-4">
