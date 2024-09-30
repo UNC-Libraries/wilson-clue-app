@@ -47,7 +47,11 @@ class Agent extends Authenticatable implements LdapAuthenticatable
      *
      * @var array
      */
-    protected $casts = [];
+    protected $casts = [
+        'retired' => 'boolean',
+        'web_display' => 'boolean',
+        'admin' => 'boolean',
+    ];
 
     public function getLdapDomainColumn(): string
     {
