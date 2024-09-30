@@ -31,7 +31,7 @@
     <div class="form-group col-12 col-sm-4">
         <div class="form-check">
             <label>
-                {{ html()->checkbox('retired', isset($agent->retired)) }} Retired?
+                {{ html()->checkbox('retired', $agent->retired == 1) }} Retired?
             </label>
         </div>
     </div>
@@ -39,7 +39,7 @@
     <div class="form-group col-12 col-sm-4">
         <div class="form-check">
             <label>
-                {{ html()->checkbox('web_display', isset($agent->web_display)) }} Display on Website?
+                {{ html()->checkbox('web_display', $agent->web_display == 1) }} Display on Website?
             </label>
         </div>
     </div>
@@ -47,7 +47,7 @@
     <div class="form-group col-12 col-sm-4">
         <div class="form-check">
             <label>
-                {{ html()->checkbox('admin', isset($agent->admin)) }} Admin?
+                {{ html()->checkbox('admin', $agent->admin == 1) }} Admin?
             </label>
         </div>
     </div>
