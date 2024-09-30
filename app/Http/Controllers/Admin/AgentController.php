@@ -90,13 +90,8 @@ class AgentController extends Controller
         ]);
 
         $agent = Agent::findOrFail($id);
-
-        // Reset for stupid checkboxes
-        $agent->retired = false;
-        $agent->web_display = false;
-        $agent->admin = false;
-
         $agent->fill($request->all());
+
         if ($request->file('new_image_file')) {
             $this->validate($request, [
                 'new_image_file' => 'max:512|mimetypes:image/jpeg,image/png,image/svg+xml',
