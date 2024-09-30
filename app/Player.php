@@ -145,7 +145,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
             $this->email = $uncPerson->mail[0];
             $this->academic_group_code = 'NONS';
             $this->class_code = 'NONS';
-            $this->student = false;
+            $this->student = true;
         }
 
         if ($override_student) {
