@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('LDAP_CONNECTION', 'default'),
+    'default' => env('LDAP_CONNECTION', 'people'),
 
     'people' => env('LDAP_CONNECTION', 'people'),
 
