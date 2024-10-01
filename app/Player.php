@@ -7,6 +7,7 @@ use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 use LdapRecord\Container;
 use App\Ldap\PlayerUser;
+use LdapRecord\Models\ActiveDirectory\User;
 
 class Player extends  Authenticatable implements LdapAuthenticatable
 {
@@ -123,7 +124,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
      */
     public function validOnyen($onyen)
     {
-        $search = PlayerUser::where('uid', '=', $onyen)->get();
+        $search = User::where('uid', '=', $onyen)->get();
 
         return ! $search->isEmpty();
     }
