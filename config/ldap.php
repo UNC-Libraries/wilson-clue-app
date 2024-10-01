@@ -39,7 +39,6 @@ return [
             'use_tls' => env('LDAP_USE_TLS', true),
         ],
         'people' => [
-            'auto_connect' => env('LDAP_AUTO_CONNECT', false),
             'hosts' => [env('PEOPLE_HOSTS', '127.0.0.1')],
             'username' => env('LDAP_USERNAME', 'cn=user,dc=local,dc=com'),
             'password' => env('LDAP_PASSWORD', 'secret'),
