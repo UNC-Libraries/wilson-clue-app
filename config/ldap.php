@@ -39,8 +39,6 @@ return [
             'use_tls' => env('LDAP_USE_TLS', true),
         ],
         'people' => [
-            'account_prefix' => env('LDAP_ACCOUNT_PREFIX', ''),
-            'account_suffix' => env('LDAP_ACCOUNT_SUFFIX', ''),
             'auto_connect' => env('LDAP_AUTO_CONNECT', false),
             'hosts' => [env('PEOPLE_HOSTS', '127.0.0.1')],
             'username' => env('LDAP_USERNAME', 'cn=user,dc=local,dc=com'),
