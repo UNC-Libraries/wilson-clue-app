@@ -83,7 +83,7 @@ class EvidenceController extends Controller
         // Add Image
         if ($request->file('new_image_file')) {
             $this->validate($request, [
-                'new_image_file' => 'max:512|mimetypes:image/jpeg,image/png,image/svg+xml',
+                'new_image_file' => 'max:1024|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
             $path = $request->file('new_image_file')->store('evidence', 'public');
             $evidence->src = $path;
@@ -131,7 +131,7 @@ class EvidenceController extends Controller
         // Update Image
         if ($request->file('new_image_file')) {
             $this->validate($request, [
-                'new_image_file' => 'max:512|mimetypes:image/jpeg,image/png,image/svg+xml',
+                'new_image_file' => 'max:1024|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
             $path = $request->file('new_image_file')->store('evidence', 'public');
             $evidence->deleteImage();

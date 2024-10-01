@@ -10,7 +10,7 @@
                     {{ html()->file('new_image_file')->class('form-control') }}
                 </div>
                 <span class="form-text">
-                    Files must be smaller than <code>512kb</code>, and be of one of the following filetypes:
+                    Files must be smaller than <code>1024kb</code>, and be of one of the following filetypes:
                     <code>jpg</code>, <code>jpeg</code>, <code>png</code>, <code>svg</code>
                 </span>
             </div>
