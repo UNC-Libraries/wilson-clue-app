@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('LDAP_CONNECTION', 'people'),
+    'default' => env('LDAP_CONNECTION', 'default'),
 
     'people' => env('LDAP_CONNECTION', 'people'),
 
@@ -42,6 +42,7 @@ return [
         ],
 
         'people' => [
+            'suffix' => env('PEOPLE_ACCOUNT_SUFFIX', 'unc.edu'),
             'hosts' => [env('PEOPLE_HOSTS', '127.0.0.1')],
             'username' => env('LDAP_USERNAME', 'cn=user,dc=local,dc=com'),
             'password' => env('LDAP_PASSWORD', 'secret'),
