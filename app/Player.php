@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
+use LdapRecord\Container;
 use LdapRecord\Models\ActiveDirectory\User;
 
 class Player extends  Authenticatable implements LdapAuthenticatable
@@ -135,8 +136,10 @@ class Player extends  Authenticatable implements LdapAuthenticatable
     public function updateFromOnyen($onyen, $override_student = false)
     {
         if ($this->validOnyen($onyen)) {
+            $connection = Container::getConnection('default');
+            $getPerson =$connection->query()->where('uid', '=', $onyen)->get();
            // $getPerson = Adldap::getProvider('people')->search()->where('uid', '=', $onyen)->get();
-            $getPerson = User::where('uid', '=', $onyen)->get();
+            //$getPerson = User::query()->where('uid', '=', $onyen)->get();
             $uncPerson = $getPerson->first();
             print_r($uncPerson); exit;
             json_encode($uncPerson, JSON_PRETTY_PRINT); exit;
