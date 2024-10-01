@@ -124,7 +124,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
      */
     public function validOnyen($onyen)
     {
-        $search = PlayerUser::where('uid', '=', $onyen)->get();
+        $search = User::where('uid', '=', $onyen)->get();
 
         return ! $search->isEmpty();
     }
@@ -137,7 +137,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
     public function updateFromOnyen($onyen, $override_student = false)
     {
         if ($this->validOnyen($onyen)) {
-            $getPerson = User::where('uid', '=', $onyen)->get();
+            $getPerson = PlayerUser::where('uid', '=', $onyen)->get();
             $uncPerson = $getPerson->first();
 
             $this->onyen = $onyen;
