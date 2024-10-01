@@ -6,7 +6,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 use LdapRecord\Container;
-use LdapRecord\Models\ActiveDirectory\User;
+use App\Ldap\PlayerUser;
 
 class Player extends  Authenticatable implements LdapAuthenticatable
 {
@@ -142,7 +142,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
 
            // $getPerson =$connection->query()->whereEquals('samaccountname', $onyen)->get();
            // $getPerson = Adldap::getProvider('people')->search()->where('uid', '=', $onyen)->get();
-            $getPerson = User::query()->where('uid', '=', $onyen)->get();
+            $getPerson = PlayerUser::query()->where('uid', '=', $onyen)->get();
             $uncPerson = $getPerson;
             print_r($uncPerson); exit;
             json_encode($uncPerson, JSON_PRETTY_PRINT); exit;
