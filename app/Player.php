@@ -136,7 +136,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
     public function updateFromOnyen($onyen, $override_student = false)
     {
         if ($this->validOnyen($onyen)) {
-            $connection = Container::getConnection('default');
+            $connection = Container::getConnection('people');
             $getPerson =$connection->query()->where('uid', '=', $onyen)->get();
            // $getPerson = Adldap::getProvider('people')->search()->where('uid', '=', $onyen)->get();
             //$getPerson = User::query()->where('uid', '=', $onyen)->get();
