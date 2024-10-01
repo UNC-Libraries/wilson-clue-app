@@ -140,7 +140,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
             $connection->connect();
             //echo $connection->isConnected(); exit;
 
-            $getPerson =$connection->query()->where('uid', '=', 'lfarrell')->get();
+            $getPerson =$connection->query()->findBy('uid', $onyen)->get();
            // $getPerson = Adldap::getProvider('people')->search()->where('uid', '=', $onyen)->get();
             // $getPerson = User::query()->where('uid', '=', $onyen)->get();
             $uncPerson = $getPerson;
