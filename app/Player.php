@@ -124,7 +124,7 @@ class Player extends Authenticatable
         if ($this->validOnyen($onyen)) {
             $getPerson = Adldap::getProvider('people')->search()->where('uid', '=', $onyen)->get();
             $uncPerson = $getPerson->first();
-print_r($uncPerson->uncstudentrecord[0]);exit;
+
             $this->onyen = $onyen;
             $this->firstName = $uncPerson->givenname[0];
             $this->lastName = $uncPerson->sn[0];
@@ -136,6 +136,7 @@ print_r($uncPerson->uncstudentrecord[0]);exit;
                 $this->student = false;
             } else {
                 $getStudentInfo = Adldap::getProvider('people')->search()->findByDn($uncPerson->uncstudentrecord[0]);
+                print_r($getStudentInfo); exit;
                 $this->academic_group_code = $getStudentInfo->uncacademicgroupcode[0];
                 $this->class_code = $getStudentInfo->unccareercode[0];
                 $this->student = true;
