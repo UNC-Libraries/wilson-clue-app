@@ -1,6 +1,5 @@
 <?php
 
-use App\Ldap\AgentUser;
 use App\Ldap\PlayerUser;
 
 return [
@@ -95,7 +94,7 @@ return [
 
         'admin' => [
             'driver' => env('APP_AUTH', 'ldap'),
-            'model' => AgentUser::class,
+            'model' => LdapRecord\Models\ActiveDirectory\User::class,
             'rules' => [],
             'database' => [
                 'model' => App\Agent::class,
