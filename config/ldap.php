@@ -15,6 +15,8 @@ return [
 
     'default' => env('LDAP_CONNECTION', 'default'),
 
+    'people' => env('LDAP_CONNECTION', 'people'),
+
     /*
     |--------------------------------------------------------------------------
     | LDAP Connections
