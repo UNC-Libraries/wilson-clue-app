@@ -137,9 +137,8 @@ class Player extends  Authenticatable implements LdapAuthenticatable
     public function updateFromOnyen($onyen, $override_student = false)
     {
         if ($this->validOnyen($onyen)) {
-            $getPerson = PlayerUser::where('uid', '=', $onyen);
+            $getPerson = PlayerUser::query()->where('uid', '=', $onyen)->get();
             print_r($getPerson); exit;
-            //->get();
             $uncPerson = $getPerson->first();
 
             $this->onyen = $onyen;
@@ -152,7 +151,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
                 $this->class_code = 'NONS';
                 $this->student = false;
             } else {
-                $getStudentInfo = PlayerUser::find($uncPerson->uncstudentrecord[0]);
+                $getStudentInfo = PlayerUser::query()->find($uncPerson->uncstudentrecord[0]);
                 $this->academic_group_code = $getStudentInfo->uncacademicgroupcode[0];
                 $this->class_code = $getStudentInfo->unccareercode[0];
                 $this->student = true;
