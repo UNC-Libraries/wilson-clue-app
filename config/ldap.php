@@ -39,14 +39,14 @@ return [
             'use_tls' => env('LDAP_USE_TLS', true),
         ],
         'people' => [
-            'hosts' => [env('PEOPLE_HOSTS', '127.0.0.1')],
+            'hosts' => [env('LDAP_PEOPLE_HOSTS', '127.0.0.1')],
             'username' => env('LDAP_USERNAME', 'cn=user,dc=local,dc=com'),
             'password' => env('LDAP_PASSWORD', 'secret'),
-            'port' => env('PEOPLE_PORT', 389),
-            'base_dn' => env('PEOPLE_BASE_DN', 'dc=local,dc=com'),
+            'port' => env('LDAP_PEOPLE_PORT', 389),
+            'base_dn' => env('LDAP_PEOPLE_BASE_DN', 'dc=local,dc=com'),
             'timeout' => env('LDAP_TIMEOUT', 5),
-            'use_ssl' => env('PEOPLE_USE_SSL', false),
-            'use_tls' => env('PEOPLE_USE_TLS', true),
+            'use_ssl' => env('LDAP_PEOPLE_USE_SSL', false),
+            'use_tls' => env('LDAP_PEOPLE_USE_TLS', true),
         ]
 
     ],
