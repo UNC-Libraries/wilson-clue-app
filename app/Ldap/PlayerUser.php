@@ -2,9 +2,9 @@
 
 namespace App\Ldap;
 
-use LdapRecord\Models\ActiveDirectory\User;
+use LdapRecord\Models\Model;
 
-class PlayerUser extends User
+class PlayerUser extends Model
 {
     protected ?string $connection = 'people';
 }
