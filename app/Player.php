@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Ldap\PlayerUser;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
@@ -55,7 +56,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
         'SOE' => 'School of Education',
         'KFBS' => 'Kenan-Flagler Business School',
         'SON' => 'School of Nursing',
-        'SILS' => 'School of Informaition and Library Science',
+        'SILS' => 'School of Information and Library Science',
         'SOJ' => 'School of Journalism',
         'SOG' => 'School of Government',
         'SOD' => 'School of Dentistry',
@@ -135,7 +136,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
     public function updateFromOnyen($onyen, $override_student = false)
     {
         if ($this->validOnyen($onyen)) {
-            $getPerson = User::where('uid', '=', $onyen)->get();
+            $getPerson = PlayerUser::query()->where('uid', '=', $onyen)->get();
             $uncPerson = $getPerson->first();
 
             $this->onyen = $onyen;
@@ -148,7 +149,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
                 $this->class_code = 'NONS';
                 $this->student = false;
             } else {
-                $getStudentInfo = User::find($uncPerson->uncstudentrecord[0]);
+                $getStudentInfo = PlayerUser::query()->find($uncPerson->uncstudentrecord[0]);
                 $this->academic_group_code = $getStudentInfo->uncacademicgroupcode[0];
                 $this->class_code = $getStudentInfo->unccareercode[0];
                 $this->student = true;
