@@ -1,5 +1,5 @@
 <div class="col-12 special-notice">
-    <h2 class="text-end"><span class="special-text">Special</span><span class="notice-text">Notice</span></h2>
+    <h2 class="text-center">Special Notice</h2>
     <div class="row">
         <div class="col-12 col-sm-8 special-notice-text">
             {!! app(Parsedown::class)->text($special_notice) !!}
