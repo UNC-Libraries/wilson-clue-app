@@ -56,7 +56,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
         'SOE' => 'School of Education',
         'KFBS' => 'Kenan-Flagler Business School',
         'SON' => 'School of Nursing',
-        'SILS' => 'School of Informaition and Library Science',
+        'SILS' => 'School of Information and Library Science',
         'SOJ' => 'School of Journalism',
         'SOG' => 'School of Government',
         'SOD' => 'School of Dentistry',
