@@ -45,7 +45,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
         'manual' => 'boolean',
     ];
 
-    /* Set default model values, if non is provided  */
+    /* Set default model values, if none is provided  */
     protected $attributes = [
         'class_code' => 'NON',
     ];
@@ -155,6 +155,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
                 $this->student = false;
             } else {
                 $getStudentInfo = PlayerUser::query()->find($uncPerson->uncstudentrecord[0]);
+                print_r($getStudentInfo); exit;
                 $this->academic_group_code = $getStudentInfo->uncacademicgroupcode[0];
                 $this->class_code = $getStudentInfo->unccareercode[0];
                 $this->student = true;
