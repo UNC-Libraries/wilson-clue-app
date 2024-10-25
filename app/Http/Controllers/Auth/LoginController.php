@@ -71,10 +71,11 @@ class LoginController extends Controller
      * Get the failed login response instance.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     protected function sendFailedLoginResponse(Request $request)
     {
+        print_r($request); exit;
         return redirect()->back()
             ->withInput($request->only($this->username(), 'remember'))
             ->withErrors([
