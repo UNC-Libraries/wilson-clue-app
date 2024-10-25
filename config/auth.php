@@ -50,7 +50,7 @@ return [
 
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'player',
         ],
     ],
 
@@ -114,7 +114,7 @@ return [
 
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Player::class,
         ],
 
         // 'users' => [
