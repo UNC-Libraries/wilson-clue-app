@@ -41,7 +41,7 @@ class LoginController extends Controller
 
     protected function guard()
     {
-       // return Auth::guard('player');
+        return Auth::guard('player');
     }
 
     public function username()
