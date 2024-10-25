@@ -2,7 +2,7 @@
 
 namespace App\Ldap;
 
-use LdapRecord\Models\OpenLDAP\User;
+use LdapRecord\Models\ActiveDirectory\User;
 
 class PlayerUser extends User
 {
