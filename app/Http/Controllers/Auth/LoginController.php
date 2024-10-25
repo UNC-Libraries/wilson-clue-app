@@ -75,7 +75,7 @@ class LoginController extends Controller
      */
     protected function sendFailedLoginResponse(Request $request)
     {
-        print_r($request); exit;
+        print_r($request->query); exit;
         return redirect()->back()
             ->withInput($request->only($this->username(), 'remember'))
             ->withErrors([
