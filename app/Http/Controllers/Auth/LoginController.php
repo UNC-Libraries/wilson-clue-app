@@ -41,7 +41,7 @@ class LoginController extends Controller
 
     protected function guard()
     {
-        return Auth::guard('player');
+       // return Auth::guard('player');
     }
 
     public function username()
@@ -56,8 +56,8 @@ class LoginController extends Controller
         // value of the key must be the input name of
         // our HTML input, as shown above:
         return [
-            'samaccountname' => $request->get('onyen'),
-            'password' => $request->get('password'),
+            'samaccountname' => $request->onyen,
+            'password' => $request->password,
         ];
     }
 
@@ -75,7 +75,6 @@ class LoginController extends Controller
      */
     protected function sendFailedLoginResponse(Request $request)
     {
-        print_r($request->query); exit;
         return redirect()->back()
             ->withInput($request->only($this->username(), 'remember'))
             ->withErrors([
