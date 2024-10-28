@@ -74,7 +74,7 @@ return [
     'providers' => [
         'player' => [
             'driver' => env('APP_AUTH', 'ldap'),
-            'model' => PlayerUser::class,
+            'model' => LdapRecord\Models\ActiveDirectory\User::class,
             'rules' => [],
             'database' => [
                 'model' => App\Player::class,
