@@ -12,7 +12,7 @@
         </div>
         <div class="row">
             @foreach($sequences as $order => $sequence)
-                <div class="col-12 col-xs-6 dna-svg {{ $sequence[0]['collected'] ? 'top' : '' }} {{ $sequence[1]['collected'] ? 'bottom' : '' }}" id="sequence-{{ $sequence[0]['pair'] }}">
+                <div class="col-12 col-sm-6 dna-svg {{ $sequence[0]['collected'] ? 'top' : '' }} {{ $sequence[1]['collected'] ? 'bottom' : '' }}" id="sequence-{{ $sequence[0]['pair'] }}">
                     <h4>Sequence {{ $order + 1 }}</h4>
                     @include('partials.dna._string', ['sequence' => $sequence[0]['sequence']])
                 </div>

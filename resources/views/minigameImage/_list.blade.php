@@ -1,6 +1,6 @@
 <div class="row">
     @foreach($models as $mini)
-        <div class="col-6 col-xs-4 col-sm-3">
+        <div class="col-6 col-sm-4 col-md-3">
             <div class="card card-body text-center">
                 <p class="lead">{{ $mini->name }}</p>
                 <div class="text-center">

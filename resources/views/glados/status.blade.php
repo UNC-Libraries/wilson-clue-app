@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-12 col-xs-8 col-sm-9">
+    <div class="col-12 col-sm-8 col-md-9">
         @foreach($teams as $team)
             <h5>{{ $team->name }}</h5>
         <div class="progress team-status">
@@ -11,7 +11,7 @@
         </div>
         @endforeach
     </div>
-    <div class="col-12 col-xs-4 col-sm-3">
+    <div class="col-12 col-sm-4 col-md-3">
         @if($teams->count() > 0)
             @foreach($quests as $quest)
                 <h5>{{ $quest->suspect->name }}</h5>

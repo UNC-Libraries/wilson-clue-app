@@ -25,7 +25,7 @@
             <h2 class="expo">Settings</h2>
         </div>
         <!-- Options -->
-        <div class="col-12 col-xs-6">
+        <div class="col-12 col-sm-6">
             <div class="dash-section">
                 <div class="dash-section-header">
                     <button type="button" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal" data-bs-target="#gameOptions">
@@ -59,7 +59,7 @@
         </div>
 
         <!-- Scoring -->
-        <div class="col-12 col-xs-6">
+        <div class="col-12 col-sm-6">
             <div class="dash-section">
                 <div class="dash-section-header">
                     <button type="button" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal" data-bs-target="#gameSolution">
@@ -81,7 +81,7 @@
         <div class="col-12">
             <h2 class="expo">Quest Locations</h2>
             @foreach($game->quests as $quest)
-            <div class="col-12 col-xs-6 col-sm-4">
+            <div class="col-12 col-sm-6 col-md-4">
                 <div class="card card-body">
                     <h3>{{ $quest->location->name }}</h3>
                     <ul class="list-unstyled">
@@ -110,7 +110,7 @@
         <div class="col-12">
             <div class="dash-section">
                 {{ html()->modelForm($game, 'PUT', route('admin.game.update', [$game->id]))->open() }}
-                <div class="col-xs-12 col-sm-3">
+                <div class="col-sm-12 col-md-3">
                     <div class="form-group">
                         {{ html()->label('Location', 'geographic_investigation_location_id') }}
                         {{ html()->select('geographic_investigation_location_id', $locations->pluck('name', 'id'), $game->geographic_investigation_location_id ? $game->geographic_investigation_location_id : null)->placeholder('Select a location')->class('form-control') }}
@@ -143,7 +143,7 @@
 
         @if($game->case_file_items)
             @foreach($game->case_file_items as $cf_item)
-            <div class="col-12 col-xs-6 col-sm-4 col-md-3">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="dash-section">
                     <div class="dash-section-header">
                         <h3>{{ $cf_item->title }}</h3>

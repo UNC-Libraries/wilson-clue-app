@@ -6,7 +6,7 @@
             </div>
 
             @foreach($games as $game)
-                <div class="col-12 col-xs-6 col-sm-4">
+                <div class="col-12 col-sm-6 col-md-4">
                     <!-- Sideswipe -->
                     <div class="archive-card-wrapper">
                         <div class="archive-card {{ next($colors) == FALSE ? reset($colors) : current($colors) }}">

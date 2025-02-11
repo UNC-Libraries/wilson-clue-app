@@ -55,7 +55,7 @@
             @foreach($question->answers as $answer)
                 @include('question._answer_input')
             @endforeach
-            <div class="col-12 col-xs-4 col-sm-3 col-md-2 col-top-padding">
+            <div class="col-12 col-sm-4 col-md-3 col-lg-2 col-top-padding">
                 <button type="button" class="btn btn-success" id="addNewAnswer" data-url="{{ route('admin.new.answer') }}">
                     <span class="fa fa-plus-circle"></span>
                 </button>

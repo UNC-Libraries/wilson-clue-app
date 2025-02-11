@@ -7,7 +7,7 @@
 @section('game.content')
 
     <div class="row">
-        <div class="col-12 col-xs-10 offset-sm-1">
+        <div class="col-12 col-sm-10 offset-sm-1">
             <p class="lead text-center">Edit the information that shows up on the public archive page</p>
 
             {{ html()->modelForm($game, 'PUT', route('admin.game.update', [$game->id]))->open() }}

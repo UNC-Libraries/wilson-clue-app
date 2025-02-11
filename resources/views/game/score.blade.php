@@ -19,7 +19,7 @@
         <div class="col-12">
             <p class="lead text-center">The final score!</p>
         </div>
-        <div class="col-12 col-xs-6">
+        <div class="col-12 col-sm-6">
             <h3>Correct Solution</h3>
             <dl class="row" style="padding: 1em;">
                 <dt class="col-sm-3">Suspect</dt>
@@ -30,7 +30,7 @@
                 <dd class="col-sm-9">{{ $game->solutionEvidence->title ?? 'none' }}</dd>
             </dl>
         </div>
-        <div class="col-12 col-xs-6">
+        <div class="col-12 col-sm-6">
             @if($game->active)
                 <h3>Bonus Points</h3>
                 {{ html()->form('POST', route('admin.game.bonus', [$game->id]))->class('form-inline')->open() }}

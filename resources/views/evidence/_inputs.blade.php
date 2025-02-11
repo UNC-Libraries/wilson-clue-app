@@ -2,7 +2,7 @@
 
 <div class="row">
     <!-- evidence title -->
-    <div class="form-group col-12 col-xs-4">
+    <div class="form-group col-12 col-sm-4">
         {{ html()->label('Evidence Title', 'title')->class('fw-bold') }}
         {{ html()->text('title')->class('form-control') }}
     </div>

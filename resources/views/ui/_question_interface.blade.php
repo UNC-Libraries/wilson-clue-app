@@ -6,10 +6,10 @@
             @else
                 <div class="col-12 text-center"><div id="question-{{ $q->id }}-response" class="question-response"></div></div>
                 @if($q->type == 1)
-                    <div class="col-6 col-xs-3">
+                    <div class="col-6 col-sm-3">
                         <img src="{{ asset($q->src) }}" class="img-fluid">
                     </div>
-                    <div class="col-6 col-xs-9">
+                    <div class="col-6 col-sm-9">
                         <p class="lead">{{ $q->text }}</p>
                         @include('ui._question_form')
                     </div>
