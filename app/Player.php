@@ -47,6 +47,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
 
     /* Set default model values, if none is provided  */
     protected $attributes = [
+        'academic_group_code' => 'NON',
         'class_code' => 'NON',
     ];
 
