@@ -124,7 +124,7 @@
                         </div>
                         <div class="form-group">
                             {{ html()->label('Dietary Restrictions', 'dietary') }}
-                            {!! Form:: textarea('dietary', null, ['class' => 'form-control', 'rows' => '4']) !!}
+                            {{ html()->textarea('dietary', null)->class('form-control')->rows(4) }}
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Save</button>
