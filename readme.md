@@ -81,7 +81,6 @@ The LDAP_\* properties you should get from a UNC sysadmin or from the production
    In your favorite web browser, go to http://localhost:8000/
 
 ## Note Todos
-* The breadcrumbs rely on an abandoned package, davejamesmiller/laravel-breadcrumbs. Updating breadcrumbs to use, diglactic/laravel-breadcrumbs, also requires an update to at least bootstrap 4.
 * Laraval-mix has been removed as the default assets manager in favor of vite.
 
 

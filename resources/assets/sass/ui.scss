@@ -134,6 +134,12 @@ legend {
   font-size: 2em;
 }
 
+.quest-title,
+.quest-subtitle {
+  color: white;
+
+}
+
 .quest-header-image {
   height: 105px;
   width: 105px;
@@ -145,6 +151,14 @@ legend {
 .quest-map {
   height: 125px;
   width: 125px;
+}
+
+#gamenav {
+  background-color: white;
+  border: 1px solid darken($gray-light, 10%);
+  width: fit-content;
+  padding: 10px;
+  border-radius: 4px;
 }
 
 /**************
@@ -285,6 +299,7 @@ legend {
   width: 100%;
 }
 .progress .progress-bar p {
+  margin: 0;
   position: absolute;
   right: 20%;
 }

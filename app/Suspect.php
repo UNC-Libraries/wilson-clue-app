@@ -59,7 +59,7 @@ class Suspect extends Model
     public function getBootstrapColorAttribute()
     {
         $bootstrapOptions = [
-            'white' => 'default',
+            'white' => 'dark',
             'peacock' => 'primary',
             'green' => 'success',
             'mustard' => 'warning',
