@@ -94,7 +94,9 @@ legend {
 /**************
  Quest Interface
 ****************/
-
+.navbar.fixed-top {
+  color: white;
+}
 .quest-header {
   background-color: $gray-base;
   margin-bottom: 22px;
@@ -134,6 +136,7 @@ legend {
   font-size: 2em;
 }
 
+.quest-header .lead,
 .quest-title,
 .quest-subtitle {
   color: white;
