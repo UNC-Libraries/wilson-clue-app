@@ -193,12 +193,6 @@ $evidence-text:   #000;
   box-shadow:         inset 0 0 3px $gray-dark;
 }
 
-#addPlayerModal {
-  ul:last-child{
-    margin-left: 10px;
-  }
-}
-
 // BS 4 overrides/additions
 #availableQuestions, #availableMinigameImages {
   max-height: 500px;
