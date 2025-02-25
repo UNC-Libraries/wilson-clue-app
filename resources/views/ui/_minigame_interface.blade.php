@@ -28,7 +28,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <img class="img-fluid" src="{{ asset($img->src) }}">
+                        <img alt="" class="img-fluid" src="{{ asset($img->src) }}">
                     </div>
                 </div>
             </div>

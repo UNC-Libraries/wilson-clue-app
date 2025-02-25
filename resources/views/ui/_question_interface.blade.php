@@ -15,7 +15,7 @@
                     </div>
                 @else
                     <div class="col-12">
-                        <p class="lead">{{ $q->text }}</h3>
+                        <p class="lead">{{ $q->text }}</p>
                         @include('ui._question_form')
                     </div>
                 @endif
