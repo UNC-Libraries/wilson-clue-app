@@ -84,8 +84,8 @@
                 <div class="modal-body">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#onyen" aria-controls="onyen" role="tab" data-toggle="tab">Via Onyen</a></li>
-                        <li role="presentation"><a href="#noOnyen" aria-controls="noOnyen" role="tab" data-toggle="tab">No Onyen</a></li>
+                        <li role="presentation" class="active"><a href="#onyen" aria-controls="onyen" role="tab" data-bs-toggle="tab">Via Onyen</a></li>
+                        <li role="presentation"><a href="#noOnyen" aria-controls="noOnyen" role="tab" data-bs-toggle="tab">No Onyen</a></li>
                     </ul>
 
                     <!-- Tab panes -->
