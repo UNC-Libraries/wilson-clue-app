@@ -75,6 +75,10 @@ $evidence-text:   #000;
   .dash-section-body {
     padding: 10px;
     border-left: 4px solid $gray-light;
+
+    li {
+      min-height: 40px;
+    }
   }
 }
 
@@ -187,6 +191,12 @@ $evidence-text:   #000;
   -moz-box-shadow:    inset 0 0 3px $gray-dark;
   -webkit-box-shadow: inset 0 0 3px $gray-dark;
   box-shadow:         inset 0 0 3px $gray-dark;
+}
+
+#addPlayerModal {
+  ul:last-child{
+    margin-left: 10px;
+  }
 }
 
 // BS 4 overrides/additions
