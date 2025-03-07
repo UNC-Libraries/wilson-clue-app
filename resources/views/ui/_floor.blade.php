@@ -2,7 +2,7 @@
     <h2>{{ $floor->first()->floor_nth  }} Floor</h2>
     <div class="row">
         <div class="col-7 col-sm-4">
-            <div class="col-12 col-xs-4">
+            <div class="col-12 col-sm-4">
                 <svg width="100%" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" version="1.1">
                     <use xlink:href="#baseMap"></use>
                     @foreach($floor as $location)

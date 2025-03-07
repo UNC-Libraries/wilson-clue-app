@@ -1,6 +1,6 @@
 <div class="row">
     @foreach($evidence as $e)
-        <div class="col-6 col-xs-4 col-sm-3">
+        <div class="col-6 col-sm-4 col-md-3">
             <div class="card card-body text-center">
                 <div class="text-center">
                     {{ html()->img(asset($e->src))->class('media-object-128') }}

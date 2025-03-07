@@ -13,7 +13,7 @@
                 Add & Remove Teams, Manage waitlist
             </p>
         </div>
-        <div class="col-md-3 offset-xs-9 col-xs-2 offset-md-9 text-end">
+        <div class="col-md-3 offset-sm-9 col-sm-2 offset-md-9 text-end">
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addTeamModal"><span class="fa fa-plus-circle"></span> Add New</button>
         </div>
         <div class="col-12">

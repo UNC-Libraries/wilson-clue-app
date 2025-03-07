@@ -2,7 +2,7 @@
     <div class="col-12">
         <legend>Image</legend>
     </div>
-    <div class="col-12 col-xs-6 col-sm-8">
+    <div class="col-12 col-sm-6 col-md-8">
         <div class="row">
             <div class="col-12">
                 <div id="imageFileInput" class="form-group">
@@ -17,7 +17,7 @@
         </div>
     </div>
     @if($current)
-        <div class="col-12 col-xs-6 col-sm-2">
+        <div class="col-12 col-sm-6 col-md-2">
             {{ html()->img(asset($current), $alt)->class('img-responsive img-thumbnail') }}
         </div>
     @endif

@@ -1,4 +1,4 @@
-<div class="col-md-3 col-sm-4 col-xs-6 col-12">
+<div class="col-md-3 col-md-4 col-sm-6 col-12">
     <div class="agent-card text-center">
         <div class="agent-title">{{ $agent->full_name }}</div>
         {{ html()->img(asset($agent->src), $agent->full_name)->class('clip-circle circle-light') }}

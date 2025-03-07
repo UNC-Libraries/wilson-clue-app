@@ -1,4 +1,4 @@
-<div class="form-group col-12 col-xs-4">
+<div class="form-group col-12 col-sm-4">
     <label for="solutionSuspect">Ghost</label>
     <select name="suspect_id" id="solutionSuspect" class="form-control">
         @foreach($game->quests->pluck('suspect') as $suspect)
@@ -6,7 +6,7 @@
         @endforeach
     </select>
 </div>
-<div class="form-group col-12 col-xs-4">
+<div class="form-group col-12 col-sm-4">
     <label for="solutionPortal">Portal</label>
     <select name="location_id" id="solutionPortal" class="form-control">
         @foreach($game->quests->pluck('location') as $location)
@@ -14,7 +14,7 @@
         @endforeach
     </select>
 </div>
-<div class="form-group col-12 col-xs-4">
+<div class="form-group col-12 col-sm-4">
     <label for="solutionEvidence">Evidence</label>
     <select name="evidence_id" id="solutionEvidence" class="form-control">
         <option value="" disabled selected>Select Evidence</option>

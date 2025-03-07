@@ -3,10 +3,10 @@
         <div class="col-sm-12 col-md-6">
             <div class="card card-body well-sm">
                 <div class="row">
-                    <div class="d-none col-xs-4 col-md-3">
+                    <div class="d-none col-sm-4 col-md-3">
                         {{ html()->img(asset($agent->src), $agent->full_name)->class('img-fluid') }}
                     </div>
-                    <div class="col-12 col-xs-8 col-md-9">
+                    <div class="col-12 col-sm-8 col-md-9">
                         <div class="row">
                             <div class="col-9">
                                 <h4 class="media-heading"><small>{{ $agent->title }}</small><br>{{ $agent->full_name }} </h4>

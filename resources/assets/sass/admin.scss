@@ -75,6 +75,10 @@ $evidence-text:   #000;
   .dash-section-body {
     padding: 10px;
     border-left: 4px solid $gray-light;
+
+    li {
+      min-height: 40px;
+    }
   }
 }
 

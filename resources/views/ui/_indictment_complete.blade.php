@@ -1,6 +1,6 @@
 <div class="alert alert-info text-center" role="alert">
     <h5>You can still score points!</h5>
-    <p>Keep answering questions<!-- and searching for ghost DNA -->until the time runs out!</p>
+    <p>Keep answering questions<!-- and searching for ghost DNA --> until the time runs out!</p>
 </div>
 <div class="card card-body well-sm">
     <h3>Your indictment</h3>

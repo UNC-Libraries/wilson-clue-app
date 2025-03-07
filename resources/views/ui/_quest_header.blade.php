@@ -18,7 +18,7 @@
     </div>
     <div class="col-12" style="margin-top: 20px;">
         @if(empty($text))
-            @include('ui._page_alerts', ['color' => empty($color) ? 'default' : $color, 'checkUrl' => route('ui.status.quest',['id' => $quest_id])])
+            @include('ui._page_alerts', ['color' => empty($color) ? '' : $color, 'checkUrl' => route('ui.status.quest',['id' => $quest_id])])
         @else
             <p class="lead">{{ $text }}</p>
         @endif

@@ -15,7 +15,7 @@
             @include('admin._form_errors')
 
             <div class="row">
-                <div class="col-12 col-xs-8 offset-sm-2">
+                <div class="col-12 col-sm-8 offset-sm-2">
                     {{ html()->modelForm($team, 'PUT', route('admin.team.update', [$team->id]))->open() }}
                     @include('team._team_form_inputs')
                     {{ html()->closeModelForm() }}
@@ -29,7 +29,7 @@
             </button>
             @if($team->players->count() < 5)
                 <div class="row">
-                    <div class="col-3 offset-xs-9 col-xs-2 offset-sm-10 text-end">
+                    <div class="col-3 offset-sm-9 col-sm-2 offset-sm-10 text-end">
                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addPlayerModal"><span class="fa fa-plus-circle"></span> Add New</button>
                     </div>
                 </div>
@@ -83,10 +83,10 @@
                 </div>
                 <div class="modal-body">
                     <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#onyen" aria-controls="onyen" role="tab" data-toggle="tab">Via Onyen</a></li>
-                        <li role="presentation"><a href="#noOnyen" aria-controls="noOnyen" role="tab" data-toggle="tab">No Onyen</a></li>
-                    </ul>
+                    <!-- <ul class="nav nav-tabs" role="tablist">
+                         <li role="presentation" class="active"><a href="#onyen" aria-controls="onyen" role="tab" data-bs-toggle="tab">Via Onyen</a></li>
+                         <li class="ms-3" role="presentation"><a href="#noOnyen" aria-controls="noOnyen" role="tab" data-bs-toggle="tab">No Onyen</a></li>
+                    </ul> -->
 
                     <!-- Tab panes -->
                     <div class="tab-content">
@@ -109,47 +109,37 @@
                         {{ html()->form()->close() }}
 
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="noOnyen">
+                 <!--       <div role="tabpanel" class="tab-pane" id="noOnyen">
                             <p class="text-warning">Note: Player will need to login using their email and password.</p>
 
                         {{ html()->form('POST', route('admin.team.addPlayer', ['id' => $team->id]))->open() }}
-
-                        <!-- Email -->
-                            <div class="form-group col-12 col-xs-6">
+                            <div class="form-group col-12 col-sm-6">
                                 {{ html()->label('Email', 'email') }}
                                 {{ html()->text('email')->class('form-control')->required() }}
                             </div>
-
-                            <!-- Password -->
-                            <div class="form-group col-12 col-xs-6">
+                            <div class="form-group col-12 col-sm-6">
                                 {{ html()->label('Password', 'password') }}
                                 {{ html()->text('password')->class('form-control')->required() }}
                             </div>
-
-                            <!-- First Name -->
-                            <div class="form-group col-12 col-xs-6">
+                            <div class="form-group col-12 col-sm-6">
                                 {{ html()->label('First Name', 'first_name') }}
                                 {{ html()->text('first_name')->class('form-control')->required() }}
                             </div>
-                            <!-- Last Name -->
-                            <div class="form-group col-12 col-xs-6">
+                            <div class="form-group col-12 col-sm-6">
                                 {{ html()->label('Last Name', 'last_name') }}
                                 {{ html()->text('last_name')->class('form-control')->required() }}
                             </div>
-
-                            <!-- Class -->
-                            <div class="form-group col-12 col-xs-6">
+                            <div class="form-group col-12 col-sm-6">
                                 {{ html()->label('Class', 'class_code') }}
                                 {{ html()->select('class_code', $class_options, 'new')->class('form-control')->placeholder('Select a Class') }}
                             </div>
-                            <!-- Academic Code -->
-                            <div class="form-group col-12 col-xs-6">
+                            <div class="form-group col-12 col-sm-6">
                                 {{ html()->label('Academic Group', 'academic_group_code') }}
                                 {{ html()->select('academic_group_code', $academic_group_options, 'new')->class('form-control')->placeholder('Select a Class') }}
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                             {{ html()->form()->close() }}
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>

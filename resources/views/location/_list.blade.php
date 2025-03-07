@@ -1,7 +1,7 @@
 @include('partials._maps')
 <div class="row">
     @foreach($models->sortBy('floor') as $location)
-        <div class="col-6 col-xs-6 col-sm-4">
+        <div class="col-6 col-sm-6 col-md-4">
             <div class="card card-body text-center">
                 <p class="lead">{{ $location->name }}</p>
                 <svg width="100%" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" version="1.1">

@@ -42,12 +42,12 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col col-xs-6">
+                            <div class="col col-sm-6">
                                 @if($second_place)
                                     @include('web._team',['team' => $second_place, 'class' => 'second-place'])
                                 @endif
                             </div>
-                            <div class="col col-xs-6">
+                            <div class="col col-sm-6">
                                 @if($third_place)
                                     @include('web._team',['team' => $third_place, 'class' => 'third-place'])
                                 @endif
@@ -56,7 +56,7 @@
                         @foreach($teams->slice(3)->chunk(3) as $chunk)
                             <div class="row">
                                 @foreach($chunk as $team)
-                                    <div class="col col-xs-4">
+                                    <div class="col col-sm-4">
                                         @include('web._team',['team' => $team, 'class' => ''])
                                     </div>
                                 @endforeach

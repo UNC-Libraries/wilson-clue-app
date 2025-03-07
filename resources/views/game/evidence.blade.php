@@ -13,7 +13,7 @@
             <h2>Evidence Room</h2>
         </div>
 
-        <div class="col-xs-12 col-sm-3">
+        <div class="col-sm-12 col-sm-4">
             <div class="form-group">
                 {{ html()->label('Location', 'evidence_location_id') }}
                 {{ html()->select('evidence_location_id', $locations->pluck('name', 'id'), $game->evidence_location ? $game->evidence_location->id : null)->placeholder('Select a location')->class('form-control') }}
@@ -26,7 +26,7 @@
                 Import From Previous Game
             </button>
         </div>
-        <div class="col-xs-12 col-sm-9">
+        <div class="col-sm-12 col-md-9">
 
             <legend>Case File Items</legend>
             <div class="form-group" id="caseFileItems">

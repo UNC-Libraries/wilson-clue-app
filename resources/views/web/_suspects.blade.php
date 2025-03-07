@@ -18,10 +18,10 @@
                 <div class="col-12">
                     <h3 id="{{$suspect->machine}}">{{$suspect->name}}</h3>
                     <div class="row">
-                        <div class="col-xs-4 d-none">
+                        <div class="col-sm-4 d-none">
                             <img src="{{ asset($suspect->card_image) }}" class=" img-fluid char-card" alt="{{$suspect->machine}}-card">
                         </div>
-                        <div class="col-xs-8">
+                        <div class="col-sm-8">
                             <div class="bio">
                                 <h4>Bio:</h4>
                                 <p>{!! app(Parsedown::class)->text($suspect->bio) !!}</p>
@@ -45,7 +45,7 @@
             <div class="container">
                 <div class="row character-image-div">
                 @foreach($suspects as $suspect)
-                    <div class="col-xs-2 col-4">
+                    <div class="col-sm-2 col-4">
                         <a href="#{{$suspect->machine}}" class="char-overlay charnav" data-name="{{$suspect->name}}" data-main-target="suspects">
                             <img class="clip-circle circle-dark" src="{{ asset($suspect->face_image) }}" alt="{{$suspect->name}}">
                         </a>

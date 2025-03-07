@@ -13,7 +13,7 @@
         @endif
 
         <div class="row">
-            <div class="col-12 col-xs-8">
+            <div class="col-12 col-sm-8">
                 <h2>Suspects</h2>
                 @foreach($suspects as $suspect)
                 <div class="d-flex align-items-top mt-2">

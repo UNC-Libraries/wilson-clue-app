@@ -13,7 +13,7 @@
             <h1>{{ $quest->location->name }}</h1>
         </div>
 
-        <div class="col-xs-12 col-sm-3">
+        <div class="col-sm-12 col-md-3">
             <div class="form-group">
                 {{ html()->label('Suspect', 'suspect_id') }}
                 {{ html()->select('suspect_id', $suspects->pluck('name', 'id'), $quest->suspect ? $quest->suspect->id : null)->placeholder('Select a suspect')->class('form-control') }}
@@ -36,7 +36,7 @@
                 Import From Previous Game
             </button>
         </div>
-        <div class="col-xs-12 col-sm-9">
+        <div class="col-ms-12 col-md-9">
 
             <div class="quest-type question-setup">
                 @include('quest._question_form')

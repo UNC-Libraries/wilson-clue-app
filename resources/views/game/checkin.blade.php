@@ -26,7 +26,7 @@
     @foreach($game->registeredTeams->sortBy('name')->chunk(3) as $chunk)
         <div class="row" style="margin-top: 20px;">
             @foreach($chunk as $team)
-                <div class="col-12 col-xs-4">
+                <div class="col-12 col-sm-4">
                     <table class="table">
                         <thead>
                             <tr>

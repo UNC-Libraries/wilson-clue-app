@@ -14,7 +14,7 @@
 
     <!-- Map section -->
     @foreach($mapSections as $section)
-        <div class="form-group col-6 col-xs-2">
+        <div class="form-group col-6 col-sm-2">
             <div class="form-check center-radio-button">
                 <label>
                     <svg width="100%" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" version="1.1">
