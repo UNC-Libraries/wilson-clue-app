@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Ldap\PlayerUser;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
@@ -99,7 +100,7 @@ class Player extends Authenticatable implements LdapAuthenticatable
      * RELATIONSHIPS
      ***********************************/
 
-    public function teams()
+    public function teams(): BelongsToMany
     {
         return $this->belongsToMany(Team::class);
     }

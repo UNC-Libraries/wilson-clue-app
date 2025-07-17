@@ -9,7 +9,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('teams', function ($table) {
             $table->timestamp('evidence_selected_at')->nullable();
@@ -21,7 +21,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('teams', function ($table) {
             $table->dropColumn('evidence_selected_at');

@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         // Make the controller and action names available to views
         app('view')->composer('layouts.master', function ($view) {
@@ -84,7 +84,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(Parsedown::class);
     }

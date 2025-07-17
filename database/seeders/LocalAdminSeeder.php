@@ -13,7 +13,7 @@ class LocalAdminSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         // Only run this if you're on a local environment
         if (env('APP_ENV') === 'local') {

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
@@ -23,7 +24,7 @@ class Answer extends Model
      * RELATIONSHIPS
      ***********************************/
 
-    public function question()
+    public function question(): BelongsTo
     {
         return $this->belongsTo(\App\Question::class);
     }

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
@@ -24,7 +25,7 @@ class Location extends Model
     /***********************************
      * RELATIONSHIPS
      ***********************************/
-    public function quests()
+    public function quests(): HasMany
     {
         return $this->hasMany(\App\Quest::class);
     }

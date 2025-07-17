@@ -21,7 +21,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         // Drop the map sections table
         Schema::dropIfExists('map_sections');
@@ -47,7 +47,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
 
         // Create map section id column

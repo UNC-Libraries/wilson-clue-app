@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class IncorrectAnswer extends Model
@@ -36,12 +37,12 @@ class IncorrectAnswer extends Model
      * RELATIONSHIPS
      ***********************************/
 
-    public function question()
+    public function question(): BelongsTo
     {
         return $this->belongsTo(\App\Question::class);
     }
 
-    public function team()
+    public function team(): BelongsTo
     {
         return $this->belongsTo(\App\Team::class);
     }

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -32,32 +34,32 @@ class Quest extends Model
     /***********************************
      * RELATIONSHIPS
      ***********************************/
-    public function location()
+    public function location(): BelongsTo
     {
         return $this->belongsTo(\App\Location::class);
     }
 
-    public function suspect()
+    public function suspect(): BelongsTo
     {
         return $this->belongsTo(\App\Suspect::class);
     }
 
-    public function questions()
+    public function questions(): BelongsToMany
     {
         return $this->belongsToMany(\App\Question::class)->withPivot('order')->orderBy('order');
     }
 
-    public function minigameImages()
+    public function minigameImages(): BelongsToMany
     {
         return $this->belongsToMany(\App\MinigameImage::class);
     }
 
-    public function completedBy()
+    public function completedBy(): BelongsToMany
     {
         return $this->belongsToMany(\App\Team::class)->registered()->withTimestamps();
     }
 
-    public function game()
+    public function game(): BelongsTo
     {
         return $this->belongsTo(\App\Game::class);
     }

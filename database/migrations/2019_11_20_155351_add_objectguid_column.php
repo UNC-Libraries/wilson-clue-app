@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('agents', function (Blueprint $table) {
             $table->string('objectguid')->unique()->nullable()->after('id');
@@ -27,7 +27,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('agents', function (Blueprint $table) {
             $table->dropColumn('objectguid');

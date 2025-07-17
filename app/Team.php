@@ -2,6 +2,9 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -125,52 +128,52 @@ class Team extends Model
      * RELATIONSHIPS
      ***********************************/
 
-    public function game()
+    public function game(): BelongsTo
     {
         return $this->belongsTo(\App\Game::class);
     }
 
-    public function players()
+    public function players(): BelongsToMany
     {
         return $this->belongsToMany(\App\Player::class);
     }
 
-    public function checkedInPlayers()
+    public function checkedInPlayers(): BelongsToMany
     {
         return $this->belongsToMany(\App\Player::class)->checkedIn();
     }
 
-    public function suspect()
+    public function suspect(): BelongsTo
     {
         return $this->belongsTo(\App\Suspect::class);
     }
 
-    public function location()
+    public function location(): BelongsTo
     {
         return $this->belongsTo(\App\Location::class);
     }
 
-    public function evidence()
+    public function evidence(): BelongsTo
     {
         return $this->belongsTo(\App\Evidence::class);
     }
 
-    public function correctQuestions()
+    public function correctQuestions(): BelongsToMany
     {
         return $this->belongsToMany(\App\Question::class)->withTimestamps();
     }
 
-    public function completedQuests()
+    public function completedQuests(): BelongsToMany
     {
         return $this->belongsToMany(\App\Quest::class)->withTimestamps();
     }
 
-    public function foundDna()
+    public function foundDna(): BelongsToMany
     {
         return $this->belongsToMany(\App\GhostDna::class)->withTimestamps();
     }
 
-    public function incorrectAnswers()
+    public function incorrectAnswers(): HasMany
     {
         return $this->hasMany(\App\IncorrectAnswer::class);
     }
