@@ -1,7 +1,5 @@
 <?php
 
-use App\Ldap\PlayerUser;
-
 return [
 
     /*

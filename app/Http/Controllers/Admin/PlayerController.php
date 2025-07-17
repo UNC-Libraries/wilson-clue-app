@@ -30,11 +30,11 @@ class PlayerController extends Controller
         ];
         $selectedSortOrder = $request->get('sort_order') ? $request->get('sort_order') : 'asc';
 
-        $dummy = new Player();
+        $dummy = new Player;
         $academic_group_options = $dummy::ACADEMIC_GROUP_OPTIONS;
         $class_options = $dummy::CLASS_OPTIONS;
 
-        //Request Vars
+        // Request Vars
         $game = $request->get('game');
         $class = $request->get('class');
         if ($class) {
@@ -139,7 +139,6 @@ class PlayerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

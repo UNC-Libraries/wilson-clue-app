@@ -11,9 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class GladosController extends Controller
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Get the current viewing stats for a game
@@ -24,8 +22,8 @@ class GladosController extends Controller
     public function viewing($id)
     {
         $viewing = collect(DB::table('viewing')
-                    ->where('game_id', $id)
-                    ->where('updated_at', '>', Carbon::now()->subMinutes(30))->get());
+            ->where('game_id', $id)
+            ->where('updated_at', '>', Carbon::now()->subMinutes(30))->get());
 
         $total = $viewing->count();
         $views = [];

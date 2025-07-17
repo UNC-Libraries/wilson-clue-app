@@ -120,7 +120,7 @@ Route::middleware('auth:admin', 'admin')->group(function () {
         Route::get('site-messages', [Admin\AdminController::class, 'siteMessages'])->name('admin.siteMessages');
         Route::post('site-messages/{key}', [Admin\AdminController::class, 'updateSiteMessage'])->name('admin.siteMessages.update');
 
-        //AGENT index, create, show store edit update destroy
+        // AGENT index, create, show store edit update destroy
         Route::resource('agent', Admin\AgentController::class, [
             'names' => [
                 'index' => 'admin.agent.index',
@@ -132,7 +132,7 @@ Route::middleware('auth:admin', 'admin')->group(function () {
             ],
         ]);
 
-        //EVIDENCE
+        // EVIDENCE
         Route::resource('evidence', Admin\EvidenceController::class, [
             'names' => [
                 'index' => 'admin.evidence.index',
@@ -146,18 +146,18 @@ Route::middleware('auth:admin', 'admin')->group(function () {
 
         Route::prefix('game/{id}')->group(function () {
 
-            //Activate
+            // Activate
             Route::get('/activate', [Admin\GameController::class, 'activate'])->where('id', '[0-9]+')->name('admin.game.activate');
             Route::get('/deactivate', [Admin\GameController::class, 'deactivate'])->where('id', '[0-9]+')->name('admin.game.deactivate');
-            //Archive
+            // Archive
             Route::get('/archive', [Admin\GameController::class, 'editArchive'])->where('id', '[0-9]+')->name('admin.game.edit.archive');
-            //Evidence Room
+            // Evidence Room
             Route::get('/evidence', [Admin\GameController::class, 'editEvidence'])->where('id', '[0-9]+')->name('admin.game.edit.evidence');
             Route::post('/import-evidence-room', [Admin\GameController::class, 'importEvidenceRoom'])->where('id', '[0-9]+')->name('admin.game.import-evidence-room');
-            //Teams
+            // Teams
             Route::get('teams', [Admin\GameController::class, 'teams'])->where('id', '[0-9]+')->name('admin.game.teams');
             Route::post('add-team', [Admin\GameController::class, 'addTeam'])->where('id', '[0-9]+')->name('admin.game.addTeam');
-            //Judgement
+            // Judgement
             Route::get('judgement', [Admin\GameController::class, 'judgement'])->where('id', '[0-9]+')->name('admin.game.judgement');
             Route::post('/judge/{questId}/{questionId}/{teamId}', [Admin\GameController::class, 'judgeAnswers'])
                 ->where('id', '[0-9]+')
@@ -198,7 +198,7 @@ Route::middleware('auth:admin', 'admin')->group(function () {
             ],
         ]);
 
-        //LOCATION
+        // LOCATION
         Route::resource('location', Admin\LocationController::class, [
             'names' => [
                 'index' => 'admin.location.index',
@@ -211,7 +211,7 @@ Route::middleware('auth:admin', 'admin')->group(function () {
             ],
         ]);
 
-        //MINIGAME IMAGES
+        // MINIGAME IMAGES
         Route::resource('minigame-image', Admin\MinigameImageController::class, [
             'names' => [
                 'index' => 'admin.minigameImage.index',
@@ -223,7 +223,7 @@ Route::middleware('auth:admin', 'admin')->group(function () {
             ],
         ]);
 
-        //Ghost Dna
+        // Ghost Dna
         Route::resource('ghost-dna', Admin\GhostDnaController::class, [
             'names' => [
                 'index' => 'admin.ghostDna.index',
@@ -231,7 +231,7 @@ Route::middleware('auth:admin', 'admin')->group(function () {
                 'destroy' => 'admin.ghostDna.destroy',
             ], ]);
 
-        //PLAYERS
+        // PLAYERS
         Route::resource('player', Admin\PlayerController::class, [
             'names' => [
                 'index' => 'admin.player.index',
@@ -242,7 +242,7 @@ Route::middleware('auth:admin', 'admin')->group(function () {
             ],
         ]);
 
-        //QUEST
+        // QUEST
         Route::post('quest/{id}/add/{questionId}', [Admin\QuestController::class, 'addQuestion'])->where('id', '[0-9]+')->where('questionId', '[0-9]+');
         Route::post('quest/{id}/remove/{questionId}', [Admin\QuestController::class, 'removeQuestion'])->where('id', '[0-9]+')->where('questionId', '[0-9]+');
         Route::post('quest/{id}/reorder/{questionId}', [Admin\QuestController::class, 'reorderQuestions'])->where('id', '[0-9]+')->where('questionId', '[0-9]+');
@@ -253,7 +253,7 @@ Route::middleware('auth:admin', 'admin')->group(function () {
             ],
         ]);
 
-        //QUESTION
+        // QUESTION
         Route::delete('answer/{id}', [Admin\QuestionController::class, 'destroyAnswer'])->where('id', '[0-9]+')->name('admin.destroy.answer');
         Route::get('answer/new', [Admin\QuestionController::class, 'newAnswer'])->name('admin.new.answer');
         Route::resource('question', Admin\QuestionController::class, [
@@ -267,7 +267,7 @@ Route::middleware('auth:admin', 'admin')->group(function () {
             ],
         ]);
 
-        //SUSPECT
+        // SUSPECT
         Route::resource('suspect', Admin\SuspectController::class, [
             'names' => [
                 'index' => 'admin.suspect.index',

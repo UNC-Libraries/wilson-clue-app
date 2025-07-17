@@ -18,9 +18,7 @@ class QuestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-    }
+    public function index() {}
 
     /**
      * Show the form for creating a new resource.
@@ -35,7 +33,6 @@ class QuestController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -74,13 +71,13 @@ class QuestController extends Controller
         ])->findOrFail($questId);
 
         $questions = Question::where('location_id', '=', $quest->location_id)
-                            ->whereNotIn('id', $quest->questions->pluck('id'))
-                            ->orderBy('created_at', 'desc')
-                            ->get();
+            ->whereNotIn('id', $quest->questions->pluck('id'))
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         $attachedMinigameImages = $quest->minigameImages ? $quest->minigameImages->pluck('id')->all() : [];
         $minigameImages = MinigameImage::whereNotIn('id', $attachedMinigameImages)
-                            ->get();
+            ->get();
 
         return view('quest.edit', compact('game', 'quest', 'suspects', 'questions', 'games', 'minigameImages', 'locations'));
     }
@@ -88,7 +85,6 @@ class QuestController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

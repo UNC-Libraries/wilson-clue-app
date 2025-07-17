@@ -8,9 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class SiteController extends Controller
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /*
      * Updates the homepage alert

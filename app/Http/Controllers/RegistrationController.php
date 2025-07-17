@@ -132,7 +132,6 @@ class RegistrationController extends Controller
     /**
      * Enlist a team
      *
-     * @param  Request  $request
      * @return RedirectResponse
      */
     public function enlist(Request $request)
@@ -167,7 +166,7 @@ class RegistrationController extends Controller
         $player->save();
 
         // Create a team
-        $team = new Team();
+        $team = new Team;
         $team->name = $teamName;
         $team->game()->associate($game);
         $team->save();

@@ -8,7 +8,7 @@ use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 use LdapRecord\Models\ActiveDirectory\User;
 
-class Player extends  Authenticatable implements LdapAuthenticatable
+class Player extends Authenticatable implements LdapAuthenticatable
 {
     use AuthenticatesWithLdap;
     /***********************************
@@ -45,7 +45,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
         'manual' => 'boolean',
     ];
 
-    /* Set default model values, if none is provided  */
+    /* Set default model values, if none is provided */
     protected $attributes = [
         'academic_group_code' => 'NONS',
         'class_code' => 'NONS',
@@ -172,7 +172,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
      *
      * @return array
      */
-    public function getWarnings(Game $game = null)
+    public function getWarnings(?Game $game = null)
     {
         $warnings = [];
 
@@ -186,7 +186,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
         }
 
         // Checks that player isn't already registered for this game
-        //$this->teams->load();
+        // $this->teams->load();
         if ($this->teams) {
             if ($this->teams->pluck('game.id')->contains($game->id)) {
                 $warnings[] = 'enlist.add_player.current';
