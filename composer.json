@@ -8,23 +8,21 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "directorytree/ldaprecord-laravel": "^v3.3",
         "diglactic/laravel-breadcrumbs": "^v9.0",
-        "laravel/framework": "^v10.48",
+        "laravel/framework": "^11.45",
         "laravel/helpers": "^1.7",
         "laravel/tinker": "^2.9",
         "laravel/ui": "^4.5",
-        "guzzlehttp/guzzle": "^7.2",
-        "spatie/laravel-html": "^3.2"
+        "spatie/laravel-html": "^3.6"
     },
     "require-dev": {
-        "mockery/mockery": "^1.4.4",
-        "phpunit/phpunit": "^9.5.10",
-        "fakerphp/faker": "^1.9.1",
-        "nunomaduro/collision": "^v7.10",
-        "erusev/parsedown": "^1.7",
-        "spatie/laravel-ignition": "^2.6"
+        "mockery/mockery": "^1.6",
+        "phpunit/phpunit": "^10.5",
+        "fakerphp/faker": "^1.23",
+        "nunomaduro/collision": "^8.0",
+        "erusev/parsedown": "^1.7"
     },
     "autoload": {
         "psr-4": {
@@ -61,5 +59,7 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "optimize-autoloader": true
-    }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
