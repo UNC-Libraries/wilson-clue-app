@@ -37,15 +37,19 @@ class Team extends Model
     ];
 
     /**
-     * The attributes that should be casted to native types.
+     * Get the attributes that should be cast.
      *
-     * @var array
+     * @return array<string, string>
      */
-    protected $casts = [
-        'indictment_time' => 'datetime',
-        'evidence_selected_at' => 'datetime',
-        'waitlist' => 'boolean',
-        'score' => 'float',    ];
+    protected function casts(): array
+    {
+        return [
+            'indictment_time' => 'datetime',
+            'evidence_selected_at' => 'datetime',
+            'waitlist' => 'boolean',
+            'score' => 'float',
+        ];
+    }
 
     /***********************************
      * ACCESSORS

@@ -40,16 +40,19 @@ class Player extends Authenticatable implements LdapAuthenticatable
         'checked_in',
     ];
 
-    protected $casts = [
-        'student' => 'boolean',
-        'manual' => 'boolean',
-    ];
-
     /* Set default model values, if none is provided */
     protected $attributes = [
         'academic_group_code' => 'NONS',
         'class_code' => 'NONS',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'student' => 'boolean',
+            'manual' => 'boolean',
+        ];
+    }
 
     const ACADEMIC_GROUP_OPTIONS = [
         'LAW' => 'School of Law',

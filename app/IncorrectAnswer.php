@@ -21,13 +21,16 @@ class IncorrectAnswer extends Model
     ];
 
     /**
-     * The attributes that should be casted to native types.
+     * Get the attributes that should be cast.
      *
-     * @var array
+     * @return array<string, string>
      */
-    protected $casts = [
-        'judged' => 'boolean',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'judged' => 'boolean',
+        ];
+    }
 
     /***********************************
      * RELATIONSHIPS

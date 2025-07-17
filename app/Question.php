@@ -24,14 +24,17 @@ class Question extends Model
         'location_id',
     ];
 
-    protected $casts = [
-        'type' => 'boolean',
-    ];
-
     protected $hidden = [
         'full_answer',
         'answers',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'type' => 'boolean',
+        ];
+    }
 
     /***********************************
      * RELATIONSHIPS

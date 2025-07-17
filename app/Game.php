@@ -53,15 +53,19 @@ class Game extends Model
     ];
 
     /**
-     * Casts
+     * Get the attributes that should be cast.
      *
-     * @var array
+     * @return array<string, string>
      */
-    protected $casts = [
-        'start_time' => 'datetime',
-        'end_time' => 'datetime',
-        'active' => 'boolean',
-        'students_only' => 'boolean',    ];
+    protected function casts(): array
+    {
+        return [
+            'start_time' => 'datetime',
+            'end_time' => 'datetime',
+            'active' => 'boolean',
+            'students_only' => 'boolean',
+        ];
+    }
 
     /***********************************
      * RELATIONSHIPS
