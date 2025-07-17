@@ -14,7 +14,18 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->redirectUsersTo(RouteServiceProvider::HOME);
+
+        $middleware->throttleApi();
+
+        $middleware->alias([
+            'activeGame' => \App\Http\Middleware\ActiveGame::class,
+            'admin' => \App\Http\Middleware\Admin::class,
+            'auth' => \App\Http\Middleware\Authenticate::class,
+            'inProgressGame' => \App\Http\Middleware\InProgressGame::class,
+            'player' => \App\Http\Middleware\Player::class,
+            'validTeam' => \App\Http\Middleware\ValidTeam::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
