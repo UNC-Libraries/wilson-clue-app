@@ -4,14 +4,26 @@ namespace App\Providers;
 
 use App\Game;
 use Carbon\Carbon;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Route;
 use Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * The path to your application's "home" route.
+     *
+     * Typically, users are redirected here after authentication.
+     *
+     * @var string
+     */
+    public const HOME = '/home';
+
     /**
      * Bootstrap any application services.
      *
@@ -63,6 +75,8 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Validator::extend('check_dna_sequence', 'ClueValidator@checkDnaSequence');
+
+        $this->bootRoute();
     }
 
     /**
@@ -73,5 +87,12 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(Parsedown::class);
+    }
+
+    public function bootRoute(): void
+    {
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        });
     }
 }
