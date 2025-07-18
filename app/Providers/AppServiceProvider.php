@@ -6,11 +6,12 @@ use App\Game;
 use Carbon\Carbon;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
-use Route;
+use Parsedown;
 use Validator;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,6 +30,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Needed to run migrations from scratch, as the tables won't exist yet
+        // SKIP_BOOTERS=true php artisan migrate
+        if (env('SKIP_BOOTERS')) {
+            return;
+        }
+
         // Make the controller and action names available to views
         app('view')->composer('layouts.master', function ($view) {
             $action = app('request')->route()->getAction();

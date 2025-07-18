@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Player;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class FakePlayerSeeder extends Seeder
 {
@@ -20,6 +21,8 @@ class FakePlayerSeeder extends Seeder
             for ($x = 0; $x <= $max_player_id; $x++) {
                 $p = new Player;
                 $p->email = str_random(12).'@fake.fake';
+                $p->onyen = 'player';
+                $p->password = Hash::make('player');
                 $p->first_name = str_random(5);
                 $p->last_name = str_random(8);
                 $p->class_code = array_random(array_keys($p::CLASS_OPTIONS));
