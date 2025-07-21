@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Middleware\ActiveGame;
+use App\Http\Middleware\Admin;
+use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\InProgressGame;
+use App\Http\Middleware\Player;
+use App\Http\Middleware\ValidTeam;
 use App\Providers\AppServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -22,12 +28,12 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->throttleApi();
 
         $middleware->alias([
-            'activeGame' => \App\Http\Middleware\ActiveGame::class,
-            'admin' => \App\Http\Middleware\Admin::class,
-            'auth' => \App\Http\Middleware\Authenticate::class,
-            'inProgressGame' => \App\Http\Middleware\InProgressGame::class,
-            'player' => \App\Http\Middleware\Player::class,
-            'validTeam' => \App\Http\Middleware\ValidTeam::class,
+            'activeGame' => ActiveGame::class,
+            'admin' => Admin::class,
+            'auth' => Authenticate::class,
+            'inProgressGame' => InProgressGame::class,
+            'player' => Player::class,
+            'validTeam' => ValidTeam::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

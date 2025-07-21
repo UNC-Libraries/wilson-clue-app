@@ -27,7 +27,7 @@ class Evidence extends Model
      ***********************************/
     public function games(): BelongsToMany
     {
-        return $this->belongsToMany(\App\Game::class);
+        return $this->belongsToMany(Game::class);
     }
 
     /***********************************

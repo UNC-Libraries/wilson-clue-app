@@ -1,4 +1,4 @@
-clue = {
+window.clue = {
 
   admin: function(){
 

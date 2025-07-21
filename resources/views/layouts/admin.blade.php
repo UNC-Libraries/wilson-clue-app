@@ -2,7 +2,7 @@
 
 @section('css')
     <!-- css -->
-    <link href="{{ asset('css/all-admin.css') }}" rel="stylesheet" type="text/css" >
+    @vite('resources/assets/sass/admin.scss')
 @endsection
 
 
