@@ -70,7 +70,6 @@ class EvidenceController extends Controller
      */
     public function store(Request $request)
     {
-print_r($request->all()); exit;
         // Validate
         $this->validate($request, [
             'title' => 'required',
