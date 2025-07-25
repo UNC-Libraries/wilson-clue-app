@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -182,17 +183,20 @@ class Team extends Model
      * SCOPES
      ***********************************/
 
-    public function scopeRegistered($query)
+    #[Scope]
+    protected function registered($query)
     {
         return $query->where('waitlist', '=', 0);
     }
 
-    public function scopeWaitlist($query)
+    #[Scope]
+    protected function waitlist($query)
     {
         return $query->where('waitlist', '=', 1);
     }
 
-    public function scopeActive($query)
+    #[Scope]
+    protected function active($query)
     {
         return $query->whereHas('game', function ($scopeQuery) {
             $scopeQuery->where('active', 1);

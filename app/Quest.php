@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -67,12 +68,14 @@ class Quest extends Model
     /***********************************
      * SCOPES
      ***********************************/
-    public function scopeMinigameType($query)
+    #[Scope]
+    protected function minigameType($query)
     {
         return $query->where('type', '=', 'minigame');
     }
 
-    public function scopeQuestionType($query)
+    #[Scope]
+    protected function questionType($query)
     {
         return $query->where('type', '=', 'question');
     }

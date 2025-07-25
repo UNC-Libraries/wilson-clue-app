@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use App\Ldap\PlayerUser;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -109,14 +110,16 @@ class Player extends Authenticatable implements LdapAuthenticatable
      * SCOPES
      ***********************************/
 
-    public function scopeOfGame($query, $gameId)
+    #[Scope]
+    protected function ofGame($query, $gameId)
     {
         return $query->whereHas('teams', function ($scopeQuery) use ($gameId) {
             $scopeQuery->where('game_id', $gameId);
         });
     }
 
-    public function scopeCheckedIn($query)
+    #[Scope]
+    protected function checkedIn($query)
     {
         return $query->where('checked_in', true);
     }

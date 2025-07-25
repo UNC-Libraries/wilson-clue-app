@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -137,17 +138,20 @@ class Game extends Model
     /***********************************
      * SCOPES
      ***********************************/
-    public function scopeActive($query)
+    #[Scope]
+    protected function active($query)
     {
         return $query->where('active', 1);
     }
 
-    public function scopeInProgress($query)
+    #[Scope]
+    protected function inProgress($query)
     {
         return $query->where('start_time', '<', date('Y-m-d H:i:s'))->where('end_time', '>', date('Y-m-d H:i:s'))->orderBy('start_time', 'desc');
     }
 
-    public function scopeArchived($query)
+    #[Scope]
+    protected function archived($query)
     {
         return $query->where('archive', 1)->orderBy('start_time', 'desc');
     }
