@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\File;
 
 class Evidence extends Model
@@ -24,9 +25,9 @@ class Evidence extends Model
     /***********************************
      * RELATIONSHIPS
      ***********************************/
-    public function games()
+    public function games(): BelongsToMany
     {
-        return $this->belongsToMany(\App\Game::class);
+        return $this->belongsToMany(Game::class);
     }
 
     /***********************************

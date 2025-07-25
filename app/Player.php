@@ -3,12 +3,13 @@
 namespace App;
 
 use App\Ldap\PlayerUser;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 use LdapRecord\Models\ActiveDirectory\User;
 
-class Player extends  Authenticatable implements LdapAuthenticatable
+class Player extends Authenticatable implements LdapAuthenticatable
 {
     use AuthenticatesWithLdap;
     /***********************************
@@ -40,16 +41,19 @@ class Player extends  Authenticatable implements LdapAuthenticatable
         'checked_in',
     ];
 
-    protected $casts = [
-        'student' => 'boolean',
-        'manual' => 'boolean',
-    ];
-
-    /* Set default model values, if none is provided  */
+    /* Set default model values, if none is provided */
     protected $attributes = [
         'academic_group_code' => 'NONS',
         'class_code' => 'NONS',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'student' => 'boolean',
+            'manual' => 'boolean',
+        ];
+    }
 
     const ACADEMIC_GROUP_OPTIONS = [
         'LAW' => 'School of Law',
@@ -96,7 +100,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
      * RELATIONSHIPS
      ***********************************/
 
-    public function teams()
+    public function teams(): BelongsToMany
     {
         return $this->belongsToMany(Team::class);
     }
@@ -172,7 +176,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
      *
      * @return array
      */
-    public function getWarnings(Game $game = null)
+    public function getWarnings(?Game $game = null)
     {
         $warnings = [];
 
@@ -186,7 +190,7 @@ class Player extends  Authenticatable implements LdapAuthenticatable
         }
 
         // Checks that player isn't already registered for this game
-        //$this->teams->load();
+        // $this->teams->load();
         if ($this->teams) {
             if ($this->teams->pluck('game.id')->contains($game->id)) {
                 $warnings[] = 'enlist.add_player.current';

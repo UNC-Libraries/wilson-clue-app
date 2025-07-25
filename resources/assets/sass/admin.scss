@@ -1,8 +1,9 @@
-@import "bootstrap";
-@import "font-awesome";
+@import "font-awesome/css/font-awesome";
+@import "bootstrap/scss/bootstrap";
 //@import "mixins/fancy_checkboxes";
 @import "mixins/variables.ui";
 @import "mixins/variables.font-awesome.scss";
+@import "@eonasdan/tempus-dominus/dist/css/tempus-dominus.min.css";
 
 $peacock:         #4C4CFF !default; // #337ab7
 $peacock-text:    #fff;

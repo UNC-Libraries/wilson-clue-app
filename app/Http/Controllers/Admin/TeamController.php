@@ -17,8 +17,8 @@ class TeamController extends Controller
      */
     public function index()
     {
-        //$teams = Team::with('teams.players','game')->where('game_id','=',$id)->firstOrFail();
-        //return view('game.teams',['teams'=>$teams]);
+        // $teams = Team::with('teams.players','game')->where('game_id','=',$id)->firstOrFail();
+        // return view('game.teams',['teams'=>$teams]);
     }
 
     /**
@@ -34,7 +34,6 @@ class TeamController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -73,7 +72,6 @@ class TeamController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -135,7 +133,6 @@ class TeamController extends Controller
     /**
      * Add Player to team
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -154,7 +151,7 @@ class TeamController extends Controller
 
             // Does the player already have an account?
             $match = Player::where('onyen', '=', $onyen)->first();
-            $player = $match ? $match : new Player();
+            $player = $match ? $match : new Player;
             // Update the player using the provided onyen
             $player->updateFromOnyen($onyen, $override);
             $warnings = $player->getWarnings($team->game);
@@ -174,7 +171,7 @@ class TeamController extends Controller
                 'academic_group_code' => 'required',
             ]);
 
-            $player = new Player();
+            $player = new Player;
             $player->fill($request->all());
             $player->onyen = $request->get('email');
             $player->password = Hash::make($request->get('password'));

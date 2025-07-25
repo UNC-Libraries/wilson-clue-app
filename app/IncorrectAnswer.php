@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class IncorrectAnswer extends Model
 {
@@ -21,24 +22,27 @@ class IncorrectAnswer extends Model
     ];
 
     /**
-     * The attributes that should be casted to native types.
+     * Get the attributes that should be cast.
      *
-     * @var array
+     * @return array<string, string>
      */
-    protected $casts = [
-        'judged' => 'boolean',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'judged' => 'boolean',
+        ];
+    }
 
     /***********************************
      * RELATIONSHIPS
      ***********************************/
 
-    public function question()
+    public function question(): BelongsTo
     {
         return $this->belongsTo(\App\Question::class);
     }
 
-    public function team()
+    public function team(): BelongsTo
     {
         return $this->belongsTo(\App\Team::class);
     }

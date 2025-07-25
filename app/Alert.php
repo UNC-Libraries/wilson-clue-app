@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Alert extends Model
 {
@@ -22,7 +23,7 @@ class Alert extends Model
      * RELATIONSHIPS
      ***********************************/
 
-    public function game()
+    public function game(): BelongsTo
     {
         return $this->belongsTo(\App\Game::class);
     }

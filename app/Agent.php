@@ -43,15 +43,18 @@ class Agent extends Authenticatable implements LdapAuthenticatable
     ];
 
     /**
-     * The attributes that should be casted to native types.
+     * Get the attributes that should be cast.
      *
-     * @var array
+     * @return array<string, string>
      */
-    protected $casts = [
-        'retired' => 'boolean',
-        'web_display' => 'boolean',
-        'admin' => 'boolean',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'retired' => 'boolean',
+            'web_display' => 'boolean',
+            'admin' => 'boolean',
+        ];
+    }
 
     public function getLdapDomainColumn(): string
     {

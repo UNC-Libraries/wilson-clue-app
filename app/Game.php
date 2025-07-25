@@ -3,6 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Game extends Model
@@ -53,75 +57,79 @@ class Game extends Model
     ];
 
     /**
-     * Casts
+     * Get the attributes that should be cast.
      *
-     * @var array
+     * @return array<string, string>
      */
-    protected $casts = [
-        'start_time' => 'datetime',
-        'end_time' => 'datetime',
-        'active' => 'boolean',
-        'students_only' => 'boolean',    ];
+    protected function casts(): array
+    {
+        return [
+            'start_time' => 'datetime',
+            'end_time' => 'datetime',
+            'active' => 'boolean',
+            'students_only' => 'boolean',
+        ];
+    }
 
     /***********************************
      * RELATIONSHIPS
      ***********************************/
-    public function teams()
+    public function teams(): HasMany
     {
         return $this->hasMany(\App\Team::class, 'game_id', 'id');
     }
 
-    public function registeredTeams()
+    public function registeredTeams(): HasMany
     {
         return $this->hasMany(\App\Team::class, 'game_id', 'id')->registered();
     }
 
-    public function waitlistTeams()
+    public function waitlistTeams(): HasMany
     {
         return $this->hasMany(\App\Team::class, 'game_id', 'id')->waitlist();
     }
 
-    public function winningTeam()
+    public function winningTeam(): HasOne
     {
         return $this->hasOne(\App\Team::class, 'id', 'winning_team');
     }
 
-    public function evidenceLocation()
+    public function evidenceLocation(): BelongsTo
     {
         return $this->belongsTo(\App\Location::class, 'evidence_location_id');
     }
 
-    public function geographicInvestigationLocation()
+    public function geographicInvestigationLocation(): BelongsTo
     {
         return $this->belongsTo(\App\Location::class, 'geographic_investigation_location_id');
     }
 
-    public function solutionSuspect()
+    public function solutionSuspect(): HasOne
     {
         return $this->hasOne(\App\Suspect::class, 'id', 'suspect_id');
     }
 
-    public function solutionLocation()
+    public function solutionLocation(): HasOne
     {
         return $this->hasOne(\App\Location::class, 'id', 'location_id');
     }
 
-    public function solutionEvidence()
+    public function solutionEvidence(): HasOne
     {
         return $this->hasOne(\App\Evidence::class, 'id', 'evidence_id');
     }
 
-    public function quests()
+    public function quests(): HasMany
     {
         return $this->hasMany(\App\Quest::class);
     }
 
-    public function evidence()
+    public function evidence(): BelongsToMany
     {
         return $this->belongsToMany(\App\Evidence::class);
     }
 
-    public function alerts()
+    public function alerts(): HasMany
     {
         return $this->hasMany(\App\Alert::class);
     }

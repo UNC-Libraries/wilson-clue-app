@@ -16,9 +16,7 @@ use Illuminate\Support\Facades\DB;
 
 class GameController extends Controller
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Display a listing of the resource.
@@ -45,7 +43,6 @@ class GameController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -151,7 +148,6 @@ class GameController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -296,7 +292,6 @@ class GameController extends Controller
     /**
      * Import evidence room information from a previous game
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -361,14 +356,13 @@ class GameController extends Controller
     /**
      * Associated a new team with a game
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function addTeam(Request $request, $id)
     {
         $this->validate($request, ['name' => 'required']);
-        $team = new Team();
+        $team = new Team;
         $team->fill($request->all());
         $game = Game::findOrFail($id);
         $game->teams()->save($team);
@@ -393,7 +387,6 @@ class GameController extends Controller
     /**
      * Set a question to correct and mark all answers as judged
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @param  int  $questionId
      * @param  int  $teamId
@@ -463,8 +456,6 @@ class GameController extends Controller
     /**
      * Add bonus points to a team
      *
-     * @param  Request  $request
-     * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function bonusPoints(Request $request, $id)
@@ -542,7 +533,6 @@ class GameController extends Controller
     /**
      * Sets a session variable that allows users to test the game even if it is not in progress
      *
-     * @param  Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function overrideInProgress(Request $request)

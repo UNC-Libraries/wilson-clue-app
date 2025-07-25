@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class WebController extends Controller
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Show the homepage
@@ -53,7 +51,6 @@ class WebController extends Controller
     /**
      * Show a game archive
      *
-     * @param  Request  $request
      * @param  string  $id
      * @return archive view
      */

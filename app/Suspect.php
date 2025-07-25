@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Suspect extends Model
 {
@@ -34,7 +35,7 @@ class Suspect extends Model
     /***********************************
      * RELATIONSHIPS
      ***********************************/
-    public function quest()
+    public function quest(): HasMany
     {
         return $this->hasMany(\App\Quest::class);
     }

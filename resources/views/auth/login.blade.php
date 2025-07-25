@@ -1,7 +1,7 @@
 @extends('layouts.master', ['title' => 'Clue - Admin'])
 
 @section('css')
-    <link href="{{ asset('css/web.css') }}" rel="stylesheet" type="text/css" >
+    @vite('resources/assets/sass/web.scss')
 @stop
 
 @section('main.content')

@@ -2,7 +2,7 @@
 
 @section('css')
     <!-- CSS -->
-    <link href="{{ asset('css/ui.css') }}" rel="stylesheet" type="text/css" >
+    @vite('resources/assets/sass/ui.scss')
 @endsection
 
 

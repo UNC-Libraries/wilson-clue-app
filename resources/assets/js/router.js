@@ -1,6 +1,6 @@
 // See: http://www.paulirish.com/2009/markup-based-unobtrusive-comprehensive-dom-ready-execution/
 
-CLUE = {
+window.CLUE = {
   common: {
     init: function() {
       clue.initAutoSubmit();
@@ -90,7 +90,7 @@ CLUE = {
   }
 };
 
-ROUTER = {
+window.ROUTER = {
   exec: function(controller, action) {
     var ns = CLUE,
       action = (action === undefined) ? "init" : action;

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class GhostDna extends Model
 {
@@ -23,7 +24,7 @@ class GhostDna extends Model
      * RELATIONSHIPS
      ***********************************/
 
-    public function teams()
+    public function teams(): BelongsToMany
     {
         return $this->belongsToMany(\App\Team::class)->withTimestamps();
     }

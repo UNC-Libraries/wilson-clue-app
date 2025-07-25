@@ -4,21 +4,38 @@ namespace App\Providers;
 
 use App\Game;
 use Carbon\Carbon;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
-use Route;
+use Parsedown;
 use Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any application services.
+     * The path to your application's "home" route.
      *
-     * @return void
+     * Typically, users are redirected here after authentication.
+     *
+     * @var string
      */
-    public function boot()
+    public const HOME = '/home';
+
+    /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
     {
+        // Needed to run migrations from scratch, as the tables won't exist yet
+        // SKIP_BOOTERS=true php artisan migrate
+        if (env('SKIP_BOOTERS')) {
+            return;
+        }
+
         // Make the controller and action names available to views
         app('view')->composer('layouts.master', function ($view) {
             $action = app('request')->route()->getAction();
@@ -63,15 +80,22 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Validator::extend('check_dna_sequence', 'ClueValidator@checkDnaSequence');
+
+        $this->bootRoute();
     }
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(Parsedown::class);
+    }
+
+    public function bootRoute(): void
+    {
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        });
     }
 }

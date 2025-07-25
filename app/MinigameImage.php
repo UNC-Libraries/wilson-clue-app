@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\File;
 
 class MinigameImage extends Model
@@ -24,7 +25,7 @@ class MinigameImage extends Model
     /***********************************
      * RELATIONSHIPS
      ***********************************/
-    public function quests()
+    public function quests(): BelongsToMany
     {
         return $this->belongsToMany(\App\Quest::class);
     }

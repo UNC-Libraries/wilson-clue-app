@@ -40,14 +40,14 @@ return [
         ],
         'people' => [
             'hosts' => [env('PEOPLE_HOSTS', '127.0.0.1')],
-            //'username' => env('LDAP_USERNAME', 'cn=user,dc=local,dc=com'),
-            //'password' => env('LDAP_PASSWORD', 'secret'),
+            // 'username' => env('LDAP_USERNAME', 'cn=user,dc=local,dc=com'),
+            // 'password' => env('LDAP_PASSWORD', 'secret'),
             'port' => env('PEOPLE_PORT', 389),
             'base_dn' => env('PEOPLE_BASE_DN', 'dc=local,dc=com'),
             'timeout' => env('LDAP_TIMEOUT', 5),
             'use_ssl' => env('PEOPLE_USE_SSL', false),
             'use_tls' => env('PEOPLE_USE_TLS', true),
-        ]
+        ],
 
     ],
 
@@ -77,7 +77,7 @@ return [
 
     'cache' => [
         'enabled' => env('LDAP_CACHE', false),
-        'driver' => env('CACHE_DRIVER', 'file'),
+        'driver' => env('CACHE_STORE', 'file'),
     ],
 
 ];

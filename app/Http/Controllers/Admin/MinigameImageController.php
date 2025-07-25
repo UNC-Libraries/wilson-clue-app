@@ -35,7 +35,6 @@ class MinigameImageController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -59,8 +58,8 @@ class MinigameImageController extends Controller
         $minigameImage->save();
 
         return redirect()
-                ->route('admin.minigameImage.index')
-                ->with('alert', ['message' => $minigameImage->name.' saved!', 'type' => 'success']);
+            ->route('admin.minigameImage.index')
+            ->with('alert', ['message' => $minigameImage->name.' saved!', 'type' => 'success']);
     }
 
     /**
@@ -79,7 +78,6 @@ class MinigameImageController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -104,8 +102,8 @@ class MinigameImageController extends Controller
         $minigameImage->save();
 
         return redirect()
-                ->route('admin.minigameImage.index')
-                ->with('alert', ['message' => $minigameImage->name.' updated!', 'type' => 'success']);
+            ->route('admin.minigameImage.index')
+            ->with('alert', ['message' => $minigameImage->name.' updated!', 'type' => 'success']);
     }
 
     /**
@@ -126,7 +124,7 @@ class MinigameImageController extends Controller
         }
 
         return redirect()
-                ->route('admin.minigameImage.index')
-                ->with('alert', $alert);
+            ->route('admin.minigameImage.index')
+            ->with('alert', $alert);
     }
 }

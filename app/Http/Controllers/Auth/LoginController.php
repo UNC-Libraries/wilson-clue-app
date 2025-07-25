@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,7 +30,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/start';
+    protected string $redirectTo = '/start';
 
     /**
      * Create a new controller instance.
@@ -39,17 +42,17 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    protected function guard()
+    protected function guard(): Guard|StatefulGuard
     {
         return Auth::guard('player');
     }
 
-    public function username()
+    public function username(): string
     {
         return 'onyen';
     }
 
-    protected function credentials(Request $request)
+    protected function credentials(Request $request): array
     {
         // 'samaccountname' is the attribute we are using to
         // locate users in our LDAP directory with. The
@@ -58,6 +61,10 @@ class LoginController extends Controller
         return [
             'samaccountname' => $request->get('onyen'),
             'password' => $request->get('password'),
+            'fallback' => [
+                'onyen' => $request->get('onyen'),
+                'password' => $request->get('password')
+            ],
         ];
     }
 
@@ -70,10 +77,9 @@ class LoginController extends Controller
     /**
      * Get the failed login response instance.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    protected function sendFailedLoginResponse(Request $request)
+    protected function sendFailedLoginResponse(Request $request): RedirectResponse
     {
         return redirect()->back()
             ->withInput($request->only($this->username(), 'remember'))

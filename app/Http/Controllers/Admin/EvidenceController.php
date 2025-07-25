@@ -35,8 +35,8 @@ class EvidenceController extends Controller
         $view = $request->input('view') ? $request->input('view') : null;
 
         if (! empty($gameId)) {
-            $evidence->whereHas('games', function ($query) use ($game) {
-                $query->where('game_id', '=', $game);
+            $evidence->whereHas('games', function ($query) use ($gameId) {
+                $query->where('game_id', '=', $gameId);
             });
         }
 
@@ -66,13 +66,11 @@ class EvidenceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-
-        //Validate
+        // Validate
         $this->validate($request, [
             'title' => 'required',
         ]);
@@ -111,14 +109,12 @@ class EvidenceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
-
-        //Validate
+        // Validate
         $this->validate($request, [
             'title' => 'required',
         ]);
@@ -127,13 +123,13 @@ class EvidenceController extends Controller
         // Load and fill question
         $evidence = Evidence::findOrFail($id);
         $evidence->fill($request->all());
-        $evidence->fill($request->all());
         // Update Image
         if ($request->file('new_image_file')) {
             $this->validate($request, [
                 'new_image_file' => 'max:1024|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
             $path = $request->file('new_image_file')->store('evidence', 'public');
+
             $evidence->deleteImage();
             $evidence->src = $path;
         }

@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\File;
 
 class Question extends Model
@@ -24,40 +27,43 @@ class Question extends Model
         'location_id',
     ];
 
-    protected $casts = [
-        'type' => 'boolean',
-    ];
-
     protected $hidden = [
         'full_answer',
         'answers',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'type' => 'boolean',
+        ];
+    }
+
     /***********************************
      * RELATIONSHIPS
      ***********************************/
 
-    public function answers()
+    public function answers(): HasMany
     {
         return $this->hasMany(\App\Answer::class);
     }
 
-    public function quests()
+    public function quests(): BelongsToMany
     {
         return $this->belongsToMany(\App\Quest::class);
     }
 
-    public function incorrectAnswers()
+    public function incorrectAnswers(): HasMany
     {
         return $this->hasMany(\App\IncorrectAnswer::class);
     }
 
-    public function location()
+    public function location(): BelongsTo
     {
         return $this->belongsTo(\App\Location::class);
     }
 
-    public function completedBy()
+    public function completedBy(): BelongsToMany
     {
         return $this->belongsToMany(\App\Team::class)->withTimestamps();
     }

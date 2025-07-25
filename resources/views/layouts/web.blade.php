@@ -3,7 +3,7 @@
 @section('css')
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/css/swiper.min.css">
-    <link href="{{ asset('css/web.css') }}" rel="stylesheet" type="text/css" >
+    @vite('resources/assets/sass/web.scss')
 @endsection
 
 
@@ -20,7 +20,7 @@
     <script type="application/ld+json">
         {
             "@context": "http://schema.org",
-            "@id": "http://library.unc.edu/wilson/",
+            "@id": "https://library.unc.edu/wilson/",
             "@type": "Organization",
                 "parentOrganization": {
                     "@type": "Organization",
@@ -30,8 +30,8 @@
                         "name": "University of North Carolina at Chapel Hill"
                     }
                 },
-                "logo": "http://library.unc.edu/wp-content/themes/responsiveUNCLib/images/wilsonbanner.png",
-                "url": "http://library.unc.edu/wilson/",
+                "logo": "https://library.unc.edu/wp-content/themes/responsiveUNCLib/images/wilsonbanner.png",
+                "url": "https://library.unc.edu/wilson/",
                 "name": "Louis Round Wilson Library",
                 "sameAs": "https://en.wikipedia.org/wiki/Louis_Round_Wilson_Library"
         }

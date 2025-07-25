@@ -83,7 +83,6 @@ class UiController extends Controller
     /**
      * Show the game map
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function map(Request $request)
@@ -103,7 +102,6 @@ class UiController extends Controller
     /**
      * Show the evidence minigame
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function evidence(Request $request)
@@ -117,7 +115,6 @@ class UiController extends Controller
     /**
      * Show the geographic investigation information
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function geographicInvestigation(Request $request)
@@ -130,7 +127,6 @@ class UiController extends Controller
     /**
      * Show a quest location
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function quest(Request $request, $id)
@@ -154,7 +150,6 @@ class UiController extends Controller
     /**
      * Show the indictment interface
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function indictment(Request $request)
@@ -184,7 +179,6 @@ class UiController extends Controller
     /**
      * Sets the teams indictment
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function setIndictment(Request $request)
@@ -212,7 +206,6 @@ class UiController extends Controller
     /**
      * Attempt a question, runs regex match of all the question's answers and the input attempt
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -249,7 +242,6 @@ class UiController extends Controller
     /**
      * Attempt a minigame answer
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -278,7 +270,6 @@ class UiController extends Controller
     /**
      * Show the DNA interface
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function dna(Request $request)
@@ -300,7 +291,6 @@ class UiController extends Controller
     /**
      * Attempt DNA answer
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function attemptDna(Request $request)
@@ -334,7 +324,6 @@ class UiController extends Controller
     /**
      * Set a team's evidence choice
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function setEvidence(Request $request)
@@ -354,7 +343,6 @@ class UiController extends Controller
     /**
      * Get a team's quest status
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -404,7 +392,6 @@ class UiController extends Controller
     /**
      * Retrieves any unread alerts
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function alert(Request $request)
@@ -428,7 +415,6 @@ class UiController extends Controller
     /**
      * Sets an alert as seen
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
