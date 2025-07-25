@@ -1,0 +1,55 @@
+{
+  "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js?commonjs-entry": {
+    "file": "assets/bootstrap.bundle.min-CFyt6PYS.js",
+    "name": "bootstrap.bundle.min",
+    "src": "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js?commonjs-entry",
+    "isEntry": true
+  },
+  "node_modules/font-awesome/fonts/fontawesome-webfont.eot": {
+    "file": "assets/fontawesome-webfont-G5YE5S7X.eot",
+    "src": "node_modules/font-awesome/fonts/fontawesome-webfont.eot"
+  },
+  "node_modules/font-awesome/fonts/fontawesome-webfont.svg": {
+    "file": "assets/fontawesome-webfont-D13rzr4g.svg",
+    "src": "node_modules/font-awesome/fonts/fontawesome-webfont.svg"
+  },
+  "node_modules/font-awesome/fonts/fontawesome-webfont.ttf": {
+    "file": "assets/fontawesome-webfont-CQDK8MU3.ttf",
+    "src": "node_modules/font-awesome/fonts/fontawesome-webfont.ttf"
+  },
+  "node_modules/font-awesome/fonts/fontawesome-webfont.woff": {
+    "file": "assets/fontawesome-webfont-CDK5bt4p.woff",
+    "src": "node_modules/font-awesome/fonts/fontawesome-webfont.woff"
+  },
+  "node_modules/font-awesome/fonts/fontawesome-webfont.woff2": {
+    "file": "assets/fontawesome-webfont-B-jkhYfk.woff2",
+    "src": "node_modules/font-awesome/fonts/fontawesome-webfont.woff2"
+  },
+  "resources/assets/js/app.js": {
+    "file": "assets/app-BLQrhpbb.js",
+    "name": "app",
+    "src": "resources/assets/js/app.js",
+    "isEntry": true
+  },
+  "resources/assets/js/router.js": {
+    "file": "assets/router-D3DRzwES.js",
+    "name": "router",
+    "src": "resources/assets/js/router.js",
+    "isEntry": true
+  },
+  "resources/assets/sass/admin.scss": {
+    "file": "assets/admin-h8YKbTDQ.css",
+    "src": "resources/assets/sass/admin.scss",
+    "isEntry": true
+  },
+  "resources/assets/sass/ui.scss": {
+    "file": "assets/ui-Csl89Phc.css",
+    "src": "resources/assets/sass/ui.scss",
+    "isEntry": true
+  },
+  "resources/assets/sass/web.scss": {
+    "file": "assets/web-C0thXBXI.css",
+    "src": "resources/assets/sass/web.scss",
+    "isEntry": true
+  }
+}

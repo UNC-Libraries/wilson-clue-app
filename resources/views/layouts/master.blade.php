@@ -13,12 +13,12 @@
     <meta name="robots" content="index, follow" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.9.4/dist/js/tempus-dominus.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.9.4/dist/js/jQuery-provider.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.6/Sortable.js" crossorigin="anonymous"></script>
+    <script src="{{asset('js/jquery-3.7.1.min.js')}}"></script>
+    <script src="{{asset('js/core.2.11.6.popper.min.js')}}"></script>
+    <script src="{{asset('js/tempus-dominus.min.js')}}"></script>
+    <script src="{{asset('js/tempus-dominus-jQuery-provider.min.js')}}"></script>
+    <script src="{{asset('js/clipboard-2.0.11.min.js')}}"></script>
+    <script src="{{asset('js/Sortable-1.15.6.min.js')}}"></script>
 </head>
 
 {{-- $controller and $action are injected in the AppServiceProvider
