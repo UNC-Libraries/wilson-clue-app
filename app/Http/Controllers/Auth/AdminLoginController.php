@@ -27,8 +27,6 @@ class AdminLoginController extends Controller
 
     /**
      * Where to redirect users after login.
-     *
-     * @var string
      */
     protected string $redirectTo = '/admin';
 
@@ -63,15 +61,13 @@ class AdminLoginController extends Controller
             'password' => $request->get('password'),
             'fallback' => [
                 'onyen' => $request->get('onyen'),
-                'password' => $request->get('password')
+                'password' => $request->get('password'),
             ],
         ];
     }
 
     /**
      * Get the failed login response instance.
-     *
-     * @return RedirectResponse
      */
     protected function sendFailedLoginResponse(Request $request): RedirectResponse
     {

@@ -27,8 +27,6 @@ class LoginController extends Controller
 
     /**
      * Where to redirect users after login.
-     *
-     * @var string
      */
     protected string $redirectTo = '/start';
 
@@ -63,7 +61,7 @@ class LoginController extends Controller
             'password' => $request->get('password'),
             'fallback' => [
                 'onyen' => $request->get('onyen'),
-                'password' => $request->get('password')
+                'password' => $request->get('password'),
             ],
         ];
     }
@@ -76,8 +74,6 @@ class LoginController extends Controller
 
     /**
      * Get the failed login response instance.
-     *
-     * @return RedirectResponse
      */
     protected function sendFailedLoginResponse(Request $request): RedirectResponse
     {
