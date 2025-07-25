@@ -41,7 +41,7 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'name' => 'required',
             'floor' => 'required|integer',
             'map_section' => 'required',
@@ -78,7 +78,7 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+        $request->validate([
             'name' => 'required',
             'floor' => 'required|integer',
             'map_section' => 'required',

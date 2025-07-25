@@ -16,7 +16,7 @@ class AlertController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $this->validate($request, [
+        $request->validate([
             'message' => 'required|string|max:255',
         ]);
 

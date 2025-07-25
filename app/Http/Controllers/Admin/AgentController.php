@@ -40,7 +40,7 @@ class AgentController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
         ]);
@@ -49,7 +49,7 @@ class AgentController extends Controller
         $agent->fill($request->all());
 
         if ($request->file('new_image_file')) {
-            $this->validate($request, [
+            $request->validate([
                 'new_image_file' => 'max:1024|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
             $path = $request->file('new_image_file')->store('agents', 'public');
@@ -82,7 +82,7 @@ class AgentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+        $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
         ]);
@@ -96,7 +96,7 @@ class AgentController extends Controller
 
         $agent->fill($request->all());
         if ($request->file('new_image_file')) {
-            $this->validate($request, [
+            $request->validate([
                 'new_image_file' => 'max:1024|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
             $path = $request->file('new_image_file')->store('agents', 'public');

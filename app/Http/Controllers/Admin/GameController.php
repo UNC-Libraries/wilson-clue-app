@@ -47,7 +47,7 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'name' => 'required',
             'start_time' => 'required|date|after:today',
             'end_time' => 'required|date|after:start_time',
@@ -297,7 +297,7 @@ class GameController extends Controller
      */
     public function importEvidenceRoom(Request $request, $id)
     {
-        $this->validate($request, [
+        $request->validate([
             'game_id' => 'required',
         ]);
 
@@ -361,7 +361,7 @@ class GameController extends Controller
      */
     public function addTeam(Request $request, $id)
     {
-        $this->validate($request, ['name' => 'required']);
+        $request->validate(['name' => 'required']);
         $team = new Team;
         $team->fill($request->all());
         $game = Game::findOrFail($id);
@@ -394,7 +394,7 @@ class GameController extends Controller
      */
     public function judgeAnswers(Request $request, $id, $questId, $questionId, $teamId)
     {
-        $this->validate($request, ['judgement' => 'required']);
+        $request->validate(['judgement' => 'required']);
         $team = Team::findOrFail($teamId);
 
         if ($request->get('judgement') == 'correct') {
@@ -460,7 +460,7 @@ class GameController extends Controller
      */
     public function bonusPoints(Request $request, $id)
     {
-        $this->validate($request, [
+        $request->validate([
             'team_id' => 'required|exists:teams,id',
             'points' => 'required|integer',
         ]);
@@ -496,7 +496,7 @@ class GameController extends Controller
         if ($playerId) {
             $player = Player::find($playerId);
         } else {
-            $this->validate($request, ['pid' => 'required']);
+            $request->validate(['pid' => 'required']);
             $player = Player::where('pid', $request->get('pid'))->first();
         }
 

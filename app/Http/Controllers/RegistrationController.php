@@ -62,7 +62,7 @@ class RegistrationController extends Controller
 
     public function updateTeam(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'name' => 'required',
         ]);
         $user = Auth::guard('player')->user();
@@ -76,7 +76,7 @@ class RegistrationController extends Controller
 
     public function addPlayer(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'onyen' => 'required',
         ]);
 
@@ -138,7 +138,7 @@ class RegistrationController extends Controller
     {
 
         // Validate Form
-        $this->validate($request, [
+        $request->validate([
             'onyen' => 'required',
             'teamName' => 'required',
         ]);

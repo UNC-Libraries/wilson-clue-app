@@ -71,7 +71,7 @@ class EvidenceController extends Controller
     public function store(Request $request)
     {
         // Validate
-        $this->validate($request, [
+        $request->validate([
             'title' => 'required',
         ]);
 
@@ -80,7 +80,7 @@ class EvidenceController extends Controller
         $evidence->fill($request->all());
         // Add Image
         if ($request->file('new_image_file')) {
-            $this->validate($request, [
+            $request->validate([
                 'new_image_file' => 'max:1024|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
             $path = $request->file('new_image_file')->store('evidence', 'public');
@@ -114,7 +114,7 @@ class EvidenceController extends Controller
     public function update(Request $request, int $id)
     {
         // Validate
-        $this->validate($request, [
+        $request->validate([
             'title' => 'required',
         ]);
         $imageType = $request->get('image_type');
@@ -124,7 +124,7 @@ class EvidenceController extends Controller
         $evidence->fill($request->all());
         // Update Image
         if ($request->file('new_image_file')) {
-            $this->validate($request, [
+            $request->validate([
                 'new_image_file' => 'max:1024|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
             $path = $request->file('new_image_file')->store('evidence', 'public');

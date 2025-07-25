@@ -29,7 +29,7 @@ class GhostDnaController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'sequence' => 'required|check_dna_sequence|size:6|min:6|unique:ghost_dnas,sequence',
         ]);
 
