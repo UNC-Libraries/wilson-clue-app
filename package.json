@@ -18,6 +18,7 @@
         "sass": "^1.77.3",
         "sass-loader": "^14.2.1",
         "sortablejs": "git+https://github.com/RubaXa/Sortable.git",
-        "vite": "^6.3.5"
+        "vite": "^6.3.5",
+        "concurrently": "^9.0.1"
     }
 }
