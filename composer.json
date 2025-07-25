@@ -9,19 +9,19 @@
     "type": "project",
     "require": {
         "php": "^8.2",
-        "directorytree/ldaprecord-laravel": "^v3.3",
-        "diglactic/laravel-breadcrumbs": "^v9.0",
-        "laravel/framework": "^11.45",
+        "directorytree/ldaprecord-laravel": "^3.4",
+        "diglactic/laravel-breadcrumbs": "^10.0",
+        "laravel/framework": "^12.21",
         "laravel/helpers": "^1.7",
-        "laravel/tinker": "^2.9",
-        "laravel/ui": "^4.5",
-        "spatie/laravel-html": "^3.6"
+        "laravel/tinker": "^2.10.1",
+        "laravel/ui": "^4.6",
+        "spatie/laravel-html": "^3.11"
     },
     "require-dev": {
         "mockery/mockery": "^1.6",
-        "phpunit/phpunit": "^10.5",
+        "phpunit/phpunit": "^11.5.3",
         "fakerphp/faker": "^1.23",
-        "nunomaduro/collision": "^8.0",
+        "nunomaduro/collision": "^8.6",
         "erusev/parsedown": "^1.7",
         "laravel/pail": "^1.2.2"
     },
