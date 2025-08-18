@@ -1,5 +1,3 @@
-import '@fortawesome/fontawesome-free/js/all';
-
 window.clue = {
 
   admin: function(){
