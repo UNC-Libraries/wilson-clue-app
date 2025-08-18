@@ -5,26 +5,6 @@
     "src": "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js?commonjs-entry",
     "isEntry": true
   },
-  "node_modules/font-awesome/fonts/fontawesome-webfont.eot": {
-    "file": "assets/fontawesome-webfont-G5YE5S7X.eot",
-    "src": "node_modules/font-awesome/fonts/fontawesome-webfont.eot"
-  },
-  "node_modules/font-awesome/fonts/fontawesome-webfont.svg": {
-    "file": "assets/fontawesome-webfont-D13rzr4g.svg",
-    "src": "node_modules/font-awesome/fonts/fontawesome-webfont.svg"
-  },
-  "node_modules/font-awesome/fonts/fontawesome-webfont.ttf": {
-    "file": "assets/fontawesome-webfont-CQDK8MU3.ttf",
-    "src": "node_modules/font-awesome/fonts/fontawesome-webfont.ttf"
-  },
-  "node_modules/font-awesome/fonts/fontawesome-webfont.woff": {
-    "file": "assets/fontawesome-webfont-CDK5bt4p.woff",
-    "src": "node_modules/font-awesome/fonts/fontawesome-webfont.woff"
-  },
-  "node_modules/font-awesome/fonts/fontawesome-webfont.woff2": {
-    "file": "assets/fontawesome-webfont-B-jkhYfk.woff2",
-    "src": "node_modules/font-awesome/fonts/fontawesome-webfont.woff2"
-  },
   "public/fonts/clueicon-icomoon.eot": {
     "file": "assets/clueicon-icomoon-4NthllEH.eot",
     "src": "public/fonts/clueicon-icomoon.eot"
@@ -70,17 +50,17 @@
     "isEntry": true
   },
   "resources/assets/sass/admin.scss": {
-    "file": "assets/admin-h8YKbTDQ.css",
+    "file": "assets/admin-D4tXH8kB.css",
     "src": "resources/assets/sass/admin.scss",
     "isEntry": true
   },
   "resources/assets/sass/ui.scss": {
-    "file": "assets/ui-Csl89Phc.css",
+    "file": "assets/ui-ON73l4vl.css",
     "src": "resources/assets/sass/ui.scss",
     "isEntry": true
   },
   "resources/assets/sass/web.scss": {
-    "file": "assets/web-CAoWOMtS.css",
+    "file": "assets/web-B95LCdnK.css",
     "src": "resources/assets/sass/web.scss",
     "isEntry": true
   }
