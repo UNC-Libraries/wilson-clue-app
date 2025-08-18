@@ -7,7 +7,7 @@ const paths = {
 };
 
 export default defineConfig({
-    base: '/build',
+    base: '/clue/build',
     resolve: {
         alias: {
             '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
