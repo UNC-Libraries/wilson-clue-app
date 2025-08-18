@@ -7,9 +7,11 @@ const paths = {
 };
 
 export default defineConfig({
+    base: '/clue',
     resolve: {
         alias: {
             '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
+            '~font-awesome': path.resolve(__dirname, 'node_modules/font-awesome'),
             '~tempus-dominus': path.resolve(__dirname, 'node_modules/tempus-dominus'),
         }
     },
