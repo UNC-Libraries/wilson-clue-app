@@ -2,6 +2,7 @@
 
 @section('css')
     <!-- CSS -->
+    @vite(['node_modules/font-awesome/fonts/fontawesome-webfont.woff', 'node_modules/font-awesome/fonts/fontawesome-webfont.woff2'])
     @vite('resources/assets/sass/ui.scss')
 @endsection
 
