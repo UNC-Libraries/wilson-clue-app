@@ -25,6 +25,38 @@
     "file": "assets/fontawesome-webfont-B-jkhYfk.woff2",
     "src": "node_modules/font-awesome/fonts/fontawesome-webfont.woff2"
   },
+  "public/fonts/clueicon-icomoon.eot": {
+    "file": "assets/clueicon-icomoon-4NthllEH.eot",
+    "src": "public/fonts/clueicon-icomoon.eot"
+  },
+  "public/fonts/clueicon-icomoon.svg": {
+    "file": "assets/clueicon-icomoon-DxlU7wSD.svg",
+    "src": "public/fonts/clueicon-icomoon.svg"
+  },
+  "public/fonts/clueicon-icomoon.ttf": {
+    "file": "assets/clueicon-icomoon-pgBbW7AZ.ttf",
+    "src": "public/fonts/clueicon-icomoon.ttf"
+  },
+  "public/fonts/clueicon-icomoon.woff": {
+    "file": "assets/clueicon-icomoon-CjvUJi-4.woff",
+    "src": "public/fonts/clueicon-icomoon.woff"
+  },
+  "public/fonts/socialicon-icomoon.eot": {
+    "file": "assets/socialicon-icomoon-D2idA5Rt.eot",
+    "src": "public/fonts/socialicon-icomoon.eot"
+  },
+  "public/fonts/socialicon-icomoon.svg": {
+    "file": "assets/socialicon-icomoon-jWtT7Qyd.svg",
+    "src": "public/fonts/socialicon-icomoon.svg"
+  },
+  "public/fonts/socialicon-icomoon.ttf": {
+    "file": "assets/socialicon-icomoon-Cx2JJ9is.ttf",
+    "src": "public/fonts/socialicon-icomoon.ttf"
+  },
+  "public/fonts/socialicon-icomoon.woff": {
+    "file": "assets/socialicon-icomoon-DsiJo46E.woff",
+    "src": "public/fonts/socialicon-icomoon.woff"
+  },
   "resources/assets/js/app.js": {
     "file": "assets/app-BLQrhpbb.js",
     "name": "app",
@@ -48,7 +80,7 @@
     "isEntry": true
   },
   "resources/assets/sass/web.scss": {
-    "file": "assets/web-BNUSJFtv.css",
+    "file": "assets/web-DCTQh0cE.css",
     "src": "resources/assets/sass/web.scss",
     "isEntry": true
   }
