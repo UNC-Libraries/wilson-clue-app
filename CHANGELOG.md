@@ -48,7 +48,7 @@
 - Changed Laravel Mix version to `0.*` ([#4188](https://github.com/laravel/laravel/pull/4188))
 - Add to axios defaults instead of overwriting them ([#4208](https://github.com/laravel/laravel/pull/4208))
 - Added `string` validation rule to `RegisterController` ([#4212](https://github.com/laravel/laravel/pull/4212))
-- Moved Vue inclusion from `bootstrap.js` to `app.js` ([17ec5c5](https://github.com/laravel/laravel/commit/17ec5c51d60bb05985f287f09041c56fcd41d9ce))
+- Moved Vue inclusion from `bootstrap.js` to `clue.js` ([17ec5c5](https://github.com/laravel/laravel/commit/17ec5c51d60bb05985f287f09041c56fcd41d9ce))
 - Only load libraries if present ([d905b2e](https://github.com/laravel/laravel/commit/d905b2e7bede2967d37ed7b260cd9d526bb9cabd))
 - Ignore the NPM debug log ([#4232](https://github.com/laravel/laravel/pull/4232))
 - Use fluent middleware definition in `LoginController` ([#4229](https://github.com/laravel/laravel/pull/4229))

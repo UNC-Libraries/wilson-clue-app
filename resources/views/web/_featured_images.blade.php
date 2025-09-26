@@ -9,7 +9,7 @@
 @endphp
 
 <!-- Slider main container -->
-<div class="swiper-container" style="height: 427px;">
+<div class="swiper" style="height: 427px;">
     <!-- Additional required wrapper -->
     <div class="swiper-wrapper">
         <!-- Slides -->

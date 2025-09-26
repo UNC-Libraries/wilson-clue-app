@@ -1,9 +1,9 @@
 {
-  "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js?commonjs-entry": {
-    "file": "assets/bootstrap.bundle.min-CFyt6PYS.js",
-    "name": "bootstrap.bundle.min",
-    "src": "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js?commonjs-entry",
-    "isEntry": true
+  "node_modules/@popperjs/core/lib/index.js": {
+    "file": "assets/index-DOyugLT0.js",
+    "name": "index",
+    "src": "node_modules/@popperjs/core/lib/index.js",
+    "isDynamicEntry": true
   },
   "node_modules/font-awesome/fonts/fontawesome-webfont.eot": {
     "file": "assets/fontawesome-webfont-G5YE5S7X.eot",
@@ -58,19 +58,16 @@
     "src": "public/fonts/socialicon-icomoon.woff"
   },
   "resources/assets/js/app.js": {
-    "file": "assets/app-BLQrhpbb.js",
+    "file": "assets/app-B247Nn6w.js",
     "name": "app",
     "src": "resources/assets/js/app.js",
-    "isEntry": true
-  },
-  "resources/assets/js/router.js": {
-    "file": "assets/router-D3DRzwES.js",
-    "name": "router",
-    "src": "resources/assets/js/router.js",
-    "isEntry": true
+    "isEntry": true,
+    "dynamicImports": [
+      "node_modules/@popperjs/core/lib/index.js"
+    ]
   },
   "resources/assets/sass/admin.scss": {
-    "file": "assets/admin-DJ8BmLT1.css",
+    "file": "assets/admin-DSI1mPQH.css",
     "src": "resources/assets/sass/admin.scss",
     "isEntry": true
   },
@@ -80,7 +77,7 @@
     "isEntry": true
   },
   "resources/assets/sass/web.scss": {
-    "file": "assets/web-DCTQh0cE.css",
+    "file": "assets/web-B7LCtH0e.css",
     "src": "resources/assets/sass/web.scss",
     "isEntry": true
   }

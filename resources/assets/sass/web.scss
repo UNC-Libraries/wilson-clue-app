@@ -2,6 +2,7 @@
 @import "mixins/variables.font-awesome.scss";
 @import "font-awesome/scss/font-awesome";
 @import "bootstrap/scss/bootstrap";
+@import "swiper/css/bundle";
 @import "mixins/variables.web";
 @import "mixins/clue_icons";
 @import "mixins/social_icons";
@@ -39,11 +40,11 @@ h1, h2, h3 {
 .main-section,
 .mid-section {
   a {
-    color: $brand-primary;
+    color: white;
 
     &:focus,
     &:hover {
-      color: #0db177;
+      color: white;
       text-decoration: underline;
     }
   }
@@ -651,11 +652,12 @@ img.char-card{
  * Carousel
  */
 .swiper-button-next,
-.swiper-container-rtl .swiper-button-prev,
+.swiper-horizontal .swiper-button-prev svg,
 .swiper-button-prev,
-.swiper-container-rtl .swiper-button-next{
+.swiper-horizontal .swiper-button-next svg {
   background-image: none;
   fill: $brand-success;
+  stroke: $brand-success;
 }
 
 .swiper-pagination-bullet {

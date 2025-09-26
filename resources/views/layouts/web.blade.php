@@ -1,8 +1,6 @@
 @extends('layouts.master', ['title' => 'Clue - Presented by Wilson Library!'])
 
 @section('css')
-    <!-- CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/css/swiper.min.css">
     @vite('resources/assets/sass/web.scss')
 @endsection
 
@@ -16,7 +14,6 @@
 @endsection
 
 @section('additional_scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/js/swiper.min.js"></script>
     @verbatim
         <script type="application/ld+json">
             {
