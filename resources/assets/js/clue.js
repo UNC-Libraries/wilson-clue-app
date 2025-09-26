@@ -134,10 +134,11 @@ export const clue = {
 
   initDateTimePicker: function(){
       document.querySelectorAll('.datetime-picker').forEach(function(picker) {
-          let date = picker.dataset['date-default-date'];
+          let date_value = picker.dataset.dateDefaultDate;
+          console.log(date_value);
           // We use FA 4 and default icons are FA 6, so set the FA 4 equivalents below
           new tempusdominus.TempusDominus(picker, {
-              defaultDate: new Date(date),
+              defaultDate: new Date(date_value),
               display: {
                   icons: {
                       time: 'fa fa-clock-o',
