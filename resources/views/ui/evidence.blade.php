@@ -33,7 +33,7 @@
                         {{ html()->form('POST', route('ui.set.evidence', ))->class('evidence-form')->id('evidenceForm')->open() }}
                         <div class="form-group">
                             {{ html()->label('Select the Collection Item', 'evidence') }}
-                            {{ html()->select('evidence', $game->evidence->pluck('title', 'id')->all(), $team->evidence ? $team->evidence->id : null)->class('form-control') }}
+                            {{ html()->select('evidence', $game->evidence->pluck('title', 'id')->all(), $team->evidence ? $team->evidence->id : null)->class('form-control form-select') }}
                         </div>
                         <input type="submit" class="btn btn-secondary" value="Submit">
                         {{ html()->form()->close() }}

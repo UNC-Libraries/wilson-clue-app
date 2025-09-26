@@ -16,17 +16,17 @@
         <div class="col-sm-12 col-md-3">
             <div class="form-group">
                 {{ html()->label('Suspect', 'suspect_id') }}
-                {{ html()->select('suspect_id', $suspects->pluck('name', 'id'), $quest->suspect ? $quest->suspect->id : null)->placeholder('Select a suspect')->class('form-control') }}
+                {{ html()->select('suspect_id', $suspects->pluck('name', 'id'), $quest->suspect ? $quest->suspect->id : null)->placeholder('Select a suspect')->class('form-control form-select') }}
             </div>
 
             <div class="form-group">
                 {{ html()->label('Location', 'location_id') }}
-                {{ html()->select('location_id', $locations->pluck('name', 'id'), $quest->location ? $quest->location->id : null)->placeholder('Select a location')->class('form-control') }}
+                {{ html()->select('location_id', $locations->pluck('name', 'id'), $quest->location ? $quest->location->id : null)->placeholder('Select a location')->class('form-control form-select') }}
             </div>
 
             <div class="form-group">
                 {{ html()->label('Quest Type', 'type') }}
-                {{ html()->select('type', $quest->types)->placeholder('Select a type')->class('form-control') }}
+                {{ html()->select('type', $quest->types)->placeholder('Select a type')->class('form-control form-select') }}
             </div>
 
             <div class="form-group">
