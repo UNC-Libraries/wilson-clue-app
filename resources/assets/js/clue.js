@@ -133,10 +133,10 @@ export const clue = {
   },
 
   initDateTimePicker: function(){
-      $('.datetime-picker').each(function() {
-          let date = $(this).data('date-default-date');
-          // We use FA 4 and default icons are FA 5, so set the FA 4 equivalents below
-          new tempusdominus.TempusDominus($(this), {
+      document.querySelectorAll('.datetime-picker').forEach(function(picker) {
+          let date = picker.dataset['date-default-date'];
+          // We use FA 4 and default icons are FA 6, so set the FA 4 equivalents below
+          new tempusdominus.TempusDominus(picker, {
               defaultDate: new Date(date),
               display: {
                   icons: {
@@ -152,7 +152,7 @@ export const clue = {
                   }
               }
           });
-      });
+     });
   },
 
   initDnaForm: function(){

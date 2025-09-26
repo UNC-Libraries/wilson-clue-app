@@ -5,6 +5,9 @@ import inject from '@rollup/plugin-inject';
 
 export default defineConfig({
     base: './',
+    build: {
+        minify: true,
+    },
     resolve: {
         alias: {
             '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
