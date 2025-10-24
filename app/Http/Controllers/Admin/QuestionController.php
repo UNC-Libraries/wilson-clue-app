@@ -161,6 +161,7 @@ class QuestionController extends Controller
         $question->type = $request->type ? 1 : 0;
         // Update Image
         Log::error("Imagez: ". $request->new_image_file);
+        Log::error("Imagezb: ". $request->answer);
         Log::error("Image: ". $request->file('new_image_file'));
         if ($request->hasFile('new_image_file')) {
             $this->validate($request, [
