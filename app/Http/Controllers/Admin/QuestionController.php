@@ -158,7 +158,7 @@ class QuestionController extends Controller
         $question->fill($request->all());
         $question->type = $request->type ? 1 : 0;
         // Update Image
-        Log::error("Image: ". $request->file('new_image_file')->isValid());
+        Log::error("Image: ". $request->file('new_image_file'));
         if ($request->hasFile('new_image_file')) {
             $this->validate($request, [
                 'new_image_file' => 'max:1024|mimetypes:image/jpeg,image/png,image/svg+xml',
