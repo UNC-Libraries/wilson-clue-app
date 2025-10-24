@@ -89,6 +89,7 @@ class QuestionController extends Controller
                 'new_image_file' => 'max:1024|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
             $path = $request->file('new_image_file')->store('questions', 'public');
+            echo $path; exit;
             Log::warning("Image file path: " . $path);
             $question->src = $path;
             Log::warning("Image file path: " . $question->src);
