@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Location;
 use App\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class QuestionController extends Controller
 {
@@ -152,13 +153,17 @@ class QuestionController extends Controller
         $question->fill($request->all());
         $question->type = $request->type ? 1 : 0;
         // Update Image
+        Log::error("Image: ". json_encode($request->input()));
+        Log::error("Image: ". $request->hasFile('new_image_file'));
         if ($request->file('new_image_file')) {
             $request->validate([
                 'new_image_file' => 'max:1024|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
             $path = $request->file('new_image_file')->store('questions', 'public');
+            Log::error("Image file path: " . $path);
             $question->deleteImage();
             $question->src = $path;
+            Log::error("Image file path: " . $question->src);
         }
 
         // Save question
