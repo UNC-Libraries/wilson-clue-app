@@ -82,7 +82,6 @@ class QuestionController extends Controller
         $question = new Question;
         $question->fill($request->all());
         $question->type = $request->type ? 1 : 0;
-        print_r($request->all()); exit;
         // Add Image
         Log::warning("Image: ". $request->file('new_image_file'));
         if ($request->file('new_image_file')) {
@@ -90,7 +89,6 @@ class QuestionController extends Controller
                 'new_image_file' => 'max:1024|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
             $path = $request->file('new_image_file')->store('questions', 'public');
-            echo $path; exit;
             Log::warning("Image file path: " . $path);
             $question->src = $path;
             Log::warning("Image file path: " . $question->src);
@@ -160,13 +158,16 @@ class QuestionController extends Controller
         $question->fill($request->all());
         $question->type = $request->type ? 1 : 0;
         // Update Image
+        Log::warning("Image: ". $request->file('new_image_file'));
         if ($request->file('new_image_file')) {
             $this->validate($request, [
                 'new_image_file' => 'max:1024|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
             $path = $request->file('new_image_file')->store('questions', 'public');
+            Log::warning("Image file path: " . $path);
             $question->deleteImage();
             $question->src = $path;
+            Log::warning("Image file path: " . $question->src);
         }
 
         // Save question
