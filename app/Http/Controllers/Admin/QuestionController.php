@@ -156,6 +156,9 @@ class QuestionController extends Controller
         // Load and fill question
         $question = Question::findOrFail($id);
         $question->fill($request->all());
+
+        Log::error("Image: ". print_r($request->all()));
+        Log::error("Image: ". $request->hasFile('new_image_file'));
         $question->type = $request->type ? 1 : 0;
         // Update Image
         Log::error("Image: ". $request->file('new_image_file'));
