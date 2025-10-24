@@ -82,6 +82,7 @@ class QuestionController extends Controller
         $question = new Question;
         $question->fill($request->all());
         $question->type = $request->type ? 1 : 0;
+        print_r($request->all()); exit;
         // Add Image
         Log::warning("Image: ". $request->file('new_image_file'));
         if ($request->file('new_image_file')) {
