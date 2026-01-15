@@ -2,7 +2,9 @@ import './jquery_wrapper'
 import 'bootstrap/dist/js/bootstrap.bundle';
 import tempusdominus from '@eonasdan/tempus-dominus/dist/js/tempus-dominus'
 import ClipboardJS from 'clipboard';
+import Sortable from 'sortablejs';
 import Swiper from 'swiper/bundle';
+
 
 export const clue = {
   admin: function(){
