@@ -48,7 +48,7 @@ Route::middleware('activeGame')->group(function () {
     /***************************
      * Requires authentication routes...
      */
-    Route::middleware('auth:player', 'player')->group(function () {
+  //  Route::middleware('auth:player', 'player')->group(function () {
         Route::middleware('validTeam')->group(function () {
             Route::get('start', [UiController::class, 'index'])->name('ui.index');
             // These require and active game
@@ -85,7 +85,7 @@ Route::middleware('activeGame')->group(function () {
         Route::post('team', [RegistrationController::class, 'updateTeam'])->name('enlist.updateTeam');
         Route::post('team/add-player', [RegistrationController::class, 'addPlayer'])->name('enlist.updateTeam.addPlayer');
         Route::post('remove-player/{playerId}', [RegistrationController::class, 'removePlayer'])->name('enlist.updateTeam.removePlayer');
-    });
+  //  });
 });
 
 /***************************
