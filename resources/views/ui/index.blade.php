@@ -3,7 +3,7 @@
 @section('content')
     <div class="container" style="margin-bottom: 2rem;">
         <div class="row">
-            <div class="col-12" id="indictment">
+            <div class="col-12 mt-2" id="indictment">
                 @if(empty($game->inProgress))
                     <div class="alert alert-danger text-center" role="alert">
                         <h5>The game has ended, please report back to the lobby!</h5>

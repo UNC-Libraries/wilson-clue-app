@@ -96,6 +96,11 @@ legend {
 ****************/
 .navbar.fixed-top {
   color: white;
+
+  &:has(.collapsed) {
+    background-color: white;
+  }
+
 }
 .quest-header {
   background-color: $gray-base;
