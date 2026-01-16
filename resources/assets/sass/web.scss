@@ -48,6 +48,16 @@ h1, h2, h3 {
       text-decoration: underline;
     }
   }
+  small {
+    a {
+      color: inherit;
+
+      &:focus,
+      &:hover {
+        color: inherit;
+      }
+    }
+  }
 }
 
 .light-section {
