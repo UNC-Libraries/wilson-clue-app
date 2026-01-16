@@ -16,9 +16,11 @@
             <div class="col-12">
                 <h2>Case File Items</h2>
                 @foreach($game->case_file_items as $key => $item)
-                    <button type="button" class="btn btn-primary btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#cfModal{{ $key }}">
-                        {{ $item->title }}
-                    </button>
+                    @if($item->title != '')
+                        <button type="button" class="btn btn-primary btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#cfModal{{ $key }}">
+                            {{ $item->title }}
+                        </button>
+                    @endif
                 @endforeach
             </div>
         </div>
@@ -35,7 +37,7 @@
                             {{ html()->label('Select the Collection Item', 'evidence') }}
                             {{ html()->select('evidence', $game->evidence->pluck('title', 'id')->all(), $team->evidence ? $team->evidence->id : null)->class('form-control form-select') }}
                         </div>
-                        <input type="submit" class="btn btn-secondary" value="Submit">
+                        <input type="submit" class="btn btn-secondary mt-2" value="Submit">
                         {{ html()->form()->close() }}
                     </div>
                 </div>
