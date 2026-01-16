@@ -95,10 +95,11 @@ legend {
  Quest Interface
 ****************/
 .navbar.fixed-top {
+  background-color: white;
   color: white;
 
-  &:has(.collapsed) {
-    background-color: white;
+  &:has(.show) {
+    background-color: transparent;
   }
 
 }
