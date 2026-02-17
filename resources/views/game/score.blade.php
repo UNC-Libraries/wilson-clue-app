@@ -35,7 +35,7 @@
                 <h3>Bonus Points</h3>
                 {{ html()->form('POST', route('admin.game.bonus', [$game->id]))->class('form-inline')->open() }}
                     <div class="form-group">
-                        {{ html()->select('team_id', $teams->sortBy('name')->pluck('name', 'id')->all())->placeholder('Select a team')->class('form-control') }}
+                        {{ html()->select('team_id', $teams->sortBy('name')->pluck('name', 'id')->all())->placeholder('Select a team')->class('form-control form-select') }}
                     </div>
                     <div class="form-group">
                         {{ html()->number('points', 0)->class('form-control') }}

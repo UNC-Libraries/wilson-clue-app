@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -71,7 +72,8 @@ class Question extends Model
     /***********************************
      * SCOPES
      ***********************************/
-    public function scopeOfQuest($query, $questId)
+    #[Scope]
+    protected function ofQuest($query, $questId)
     {
         return $query->whereHas('quests', function ($scopeQuery) use ($questId) {
             $scopeQuery->where('id', $questId);

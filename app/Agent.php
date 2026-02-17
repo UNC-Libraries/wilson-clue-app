@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\File;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
@@ -74,12 +75,14 @@ class Agent extends Authenticatable implements LdapAuthenticatable
      * SCOPES
      ***********************************/
 
-    public function scopeActive($query)
+    #[Scope]
+    protected function active($query)
     {
         $query->where('retired', '=', 0)->where('web_display', '=', 1);
     }
 
-    public function scopeRetired($query)
+    #[Scope]
+    protected function retired($query)
     {
         $query->where('retired', '=', 1)->where('web_display', '=', 1);
     }

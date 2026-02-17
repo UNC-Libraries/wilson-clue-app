@@ -10,7 +10,7 @@
     <!-- Question Location -->
     <div class="form-group col-12 col-sm-3">
         {{ html()->label('Location', 'location_id')->class('fw-bold mb-1') }}
-        {{ html()->select('location_id', $locations->pluck('name', 'id'), $question->location ? $question->location->id : null)->placeholder('Select a location')->class('form-control')->required() }}
+        {{ html()->select('location_id', $locations->pluck('name', 'id'), $question->location ? $question->location->id : null)->placeholder('Select a location')->class('form-control form-select')->required() }}
     </div>
 </div>
 <div class="row">

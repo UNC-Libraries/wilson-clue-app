@@ -58,13 +58,13 @@
     <!-- Class -->
     <div class="form-group col-12 col-sm-4">
         {{ html()->label('Class', 'class_code')->class('fw-bold mb-1')  }}
-        {{ html()->select('class_code', $player::CLASS_OPTIONS, $player->class_code)->class('form-control')->required() }}
+        {{ html()->select('class_code', $player::CLASS_OPTIONS, $player->class_code)->class('form-control form-select')->required() }}
     </div>
 
     <!-- Group -->
     <div class="form-group col-12 col-sm-4">
         {{ html()->label('Academic Group', 'academic_group_code')->class('fw-bold mb-1')  }}
-        {{ html()->select('academic_group_code', $player::ACADEMIC_GROUP_OPTIONS, $player->academic_group_code)->class('form-control')->required() }}
+        {{ html()->select('academic_group_code', $player::ACADEMIC_GROUP_OPTIONS, $player->academic_group_code)->class('form-control form-select')->required() }}
     </div>
 
 </div>

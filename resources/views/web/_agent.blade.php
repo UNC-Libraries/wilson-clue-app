@@ -8,12 +8,14 @@
             <dd>{{ $agent->location }}</dd>
         </dl>
     </div>
-    <script type="application/ld+json">
-        {
-          "@context": "http://schema.org",
-          "@type": "Person",
-          "image": "{{$agent->src}}",
-          "name": "{{ $agent->full_name }}"
-        }
-    </script>
+    @verbatim
+        <script type="application/ld+json">
+            {
+              "@context": "http://schema.org",
+              "@type": "Person",
+              "image": "{{$agent->src}}",
+              "name": "{{ $agent->full_name }}"
+            }
+        </script>
+    @endverbatim
 </div>

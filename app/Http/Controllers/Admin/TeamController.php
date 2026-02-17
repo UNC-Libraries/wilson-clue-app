@@ -77,7 +77,7 @@ class TeamController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+        $request->validate([
             'name' => 'required',
         ]);
 
@@ -162,7 +162,7 @@ class TeamController extends Controller
                 return redirect()->back()->withErrors($warnings)->withInput();
             }
         } else {
-            $this->validate($request, [
+            $request->validate([
                 'email' => 'required | email',
                 'password' => 'required',
                 'first_name' => 'required',

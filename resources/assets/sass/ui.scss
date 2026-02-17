@@ -1,7 +1,7 @@
-@import "font-awesome/scss/font-awesome";
 @import "bootstrap/scss/bootstrap";
 @import "mixins/variables.ui";
 @import "mixins/variables.font-awesome";
+@import "font-awesome/scss/font-awesome";
 @import url(//fonts.googleapis.com/css?family=Josefin+Sans:400,700|Montserrat:900);
 
 body {
@@ -95,7 +95,13 @@ legend {
  Quest Interface
 ****************/
 .navbar.fixed-top {
+  background-color: white;
   color: white;
+
+  &:has(.show) {
+    background-color: transparent;
+  }
+
 }
 .quest-header {
   background-color: $gray-base;
@@ -158,7 +164,6 @@ legend {
 #gamenav {
   background-color: white;
   border: 1px solid darken($gray-light, 10%);
-  width: fit-content;
   padding: 10px;
   border-radius: 4px;
 }

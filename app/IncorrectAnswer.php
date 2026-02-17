@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -51,17 +52,20 @@ class IncorrectAnswer extends Model
      * SCOPES
      ***********************************/
 
-    public function scopeJudged($query)
+    #[Scope]
+    protected function judged($query)
     {
         return $query->where('judged', '=', 1);
     }
 
-    public function scopeNotJudged($query)
+    #[Scope]
+    protected function notJudged($query)
     {
         return $query->where('judged', '=', 0);
     }
 
-    public function scopeOfGame($query, $id)
+    #[Scope]
+    protected function ofGame($query, $id)
     {
         return $query->whereHas('question', function ($query) use ($id) {
             $query->whereHas('quests', function ($query) use ($id) {

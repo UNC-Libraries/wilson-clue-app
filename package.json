@@ -6,10 +6,12 @@
         "dev": "vite"
     },
     "devDependencies": {
-        "@eonasdan/tempus-dominus": "^6.9.9",
+        "@eonasdan/tempus-dominus": "^6.10.4",
         "@popperjs/core": "^2.11.8",
+        "@rollup/plugin-inject": "^5.0.5",
         "bootstrap": "^5.3.7",
         "clipboard": "^2.0.11",
+        "concurrently": "^9.0.1",
         "font-awesome": "^4.7.0",
         "jquery": "^3.7.1",
         "laravel-vite-plugin": "^1.3.0",
@@ -17,7 +19,8 @@
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.77.3",
         "sass-loader": "^14.2.1",
-        "sortablejs": "git+https://github.com/RubaXa/Sortable.git",
-        "vite": "^6.3.5"
+        "sortablejs": "^1.15.6",
+        "swiper": "^12.0.2",
+        "vite": "^6.3.6"
     }
 }
