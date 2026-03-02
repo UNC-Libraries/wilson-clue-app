@@ -69,7 +69,7 @@ class QuestionController extends Controller
     {
 
         // Validate
-        $this->validate($request, [
+        $request->validate([
             'text' => 'required',
             'full_answer' => 'required',
             'answer' => 'required',
@@ -82,7 +82,7 @@ class QuestionController extends Controller
         $question->type = $request->type ? 1 : 0;
         // Add Image
         if ($request->file('new_image_file')) {
-            $this->validate($request, [
+            $request->validate([
                 'new_image_file' => 'max:1024|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
             $path = $request->file('new_image_file')->store('questions', 'public');
@@ -140,7 +140,7 @@ class QuestionController extends Controller
     {
 
         // Validate
-        $this->validate($request, [
+        $request->validate([
             'text' => 'required',
             'full_answer' => 'required',
             'answer' => 'required',
@@ -153,7 +153,7 @@ class QuestionController extends Controller
         $question->type = $request->type ? 1 : 0;
         // Update Image
         if ($request->file('new_image_file')) {
-            $this->validate($request, [
+            $request->validate([
                 'new_image_file' => 'max:1024|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
             $path = $request->file('new_image_file')->store('questions', 'public');

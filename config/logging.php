@@ -9,6 +9,7 @@ return [
             'driver' => 'single',
             'path' => env('LOG_CHANNEL_PATH', storage_path('logs/laravel.log')),
             'level' => env('LOG_LEVEL', 'debug'),
+            'replace_placeholders' => true,
         ],
 
         'daily' => [
@@ -16,6 +17,7 @@ return [
             'path' => env('LOG_CHANNEL_PATH', storage_path('logs/laravel.log')),
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => 14,
+            'replace_placeholders' => true,
         ],
     ],
 

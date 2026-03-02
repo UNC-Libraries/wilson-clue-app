@@ -20,10 +20,10 @@
                     <label class="fw-bold">Sort By:</label>
                     <div class="row">
                         <div class="col-12 col-sm-7">
-                            {{ html()->select('sort_by', $sortOptions, $selectedSort)->class('form-control auto-submit') }}
+                            {{ html()->select('sort_by', $sortOptions, $selectedSort)->class('form-control auto-submit form-select') }}
                         </div>
                         <div class="col-12 col-sm-5">
-                            {{ html()->select('sort_order', $sortOrder, $selectedSortOrder)->class('form-control auto-submit') }}
+                            {{ html()->select('sort_order', $sortOrder, $selectedSortOrder)->class('form-control auto-submit form-select') }}
                         </div>
                     </div>
                 </div>

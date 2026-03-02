@@ -9,12 +9,12 @@
     {{ html()->form('GET', route('admin.question.index'))->id('questionFilterForm')->class('row')->open() }}
         <div class="form-group col-12 col-sm-4">
             {{ html()->label('Filter By Location', 'location_id')->class('fw-bold mb-1') }}
-            {{ html()->select('location_id', $locations->pluck('name', 'id'), $location)->placeholder('Select a location')->class('form-control auto-submit')->data('target', '#questionFilterForm') }}
+            {{ html()->select('location_id', $locations->pluck('name', 'id'), $location)->placeholder('Select a location')->class('form-control auto-submit form-select')->data('target', '#questionFilterForm') }}
         </div>
 
         <div class="form-group col-12 col-sm-4">
             {{ html()->label('Filter By Game', 'game_id')->class('fw-bold mb-1') }}
-            {{ html()->select('game_id', $games->pluck('name', 'id'), $game)->placeholder('Select a game')->class('form-control auto-submit')->data('target', '#questionFilterForm') }}
+            {{ html()->select('game_id', $games->pluck('name', 'id'), $game)->placeholder('Select a game')->class('form-control auto-submit form-select')->data('target', '#questionFilterForm') }}
         </div>
 
         <div class="form-group col-12 col-sm-4">

@@ -184,7 +184,7 @@ class UiController extends Controller
     public function setIndictment(Request $request)
     {
         $team = Team::find($request->session()->get('teamId'));
-        $this->validate($request, [
+        $request->validate([
             'suspect' => 'required',
             'location' => 'required',
             'evidence' => 'required',
@@ -211,7 +211,7 @@ class UiController extends Controller
      */
     public function attemptQuestion(Request $request, $id)
     {
-        $this->validate($request, [
+        $request->validate([
             'attempt' => 'required',
         ]);
         $teamId = $request->session()->get('teamId');
@@ -247,7 +247,7 @@ class UiController extends Controller
      */
     public function attemptMinigame(Request $request, $id)
     {
-        $this->validate($request, [
+        $request->validate([
             'attempt' => 'required',
         ]);
 
@@ -295,7 +295,7 @@ class UiController extends Controller
      */
     public function attemptDna(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'attempt' => 'required',
         ]);
         $teamId = $request->session()->get('teamId');
@@ -328,7 +328,7 @@ class UiController extends Controller
      */
     public function setEvidence(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'evidence' => 'required',
         ]);
         $teamId = $request->session()->get('teamId');

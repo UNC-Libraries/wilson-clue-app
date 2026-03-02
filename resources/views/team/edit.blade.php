@@ -131,11 +131,11 @@
                             </div>
                             <div class="form-group col-12 col-sm-6">
                                 {{ html()->label('Class', 'class_code') }}
-                                {{ html()->select('class_code', $class_options, 'new')->class('form-control')->placeholder('Select a Class') }}
+                                {{ html()->select('class_code', $class_options, 'new')->class('form-control form-select')->placeholder('Select a Class') }}
                             </div>
                             <div class="form-group col-12 col-sm-6">
                                 {{ html()->label('Academic Group', 'academic_group_code') }}
-                                {{ html()->select('academic_group_code', $academic_group_options, 'new')->class('form-control')->placeholder('Select a Class') }}
+                                {{ html()->select('academic_group_code', $academic_group_options, 'new')->class('form-control form-select')->placeholder('Select a Class') }}
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                             {{ html()->form()->close() }}

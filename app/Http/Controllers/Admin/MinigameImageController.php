@@ -39,7 +39,7 @@ class MinigameImageController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'name' => 'required',
             'year' => 'required',
         ]);
@@ -48,7 +48,7 @@ class MinigameImageController extends Controller
         $minigameImage->fill($request->all());
         // Add Image
         if ($request->file('new_image_file')) {
-            $this->validate($request, [
+            $request->validate([
                 'new_image_file' => 'max:1024|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
             $path = $request->file('new_image_file')->store('minigame_images', 'public');
@@ -83,7 +83,7 @@ class MinigameImageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+        $request->validate([
             'name' => 'required',
             'year' => 'required',
         ]);
@@ -92,7 +92,7 @@ class MinigameImageController extends Controller
         $minigameImage->fill($request->all());
         // Update Image
         if ($request->file('new_image_file')) {
-            $this->validate($request, [
+            $request->validate([
                 'new_image_file' => 'max:1024|mimetypes:image/jpeg,image/png,image/svg+xml',
             ]);
             $path = $request->file('new_image_file')->store('minigame_images', 'public');

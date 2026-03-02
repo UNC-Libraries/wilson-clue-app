@@ -9,7 +9,7 @@
     <!-- Floor -->
     <div class="form-group col-12 col-sm-4 mb-3">
         {{ html()->label('Floor', 'floor')->class('fw-bold mb-1')  }}
-        {{ html()->select('floor', ['1' => '1', '2' => '2', '3' => '3', '4' => '4'], $location->floor)->placeholder('Select a floor')->class('form-control') }}
+        {{ html()->select('floor', ['1' => '1', '2' => '2', '3' => '3', '4' => '4'], $location->floor)->placeholder('Select a floor')->class('form-control form-select') }}
     </div>
 
     <!-- Map section -->

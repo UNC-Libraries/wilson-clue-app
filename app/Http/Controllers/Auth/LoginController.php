@@ -8,9 +8,11 @@ use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class LoginController extends Controller implements HasMiddleware
 {
     /*
     |--------------------------------------------------------------------------
@@ -27,19 +29,14 @@ class LoginController extends Controller
 
     /**
      * Where to redirect users after login.
-     *
-     * @var string
      */
     protected string $redirectTo = '/start';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware('guest')->except('logout');
+        return [
+            new Middleware('guest', except: ['logout']),
+        ];
     }
 
     protected function guard(): Guard|StatefulGuard
@@ -63,7 +60,7 @@ class LoginController extends Controller
             'password' => $request->get('password'),
             'fallback' => [
                 'onyen' => $request->get('onyen'),
-                'password' => $request->get('password')
+                'password' => $request->get('password'),
             ],
         ];
     }
@@ -76,8 +73,6 @@ class LoginController extends Controller
 
     /**
      * Get the failed login response instance.
-     *
-     * @return RedirectResponse
      */
     protected function sendFailedLoginResponse(Request $request): RedirectResponse
     {
