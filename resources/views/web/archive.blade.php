@@ -80,32 +80,32 @@
             </div>
         </div>
     </section>
-
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Event",
-        "endDate": "{{$game->start_time->format('Y-m-d')}}",
-        "startDate": "{{$game->start_time->format('Y-m-d')}}>",
-        "name": "Wilson Clue - {{$game->name}}",
-        "location": {
-            "@type":"Place",
-            "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Chapel Hill",
-                "addressRegion": "NC",
-                "postalCode": "27514",
-                "streetAddress": "Wilson Library"
-            },
-            "name": "Wilson Library"
-        },
-        "sameAs": "http://clue.unc.edu",
-        "organizer":
-        {
-            "@id":"http://library.unc.edu/wilson/"
-        },
-        "url": "http://clue.unc.edu/archive/{{$game->id}}"
-    }
-</script>
-
+    @verbatim
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "Event",
+                "endDate": "{{$game->start_time->format('Y-m-d')}}",
+                "startDate": "{{$game->start_time->format('Y-m-d')}}>",
+                "name": "Wilson Clue - {{$game->name}}",
+                "location": {
+                    "@type":"Place",
+                    "address": {
+                        "@type": "PostalAddress",
+                        "addressLocality": "Chapel Hill",
+                        "addressRegion": "NC",
+                        "postalCode": "27514",
+                        "streetAddress": "Wilson Library"
+                    },
+                    "name": "Wilson Library"
+                },
+                "sameAs": "http://clue.unc.edu",
+                "organizer":
+                {
+                    "@id":"http://library.unc.edu/wilson/"
+                },
+                "url": "http://clue.unc.edu/archive/{{$game->id}}"
+            }
+        </script>
+    @endverbatim
 @stop
