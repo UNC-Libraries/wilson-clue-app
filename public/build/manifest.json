@@ -58,7 +58,7 @@
     "src": "public/fonts/socialicon-icomoon.woff"
   },
   "resources/assets/js/app.js": {
-    "file": "assets/app-zmVnwcCU.js",
+    "file": "assets/app-DBQfeQPq.js",
     "name": "app",
     "src": "resources/assets/js/app.js",
     "isEntry": true,
@@ -67,17 +67,17 @@
     ]
   },
   "resources/assets/sass/admin.scss": {
-    "file": "assets/admin-cE-XeWZs.css",
+    "file": "assets/admin-BoMMh7F3.css",
     "src": "resources/assets/sass/admin.scss",
     "isEntry": true
   },
   "resources/assets/sass/ui.scss": {
-    "file": "assets/ui-CvpuKl2Z.css",
+    "file": "assets/ui-BXovPQn4.css",
     "src": "resources/assets/sass/ui.scss",
     "isEntry": true
   },
   "resources/assets/sass/web.scss": {
-    "file": "assets/web-12X7kKK2.css",
+    "file": "assets/web-C6W_KNaV.css",
     "src": "resources/assets/sass/web.scss",
     "isEntry": true
   }
