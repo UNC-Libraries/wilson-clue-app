@@ -15,3 +15,4 @@ yarn-error.log
 log/capistrano.log
 
 /.phpunit.cache
+.phpunit.result.cache
