@@ -583,12 +583,8 @@ class QuestControllerTest extends TestCase
 
         $response->assertRedirect(route('admin.game.edit', $game->id));
 
-        // The controller calls attach(explode(',', '')) which passes [''] and
-        // inserts a row with a null/zero minigame_image_id rather than no row.
-        // Assert no valid (non-zero) minigame image is linked to the quest.
         $this->assertDatabaseMissing('minigame_image_quest', [
             'quest_id' => $quest->id,
-            'minigame_image_id' => MinigameImage::factory()->create()->id,
         ]);
     }
 

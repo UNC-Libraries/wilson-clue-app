@@ -122,7 +122,13 @@ class QuestController extends Controller
                 $quest->questions()->attach($attachArray);
                 break;
             case 'minigame':
-                $quest->minigameImages()->attach(explode(',', $request->input('minigame_image_list')));
+                //  explode(',', '') always returns [''] — never an empty array.
+                // So when minigame_image_list is an empty string,
+                // Clue tries to insert minigame_image_id = '' which MySQL rejects with an integer constraint error.
+                // array_filter removes empty strings produced by explode(',', '')
+                // on minigame_image_id. The question case above uses the same guard.
+                $ids = array_filter(explode(',', $request->input('minigame_image_list')));
+                $quest->minigameImages()->attach($ids);
                 break;
         }
 
