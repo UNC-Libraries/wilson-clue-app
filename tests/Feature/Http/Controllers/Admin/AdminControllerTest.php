@@ -17,19 +17,6 @@ class AdminControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function setUp(): void
-    {
-        // Force an in-memory SQLite database before the application boots so
-        // that RefreshDatabase can run migrate:fresh locally without the VM's
-        // MySQL server being reachable.
-        putenv('DB_CONNECTION=sqlite');
-        putenv('DB_DATABASE=:memory:');
-        $_ENV['DB_CONNECTION'] = 'sqlite';
-        $_ENV['DB_DATABASE']   = ':memory:';
-
-        parent::setUp();
-    }
-
     private function actingAsAdmin(): AdminControllerTest
     {
         /** @var \App\Agent $admin */
@@ -259,10 +246,23 @@ class AdminControllerTest extends TestCase
         $quest->questions()->attach($question->id, ['order' => 1]);
         $quest->minigameImages()->attach($minigameImage->id);
 
-        // Controller only loops non-trashed related teams/quests and contains
-        // a detatch() typo for team relations. This path does not currently
-        // guarantee pivot cleanup for soft-deleted children.
-        $this->markTestSkipped('Known controller bug/behavior around delete() relation cleanup.');
+        $response = $this->actingAsAdmin()
+            ->delete(route('admin.delete', $game->id));
+
+        $response->assertRedirect(route('admin'));
+
+        $this->assertDatabaseMissing('quest_team', [
+            'quest_id' => $quest->id,
+            'team_id' => $team->id,
+        ]);
+        $this->assertDatabaseMissing('quest_question', [
+            'quest_id' => $quest->id,
+            'question_id' => $question->id,
+        ]);
+        $this->assertDatabaseMissing('minigame_image_quest', [
+            'quest_id' => $quest->id,
+            'minigame_image_id' => $minigameImage->id,
+        ]);
     }
 
     public function test_delete_detaches_team_relationships_before_deletion(): void
@@ -277,15 +277,23 @@ class AdminControllerTest extends TestCase
         $team->correctQuestions()->attach($question->id);
         $team->foundDna()->attach($dna->id);
 
-        $game->delete();
+        $response = $this->actingAsAdmin()
+            ->delete(route('admin.delete', $game->id));
 
-        // Note: the controller contains a typo — detatch() instead of detach() —
-        // which causes a BadMethodCallException when this code path is reached.
-        // This test documents the expected behaviour once the typo is corrected.
-        // Until then it is skipped to avoid a false failure against a known bug.
-        $this->markTestSkipped(
-            'Controller calls $t->players()->detatch() (typo). Fix to detach() to enable this test.'
-        );
+        $response->assertRedirect(route('admin'));
+
+        $this->assertDatabaseMissing('player_team', [
+            'team_id' => $team->id,
+            'player_id' => $player->id,
+        ]);
+        $this->assertDatabaseMissing('question_team', [
+            'team_id' => $team->id,
+            'question_id' => $question->id,
+        ]);
+        $this->assertDatabaseMissing('ghost_dna_team', [
+            'team_id' => $team->id,
+            'ghost_dna_id' => $dna->id,
+        ]);
     }
 
     public function test_delete_deletes_team_incorrect_answers(): void
@@ -299,35 +307,44 @@ class AdminControllerTest extends TestCase
             'question_id' => $question->id,
         ]);
 
-        $game->delete();
+        $response = $this->actingAsAdmin()
+            ->delete(route('admin.delete', $game->id));
 
-        // Same controller typo (detatch) is hit before incorrectAnswers()->delete().
-        // Skipped until the typo is corrected.
-        $this->markTestSkipped(
-            'Controller calls $t->players()->detatch() (typo). Fix to detach() to enable this test.'
-        );
+        $response->assertRedirect(route('admin'));
+
+        $this->assertDatabaseMissing('incorrect_answers', [
+            'id' => $incorrectAnswer->id,
+            'team_id' => $team->id,
+        ]);
     }
 
     public function test_delete_force_deletes_teams_and_quests(): void
     {
-        $this->markTestSkipped(
-            'Controller calls detatch() (typo) on team relations, causing delete() to 500 before force delete.'
-        );
+        $game = Game::factory()->create();
+        $team = Team::factory()->create(['game_id' => $game->id]);
+        $quest = Quest::factory()->create(['game_id' => $game->id]);
+
+        $response = $this->actingAsAdmin()
+            ->delete(route('admin.delete', $game->id));
+
+        $response->assertRedirect(route('admin'));
+
+        $this->assertDatabaseMissing('games', ['id' => $game->id]);
+        $this->assertDatabaseMissing('teams', ['id' => $team->id]);
+        $this->assertDatabaseMissing('quests', ['id' => $quest->id]);
     }
 
     public function test_delete_handles_game_with_multiple_teams_and_quests(): void
     {
-        $this->markTestSkipped(
-            'Controller calls detatch() (typo) on team relations, causing delete() to 500 before completion.'
-        );
-    }
+        $game = Game::factory()->create();
+        Team::factory()->count(2)->create(['game_id' => $game->id]);
+        Quest::factory()->count(2)->create(['game_id' => $game->id]);
 
-    public function test_delete_returns_404_for_nonexistent_game(): void
-    {
         $response = $this->actingAsAdmin()
-            ->delete(route('admin.delete', 999999));
+            ->delete(route('admin.delete', $game->id));
 
-        $response->assertStatus(404);
+        $response->assertRedirect(route('admin'));
+        $this->assertDatabaseMissing('games', ['id' => $game->id]);
     }
 
     // -------------------------------------------------------------------------
