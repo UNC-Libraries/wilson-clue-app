@@ -12,6 +12,8 @@ Homestead.json
 npm-debug.log
 yarn-error.log
 .env
+.env.testing
 log/capistrano.log
 
 /.phpunit.cache
+.phpunit.result.cache

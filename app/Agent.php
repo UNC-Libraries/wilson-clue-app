@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\File;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
@@ -10,7 +11,7 @@ use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 
 class Agent extends Authenticatable implements LdapAuthenticatable
 {
-    use AuthenticatesWithLdap;
+    use AuthenticatesWithLdap, HasFactory;
     /***********************************
      * ATTRIBUTES
      ***********************************/
@@ -28,7 +29,6 @@ class Agent extends Authenticatable implements LdapAuthenticatable
         'title',
         'location',
         'retired',
-        'bio',
         'web_display',
         'admin',
         'src',
@@ -40,7 +40,7 @@ class Agent extends Authenticatable implements LdapAuthenticatable
      * @var array
      */
     protected $appends = [
-        'full_name' => '',
+        'full_name',
     ];
 
     /**

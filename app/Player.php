@@ -4,6 +4,7 @@ namespace App;
 
 use App\Ldap\PlayerUser;
 use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
@@ -12,7 +13,7 @@ use LdapRecord\Models\ActiveDirectory\User;
 
 class Player extends Authenticatable implements LdapAuthenticatable
 {
-    use AuthenticatesWithLdap;
+    use AuthenticatesWithLdap, HasFactory;
     /***********************************
      * ATTRIBUTES
      ***********************************/
@@ -23,9 +24,9 @@ class Player extends Authenticatable implements LdapAuthenticatable
      * @var array
      */
     protected $appends = [
-        'full_name' => '',
-        'class' => '',
-        'academic_group' => '',
+        'full_name',
+        'class',
+        'academic_group',
     ];
 
     protected $fillable = [

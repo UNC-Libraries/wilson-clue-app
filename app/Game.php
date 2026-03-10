@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Game extends Model
 {
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     /***********************************
      * ATTRIBUTES
@@ -65,10 +66,15 @@ class Game extends Model
     protected function casts(): array
     {
         return [
-            'start_time' => 'datetime',
-            'end_time' => 'datetime',
-            'active' => 'boolean',
-            'students_only' => 'boolean',
+            'start_time'      => 'datetime',
+            'end_time'        => 'datetime',
+            'active'          => 'boolean',
+            'students_only'   => 'boolean',
+            // Automatically JSON-encodes on write and JSON-decodes on read so
+            // that blade views always receive an array rather than a raw JSON
+            // string. The old setCaseFileItemsAttribute mutator was removed
+            // because it conflicted with this cast, causing double-encoding.
+            'case_file_items' => 'array',
         ];
     }
 
@@ -209,13 +215,5 @@ class Game extends Model
     public function getSolutionAttribute()
     {
         return ['suspect' => $this->suspect_id, 'location' => $this->location_id, 'evidence' => $this->evidence_id];
-    }
-
-    /***********************************
-     * MUTATORS
-     ***********************************/
-    public function setCaseFileItemsAttribute($value)
-    {
-        $this->attributes['case_file_items'] = json_encode($value);
     }
 }

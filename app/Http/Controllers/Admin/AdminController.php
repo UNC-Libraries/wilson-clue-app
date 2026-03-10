@@ -45,9 +45,9 @@ class AdminController extends Controller
         }
 
         foreach ($game->teams as $t) {
-            $t->players()->detatch();
-            $t->correctQuestions()->detatch();
-            $t->foundDna()->detatch();
+            $t->players()->detach();
+            $t->correctQuestions()->detach();
+            $t->foundDna()->detach();
             $t->incorrectAnswers()->delete();
         }
 
