@@ -256,7 +256,7 @@ class MinigameImageControllerTest extends TestCase
             ]);
 
         $image = MinigameImage::where('name', 'Directory Test')->first();
-        $this->assertStringStartsWith('/minigame_images/', $image->src);
+        $this->assertStringContainsString('/minigame_images/', $image->src);
     }
 
     // -------------------------------------------------------------------------

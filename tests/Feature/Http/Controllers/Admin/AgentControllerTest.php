@@ -421,8 +421,8 @@ class AgentControllerTest extends TestCase
         $response->assertRedirect(route('admin.agent.index'));
 
         $fresh = $agent->fresh();
-        $this->assertNotEquals($oldPath, $fresh->src);
-        Storage::disk('public')->assertExists($fresh->src);
+        $this->assertNotEquals($oldPath, $fresh->getRawOriginal('src'));
+        Storage::disk('public')->assertExists($fresh->getRawOriginal('src'));
     }
 
     public function test_update_validates_new_image_file_size(): void

@@ -258,7 +258,7 @@ class QuestionControllerTest extends TestCase
 
         $question = Question::where('text', 'Question with image')->first();
         $this->assertNotNull($question->src);
-        Storage::disk('public')->assertExists($question->src);
+        Storage::disk('public')->assertExists($question->getRawOriginal('src'));
     }
 
     public function test_store_validates_image_file_size(): void
@@ -516,8 +516,8 @@ class QuestionControllerTest extends TestCase
         $response->assertRedirect();
 
         $fresh = $question->fresh();
-        $this->assertNotEquals($oldPath, $fresh->src);
-        Storage::disk('public')->assertExists($fresh->src);
+        $this->assertNotEquals($oldPath, $fresh->getRawOriginal('src'));
+        Storage::disk('public')->assertExists($fresh->getRawOriginal('src'));
     }
 
     public function test_update_returns_404_for_nonexistent_question(): void

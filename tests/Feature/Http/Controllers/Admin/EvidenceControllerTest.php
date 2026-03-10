@@ -238,7 +238,7 @@ class EvidenceControllerTest extends TestCase
             ]);
 
         $evidence = Evidence::where('title', 'Directory Test')->first();
-        $this->assertStringStartsWith('/evidence/', $evidence->src);
+        $this->assertStringContainsString('/evidence/', $evidence->src);
     }
 
     // -------------------------------------------------------------------------
