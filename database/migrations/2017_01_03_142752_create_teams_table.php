@@ -18,7 +18,11 @@ return new class extends Migration
             $table->integer('suspect_id')->default(0);
             $table->integer('location_id')->default(0);
             $table->integer('evidence_id')->default(0);
-            $table->timestamp('indictment_time');
+            // Nullable so that a team with no indictment yet can be represented
+            // without a sentinel date value. The getIndictmentMadeAttribute
+            // accessor returns false when this is null, preventing the
+            // _indictment_complete view partial from rendering prematurely.
+            $table->timestamp('indictment_time')->nullable();
             $table->boolean('waitlist')->default(1);
             $table->text('dietary')->nullable();
             $table->timestamps();
