@@ -13,18 +13,7 @@ class EvidenceControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function setUp(): void
-    {
-        // Use in-memory SQLite for isolated feature tests.
-        putenv('DB_CONNECTION=sqlite');
-        putenv('DB_DATABASE=:memory:');
-        $_ENV['DB_CONNECTION'] = 'sqlite';
-        $_ENV['DB_DATABASE'] = ':memory:';
-
-        parent::setUp();
-    }
-
-    private function actingAsAdmin()
+    private function actingAsAdmin(): EvidenceControllerTest
     {
         /** @var \App\Agent $admin */
         $admin = \App\Agent::factory()->create(['admin' => true]);

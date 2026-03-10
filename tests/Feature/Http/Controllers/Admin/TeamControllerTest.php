@@ -18,20 +18,7 @@ class TeamControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function setUp(): void
-    {
-        // Force an in-memory SQLite database before the application boots so
-        // that RefreshDatabase can run migrate:fresh locally without the VM's
-        // MySQL server being reachable.
-        putenv('DB_CONNECTION=sqlite');
-        putenv('DB_DATABASE=:memory:');
-        $_ENV['DB_CONNECTION'] = 'sqlite';
-        $_ENV['DB_DATABASE']   = ':memory:';
-
-        parent::setUp();
-    }
-
-    private function actingAsAdmin()
+    private function actingAsAdmin(): TeamControllerTest
     {
         /** @var \App\Agent $admin */
         $admin = \App\Agent::factory()->create(['admin' => true]);

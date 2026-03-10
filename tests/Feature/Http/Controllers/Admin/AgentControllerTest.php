@@ -12,7 +12,7 @@ class AgentControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    private function actingAsAdmin()
+    private function actingAsAdmin(): AgentControllerTest
     {
         /** @var \App\Agent $admin */
         $admin = Agent::factory()->create(['admin' => true]);

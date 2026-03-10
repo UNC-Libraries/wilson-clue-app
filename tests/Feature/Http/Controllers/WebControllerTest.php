@@ -20,12 +20,6 @@ class WebControllerTest extends TestCase
 
     protected function setUp(): void
     {
-        // Force in-memory SQLite so RefreshDatabase does not hit external DB.
-        putenv('DB_CONNECTION=sqlite');
-        putenv('DB_DATABASE=:memory:');
-        $_ENV['DB_CONNECTION'] = 'sqlite';
-        $_ENV['DB_DATABASE'] = ':memory:';
-
         parent::setUp();
 
         if (! Route::has('web.login.test')) {

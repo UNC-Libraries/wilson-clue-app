@@ -13,17 +13,6 @@ class RegistrationControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function setUp(): void
-    {
-        // Use in-memory SQLite so RefreshDatabase is self-contained.
-        putenv('DB_CONNECTION=sqlite');
-        putenv('DB_DATABASE=:memory:');
-        $_ENV['DB_CONNECTION'] = 'sqlite';
-        $_ENV['DB_DATABASE'] = ':memory:';
-
-        parent::setUp();
-    }
-
     // -------------------------------------------------------------------------
     // index
     // -------------------------------------------------------------------------

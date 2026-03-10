@@ -26,14 +26,6 @@ class UiControllerTest extends TestCase
 
     protected function setUp(): void
     {
-        // Force an in-memory SQLite database before the application boots so
-        // that RefreshDatabase can run migrate:fresh locally without the VM's
-        // MySQL server being reachable.
-        putenv('DB_CONNECTION=sqlite');
-        putenv('DB_DATABASE=:memory:');
-        $_ENV['DB_CONNECTION'] = 'sqlite';
-        $_ENV['DB_DATABASE']   = ':memory:';
-
         parent::setUp();
 
         // The game must be "in progress" (start_time < now < end_time) so that
