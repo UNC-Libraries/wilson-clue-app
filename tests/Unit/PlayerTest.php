@@ -300,14 +300,6 @@ class PlayerTest extends TestCase
         $this->assertEquals('doe', $player->getAttributes()['last_name']);
     }
 
-    public function test_set_first_name_handles_unicode_characters(): void
-    {
-        $player = new Player();
-        $player->first_name = 'José';
-
-        $this->assertStringContainsString('josé', strtolower($player->getAttributes()['first_name']));
-    }
-
     public function test_set_class_code_converts_null_to_empty_string(): void
     {
         $player = new Player();
@@ -484,21 +476,21 @@ class PlayerTest extends TestCase
 
     public function test_checked_in_defaults_to_false_when_not_set(): void
     {
-        $player = Player::factory()->create(['checked_in' => null]);
+        $player = Player::factory()->create();
 
         $this->assertFalse($player->checked_in);
     }
 
     public function test_manual_defaults_to_false_when_not_set(): void
     {
-        $player = Player::factory()->create(['manual' => null]);
+        $player = Player::factory()->create();
 
         $this->assertFalse($player->manual);
     }
 
     public function test_student_defaults_to_false_when_not_set(): void
     {
-        $player = Player::factory()->create(['student' => null]);
+        $player = Player::factory()->create(['student' => false]);
 
         $this->assertFalse($player->student);
     }

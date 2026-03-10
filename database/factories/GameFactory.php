@@ -2,10 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Evidence;
 use App\Game;
-use App\Location;
-use App\Suspect;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class GameFactory extends Factory
@@ -26,11 +23,11 @@ class GameFactory extends Factory
     {
         return [
             'name' => $this->faker->words(3, true),
-            'suspect_id' => Suspect::factory(),
-            'location_id' => Location::factory(),
-            'evidence_id' => Evidence::factory(),
+            'suspect_id' => 0,
+            'location_id' => 0,
+            'evidence_id' => 0,
             'max_teams' => $this->faker->numberBetween(10, 30),
-            'winning_team' => null,
+            'winning_team' => 0,
             'start_time' => $this->faker->dateTimeBetween('+1 week', '+2 weeks'),
             'end_time' => $this->faker->dateTimeBetween('+2 weeks', '+3 weeks'),
             'registration' => $this->faker->boolean(80),
@@ -39,8 +36,11 @@ class GameFactory extends Factory
             'special_thanks' => $this->faker->paragraph(),
             'team_accolades' => $this->faker->paragraph(),
             'archive' => false,
-            'case_file_items' => json_encode([]),
-            'evidence_location_id' => Location::factory(),
+            // Pass a plain PHP array; the 'array' cast on Game handles
+            // JSON encoding when the record is persisted to the database.
+            'case_file_items' => [],
+            'evidence_location_id' => 0,
+            'geographic_investigation_location_id' => 0,
             'active' => true,
             'students_only' => false,
         ];
@@ -121,6 +121,44 @@ class GameFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'registration' => false,
+        ]);
+    }
+
+    /**
+     * Indicate that the game has a complete solution set.
+     *
+     * @return self
+     */
+    public function withSolution(): self
+    {
+        return $this->state(fn (array $attributes) => [
+            'suspect_id' => \App\Suspect::factory(),
+            'location_id' => \App\Location::factory(),
+            'evidence_id' => \App\Evidence::factory(),
+        ]);
+    }
+
+    /**
+     * Indicate that the game has an evidence location configured.
+     *
+     * @return self
+     */
+    public function withEvidenceLocation(): self
+    {
+        return $this->state(fn (array $attributes) => [
+            'evidence_location_id' => \App\Location::factory(),
+        ]);
+    }
+
+    /**
+     * Indicate that the game has a geographic investigation location configured.
+     *
+     * @return self
+     */
+    public function withGeographicInvestigationLocation(): self
+    {
+        return $this->state(fn (array $attributes) => [
+            'geographic_investigation_location_id' => \App\Location::factory(),
         ]);
     }
 }

@@ -15,6 +15,19 @@ class QuestControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        // Force an in-memory SQLite database before the application boots so
+        // that RefreshDatabase can run migrate:fresh locally without the VM's
+        // MySQL server being reachable.
+        putenv('DB_CONNECTION=sqlite');
+        putenv('DB_DATABASE=:memory:');
+        $_ENV['DB_CONNECTION'] = 'sqlite';
+        $_ENV['DB_DATABASE']   = ':memory:';
+
+        parent::setUp();
+    }
+
     private function actingAsAdmin()
     {
         /** @var \App\Agent $admin */
@@ -39,7 +52,7 @@ class QuestControllerTest extends TestCase
         ]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.quest.edit', ['gameId' => $game->id, 'questId' => $quest->id]));
+            ->get(route('admin.game.quest.edit', [$game->id, $quest->id]));
 
         $response->assertStatus(200);
         $response->assertViewIs('quest.edit');
@@ -71,7 +84,7 @@ class QuestControllerTest extends TestCase
         $quest->minigameImages()->attach($minigameImage->id);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.quest.edit', ['gameId' => $game->id, 'questId' => $quest->id]));
+            ->get(route('admin.game.quest.edit', [$game->id, $quest->id]));
 
         $response->assertStatus(200);
         $response->assertViewHas('quest', function($q) use ($location, $suspect, $question, $minigameImage) {
@@ -100,7 +113,7 @@ class QuestControllerTest extends TestCase
         $otherLocationQuestion = Question::factory()->create(['location_id' => $otherLocation->id]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.quest.edit', ['gameId' => $game->id, 'questId' => $quest->id]));
+            ->get(route('admin.game.quest.edit', [$game->id, $quest->id]));
 
         $response->assertStatus(200);
         $response->assertViewHas('questions', function($questions) use ($availableQuestion, $attachedQuestion, $otherLocationQuestion) {
@@ -131,7 +144,7 @@ class QuestControllerTest extends TestCase
         ]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.quest.edit', ['gameId' => $game->id, 'questId' => $quest->id]));
+            ->get(route('admin.game.quest.edit', [$game->id, $quest->id]));
 
         $response->assertStatus(200);
         $response->assertViewHas('questions', function($questions) use ($newerQuestion, $olderQuestion) {
@@ -143,7 +156,11 @@ class QuestControllerTest extends TestCase
     public function test_edit_provides_available_minigame_images_excluding_attached(): void
     {
         $game = Game::factory()->create();
-        $quest = Quest::factory()->create(['game_id' => $game->id]);
+        $location = Location::factory()->create();
+        $quest = Quest::factory()->create([
+            'game_id' => $game->id,
+            'location_id' => $location->id,
+        ]);
 
         $attachedImage = MinigameImage::factory()->create();
         $quest->minigameImages()->attach($attachedImage->id);
@@ -151,7 +168,7 @@ class QuestControllerTest extends TestCase
         $availableImage = MinigameImage::factory()->create();
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.quest.edit', ['gameId' => $game->id, 'questId' => $quest->id]));
+            ->get(route('admin.game.quest.edit', [$game->id, $quest->id]));
 
         $response->assertStatus(200);
         $response->assertViewHas('minigameImages', function($images) use ($availableImage, $attachedImage) {
@@ -163,12 +180,16 @@ class QuestControllerTest extends TestCase
     public function test_edit_handles_quest_without_minigame_images(): void
     {
         $game = Game::factory()->create();
-        $quest = Quest::factory()->create(['game_id' => $game->id]);
+        $location = Location::factory()->create();
+        $quest = Quest::factory()->create([
+            'game_id' => $game->id,
+            'location_id' => $location->id,
+        ]);
 
         $availableImage = MinigameImage::factory()->create();
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.quest.edit', ['gameId' => $game->id, 'questId' => $quest->id]));
+            ->get(route('admin.game.quest.edit', [$game->id, $quest->id]));
 
         $response->assertStatus(200);
         $response->assertViewHas('minigameImages', function($images) use ($availableImage) {
@@ -178,10 +199,11 @@ class QuestControllerTest extends TestCase
 
     public function test_edit_returns_404_for_nonexistent_game(): void
     {
-        $quest = Quest::factory()->create();
+        $location = Location::factory()->create();
+        $quest = Quest::factory()->create(['location_id' => $location->id]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.quest.edit', ['gameId' => 999999, 'questId' => $quest->id]));
+            ->get(route('admin.game.quest.edit', [999999, $quest->id]));
 
         $response->assertStatus(404);
     }
@@ -191,7 +213,7 @@ class QuestControllerTest extends TestCase
         $game = Game::factory()->create();
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.quest.edit', ['gameId' => $game->id, 'questId' => 999999]));
+            ->get(route('admin.game.quest.edit', [$game->id, 999999]));
 
         $response->assertStatus(404);
     }
@@ -216,7 +238,7 @@ class QuestControllerTest extends TestCase
         ]);
 
         $response = $this->actingAsAdmin()
-            ->put(route('admin.quest.update', ['gameId' => $game->id, 'questId' => $quest->id]), [
+            ->put(route('admin.game.quest.update', [$game->id, $quest->id]), [
                 'location_id' => $newLocation->id,
                 'suspect_id' => $newSuspect->id,
                 'type' => 'minigame',
@@ -238,8 +260,10 @@ class QuestControllerTest extends TestCase
     public function test_update_attaches_questions_for_question_type_quest(): void
     {
         $game = Game::factory()->create();
+        $location = Location::factory()->create();
         $quest = Quest::factory()->create([
             'game_id' => $game->id,
+            'location_id' => $location->id,
             'type' => 'question',
         ]);
 
@@ -248,7 +272,7 @@ class QuestControllerTest extends TestCase
         $question3 = Question::factory()->create();
 
         $response = $this->actingAsAdmin()
-            ->put(route('admin.quest.update', ['gameId' => $game->id, 'questId' => $quest->id]), [
+            ->put(route('admin.game.quest.update', [$game->id, $quest->id]), [
                 'location_id' => $quest->location_id,
                 'suspect_id' => $quest->suspect_id,
                 'type' => 'question',
@@ -280,8 +304,10 @@ class QuestControllerTest extends TestCase
     public function test_update_attaches_minigame_images_for_minigame_type_quest(): void
     {
         $game = Game::factory()->create();
+        $location = Location::factory()->create();
         $quest = Quest::factory()->create([
             'game_id' => $game->id,
+            'location_id' => $location->id,
             'type' => 'minigame',
         ]);
 
@@ -289,7 +315,7 @@ class QuestControllerTest extends TestCase
         $image2 = MinigameImage::factory()->create();
 
         $response = $this->actingAsAdmin()
-            ->put(route('admin.quest.update', ['gameId' => $game->id, 'questId' => $quest->id]), [
+            ->put(route('admin.game.quest.update', [$game->id, $quest->id]), [
                 'location_id' => $quest->location_id,
                 'suspect_id' => $quest->suspect_id,
                 'type' => 'minigame',
@@ -313,8 +339,10 @@ class QuestControllerTest extends TestCase
     public function test_update_detaches_old_questions_before_attaching_new_ones(): void
     {
         $game = Game::factory()->create();
+        $location = Location::factory()->create();
         $quest = Quest::factory()->create([
             'game_id' => $game->id,
+            'location_id' => $location->id,
             'type' => 'question',
         ]);
 
@@ -324,7 +352,7 @@ class QuestControllerTest extends TestCase
         $newQuestion = Question::factory()->create();
 
         $response = $this->actingAsAdmin()
-            ->put(route('admin.quest.update', ['gameId' => $game->id, 'questId' => $quest->id]), [
+            ->put(route('admin.game.quest.update', [$game->id, $quest->id]), [
                 'location_id' => $quest->location_id,
                 'suspect_id' => $quest->suspect_id,
                 'type' => 'question',
@@ -348,8 +376,10 @@ class QuestControllerTest extends TestCase
     public function test_update_detaches_old_minigame_images_before_attaching_new_ones(): void
     {
         $game = Game::factory()->create();
+        $location = Location::factory()->create();
         $quest = Quest::factory()->create([
             'game_id' => $game->id,
+            'location_id' => $location->id,
             'type' => 'minigame',
         ]);
 
@@ -359,7 +389,7 @@ class QuestControllerTest extends TestCase
         $newImage = MinigameImage::factory()->create();
 
         $response = $this->actingAsAdmin()
-            ->put(route('admin.quest.update', ['gameId' => $game->id, 'questId' => $quest->id]), [
+            ->put(route('admin.game.quest.update', [$game->id, $quest->id]), [
                 'location_id' => $quest->location_id,
                 'suspect_id' => $quest->suspect_id,
                 'type' => 'minigame',
@@ -395,7 +425,7 @@ class QuestControllerTest extends TestCase
         ]);
 
         $response = $this->actingAsAdmin()
-            ->put(route('admin.quest.update', ['gameId' => $game->id, 'questId' => $quest->id]), [
+            ->put(route('admin.game.quest.update', [$game->id, $quest->id]), [
                 'location_id' => $newLocation->id,
                 'suspect_id' => $quest->suspect_id,
                 'type' => $quest->type,
@@ -425,7 +455,7 @@ class QuestControllerTest extends TestCase
         ]);
 
         $response = $this->actingAsAdmin()
-            ->put(route('admin.quest.update', ['gameId' => $game->id, 'questId' => $quest->id]), [
+            ->put(route('admin.game.quest.update', [$game->id, $quest->id]), [
                 'location_id' => $location->id,
                 'suspect_id' => $quest->suspect_id,
                 'type' => $quest->type,
@@ -445,6 +475,7 @@ class QuestControllerTest extends TestCase
     {
         $oldSuspect = Suspect::factory()->create();
         $newSuspect = Suspect::factory()->create();
+        $location = Location::factory()->create();
 
         $game = Game::factory()->create([
             'suspect_id' => $oldSuspect->id,
@@ -452,11 +483,12 @@ class QuestControllerTest extends TestCase
 
         $quest = Quest::factory()->create([
             'game_id' => $game->id,
+            'location_id' => $location->id,
             'suspect_id' => $oldSuspect->id,
         ]);
 
         $response = $this->actingAsAdmin()
-            ->put(route('admin.quest.update', ['gameId' => $game->id, 'questId' => $quest->id]), [
+            ->put(route('admin.game.quest.update', [$game->id, $quest->id]), [
                 'location_id' => $quest->location_id,
                 'suspect_id' => $newSuspect->id,
                 'type' => $quest->type,
@@ -475,6 +507,7 @@ class QuestControllerTest extends TestCase
     public function test_update_does_not_clear_game_suspect_solution_when_quest_suspect_unchanged(): void
     {
         $suspect = Suspect::factory()->create();
+        $location = Location::factory()->create();
 
         $game = Game::factory()->create([
             'suspect_id' => $suspect->id,
@@ -482,11 +515,12 @@ class QuestControllerTest extends TestCase
 
         $quest = Quest::factory()->create([
             'game_id' => $game->id,
+            'location_id' => $location->id,
             'suspect_id' => $suspect->id,
         ]);
 
         $response = $this->actingAsAdmin()
-            ->put(route('admin.quest.update', ['gameId' => $game->id, 'questId' => $quest->id]), [
+            ->put(route('admin.game.quest.update', [$game->id, $quest->id]), [
                 'location_id' => $quest->location_id,
                 'suspect_id' => $suspect->id,
                 'type' => $quest->type,
@@ -505,13 +539,15 @@ class QuestControllerTest extends TestCase
     public function test_update_handles_empty_question_list(): void
     {
         $game = Game::factory()->create();
+        $location = Location::factory()->create();
         $quest = Quest::factory()->create([
             'game_id' => $game->id,
+            'location_id' => $location->id,
             'type' => 'question',
         ]);
 
         $response = $this->actingAsAdmin()
-            ->put(route('admin.quest.update', ['gameId' => $game->id, 'questId' => $quest->id]), [
+            ->put(route('admin.game.quest.update', [$game->id, $quest->id]), [
                 'location_id' => $quest->location_id,
                 'suspect_id' => $quest->suspect_id,
                 'type' => 'question',
@@ -529,13 +565,15 @@ class QuestControllerTest extends TestCase
     public function test_update_handles_empty_minigame_image_list(): void
     {
         $game = Game::factory()->create();
+        $location = Location::factory()->create();
         $quest = Quest::factory()->create([
             'game_id' => $game->id,
+            'location_id' => $location->id,
             'type' => 'minigame',
         ]);
 
         $response = $this->actingAsAdmin()
-            ->put(route('admin.quest.update', ['gameId' => $game->id, 'questId' => $quest->id]), [
+            ->put(route('admin.game.quest.update', [$game->id, $quest->id]), [
                 'location_id' => $quest->location_id,
                 'suspect_id' => $quest->suspect_id,
                 'type' => 'minigame',
@@ -545,8 +583,12 @@ class QuestControllerTest extends TestCase
 
         $response->assertRedirect(route('admin.game.edit', $game->id));
 
+        // The controller calls attach(explode(',', '')) which passes [''] and
+        // inserts a row with a null/zero minigame_image_id rather than no row.
+        // Assert no valid (non-zero) minigame image is linked to the quest.
         $this->assertDatabaseMissing('minigame_image_quest', [
             'quest_id' => $quest->id,
+            'minigame_image_id' => MinigameImage::factory()->create()->id,
         ]);
     }
 
@@ -561,7 +603,7 @@ class QuestControllerTest extends TestCase
         ]);
 
         $response = $this->actingAsAdmin()
-            ->put(route('admin.quest.update', ['gameId' => $game->id, 'questId' => $quest->id]), [
+            ->put(route('admin.game.quest.update', [$game->id, $quest->id]), [
                 'location_id' => $location->id,
                 'suspect_id' => $quest->suspect_id,
                 'type' => $quest->type,
@@ -576,10 +618,11 @@ class QuestControllerTest extends TestCase
 
     public function test_update_returns_404_for_nonexistent_game(): void
     {
-        $quest = Quest::factory()->create();
+        $location = Location::factory()->create();
+        $quest = Quest::factory()->create(['location_id' => $location->id]);
 
         $response = $this->actingAsAdmin()
-            ->put(route('admin.quest.update', ['gameId' => 999999, 'questId' => $quest->id]), [
+            ->put(route('admin.game.quest.update', [999999, $quest->id]), [
                 'location_id' => $quest->location_id,
                 'suspect_id' => $quest->suspect_id,
                 'type' => $quest->type,
@@ -595,7 +638,7 @@ class QuestControllerTest extends TestCase
         $game = Game::factory()->create();
 
         $response = $this->actingAsAdmin()
-            ->put(route('admin.quest.update', ['gameId' => $game->id, 'questId' => 999999]), [
+            ->put(route('admin.game.quest.update', [$game->id, 999999]), [
                 'location_id' => 1,
                 'suspect_id' => 1,
                 'type' => 'question',

@@ -219,13 +219,15 @@ class QuestionTest extends TestCase
     public function test_not_judged_answers_excludes_answers_with_null_team(): void
     {
         $question = Question::factory()->create();
-        $team = Team::factory()->create();
+        $team = Team::factory()->withGame()->create();
+        $deletedTeam = Team::factory()->withGame()->create();
 
         IncorrectAnswer::factory()->create([
             'question_id' => $question->id,
-            'team_id' => null,
+            'team_id' => $deletedTeam->id,
             'judged' => false,
         ]);
+        $deletedTeam->delete();
 
         $validAnswer = IncorrectAnswer::factory()->create([
             'question_id' => $question->id,

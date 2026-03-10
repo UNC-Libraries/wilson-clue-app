@@ -29,7 +29,6 @@ class Agent extends Authenticatable implements LdapAuthenticatable
         'title',
         'location',
         'retired',
-        'bio',
         'web_display',
         'admin',
         'src',
@@ -41,7 +40,7 @@ class Agent extends Authenticatable implements LdapAuthenticatable
      * @var array
      */
     protected $appends = [
-        'full_name' => '',
+        'full_name',
     ];
 
     /**

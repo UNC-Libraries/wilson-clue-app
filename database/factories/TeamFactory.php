@@ -2,10 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Evidence;
 use App\Game;
-use App\Location;
-use App\Suspect;
 use App\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -27,14 +24,18 @@ class TeamFactory extends Factory
     {
         return [
             'name' => $this->faker->words(2, true),
-            'dietary' => $this->faker->optional()->sentence(),
+            'dietary' => null,
             'bonus_points' => 0,
-            'game_id' => Game::factory(),
-            'suspect_id' => null,
-            'location_id' => null,
-            'evidence_id' => null,
+            'game_id' => 0,
+            'suspect_id' => 0,
+            'location_id' => 0,
+            'evidence_id' => 0,
+            // Null keeps indictment_made accessor returning false so that the
+            // _indictment_complete blade partial is not rendered, which would
+            // crash when suspect_id / location_id / evidence_id are 0 (no
+            // related model). The column is nullable in the migration.
             'indictment_time' => null,
-            'evidence_selected_at' => null,
+            'evidence_selected_at' => $this->faker->optional()->dateTime(),
             'waitlist' => false,
             'score' => 0.0,
         ];
@@ -72,9 +73,9 @@ class TeamFactory extends Factory
     public function withIndictment(): self
     {
         return $this->state(fn (array $attributes) => [
-            'suspect_id' => Suspect::factory(),
-            'location_id' => Location::factory(),
-            'evidence_id' => Evidence::factory(),
+            'suspect_id' => \App\Suspect::factory(),
+            'location_id' => \App\Location::factory(),
+            'evidence_id' => \App\Evidence::factory(),
             'indictment_time' => $this->faker->dateTimeBetween('-1 hour', 'now'),
         ]);
     }
@@ -87,7 +88,7 @@ class TeamFactory extends Factory
     public function withEvidenceSelected(): self
     {
         return $this->state(fn (array $attributes) => [
-            'evidence_id' => Evidence::factory(),
+            'evidence_id' => \App\Evidence::factory(),
             'evidence_selected_at' => $this->faker->dateTimeBetween('-2 hours', 'now'),
         ]);
     }
@@ -149,5 +150,16 @@ class TeamFactory extends Factory
             ]);
         });
     }
-}
 
+    /**
+     * Attach this team to a game.
+     *
+     * @return self
+     */
+    public function withGame(): self
+    {
+        return $this->state(fn (array $attributes) => [
+            'game_id' => Game::factory(),
+        ]);
+    }
+}

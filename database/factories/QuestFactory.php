@@ -26,9 +26,9 @@ class QuestFactory extends Factory
     {
         return [
             'type' => $this->faker->randomElement(['question', 'minigame']),
-            'location_id' => Location::factory(),
-            'suspect_id' => Suspect::factory(),
-            'game_id' => Game::factory(),
+            'location_id' => 0,
+            'suspect_id' => 0,
+            'game_id' => 0,
         ];
     }
 
@@ -79,5 +79,40 @@ class QuestFactory extends Factory
             'suspect_id' => null,
         ]);
     }
-}
 
+    /**
+     * Attach this quest to a game.
+     *
+     * @return self
+     */
+    public function withGame(): self
+    {
+        return $this->state(fn (array $attributes) => [
+            'game_id' => Game::factory(),
+        ]);
+    }
+
+    /**
+     * Attach this quest to a location.
+     *
+     * @return self
+     */
+    public function withLocation(): self
+    {
+        return $this->state(fn (array $attributes) => [
+            'location_id' => Location::factory(),
+        ]);
+    }
+
+    /**
+     * Attach this quest to a suspect.
+     *
+     * @return self
+     */
+    public function withSuspect(): self
+    {
+        return $this->state(fn (array $attributes) => [
+            'suspect_id' => Suspect::factory(),
+        ]);
+    }
+}

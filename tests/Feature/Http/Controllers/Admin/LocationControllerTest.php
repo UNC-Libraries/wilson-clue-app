@@ -89,7 +89,6 @@ class LocationControllerTest extends TestCase
                 'name' => 'Main Hall',
                 'floor' => 2,
                 'map_section' => 'north',
-                'description' => 'The main entrance hall',
             ]);
 
         $response->assertRedirect(route('admin.location.index'));
@@ -100,7 +99,6 @@ class LocationControllerTest extends TestCase
             'name' => 'Main Hall',
             'floor' => 2,
             'map_section' => 'north',
-            'description' => 'The main entrance hall',
         ]);
     }
 
@@ -281,7 +279,6 @@ class LocationControllerTest extends TestCase
                 'name' => 'Updated Name',
                 'floor' => 3,
                 'map_section' => 'south',
-                'description' => 'New description',
             ]);
 
         $response->assertRedirect(route('admin.location.index'));
@@ -293,7 +290,6 @@ class LocationControllerTest extends TestCase
             'name' => 'Updated Name',
             'floor' => 3,
             'map_section' => 'south',
-            'description' => 'New description',
         ]);
     }
 

@@ -26,9 +26,27 @@ class UiControllerTest extends TestCase
 
     protected function setUp(): void
     {
+        // Force an in-memory SQLite database before the application boots so
+        // that RefreshDatabase can run migrate:fresh locally without the VM's
+        // MySQL server being reachable.
+        putenv('DB_CONNECTION=sqlite');
+        putenv('DB_DATABASE=:memory:');
+        $_ENV['DB_CONNECTION'] = 'sqlite';
+        $_ENV['DB_DATABASE']   = ':memory:';
+
         parent::setUp();
 
-        $this->game   = Game::factory()->create();
+        // The game must be "in progress" (start_time < now < end_time) so that
+        // the InProgressGame middleware lets requests through instead of
+        // redirecting to the gameover route.
+        // withEvidenceLocation and withGeographicInvestigationLocation are
+        // required because several blade views access those relations directly.
+        $this->game = Game::factory()
+            ->inProgress()
+            ->withEvidenceLocation()
+            ->withGeographicInvestigationLocation()
+            ->create();
+
         $this->team   = Team::factory()->create(['game_id' => $this->game->id]);
         $this->player = Player::factory()->create();
         $this->team->players()->attach($this->player);
@@ -61,8 +79,18 @@ class UiControllerTest extends TestCase
     
     public function test_index_calculates_progress_for_question_quests(): void
     {
-        $quest    = Quest::factory()->create(['game_id' => $this->game->id, 'type' => 'question']);
-        $question = Question::factory()->create(['quest_id' => $quest->id]);
+        $suspect  = Suspect::factory()->create();
+        $location = Location::factory()->create();
+        $quest    = Quest::factory()->create([
+            'game_id'     => $this->game->id,
+            'type'        => 'question',
+            'suspect_id'  => $suspect->id,
+            'location_id' => $location->id,
+        ]);
+        // Questions are linked to quests via the quest_question pivot table
+        // which has a NOT NULL 'order' column.
+        $question = Question::factory()->create();
+        $quest->questions()->attach($question->id, ['order' => 1]);
         $question->completedBy()->attach($this->team->id);
 
         $response = $this->actingAs($this->player, 'player')
@@ -79,7 +107,14 @@ class UiControllerTest extends TestCase
     
     public function test_index_calculates_progress_for_minigame_quests(): void
     {
-        $quest = Quest::factory()->create(['game_id' => $this->game->id, 'type' => 'minigame']);
+        $suspect  = Suspect::factory()->create();
+        $location = Location::factory()->create();
+        $quest    = Quest::factory()->create([
+            'game_id'     => $this->game->id,
+            'type'        => 'minigame',
+            'suspect_id'  => $suspect->id,
+            'location_id' => $location->id,
+        ]);
         $this->team->completedQuests()->attach($quest->id);
 
         $response = $this->actingAs($this->player, 'player')
@@ -95,7 +130,7 @@ class UiControllerTest extends TestCase
     public function test_index_overrides_game_times_when_session_flag_set(): void
     {
         $response = $this->actingAs($this->player, 'player')
-            ->withSession(array_merge($this->sessionData(), ['override_in_progress' => true]))
+            ->withSession(array_merge($this->sessionData(), ['override_in_progress' => $this->game->id]))
             ->get(route('ui.index'));
 
         $response->assertStatus(200);
@@ -135,8 +170,13 @@ class UiControllerTest extends TestCase
     
     public function test_map_groups_locations_by_floor(): void
     {
+        $suspect  = Suspect::factory()->create();
         $location = Location::factory()->create(['floor' => 2]);
-        Quest::factory()->create(['game_id' => $this->game->id, 'location_id' => $location->id]);
+        Quest::factory()->create([
+            'game_id'     => $this->game->id,
+            'location_id' => $location->id,
+            'suspect_id'  => $suspect->id,
+        ]);
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
@@ -185,7 +225,14 @@ class UiControllerTest extends TestCase
     
     public function test_quest_returns_200_for_question_type(): void
     {
-        $quest = Quest::factory()->create(['game_id' => $this->game->id, 'type' => 'question']);
+        $suspect  = Suspect::factory()->create();
+        $location = Location::factory()->create();
+        $quest    = Quest::factory()->create([
+            'game_id'     => $this->game->id,
+            'type'        => 'question',
+            'suspect_id'  => $suspect->id,
+            'location_id' => $location->id,
+        ]);
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
@@ -199,7 +246,14 @@ class UiControllerTest extends TestCase
     
     public function test_quest_returns_200_for_minigame_type(): void
     {
-        $quest = Quest::factory()->create(['game_id' => $this->game->id, 'type' => 'minigame']);
+        $suspect  = Suspect::factory()->create();
+        $location = Location::factory()->create();
+        $quest    = Quest::factory()->create([
+            'game_id'     => $this->game->id,
+            'type'        => 'minigame',
+            'suspect_id'  => $suspect->id,
+            'location_id' => $location->id,
+        ]);
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
@@ -238,7 +292,13 @@ class UiControllerTest extends TestCase
     
     public function test_indictment_adds_warning_for_incomplete_quest(): void
     {
-        Quest::factory()->create(['game_id' => $this->game->id]);
+        $suspect  = Suspect::factory()->create();
+        $location = Location::factory()->create();
+        Quest::factory()->create([
+            'game_id'     => $this->game->id,
+            'suspect_id'  => $suspect->id,
+            'location_id' => $location->id,
+        ]);
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
@@ -258,7 +318,7 @@ class UiControllerTest extends TestCase
     {
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->post(route('ui.setIndictment'), []);
+            ->post(route('ui.set.indictment'), []);
 
         $response->assertSessionHasErrors(['suspect', 'location', 'evidence']);
     }
@@ -272,7 +332,7 @@ class UiControllerTest extends TestCase
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->post(route('ui.setIndictment'), [
+            ->post(route('ui.set.indictment'), [
                 'suspect'  => $suspect->id,
                 'location' => $location->id,
                 'evidence' => $evidence->id,
@@ -298,7 +358,7 @@ class UiControllerTest extends TestCase
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->postJson(route('ui.attemptQuestion', $question->id), []);
+            ->postJson(route('ui.attempt.question', $question->id), []);
 
         $response->assertStatus(422);
     }
@@ -311,7 +371,7 @@ class UiControllerTest extends TestCase
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->postJson(route('ui.attemptQuestion', $question->id), ['attempt' => 'correctanswer']);
+            ->postJson(route('ui.attempt.question', $question->id), ['attempt' => 'correctanswer']);
 
         $response->assertJson(['correct' => true]);
     }
@@ -324,7 +384,7 @@ class UiControllerTest extends TestCase
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->postJson(route('ui.attemptQuestion', $question->id), ['attempt' => 'wronganswer']);
+            ->postJson(route('ui.attempt.question', $question->id), ['attempt' => 'wronganswer']);
 
         $response->assertJsonStructure(['message']);
         $this->assertDatabaseHas('incorrect_answers', ['answer' => 'wronganswer']);
@@ -339,7 +399,7 @@ class UiControllerTest extends TestCase
 
         $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->postJson(route('ui.attemptQuestion', $question->id), ['attempt' => 'correctanswer']);
+            ->postJson(route('ui.attempt.question', $question->id), ['attempt' => 'correctanswer']);
 
         $this->assertCount(1, $question->completedBy()->where('team_id', $this->team->id)->get());
     }
@@ -355,7 +415,7 @@ class UiControllerTest extends TestCase
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->postJson(route('ui.attemptMinigame', $quest->id), []);
+            ->postJson(route('ui.attempt.minigame', $quest->id), []);
 
         $response->assertStatus(422);
     }
@@ -364,13 +424,15 @@ class UiControllerTest extends TestCase
     public function test_attempt_minigame_returns_correct_true_for_ascending_order(): void
     {
         $quest  = Quest::factory()->create(['game_id' => $this->game->id, 'type' => 'minigame']);
-        $image1 = MinigameImage::factory()->create(['quest_id' => $quest->id, 'year' => 2000]);
-        $image2 = MinigameImage::factory()->create(['quest_id' => $quest->id, 'year' => 2010]);
+        // MinigameImages are linked via the minigame_image_quest pivot table.
+        $image1 = MinigameImage::factory()->create(['year' => 2000]);
+        $image2 = MinigameImage::factory()->create(['year' => 2010]);
+        $quest->minigameImages()->attach([$image1->id, $image2->id]);
         $correct = $image1->id.','.$image2->id;
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->postJson(route('ui.attemptMinigame', $quest->id), ['attempt' => $correct]);
+            ->postJson(route('ui.attempt.minigame', $quest->id), ['attempt' => $correct]);
 
         $response->assertJson(['correct' => true]);
     }
@@ -379,13 +441,14 @@ class UiControllerTest extends TestCase
     public function test_attempt_minigame_returns_correct_true_for_descending_order(): void
     {
         $quest  = Quest::factory()->create(['game_id' => $this->game->id, 'type' => 'minigame']);
-        $image1 = MinigameImage::factory()->create(['quest_id' => $quest->id, 'year' => 2000]);
-        $image2 = MinigameImage::factory()->create(['quest_id' => $quest->id, 'year' => 2010]);
+        $image1 = MinigameImage::factory()->create(['year' => 2000]);
+        $image2 = MinigameImage::factory()->create(['year' => 2010]);
+        $quest->minigameImages()->attach([$image1->id, $image2->id]);
         $correct = $image2->id.','.$image1->id;
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->postJson(route('ui.attemptMinigame', $quest->id), ['attempt' => $correct]);
+            ->postJson(route('ui.attempt.minigame', $quest->id), ['attempt' => $correct]);
 
         $response->assertJson(['correct' => true]);
     }
@@ -394,12 +457,13 @@ class UiControllerTest extends TestCase
     public function test_attempt_minigame_returns_empty_response_for_wrong_order(): void
     {
         $quest  = Quest::factory()->create(['game_id' => $this->game->id, 'type' => 'minigame']);
-        MinigameImage::factory()->create(['quest_id' => $quest->id, 'year' => 2000]);
-        MinigameImage::factory()->create(['quest_id' => $quest->id, 'year' => 2010]);
+        $image1 = MinigameImage::factory()->create(['year' => 2000]);
+        $image2 = MinigameImage::factory()->create(['year' => 2010]);
+        $quest->minigameImages()->attach([$image1->id, $image2->id]);
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->postJson(route('ui.attemptMinigame', $quest->id), ['attempt' => '999,998']);
+            ->postJson(route('ui.attempt.minigame', $quest->id), ['attempt' => '999,998']);
 
         $response->assertExactJson([]);
     }
@@ -423,8 +487,11 @@ class UiControllerTest extends TestCase
     
     public function test_dna_marks_sequence_as_collected_when_team_has_found_it(): void
     {
-        $dna = GhostDna::factory()->create(['pair' => 1]);
-        $this->team->foundDna()->attach($dna->id);
+        // The dna view groups sequences by pair and accesses both index [0] and
+        // [1], so both strands of the pair must exist.
+        $dna1 = GhostDna::factory()->create(['pair' => 1]);
+        $dna2 = GhostDna::factory()->create(['pair' => 1]);
+        $this->team->foundDna()->attach($dna1->id);
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
@@ -442,7 +509,7 @@ class UiControllerTest extends TestCase
     {
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->postJson(route('ui.attemptDna'), []);
+            ->postJson(route('ui.attempt.dna'), []);
 
         $response->assertStatus(422);
     }
@@ -455,7 +522,7 @@ class UiControllerTest extends TestCase
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->postJson(route('ui.attemptDna'), ['attempt' => 'TESTSEQ']);
+            ->postJson(route('ui.attempt.dna'), ['attempt' => 'TESTSEQ']);
 
         $response->assertJsonStructure(['correct', 'dnaId', 'topOrBottom']);
         $response->assertJson(['correct' => true]);
@@ -469,7 +536,7 @@ class UiControllerTest extends TestCase
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->postJson(route('ui.attemptDna'), ['attempt' => 'TESTSEQ']);
+            ->postJson(route('ui.attempt.dna'), ['attempt' => 'TESTSEQ']);
 
         $response->assertJsonStructure(['message']);
     }
@@ -479,7 +546,7 @@ class UiControllerTest extends TestCase
     {
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->postJson(route('ui.attemptDna'), ['attempt' => 'NOTFOUND']);
+            ->postJson(route('ui.attempt.dna'), ['attempt' => 'NOTFOUND']);
 
         $response->assertExactJson([]);
     }
@@ -493,7 +560,7 @@ class UiControllerTest extends TestCase
     {
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->postJson(route('ui.setEvidence'), []);
+            ->postJson(route('ui.set.evidence'), []);
 
         $response->assertStatus(422);
     }
@@ -505,7 +572,7 @@ class UiControllerTest extends TestCase
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->postJson(route('ui.setEvidence'), ['evidence' => $evidence->id]);
+            ->postJson(route('ui.set.evidence'), ['evidence' => $evidence->id]);
 
         $response->assertExactJson([]);
         $this->assertDatabaseHas('teams', [
@@ -525,7 +592,7 @@ class UiControllerTest extends TestCase
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->getJson(route('ui.questStatus', $quest->id));
+            ->postJson(route('ui.status.quest', $quest->id));
 
         $response->assertJson(['status' => 'incomplete']);
     }
@@ -534,14 +601,16 @@ class UiControllerTest extends TestCase
     public function test_quest_status_returns_complete_for_question_quest_with_enough_answers(): void
     {
         $quest     = Quest::factory()->create(['game_id' => $this->game->id, 'type' => 'question']);
-        $questions = Question::factory()->count(3)->create(['quest_id' => $quest->id]);
+        $questions = Question::factory()->count(3)->create();
+        $order     = 1;
         foreach ($questions as $q) {
+            $quest->questions()->attach($q->id, ['order' => $order++]);
             $q->completedBy()->attach($this->team->id);
         }
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->getJson(route('ui.questStatus', $quest->id));
+            ->postJson(route('ui.status.quest', $quest->id));
 
         $response->assertJson(['status' => 'complete']);
     }
@@ -554,7 +623,7 @@ class UiControllerTest extends TestCase
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->getJson(route('ui.questStatus', $quest->id));
+            ->postJson(route('ui.status.quest', $quest->id));
 
         $response->assertJson(['status' => 'complete']);
     }
@@ -564,7 +633,7 @@ class UiControllerTest extends TestCase
     {
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->getJson(route('ui.questStatus', 9999));
+            ->postJson(route('ui.status.quest', 9999));
 
         $response->assertStatus(404);
     }
@@ -574,11 +643,12 @@ class UiControllerTest extends TestCase
     // -------------------------------------------------------------------------
 
     
+    // ui.alert is a POST-only route; polling clients POST to it.
     public function test_alert_returns_empty_when_no_alerts(): void
     {
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->getJson(route('ui.alert'));
+            ->postJson(route('ui.alert'));
 
         $response->assertExactJson([]);
     }
@@ -590,7 +660,7 @@ class UiControllerTest extends TestCase
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession($this->sessionData())
-            ->getJson(route('ui.alert'));
+            ->postJson(route('ui.alert'));
 
         $response->assertJsonStructure(['html']);
     }
@@ -602,7 +672,7 @@ class UiControllerTest extends TestCase
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession(array_merge($this->sessionData(), ['seen' => [$alert->id]]))
-            ->getJson(route('ui.alert'));
+            ->postJson(route('ui.alert'));
 
         $response->assertExactJson([]);
     }

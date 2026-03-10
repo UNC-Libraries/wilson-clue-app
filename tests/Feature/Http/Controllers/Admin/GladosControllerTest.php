@@ -17,6 +17,19 @@ class GladosControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        // Force an in-memory SQLite database before the application boots so
+        // that RefreshDatabase can run migrate:fresh locally without the VM's
+        // MySQL server being reachable.
+        putenv('DB_CONNECTION=sqlite');
+        putenv('DB_DATABASE=:memory:');
+        $_ENV['DB_CONNECTION'] = 'sqlite';
+        $_ENV['DB_DATABASE']   = ':memory:';
+
+        parent::setUp();
+    }
+
     private function actingAsAdmin()
     {
         /** @var \App\Agent $admin */
@@ -50,7 +63,7 @@ class GladosControllerTest extends TestCase
         ]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.glados.viewing', $game->id));
+            ->get(route('admin.game.glados.viewing', $game->id));
 
         $response->assertStatus(200);
         $response->assertViewIs('glados.viewing');
@@ -84,7 +97,7 @@ class GladosControllerTest extends TestCase
         ]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.glados.viewing', $game->id));
+            ->get(route('admin.game.glados.viewing', $game->id));
 
         $response->assertStatus(200);
         $response->assertViewHas('total', 1);
@@ -116,7 +129,7 @@ class GladosControllerTest extends TestCase
         ]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.glados.viewing', $gameA->id));
+            ->get(route('admin.game.glados.viewing', $gameA->id));
 
         $response->assertStatus(200);
         $response->assertViewHas('total', 1);
@@ -148,7 +161,7 @@ class GladosControllerTest extends TestCase
         ]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.glados.viewing', $game->id));
+            ->get(route('admin.game.glados.viewing', $game->id));
 
         $response->assertStatus(200);
         $response->assertViewHas('total', 2);
@@ -184,17 +197,18 @@ class GladosControllerTest extends TestCase
         ]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.glados.viewing', $game->id));
+            ->get(route('admin.game.glados.viewing', $game->id));
 
         $response->assertStatus(200);
         $response->assertViewHas('views', function ($views) {
             $indexView = collect($views)->firstWhere('name', 'Index');
             $evidenceView = collect($views)->firstWhere('name', 'Evidence');
 
+            // floor() returns float, so use == not ===
             return $indexView['count'] === 3
-                && $indexView['percent'] === 75
+                && $indexView['percent'] == 75
                 && $evidenceView['count'] === 1
-                && $evidenceView['percent'] === 25;
+                && $evidenceView['percent'] == 25;
         });
     }
 
@@ -220,13 +234,15 @@ class GladosControllerTest extends TestCase
         ]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.glados.viewing', $game->id));
+            ->get(route('admin.game.glados.viewing', $game->id));
 
         $response->assertStatus(200);
         $response->assertViewHas('views', function ($views) {
             $names = collect($views)->pluck('name')->toArray();
+            // Controller: ucfirst(str_replace('ui.', '', $route))
+            // 'ui.geographicInvestigation' → 'GeographicInvestigation'
             return in_array('Evidence', $names)
-                && in_array('Geographicinvestigation', $names);
+                && in_array('GeographicInvestigation', $names);
         });
     }
 
@@ -251,7 +267,7 @@ class GladosControllerTest extends TestCase
         ]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.glados.viewing', $game->id));
+            ->get(route('admin.game.glados.viewing', $game->id));
 
         $response->assertStatus(200);
         $response->assertViewHas('views', function ($views) {
@@ -300,7 +316,7 @@ class GladosControllerTest extends TestCase
         ]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.glados.viewing', $game->id));
+            ->get(route('admin.game.glados.viewing', $game->id));
 
         $response->assertStatus(200);
         $response->assertViewHas('views', function ($views) {
@@ -315,7 +331,7 @@ class GladosControllerTest extends TestCase
         $game = Game::factory()->create();
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.glados.viewing', $game->id));
+            ->get(route('admin.game.glados.viewing', $game->id));
 
         $response->assertStatus(200);
         $response->assertViewHas('total', 0);
@@ -338,7 +354,7 @@ class GladosControllerTest extends TestCase
         ]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.glados.viewing', $game->id));
+            ->get(route('admin.game.glados.viewing', $game->id));
 
         $response->assertStatus(200);
         $response->assertViewHas('total', 0);
@@ -352,11 +368,17 @@ class GladosControllerTest extends TestCase
     public function test_status_displays_teams_and_quests_for_game(): void
     {
         $game = Game::factory()->create();
+        $suspect = Suspect::factory()->create();
+        $location = Location::factory()->create();
         $team = Team::factory()->create(['game_id' => $game->id, 'waitlist' => false]);
-        $quest = Quest::factory()->create(['game_id' => $game->id]);
+        $quest = Quest::factory()->create([
+            'game_id' => $game->id,
+            'suspect_id' => $suspect->id,
+            'location_id' => $location->id,
+        ]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.glados.status', $game->id));
+            ->get(route('admin.game.glados.status', $game->id));
 
         $response->assertStatus(200);
         $response->assertViewIs('glados.status');
@@ -375,7 +397,7 @@ class GladosControllerTest extends TestCase
         $waitlistTeam = Team::factory()->create(['game_id' => $game->id, 'waitlist' => true]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.glados.status', $game->id));
+            ->get(route('admin.game.glados.status', $game->id));
 
         $response->assertStatus(200);
         $response->assertViewHas('teams', function ($teams) use ($registeredTeam, $waitlistTeam) {
@@ -392,7 +414,7 @@ class GladosControllerTest extends TestCase
         $teamB = Team::factory()->create(['game_id' => $gameB->id, 'waitlist' => false]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.glados.status', $gameA->id));
+            ->get(route('admin.game.glados.status', $gameA->id));
 
         $response->assertStatus(200);
         $response->assertViewHas('teams', function ($teams) use ($teamA, $teamB) {
@@ -405,11 +427,24 @@ class GladosControllerTest extends TestCase
     {
         $gameA = Game::factory()->create();
         $gameB = Game::factory()->create();
-        $questA = Quest::factory()->create(['game_id' => $gameA->id]);
-        $questB = Quest::factory()->create(['game_id' => $gameB->id]);
+        $suspectA = Suspect::factory()->create();
+        $suspectB = Suspect::factory()->create();
+        $locationA = Location::factory()->create();
+        $locationB = Location::factory()->create();
+        $teamA = Team::factory()->create(['game_id' => $gameA->id, 'waitlist' => false]);
+        $questA = Quest::factory()->create([
+            'game_id' => $gameA->id,
+            'suspect_id' => $suspectA->id,
+            'location_id' => $locationA->id,
+        ]);
+        $questB = Quest::factory()->create([
+            'game_id' => $gameB->id,
+            'suspect_id' => $suspectB->id,
+            'location_id' => $locationB->id,
+        ]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.glados.status', $gameA->id));
+            ->get(route('admin.game.glados.status', $gameA->id));
 
         $response->assertStatus(200);
         $response->assertViewHas('quests', function ($quests) use ($questA, $questB) {
@@ -422,16 +457,18 @@ class GladosControllerTest extends TestCase
     {
         $game = Game::factory()->create();
         $suspect = Suspect::factory()->create();
+        $location = Location::factory()->create();
         $quest = Quest::factory()->create([
             'game_id' => $game->id,
             'suspect_id' => $suspect->id,
+            'location_id' => $location->id,
         ]);
         $team = Team::factory()->create(['game_id' => $game->id, 'waitlist' => false]);
 
         $quest->completedBy()->attach($team->id);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.glados.status', $game->id));
+            ->get(route('admin.game.glados.status', $game->id));
 
         $response->assertStatus(200);
         $response->assertViewHas('quests', function ($quests) use ($suspect, $team) {
@@ -448,7 +485,7 @@ class GladosControllerTest extends TestCase
         $game = Game::factory()->create();
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.glados.status', $game->id));
+            ->get(route('admin.game.glados.status', $game->id));
 
         $response->assertStatus(200);
         $response->assertViewHas('teams', function ($teams) {
@@ -462,11 +499,17 @@ class GladosControllerTest extends TestCase
     public function test_status_handles_teams_without_completed_quests(): void
     {
         $game = Game::factory()->create();
+        $suspect = Suspect::factory()->create();
+        $location = Location::factory()->create();
         $team = Team::factory()->create(['game_id' => $game->id, 'waitlist' => false]);
-        $quest = Quest::factory()->create(['game_id' => $game->id]);
+        $quest = Quest::factory()->create([
+            'game_id' => $game->id,
+            'suspect_id' => $suspect->id,
+            'location_id' => $location->id,
+        ]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.glados.status', $game->id));
+            ->get(route('admin.game.glados.status', $game->id));
 
         $response->assertStatus(200);
         $response->assertViewHas('teams', function ($teams) use ($team) {
@@ -482,15 +525,27 @@ class GladosControllerTest extends TestCase
     public function test_status_includes_multiple_teams_and_quests(): void
     {
         $game = Game::factory()->create();
+        $suspect1 = Suspect::factory()->create();
+        $suspect2 = Suspect::factory()->create();
+        $location1 = Location::factory()->create();
+        $location2 = Location::factory()->create();
 
         $team1 = Team::factory()->create(['game_id' => $game->id, 'waitlist' => false]);
         $team2 = Team::factory()->create(['game_id' => $game->id, 'waitlist' => false]);
 
-        $quest1 = Quest::factory()->create(['game_id' => $game->id]);
-        $quest2 = Quest::factory()->create(['game_id' => $game->id]);
+        $quest1 = Quest::factory()->create([
+            'game_id' => $game->id,
+            'suspect_id' => $suspect1->id,
+            'location_id' => $location1->id,
+        ]);
+        $quest2 = Quest::factory()->create([
+            'game_id' => $game->id,
+            'suspect_id' => $suspect2->id,
+            'location_id' => $location2->id,
+        ]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.glados.status', $game->id));
+            ->get(route('admin.game.glados.status', $game->id));
 
         $response->assertStatus(200);
         $response->assertViewHas('teams', function ($teams) {

@@ -28,7 +28,6 @@ class AgentTest extends TestCase
             'title',
             'location',
             'retired',
-            'bio',
             'web_display',
             'admin',
             'src',
@@ -42,7 +41,7 @@ class AgentTest extends TestCase
     
     public function test_it_casts_retired_to_boolean(): void
     {
-        $agent = factory(Agent::class)->create(['retired' => 1]);
+        $agent = Agent::factory()->create(['retired' => 1]);
 
         $this->assertIsBool($agent->retired);
         $this->assertTrue($agent->retired);
@@ -51,7 +50,7 @@ class AgentTest extends TestCase
     
     public function test_it_casts_web_display_to_boolean(): void
     {
-        $agent = factory(Agent::class)->create(['web_display' => 1]);
+        $agent = Agent::factory()->create(['web_display' => 1]);
 
         $this->assertIsBool($agent->web_display);
         $this->assertTrue($agent->web_display);
@@ -60,7 +59,7 @@ class AgentTest extends TestCase
     
     public function test_it_casts_admin_to_boolean(): void
     {
-        $agent = factory(Agent::class)->create(['admin' => 1]);
+        $agent = Agent::factory()->create(['admin' => 1]);
 
         $this->assertIsBool($agent->admin);
         $this->assertTrue($agent->admin);
@@ -73,7 +72,7 @@ class AgentTest extends TestCase
     
     public function test_it_returns_ucfirst_first_name(): void
     {
-        $agent = factory(Agent::class)->make(['first_name' => 'john']);
+        $agent = Agent::factory()->make(['first_name' => 'john']);
 
         $this->assertEquals('John', $agent->first_name);
     }
@@ -81,7 +80,7 @@ class AgentTest extends TestCase
     
     public function test_it_returns_ucfirst_last_name(): void
     {
-        $agent = factory(Agent::class)->make(['last_name' => 'doe']);
+        $agent = Agent::factory()->make(['last_name' => 'doe']);
 
         $this->assertEquals('Doe', $agent->last_name);
     }
@@ -89,7 +88,7 @@ class AgentTest extends TestCase
     
     public function test_it_returns_full_name_as_concatenation_of_first_and_last(): void
     {
-        $agent = factory(Agent::class)->make([
+        $agent = Agent::factory()->make([
             'first_name' => 'john',
             'last_name'  => 'doe',
         ]);
@@ -100,7 +99,7 @@ class AgentTest extends TestCase
     
     public function test_it_prepends_public_uploads_path_to_src(): void
     {
-        $agent = factory(Agent::class)->make(['src' => 'agents/photo.jpg']);
+        $agent = Agent::factory()->make(['src' => 'agents/photo.jpg']);
 
         $expected = env('PUBLIC_UPLOADS_PATH').'/agents/photo.jpg';
 
@@ -136,9 +135,9 @@ class AgentTest extends TestCase
     
     public function active_scope_returns_only_non_retired_and_web_displayed_agents(): void
     {
-        factory(Agent::class)->create(['retired' => false, 'web_display' => true]);
-        factory(Agent::class)->create(['retired' => true,  'web_display' => true]);
-        factory(Agent::class)->create(['retired' => false, 'web_display' => false]);
+        Agent::factory()->create(['retired' => false, 'web_display' => true]);
+        Agent::factory()->create(['retired' => true,  'web_display' => true]);
+        Agent::factory()->create(['retired' => false, 'web_display' => false]);
 
         $agents = Agent::active()->get();
 
@@ -150,9 +149,9 @@ class AgentTest extends TestCase
     
     public function retired_scope_returns_only_retired_and_web_displayed_agents(): void
     {
-        factory(Agent::class)->create(['retired' => true,  'web_display' => true]);
-        factory(Agent::class)->create(['retired' => false, 'web_display' => true]);
-        factory(Agent::class)->create(['retired' => true,  'web_display' => false]);
+        Agent::factory()->create(['retired' => true,  'web_display' => true]);
+        Agent::factory()->create(['retired' => false, 'web_display' => true]);
+        Agent::factory()->create(['retired' => true,  'web_display' => false]);
 
         $agents = Agent::retired()->get();
 
@@ -191,7 +190,7 @@ class AgentTest extends TestCase
         File::shouldReceive('exists')->once()->andReturn(true);
         File::shouldReceive('delete')->once();
 
-        $agent = factory(Agent::class)->make(['src' => 'agents/photo.jpg']);
+        $agent = Agent::factory()->make(['src' => 'agents/photo.jpg']);
         $agent->deleteImage();
     }
 
@@ -201,7 +200,7 @@ class AgentTest extends TestCase
         File::shouldReceive('exists')->once()->andReturn(false);
         File::shouldReceive('delete')->never();
 
-        $agent = factory(Agent::class)->make(['src' => 'agents/photo.jpg']);
+        $agent = Agent::factory()->make(['src' => 'agents/photo.jpg']);
         $agent->deleteImage();
     }
 }

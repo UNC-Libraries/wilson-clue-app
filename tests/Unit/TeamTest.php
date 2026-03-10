@@ -37,7 +37,7 @@ class TeamTest extends TestCase
 
     public function test_it_casts_waitlist_to_boolean_and_score_to_float(): void
     {
-        $team = Team::factory()->create(['waitlist' => 1, 'score' => 42]);
+        $team = Team::factory()->withGame()->create(['waitlist' => 1, 'score' => 42]);
 
         $this->assertIsBool($team->waitlist);
         $this->assertTrue($team->waitlist);
@@ -86,14 +86,15 @@ class TeamTest extends TestCase
 
     public function test_indictment_made_returns_false_when_indictment_time_is_null(): void
     {
-        $team = Team::factory()->create(['indictment_time' => null]);
+        $team = Team::factory()->withGame()->create();
+        $team->indictment_time = null;
 
         $this->assertFalse($team->indictment_made);
     }
 
     public function test_indictment_made_returns_true_when_indictment_time_is_set(): void
     {
-        $team = Team::factory()->create(['indictment_time' => Carbon::now()]);
+        $team = Team::factory()->withGame()->create(['indictment_time' => Carbon::now()]);
 
         $this->assertTrue($team->indictment_made);
     }
@@ -146,7 +147,8 @@ class TeamTest extends TestCase
     public function test_game_status_includes_quest_indictment_and_evidence_entries(): void
     {
         $game = Game::factory()->create();
-        $team = Team::factory()->create(['game_id' => $game->id, 'indictment_time' => null, 'evidence_id' => null]);
+        $team = Team::factory()->create(['game_id' => $game->id, 'evidence_id' => 0]);
+        $team->indictment_time = null;
 
         $suspect = Suspect::factory()->create(['name' => 'Suspect Name', 'machine' => 'scarlet']);
         Quest::factory()->create(['game_id' => $game->id, 'suspect_id' => $suspect->id]);
@@ -169,8 +171,8 @@ class TeamTest extends TestCase
 
     public function registered_scope_returns_only_non_waitlist_teams(): void
     {
-        $registered = Team::factory()->create(['waitlist' => false]);
-        Team::factory()->create(['waitlist' => true]);
+        $registered = Team::factory()->withGame()->create(['waitlist' => false]);
+        Team::factory()->withGame()->create(['waitlist' => true]);
 
         $results = Team::query()->registered()->get();
 
@@ -180,8 +182,8 @@ class TeamTest extends TestCase
 
     public function waitlist_scope_returns_only_waitlisted_teams(): void
     {
-        $waitlisted = Team::factory()->create(['waitlist' => true]);
-        Team::factory()->create(['waitlist' => false]);
+        $waitlisted = Team::factory()->withGame()->create(['waitlist' => true]);
+        Team::factory()->withGame()->create(['waitlist' => false]);
 
         $results = Team::query()->waitlist()->get();
 
@@ -209,7 +211,7 @@ class TeamTest extends TestCase
 
     public function check_player_warnings_returns_false_when_all_warning_collections_are_empty(): void
     {
-        $team = Team::factory()->create();
+        $team = Team::factory()->withGame()->create();
 
         $player = new class
         {
@@ -228,7 +230,7 @@ class TeamTest extends TestCase
 
     public function check_player_warnings_returns_true_when_any_warning_collection_has_values(): void
     {
-        $team = Team::factory()->create();
+        $team = Team::factory()->withGame()->create();
 
         $playerA = new class
         {

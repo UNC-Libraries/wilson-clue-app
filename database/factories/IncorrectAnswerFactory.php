@@ -24,8 +24,8 @@ class IncorrectAnswerFactory extends Factory
     public function definition(): array
     {
         return [
-            'team_id' => Team::factory(),
-            'question_id' => Question::factory(),
+            'team_id' => 0,
+            'question_id' => 0,
             'answer' => $this->faker->sentence(),
             'judged' => false,
         ];
@@ -54,5 +54,28 @@ class IncorrectAnswerFactory extends Factory
             'judged' => false,
         ]);
     }
-}
 
+    /**
+     * Attach this incorrect answer to a team.
+     *
+     * @return self
+     */
+    public function withTeam(): self
+    {
+        return $this->state(fn (array $attributes) => [
+            'team_id' => Team::factory(),
+        ]);
+    }
+
+    /**
+     * Attach this incorrect answer to a question.
+     *
+     * @return self
+     */
+    public function withQuestion(): self
+    {
+        return $this->state(fn (array $attributes) => [
+            'question_id' => Question::factory(),
+        ]);
+    }
+}

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Http\Middleware;
 
-use App\Http\Middleware\Admin;
+use App\Agent;
 use App\Player;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
@@ -74,7 +74,7 @@ class PlayerTest extends TestCase
             return response('OK', 200);
         });
 
-        $admin =Admin::factory()->create();
+        $admin = Agent::factory()->create(['admin' => true]);
 
         $response = $this->actingAs($admin, 'admin')
             ->get('/test-admin-middleware');
@@ -94,4 +94,3 @@ class PlayerTest extends TestCase
         $response->assertRedirect('/');
     }
 }
-

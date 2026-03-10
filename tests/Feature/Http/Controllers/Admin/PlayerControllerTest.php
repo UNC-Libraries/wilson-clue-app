@@ -244,7 +244,7 @@ class PlayerControllerTest extends TestCase
         $nonStudent = Player::factory()->create(['student' => false]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.player.index', ['non_student' => '1']));
+            ->get(route('admin.player.index', ['non_student' => ['1']]));
 
         $response->assertStatus(200);
         $response->assertViewHas('players', function ($players) use ($student, $nonStudent) {
@@ -259,7 +259,7 @@ class PlayerControllerTest extends TestCase
         $manualPlayer = Player::factory()->create(['manual' => true]);
 
         $response = $this->actingAsAdmin()
-            ->get(route('admin.player.index', ['manual' => '1']));
+            ->get(route('admin.player.index', ['manual' => ['1']]));
 
         $response->assertStatus(200);
         $response->assertViewHas('players', function ($players) use ($ldapPlayer, $manualPlayer) {

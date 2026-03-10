@@ -48,7 +48,7 @@ class AlertTest extends TestCase
     public function test_it_belongs_to_a_game(): void
     {
         $game  = Game::factory()->create();
-        $alert = Game::factory()->create(['game_id' => $game->id]);
+        $alert = Alert::factory()->create(['game_id' => $game->id]);
 
         $this->assertInstanceOf(Game::class, $alert->game);
         $this->assertEquals($game->id, $alert->game->id);
@@ -78,7 +78,7 @@ class AlertTest extends TestCase
     public function test_it_can_be_created_in_the_database(): void
     {
         $game = Game::factory()->create();
-        $alert = Game::factory()->create([
+        $alert = Alert::factory()->create([
             'game_id' => $game->id,
             'message' => 'Test alert message',
         ]);

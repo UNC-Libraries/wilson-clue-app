@@ -23,9 +23,20 @@ class AnswerFactory extends Factory
     public function definition(): array
     {
         return [
-            'question_id' => Question::factory(),
+            'question_id' => 0,
             'text' => $this->faker->sentence(),
         ];
     }
-}
 
+    /**
+     * Attach this answer to a question.
+     *
+     * @return self
+     */
+    public function withQuestion(): self
+    {
+        return $this->state(fn (array $attributes) => [
+            'question_id' => Question::factory(),
+        ]);
+    }
+}

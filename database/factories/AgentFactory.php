@@ -29,7 +29,6 @@ class AgentFactory extends Factory
             'title' => $this->faker->title(),
             'location' => $this->faker->city(),
             'retired' => false,
-            'bio' => $this->faker->sentence(),
             'web_display' => true,
             'admin' => false,
             'src' => 'agents/' . $this->faker->slug() . '.jpg',

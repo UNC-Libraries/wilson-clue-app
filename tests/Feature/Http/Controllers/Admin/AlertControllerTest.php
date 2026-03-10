@@ -11,6 +11,19 @@ class AlertControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        // Force an in-memory SQLite database before the application boots so
+        // that RefreshDatabase can run migrate:fresh locally without the VM's
+        // MySQL server being reachable.
+        putenv('DB_CONNECTION=sqlite');
+        putenv('DB_DATABASE=:memory:');
+        $_ENV['DB_CONNECTION'] = 'sqlite';
+        $_ENV['DB_DATABASE']   = ':memory:';
+
+        parent::setUp();
+    }
+
     private function actingAsAdmin()
     {
         /** @var \App\Agent $admin */
@@ -27,7 +40,7 @@ class AlertControllerTest extends TestCase
         $game = Game::factory()->create();
 
         $response = $this->actingAsAdmin()
-            ->post(route('admin.alert.store', $game->id), [
+            ->post(route('admin.game.alert.store', $game->id), [
                 'message' => 'Important game announcement',
             ]);
 
@@ -44,7 +57,7 @@ class AlertControllerTest extends TestCase
         $game = Game::factory()->create();
 
         $response = $this->actingAsAdmin()
-            ->post(route('admin.alert.store', $game->id), [
+            ->post(route('admin.game.alert.store', $game->id), [
                 'message' => 'Test alert',
             ]);
 
@@ -60,7 +73,7 @@ class AlertControllerTest extends TestCase
         $game = Game::factory()->create();
 
         $response = $this->actingAsAdmin()
-            ->post(route('admin.alert.store', $game->id), []);
+            ->post(route('admin.game.alert.store', $game->id), []);
 
         $response->assertSessionHasErrors('message');
     }
@@ -70,7 +83,7 @@ class AlertControllerTest extends TestCase
         $game = Game::factory()->create();
 
         $response = $this->actingAsAdmin()
-            ->post(route('admin.alert.store', $game->id), [
+            ->post(route('admin.game.alert.store', $game->id), [
                 'message' => ['not', 'a', 'string'],
             ]);
 
@@ -82,8 +95,8 @@ class AlertControllerTest extends TestCase
         $game = Game::factory()->create();
 
         $response = $this->actingAsAdmin()
-            ->post(route('admin.alert.store', $game->id), [
-                'message' => str_repeat('a', 256), // 256 characters
+            ->post(route('admin.game.alert.store', $game->id), [
+                'message' => str_repeat('a', 256),
             ]);
 
         $response->assertSessionHasErrors('message');
@@ -96,7 +109,7 @@ class AlertControllerTest extends TestCase
         $message = str_repeat('a', 255);
 
         $response = $this->actingAsAdmin()
-            ->post(route('admin.alert.store', $game->id), [
+            ->post(route('admin.game.alert.store', $game->id), [
                 'message' => $message,
             ]);
 
@@ -114,7 +127,7 @@ class AlertControllerTest extends TestCase
         $game = Game::factory()->create();
 
         $response = $this->actingAsAdmin()
-            ->post(route('admin.alert.store', $game->id), [
+            ->post(route('admin.game.alert.store', $game->id), [
                 'message' => '',
             ]);
 
@@ -128,7 +141,7 @@ class AlertControllerTest extends TestCase
         $message = 'Alert with special chars: <>&"\'@#$%';
 
         $response = $this->actingAsAdmin()
-            ->post(route('admin.alert.store', $game->id), [
+            ->post(route('admin.game.alert.store', $game->id), [
                 'message' => $message,
             ]);
 
@@ -147,7 +160,7 @@ class AlertControllerTest extends TestCase
         $message = 'Alert with emoji 🎮 and unicode: café, naïve, 日本語';
 
         $response = $this->actingAsAdmin()
-            ->post(route('admin.alert.store', $game->id), [
+            ->post(route('admin.game.alert.store', $game->id), [
                 'message' => $message,
             ]);
 
@@ -164,12 +177,12 @@ class AlertControllerTest extends TestCase
         $game = Game::factory()->create();
 
         $this->actingAsAdmin()
-            ->post(route('admin.alert.store', $game->id), [
+            ->post(route('admin.game.alert.store', $game->id), [
                 'message' => 'First alert',
             ]);
 
         $this->actingAsAdmin()
-            ->post(route('admin.alert.store', $game->id), [
+            ->post(route('admin.game.alert.store', $game->id), [
                 'message' => 'Second alert',
             ]);
 
@@ -191,7 +204,7 @@ class AlertControllerTest extends TestCase
         $game = Game::factory()->create();
 
         $response = $this->actingAsAdmin()
-            ->post(route('admin.alert.store', $game->id), [
+            ->post(route('admin.game.alert.store', $game->id), [
                 'message' => 'Test alert',
             ]);
 
@@ -204,12 +217,12 @@ class AlertControllerTest extends TestCase
         $game2 = Game::factory()->create();
 
         $this->actingAsAdmin()
-            ->post(route('admin.alert.store', $game1->id), [
+            ->post(route('admin.game.alert.store', $game1->id), [
                 'message' => 'Game 1 alert',
             ]);
 
         $this->actingAsAdmin()
-            ->post(route('admin.alert.store', $game2->id), [
+            ->post(route('admin.game.alert.store', $game2->id), [
                 'message' => 'Game 2 alert',
             ]);
 
@@ -237,7 +250,7 @@ class AlertControllerTest extends TestCase
         ]);
 
         $response = $this->actingAsAdmin()
-            ->delete(route('admin.alert.destroy', [$game->id, $alert->id]));
+            ->delete(route('admin.game.alert.destroy', [$game->id, $alert->id]));
 
         $response->assertRedirect(route('admin.game.show', $game->id));
 
@@ -253,7 +266,7 @@ class AlertControllerTest extends TestCase
         $alert2 = Alert::factory()->create(['game_id' => $game->id, 'message' => 'Alert 2']);
 
         $response = $this->actingAsAdmin()
-            ->delete(route('admin.alert.destroy', [$game->id, $alert1->id]));
+            ->delete(route('admin.game.alert.destroy', [$game->id, $alert1->id]));
 
         $response->assertRedirect(route('admin.game.show', $game->id));
 
@@ -266,7 +279,7 @@ class AlertControllerTest extends TestCase
         $game = Game::factory()->create();
 
         $response = $this->actingAsAdmin()
-            ->delete(route('admin.alert.destroy', [$game->id, 999999]));
+            ->delete(route('admin.game.alert.destroy', [$game->id, 999999]));
 
         $response->assertStatus(404);
     }
@@ -277,7 +290,7 @@ class AlertControllerTest extends TestCase
         $alert = Alert::factory()->create(['game_id' => $game->id]);
 
         $response = $this->actingAsAdmin()
-            ->delete(route('admin.alert.destroy', [$game->id, $alert->id]));
+            ->delete(route('admin.game.alert.destroy', [$game->id, $alert->id]));
 
         $response->assertRedirect(route('admin.game.show', $game->id));
     }
@@ -285,12 +298,10 @@ class AlertControllerTest extends TestCase
     public function test_destroy_works_with_correct_game_id_parameter(): void
     {
         $game1 = Game::factory()->create();
-        $game2 = Game::factory()->create();
         $alert = Alert::factory()->create(['game_id' => $game1->id]);
 
-        // Delete with game1 ID (correct game)
         $response = $this->actingAsAdmin()
-            ->delete(route('admin.alert.destroy', [$game1->id, $alert->id]));
+            ->delete(route('admin.game.alert.destroy', [$game1->id, $alert->id]));
 
         $response->assertRedirect(route('admin.game.show', $game1->id));
 
@@ -303,10 +314,9 @@ class AlertControllerTest extends TestCase
         $game2 = Game::factory()->create();
         $alert = Alert::factory()->create(['game_id' => $game1->id]);
 
-        // Delete with game2 ID (different game) but alert exists
-        // Controller doesn't validate game ownership, just uses ID for redirect
+        // Controller doesn't validate game ownership, just uses the first ID for redirect
         $response = $this->actingAsAdmin()
-            ->delete(route('admin.alert.destroy', [$game2->id, $alert->id]));
+            ->delete(route('admin.game.alert.destroy', [$game2->id, $alert->id]));
 
         $response->assertRedirect(route('admin.game.show', $game2->id));
 
@@ -318,10 +328,10 @@ class AlertControllerTest extends TestCase
         $game = Game::factory()->create();
         $alert = Alert::factory()->create(['game_id' => $game->id]);
 
-        $game->delete(); // Soft delete the game
+        $game->delete();
 
         $response = $this->actingAsAdmin()
-            ->delete(route('admin.alert.destroy', [$game->id, $alert->id]));
+            ->delete(route('admin.game.alert.destroy', [$game->id, $alert->id]));
 
         $response->assertRedirect(route('admin.game.show', $game->id));
 
@@ -336,7 +346,7 @@ class AlertControllerTest extends TestCase
     {
         $game = Game::factory()->create();
 
-        $response = $this->post(route('admin.alert.store', $game->id), [
+        $response = $this->post(route('admin.game.alert.store', $game->id), [
             'message' => 'Unauthorized attempt',
         ]);
 
@@ -352,7 +362,7 @@ class AlertControllerTest extends TestCase
         $game = Game::factory()->create();
         $alert = Alert::factory()->create(['game_id' => $game->id]);
 
-        $response = $this->delete(route('admin.alert.destroy', [$game->id, $alert->id]));
+        $response = $this->delete(route('admin.game.alert.destroy', [$game->id, $alert->id]));
 
         $response->assertRedirect(route('admin.login.form'));
 
@@ -364,16 +374,17 @@ class AlertControllerTest extends TestCase
         $game = Game::factory()->create();
 
         $response = $this->actingAsAdmin()
-            ->post(route('admin.alert.store', $game->id), [
+            ->post(route('admin.game.alert.store', $game->id), [
                 'message' => '  Test message with whitespace  ',
             ]);
 
         $response->assertRedirect(route('admin.game.show', $game->id));
 
-        // Laravel's validation doesn't auto-trim, so whitespace is preserved
+        // Laravel's TrimStrings middleware strips leading/trailing whitespace
+        // before the value reaches the controller.
         $this->assertDatabaseHas('alerts', [
             'game_id' => $game->id,
-            'message' => '  Test message with whitespace  ',
+            'message' => 'Test message with whitespace',
         ]);
     }
 
@@ -384,7 +395,7 @@ class AlertControllerTest extends TestCase
         $message = "Line 1\nLine 2\nLine 3";
 
         $response = $this->actingAsAdmin()
-            ->post(route('admin.alert.store', $game->id), [
+            ->post(route('admin.game.alert.store', $game->id), [
                 'message' => $message,
             ]);
 

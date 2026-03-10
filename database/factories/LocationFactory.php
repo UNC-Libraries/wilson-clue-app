@@ -24,7 +24,7 @@ class LocationFactory extends Factory
         return [
             'name' => $this->faker->words(3, true),
             'floor' => $this->faker->numberBetween(1, 5),
-            'description' => $this->faker->paragraph(),
+           // 'description' => $this->faker->paragraph(),
             'map_section' => $this->faker->randomElement(['north', 'south', 'east', 'west', 'center']),
         ];
     }

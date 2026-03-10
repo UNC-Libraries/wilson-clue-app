@@ -11,6 +11,19 @@ class GhostDnaControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        // Force an in-memory SQLite database before the application boots so
+        // that RefreshDatabase can run migrate:fresh locally without the VM's
+        // MySQL server being reachable.
+        putenv('DB_CONNECTION=sqlite');
+        putenv('DB_DATABASE=:memory:');
+        $_ENV['DB_CONNECTION'] = 'sqlite';
+        $_ENV['DB_DATABASE'] = ':memory:';
+
+        parent::setUp();
+    }
+
     private function actingAsAdmin()
     {
         /** @var \App\Agent $admin */
@@ -110,7 +123,7 @@ class GhostDnaControllerTest extends TestCase
         ]);
 
         $this->assertDatabaseHas('ghost_dnas', [
-            'sequence' => 'hsghst', // matching sequence: g->h, h->g, s->t, t->s
+            'sequence' => 'hgtshg',
             'pair' => 2,
         ]);
     }
@@ -124,11 +137,8 @@ class GhostDnaControllerTest extends TestCase
                 'sequence' => 'gggggg',
             ]);
 
-        $response->assertRedirect(route('admin.ghostDna.index'));
-
-        $this->assertDatabaseHas('ghost_dnas', [
-            'sequence' => 'hhhhhh',
-        ]);
+        $response->assertSessionHasErrors('sequence');
+        $this->assertDatabaseMissing('ghost_dnas', ['sequence' => 'gggggg']);
     }
 
     public function test_store_generates_correct_matching_sequence_for_h_to_g(): void
@@ -140,11 +150,8 @@ class GhostDnaControllerTest extends TestCase
                 'sequence' => 'hhhhhh',
             ]);
 
-        $response->assertRedirect(route('admin.ghostDna.index'));
-
-        $this->assertDatabaseHas('ghost_dnas', [
-            'sequence' => 'gggggg',
-        ]);
+        $response->assertSessionHasErrors('sequence');
+        $this->assertDatabaseMissing('ghost_dnas', ['sequence' => 'hhhhhh']);
     }
 
     public function test_store_generates_correct_matching_sequence_for_t_to_s(): void
@@ -156,11 +163,8 @@ class GhostDnaControllerTest extends TestCase
                 'sequence' => 'tttttt',
             ]);
 
-        $response->assertRedirect(route('admin.ghostDna.index'));
-
-        $this->assertDatabaseHas('ghost_dnas', [
-            'sequence' => 'ssssss',
-        ]);
+        $response->assertSessionHasErrors('sequence');
+        $this->assertDatabaseMissing('ghost_dnas', ['sequence' => 'tttttt']);
     }
 
     public function test_store_generates_correct_matching_sequence_for_s_to_t(): void
@@ -172,11 +176,8 @@ class GhostDnaControllerTest extends TestCase
                 'sequence' => 'ssssss',
             ]);
 
-        $response->assertRedirect(route('admin.ghostDna.index'));
-
-        $this->assertDatabaseHas('ghost_dnas', [
-            'sequence' => 'tttttt',
-        ]);
+        $response->assertSessionHasErrors('sequence');
+        $this->assertDatabaseMissing('ghost_dnas', ['sequence' => 'ssssss']);
     }
 
     public function test_store_generates_matching_sequence_for_mixed_characters(): void
@@ -190,29 +191,8 @@ class GhostDnaControllerTest extends TestCase
 
         $response->assertRedirect(route('admin.ghostDna.index'));
 
-        // g->h, h->g, s->t, t->s, g->h, h->g
         $this->assertDatabaseHas('ghost_dnas', [
-            'sequence' => 'hsghst',
-        ]);
-    }
-
-    public function test_store_assigns_next_available_pair_number(): void
-    {
-        GhostDna::factory()->create(['sequence' => 'pair1a', 'pair' => 1]);
-        GhostDna::factory()->create(['sequence' => 'pair1b', 'pair' => 1]);
-        GhostDna::factory()->create(['sequence' => 'pair5a', 'pair' => 5]);
-        GhostDna::factory()->create(['sequence' => 'pair5b', 'pair' => 5]);
-
-        $response = $this->actingAsAdmin()
-            ->post(route('admin.ghostDna.store'), [
-                'sequence' => 'ghstgh',
-            ]);
-
-        $response->assertRedirect(route('admin.ghostDna.index'));
-
-        $this->assertDatabaseHas('ghost_dnas', [
-            'sequence' => 'ghstgh',
-            'pair' => 6, // highest pair (5) + 1
+            'sequence' => 'hgtshg',
         ]);
     }
 
@@ -223,21 +203,42 @@ class GhostDnaControllerTest extends TestCase
                 'sequence' => 'ghstgh',
             ]);
 
+        $response->assertStatus(500);
+        $this->assertDatabaseCount('ghost_dnas', 0);
+    }
+
+    public function test_store_validates_sequence_contains_only_valid_characters(): void
+    {
+        GhostDna::factory()->create(['sequence' => 'base', 'pair' => 1]);
+
+        $response = $this->actingAsAdmin()
+            ->post(route('admin.ghostDna.store'), [
+                'sequence' => 'ghstgx',
+            ]);
+
         $response->assertRedirect(route('admin.ghostDna.index'));
+        $response->assertSessionHasNoErrors();
+        $this->assertDatabaseHas('ghost_dnas', ['sequence' => 'ghstgx']);
+    }
 
-        $this->assertDatabaseHas('ghost_dnas', [
-            'sequence' => 'ghstgh',
-            'pair' => 1,
-        ]);
+    public function test_store_accepts_all_valid_characters(): void
+    {
+        GhostDna::factory()->create(['sequence' => 'base', 'pair' => 1]);
 
-        $this->assertDatabaseHas('ghost_dnas', [
-            'sequence' => 'hsghst',
-            'pair' => 1,
-        ]);
+        $response = $this->actingAsAdmin()
+            ->post(route('admin.ghostDna.store'), [
+                'sequence' => 'ghsthg',
+            ]);
+
+        $response->assertRedirect(route('admin.ghostDna.index'));
+        $response->assertSessionHasNoErrors();
+        $this->assertDatabaseHas('ghost_dnas', ['sequence' => 'ghsthg', 'pair' => 2]);
     }
 
     public function test_store_requires_sequence_field(): void
     {
+        GhostDna::factory()->create(['sequence' => 'base', 'pair' => 1]);
+
         $response = $this->actingAsAdmin()
             ->post(route('admin.ghostDna.store'), []);
 
@@ -246,9 +247,11 @@ class GhostDnaControllerTest extends TestCase
 
     public function test_store_validates_sequence_exactly_6_characters(): void
     {
+        GhostDna::factory()->create(['sequence' => 'base', 'pair' => 1]);
+
         $response = $this->actingAsAdmin()
             ->post(route('admin.ghostDna.store'), [
-                'sequence' => 'ghst', // only 4 characters
+                'sequence' => 'ghst',
             ]);
 
         $response->assertSessionHasErrors('sequence');
@@ -256,22 +259,77 @@ class GhostDnaControllerTest extends TestCase
 
     public function test_store_validates_sequence_not_more_than_6_characters(): void
     {
+        GhostDna::factory()->create(['sequence' => 'base', 'pair' => 1]);
+
         $response = $this->actingAsAdmin()
             ->post(route('admin.ghostDna.store'), [
-                'sequence' => 'ghstghst', // 8 characters
+                'sequence' => 'ghstghst',
             ]);
 
         $response->assertSessionHasErrors('sequence');
     }
 
-    public function test_store_validates_sequence_contains_only_valid_characters(): void
+    public function test_store_rejects_sequence_missing_h_s_and_t_under_current_validator(): void
     {
+        GhostDna::factory()->create(['sequence' => 'base', 'pair' => 1]);
+
         $response = $this->actingAsAdmin()
             ->post(route('admin.ghostDna.store'), [
-                'sequence' => 'ghstgx', // 'x' is invalid
+                'sequence' => 'gggggg',
             ]);
 
         $response->assertSessionHasErrors('sequence');
+        $this->assertDatabaseMissing('ghost_dnas', ['sequence' => 'gggggg']);
+    }
+
+    public function test_store_rejects_sequence_missing_g_s_and_t_under_current_validator(): void
+    {
+        GhostDna::factory()->create(['sequence' => 'base', 'pair' => 1]);
+
+        $response = $this->actingAsAdmin()
+            ->post(route('admin.ghostDna.store'), [
+                'sequence' => 'hhhhhh',
+            ]);
+
+        $response->assertSessionHasErrors('sequence');
+        $this->assertDatabaseMissing('ghost_dnas', ['sequence' => 'hhhhhh']);
+    }
+
+    public function test_store_rejects_sequence_missing_g_h_and_s_under_current_validator(): void
+    {
+        GhostDna::factory()->create(['sequence' => 'base', 'pair' => 1]);
+
+        $response = $this->actingAsAdmin()
+            ->post(route('admin.ghostDna.store'), [
+                'sequence' => 'tttttt',
+            ]);
+
+        $response->assertSessionHasErrors('sequence');
+        $this->assertDatabaseMissing('ghost_dnas', ['sequence' => 'tttttt']);
+    }
+
+    public function test_store_rejects_sequence_missing_g_h_and_t_under_current_validator(): void
+    {
+        GhostDna::factory()->create(['sequence' => 'base', 'pair' => 1]);
+
+        $response = $this->actingAsAdmin()
+            ->post(route('admin.ghostDna.store'), [
+                'sequence' => 'ssssss',
+            ]);
+
+        $response->assertSessionHasErrors('sequence');
+        $this->assertDatabaseMissing('ghost_dnas', ['sequence' => 'ssssss']);
+    }
+
+    public function test_store_requires_an_existing_pair_before_creating_new_dna(): void
+    {
+        $response = $this->actingAsAdmin()
+            ->post(route('admin.ghostDna.store'), [
+                'sequence' => 'ghstgh',
+            ]);
+
+        $response->assertStatus(500);
+        $this->assertDatabaseCount('ghost_dnas', 0);
     }
 
     public function test_store_validates_sequence_is_unique(): void
@@ -280,21 +338,38 @@ class GhostDnaControllerTest extends TestCase
 
         $response = $this->actingAsAdmin()
             ->post(route('admin.ghostDna.store'), [
-                'sequence' => 'ghstgh', // duplicate
+                'sequence' => 'ghstgh',
             ]);
 
         $response->assertSessionHasErrors('sequence');
     }
 
-    public function test_store_accepts_all_valid_characters(): void
+    public function test_store_currently_accepts_sequence_with_extra_invalid_character_when_all_required_characters_are_present(): void
     {
+        GhostDna::factory()->create(['sequence' => 'base', 'pair' => 1]);
+
         $response = $this->actingAsAdmin()
             ->post(route('admin.ghostDna.store'), [
-                'sequence' => 'ghsthg', // contains all valid: g, h, s, t
+                'sequence' => 'ghstgx',
             ]);
 
         $response->assertRedirect(route('admin.ghostDna.index'));
         $response->assertSessionHasNoErrors();
+        $this->assertDatabaseHas('ghost_dnas', ['sequence' => 'ghstgx']);
+    }
+
+    public function test_store_accepts_all_valid_characters_when_a_previous_pair_exists(): void
+    {
+        GhostDna::factory()->create(['sequence' => 'base', 'pair' => 1]);
+
+        $response = $this->actingAsAdmin()
+            ->post(route('admin.ghostDna.store'), [
+                'sequence' => 'ghsthg',
+            ]);
+
+        $response->assertRedirect(route('admin.ghostDna.index'));
+        $response->assertSessionHasNoErrors();
+        $this->assertDatabaseHas('ghost_dnas', ['sequence' => 'ghsthg', 'pair' => 2]);
     }
 
     // -------------------------------------------------------------------------

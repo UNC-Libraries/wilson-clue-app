@@ -20,10 +20,18 @@ class WebControllerTest extends TestCase
 
     protected function setUp(): void
     {
+        // Force in-memory SQLite so RefreshDatabase does not hit external DB.
+        putenv('DB_CONNECTION=sqlite');
+        putenv('DB_DATABASE=:memory:');
+        $_ENV['DB_CONNECTION'] = 'sqlite';
+        $_ENV['DB_DATABASE'] = ':memory:';
+
         parent::setUp();
 
         if (! Route::has('web.login.test')) {
-            Route::get('/__web-login-test', [WebController::class, 'login'])->name('web.login.test');
+            Route::middleware('web')
+                ->get('/__web-login-test', [WebController::class, 'login'])
+                ->name('web.login.test');
         }
     }
 
@@ -41,6 +49,9 @@ class WebControllerTest extends TestCase
         ]);
 
         $archivedGame = Game::factory()->archived()->create();
+        $winner = Team::factory()->create(['game_id' => $archivedGame->id, 'waitlist' => false]);
+        $archivedGame->winning_team = $winner->id;
+        $archivedGame->save();
 
         Agent::factory()->create(['retired' => false, 'web_display' => true]);
         Agent::factory()->create(['retired' => true, 'web_display' => true]);
@@ -90,7 +101,10 @@ class WebControllerTest extends TestCase
     public function test_index_handles_missing_globals_and_no_active_game(): void
     {
         Suspect::factory()->create();
-        Game::factory()->archived()->create();
+        $archivedGame = Game::factory()->archived()->create();
+        $winner = Team::factory()->create(['game_id' => $archivedGame->id, 'waitlist' => false]);
+        $archivedGame->winning_team = $winner->id;
+        $archivedGame->save();
 
         $response = $this->get(route('web.index'));
 
@@ -177,7 +191,7 @@ class WebControllerTest extends TestCase
 
     public function test_login_returns_login_view(): void
     {
-        $response = $this->get(route('web.login.test'));
+        $response = $this->get('/__web-login-test');
 
         $response->assertStatus(200);
         $response->assertViewIs('auth.login');

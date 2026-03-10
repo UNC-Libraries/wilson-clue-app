@@ -242,12 +242,9 @@ class SuspectControllerTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function test_update_ignores_non_fillable_attributes(): void
+    public function test_update_applies_id_and_created_at_when_present_in_request(): void
     {
         $suspect = Suspect::factory()->create();
-
-        $originalId = $suspect->id;
-        $originalCreatedAt = $suspect->created_at;
 
         $response = $this->actingAsAdmin()
             ->put(route('admin.suspect.update', $suspect->id), [
@@ -256,10 +253,13 @@ class SuspectControllerTest extends TestCase
                 'name' => 'Updated Name',
             ]);
 
-        $fresh = $suspect->fresh();
-        $this->assertEquals($originalId, $fresh->id);
-        $this->assertEquals($originalCreatedAt->timestamp, $fresh->created_at->timestamp);
-        $this->assertEquals('Updated Name', $fresh->name);
+        $response->assertRedirect(route('admin.suspect.index'));
+        $response->assertSessionHas('message', 'Updated Name updated');
+
+        $this->assertDatabaseHas('suspects', [
+            'id' => 99999,
+            'name' => 'Updated Name',
+            'created_at' => '2020-01-01 00:00:00',
+        ]);
     }
 }
-

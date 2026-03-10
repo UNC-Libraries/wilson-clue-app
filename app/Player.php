@@ -24,9 +24,9 @@ class Player extends Authenticatable implements LdapAuthenticatable
      * @var array
      */
     protected $appends = [
-        'full_name' => '',
-        'class' => '',
-        'academic_group' => '',
+        'full_name',
+        'class',
+        'academic_group',
     ];
 
     protected $fillable = [

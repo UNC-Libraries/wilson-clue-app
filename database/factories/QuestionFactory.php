@@ -27,7 +27,7 @@ class QuestionFactory extends Factory
             'type' => false,
             'full_answer' => $this->faker->sentence(),
             'src' => 'questions/' . $this->faker->slug() . '.jpg',
-            'location_id' => Location::factory(),
+            'location_id' => 0,
         ];
     }
 
@@ -66,5 +66,16 @@ class QuestionFactory extends Factory
             'location_id' => null,
         ]);
     }
-}
 
+    /**
+     * Attach this question to a location.
+     *
+     * @return self
+     */
+    public function withLocation(): self
+    {
+        return $this->state(fn (array $attributes) => [
+            'location_id' => Location::factory(),
+        ]);
+    }
+}

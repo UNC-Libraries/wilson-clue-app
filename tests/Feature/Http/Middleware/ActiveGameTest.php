@@ -5,6 +5,7 @@ namespace Tests\Feature\Http\Middleware;
 use App\Game;
 use App\Player;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Route;
 use Tests\TestCase;
 
 class ActiveGameTest extends TestCase
@@ -16,7 +17,15 @@ class ActiveGameTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->player = Player::factory()->create();
+
+        /** @var Player $player */
+        $player = Player::factory()->create();
+        $this->player = $player;
+
+        Route::middleware(['web', 'auth:player', 'activeGame'])
+            ->get('/test-active-game-middleware', function () {
+                return response('OK', 200);
+            });
     }
 
     
@@ -26,7 +35,7 @@ class ActiveGameTest extends TestCase
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession(['gameId' => $game->id])
-            ->get(route('ui.index'));
+            ->get('/test-active-game-middleware');
 
         $response->assertStatus(200);
     }
@@ -37,7 +46,7 @@ class ActiveGameTest extends TestCase
         $game = Game::factory()->inProgress()->create();
 
         $response = $this->actingAs($this->player, 'player')
-            ->get(route('ui.index'));
+            ->get('/test-active-game-middleware');
 
         $response->assertSessionHas('gameId', $game->id);
     }
@@ -46,7 +55,7 @@ class ActiveGameTest extends TestCase
     public function test_it_redirects_to_logout_when_no_game_id_in_session_and_no_active_game(): void
     {
         $response = $this->actingAs($this->player, 'player')
-            ->get(route('ui.index'));
+            ->get('/test-active-game-middleware');
 
         $response->assertRedirect(route('player.logout'));
     }
@@ -57,7 +66,7 @@ class ActiveGameTest extends TestCase
         Game::factory()->inactive()->create();
 
         $response = $this->actingAs($this->player, 'player')
-            ->get(route('ui.index'));
+            ->get('/test-active-game-middleware');
 
         $response->assertRedirect(route('player.logout'));
     }
@@ -65,13 +74,13 @@ class ActiveGameTest extends TestCase
     
     public function test_it_uses_most_recently_active_game_when_multiple_active_games_exist(): void
     {
-        $first  = Game::factory()->inProgress()->create();
-        $second = Game::factory()->inProgress()->create();
+        Game::factory()->inProgress()->create();
+        Game::factory()->inProgress()->create();
 
-        $expected = Game::active()->first();
+        $expected = Game::query()->active()->first();
 
         $response = $this->actingAs($this->player, 'player')
-            ->get(route('ui.index'));
+            ->get('/test-active-game-middleware');
 
         $response->assertSessionHas('gameId', $expected->id);
     }
@@ -84,7 +93,7 @@ class ActiveGameTest extends TestCase
 
         $response = $this->actingAs($this->player, 'player')
             ->withSession(['gameId' => $sessionGame->id])
-            ->get(route('ui.index'));
+            ->get('/test-active-game-middleware');
 
         $response->assertSessionHas('gameId', $sessionGame->id);
     }

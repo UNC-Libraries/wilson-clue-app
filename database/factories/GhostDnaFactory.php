@@ -22,18 +22,18 @@ class GhostDnaFactory extends Factory
     public function definition(): array
     {
         return [
-            'sequence' => $this->faker->numberBetween(1, 100),
-            'pair' => $this->faker->randomElement(['A-T', 'T-A', 'C-G', 'G-C']),
+            'sequence' => $this->faker->regexify('[ghst]{6}'),
+            'pair' => $this->faker->numberBetween(1, 100),
         ];
     }
 
     /**
-     * Indicate a specific sequence number.
+     * Indicate a specific sequence.
      *
-     * @param int $sequence
+     * @param string $sequence
      * @return self
      */
-    public function withSequence(int $sequence): self
+    public function withSequence(string $sequence): self
     {
         return $this->state(fn (array $attributes) => [
             'sequence' => $sequence,
@@ -41,16 +41,15 @@ class GhostDnaFactory extends Factory
     }
 
     /**
-     * Indicate a specific DNA pair.
+     * Indicate a specific DNA pair number.
      *
-     * @param string $pair
+     * @param int $pair
      * @return self
      */
-    public function withPair(string $pair): self
+    public function withPair(int $pair): self
     {
         return $this->state(fn (array $attributes) => [
             'pair' => $pair,
         ]);
     }
 }
-
