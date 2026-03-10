@@ -1,113 +1,108 @@
 // See: http://www.paulirish.com/2009/markup-based-unobtrusive-comprehensive-dom-ready-execution/
 import './jquery_wrapper';
-import {clue} from './clue';
+import { clue } from './clue';
 
 export const CLUE_LOAD = {
   common: {
-    init: function() {
+    init() {
       clue.initAutoSubmit();
       clue.initClickableRow();
       clue.initConfirmSubmit();
       clue.initImagePreview();
-    }
+    },
   },
 
   /*****
    * Web
    */
   web: {
-    init: function(){
+    init() {
       clue.web();
     },
-    enlistForm: function(){
+    enlistForm() {
       clue.initPostcard();
-    }
+    },
   },
 
   /*****
    * User Interface
    */
   ui: {
-    init: function() {
+    init() {
       clue.initSeenAlert();
       clue.getGlobalAlert();
     },
-    index: function() {
-    },
-    dna: function() {
+    index() {},
+    dna() {
       clue.initDnaForm();
     },
-    quest: function() {
+    quest() {
       clue.getPageAlert();
       clue.initQuestionForm();
       clue.initMinigame();
     },
-    indictment: function() {
+    indictment() {
       clue.initIndictmentForm();
     },
-    evidence: function() {
+    evidence() {
       clue.initEvidenceRoom();
-    }
+    },
   },
 
   /*****
    * Admin
    */
-
   game: {
-    init: function() {
-    },
-    create: function() {
+    init() {},
+    create() {
       clue.initDateTimePicker();
     },
-    show: function() {
+    show() {
       clue.initAjaxContentLoaders();
     },
-    edit: function() {
+    edit() {
       clue.initDateTimePicker();
     },
-    editEvidence: function() {
-      clue.initQuestDragDrop('evidenceList','availableEvidence','evidence_list');
+    editEvidence() {
+      clue.initQuestDragDrop('evidenceList', 'availableEvidence', 'evidence_list');
       clue.initCaseFileForm();
     },
-    teams: function() {
+    teams() {
       clue.initClipboard();
-    }
+    },
   },
 
   question: {
-    init: function() {
+    init() {
       clue.initQuestionFormControls();
     },
   },
 
   quest: {
-    init: function() {
-    },
-    edit: function() {
-      clue.initQuestDragDrop('questionList','availableQuestions','question_list');
-      clue.initQuestDragDrop('minigameImageList','availableMinigameImages','minigame_image_list');
+    init() {},
+    edit() {
+      clue.initQuestDragDrop('questionList', 'availableQuestions', 'question_list');
+      clue.initQuestDragDrop('minigameImageList', 'availableMinigameImages', 'minigame_image_list');
       clue.initShowHideQuestTypeSetup();
-    }
-  }
+    },
+  },
 };
 
 export const ROUTER = {
-  exec: function(controller, action_type) {
-    var ns = CLUE_LOAD,
-      action = (action_type === undefined) ? "init" : action_type;
-    if (controller !== "" && ns[controller] && typeof ns[controller][action] == "function") {
-      ns[controller][action]();
+  exec(controller, actionType = 'init') {
+    if (controller !== '' && typeof CLUE_LOAD?.[controller]?.[actionType] === 'function') {
+      CLUE_LOAD[controller][actionType]();
     }
   },
 
-  init: function() {
-    var body = document.body,
-      controller = body.getAttribute("data-controller"),
-      action = body.getAttribute("data-action");
-    ROUTER.exec("common");
+  init() {
+    const controller = document.body.dataset.controller ?? null;
+    const action = document.body.dataset.action ?? null;
+
+    ROUTER.exec('common');
     ROUTER.exec(controller);
     ROUTER.exec(controller, action);
-  }
+  },
 };
+
 $(document).ready(ROUTER.init);

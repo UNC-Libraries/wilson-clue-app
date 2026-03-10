@@ -5,6 +5,56 @@ import ClipboardJS from 'clipboard';
 import Sortable from 'sortablejs';
 import Swiper from 'swiper/bundle';
 
+const csrfToken = () => $('meta[name="csrf-token"]').attr('content');
+
+const ajaxError = function(xhr) {
+  console.log(xhr);
+};
+
+const postJson = function(url, data, success) {
+  $.ajax({
+    url: url,
+    type: 'post',
+    dataType: 'json',
+    data: data,
+    success: success,
+    error: ajaxError,
+  });
+};
+
+const submitAjaxForm = function(selector, success) {
+  $(selector).submit(function(e) {
+    e.preventDefault();
+
+    let target = '#' + $(this).prop('id');
+    clue.questionSubmit(target);
+
+    $.ajax({
+      url: $(this).prop('action'),
+      type: $(this).prop('method'),
+      data: $(this).serialize(),
+      dataType: 'json',
+      success: function(data, status, xhr) {
+        success(data, target, status, xhr);
+      },
+      error: ajaxError,
+    });
+  });
+};
+
+const questionElement = function(target) {
+  return $(target).closest('.question-div');
+};
+
+const responseTarget = function(target) {
+  return `${target}-response`;
+};
+
+const scrollToElement = function(element) {
+  let tOffset = element.offset().top;
+  $('html,body').animate({scrollTop:tOffset-20},'fast');
+};
+
 
 export const clue = {
   admin: function(){
@@ -20,11 +70,11 @@ export const clue = {
   },
 
   dnaCorrect: function(target, dnaId, topOrBottom){
-    $(target).closest('.question-div').removeClass('submitting incorrect');
-    $(`${target}-response`).html('');
+    let element = questionElement(target);
+    element.removeClass('submitting incorrect');
+    $(responseTarget(target)).html('');
     $(dnaId).addClass(topOrBottom);
-    let tOffset = $(dnaId).offset().top;
-    $('html,body').animate({scrollTop:tOffset-20},'fast');
+    scrollToElement($(dnaId));
   },
 
   generateGoogleDrivePermalink: function(link){
@@ -43,37 +93,21 @@ export const clue = {
 
   getGlobalAlert: function() {
     let url = $('#alertModal').data('url');
-    $.ajax({
-      url: url,
-      type: 'post',
-      data: {_token: $('meta[name="csrf-token"]').attr('content') },
-      dataType: 'json',
-      success: function(data, status, xhr) {
-        if(data.html){
-          $('#alertModalBody').html(data.html);
-          $('#alertModal').modal('show');
-        }
-      },
-      error: function(xhr, status, error){
-        console.log(xhr);
+
+    postJson(url, {_token: csrfToken() }, function(data) {
+      if(data.html){
+        $('#alertModalBody').html(data.html);
+        $('#alertModal').modal('show');
       }
     });
   },
 
   getPageAlert: function() {
     let url = $('#pageAlert').data('check-alert-url');
-    $.ajax({
-      url: url,
-      type: 'post',
-      dataType: 'json',
-      data: {_token: $('meta[name="csrf-token"]').attr('content') },
-      success: function(data, status, xhr){
-        $('#pageAlert').html('<p>' + data.message + '</p>');
-      },
-      error: function(xhr, status, error){
-        console.log(xhr);
-      }
-    })
+
+    postJson(url, {_token: csrfToken() }, function(data){
+      $('#pageAlert').html('<p>' + data.message + '</p>');
+    });
   },
 
   getIndictmentConfirmationText: function(which){
@@ -159,50 +193,18 @@ export const clue = {
   },
 
   initDnaForm: function(){
-    $('#dnaForm').submit(function(e) {
-      e.preventDefault();
-      let target = '#' + $(this).prop('id');
-      clue.questionSubmit(target);
-
-      $.ajax({
-        url: $(this).prop('action'),
-        type: $(this).prop('method'),
-        data: $(this).serialize(),
-        dataType: 'json',
-        success: function(data, status, xhr){
-          if(data.correct){
-            clue.dnaCorrect(target, data.dnaId, data.topOrBottom);
-          } else {
-            clue.questionIncorrect(target, data.message);
-          }
-        },
-        error: function(xhr, status, error){
-          console.log(xhr);
-        }
-      });
-
+    submitAjaxForm('#dnaForm', function(data, target){
+      if(data.correct){
+        clue.dnaCorrect(target, data.dnaId, data.topOrBottom);
+      } else {
+        clue.questionIncorrect(target, data.message);
+      }
     });
   },
 
   initEvidenceRoom: function(){
-    $('#evidenceForm').submit(function(e){
-      e.preventDefault();
-      let target = '#' + $(this).prop('id');
-      clue.questionSubmit(target);
-
-      $.ajax({
-        url: $(this).prop('action'),
-        type: $(this).prop('method'),
-        data: $(this).serialize(),
-        dataType: 'json',
-        success: function(data, status, xhr){
-          clue.setEvidence(target);
-        },
-        error: function(xhr, status, error){
-          console.log(xhr);
-        }
-      });
-
+    submitAjaxForm('#evidenceForm', function(data, target){
+      clue.setEvidence(target);
     });
   },
 
@@ -251,55 +253,23 @@ export const clue = {
     }
 
     // Ajax Form
-    $('#minigameForm').submit(function(e){
-      e.preventDefault();
-      let target = '#' + $(this).prop('id');
-
-      clue.questionSubmit(target);
-
-      $.ajax({
-        url: $(this).prop('action'),
-        type: $(this).prop('method'),
-        data: $(this).serialize(),
-        dataType: 'json',
-        success: function(data, status, xhr){
-          if(data.correct){
-            clue.questionCorrect(target);
-            $('#minigameContainer').html('');
-          } else {
-            clue.questionIncorrect(target);
-          }
-        },
-        error: function(xhr, status, error){
-          console.log(xhr);
-        }
-      });
-    })
+    submitAjaxForm('#minigameForm', function(data, target){
+      if(data.correct){
+        clue.questionCorrect(target);
+        $('#minigameContainer').html('');
+      } else {
+        clue.questionIncorrect(target);
+      }
+    });
   },
 
   initQuestionForm: function(){
-    $('.question-form').submit(function(e){
-      e.preventDefault();
-      let target = '#' + $(this).prop('id');
-      clue.questionSubmit(target);
-
-      $.ajax({
-        url: $(this).prop('action'),
-        type: $(this).prop('method'),
-        data: $(this).serialize(),
-        dataType: 'json',
-        success: function(data, status, xhr){
-          if(data.correct){
-            clue.questionCorrect(target);
-          } else {
-            clue.questionIncorrect(target, data.message);
-          }
-        },
-        error: function(xhr, status, error){
-          console.log(xhr);
-        }
-      });
-
+    submitAjaxForm('.question-form', function(data, target){
+      if(data.correct){
+        clue.questionCorrect(target);
+      } else {
+        clue.questionIncorrect(target, data.message);
+      }
     });
   },
 
@@ -359,7 +329,7 @@ export const clue = {
           $.ajax({
             url: url,
             type: 'post',
-            data: {_token: $('meta[name="csrf-token"]').attr('content'), '_method': 'DELETE'},
+            data: {_token: csrfToken(), '_method': 'DELETE'},
           });
         }
 
@@ -381,12 +351,11 @@ export const clue = {
 
   initSeenAlert: function() {
     $('#alertModal').on('hidden.bs.modal', function (e) {
-      $.ajax({
-        url: $('#alertModalBody > p').data('clear-alert'),
-        type: 'post',
-        data: {_token: $('meta[name="csrf-token"]').attr('content')},
-        dataType: 'json'
-      });
+      postJson(
+        $('#alertModalBody > p').data('clear-alert'),
+        {_token: csrfToken()},
+        function(){}
+      );
     });
   },
 
@@ -399,32 +368,33 @@ export const clue = {
   },
 
   questionCorrect: function(target){
-    let element = $(target).closest('.question-div');
+    let element = questionElement(target);
     if(element.length){
-      element.addClass('correct').removeClass('submitting check-status').html('<div class="row"><div class="col-xs-12 text-center"><strong>Complete</strong></div></div>');
+      element
+        .addClass('correct')
+        .removeClass('submitting check-status')
+        .html('<div class="row"><div class="col-xs-12 text-center"><strong>Complete</strong></div></div>');
       clue.getPageAlert();
-      let tOffset = element.offset().top;
-      $('html,body').animate({scrollTop:tOffset-20},'fast');
+      scrollToElement(element);
     }
   },
 
   questionIncorrect: function(target, message){
-    message = (typeof message !== 'undefined') ?  message : 'Try Again!';
-    let element = $(target).closest('.question-div');
+    let text = (typeof message !== 'undefined') ? message : 'Try Again!';
+    let element = questionElement(target);
     element.removeClass('submitting').addClass('incorrect');
-    $(target+'-response').html(message);
-    let tOffset = element.offset().top;
-    $('html,body').animate({scrollTop:tOffset-20},'fast');
+    $(responseTarget(target)).html(text);
+    scrollToElement(element);
   },
 
   setEvidence: function(target){
-    let element = $(target).closest('.question-div');
+    let element = questionElement(target);
     element.removeClass('submitting');
-    $(target+'-response').html('Evidence Set');
+    $(responseTarget(target)).html('Evidence Set');
   },
 
   questionSubmit: function(target){
-    $(target).closest('.question-div').addClass('submitting');
+    questionElement(target).addClass('submitting');
   },
 
   updateMinigameOrder: function(target) {
@@ -464,12 +434,12 @@ export const clue = {
 
       $('.charnav').on('click',function(e){
           let t = $(this).data('main-target');
-          let hast = $(this).attr('href');
+          let hash = $(this).attr('href');
           if(t.length){
               let tOffset=$('#'+t).offset().top;
               $('html,body').animate({scrollTop:tOffset-20},'slow');
               $('.char-panel').removeClass('show');
-              $(hast+'-panel').addClass('show');
+              $(hash+'-panel').addClass('show');
               e.preventDefault();
           }
       });
