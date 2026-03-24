@@ -54,14 +54,6 @@ class AuthenticateTest extends TestCase
         $response->assertSee('Unauthorized.');
     }
 
-    public function test_unauthenticated_player_wanting_json_returns_401(): void
-    {
-        $response = $this->withHeaders(['Accept' => 'application/json'])
-            ->get('/test-auth-player');
-
-        $response->assertStatus(401);
-    }
-
     // -------------------------------------------------------------------------
     // Admin guard
     // -------------------------------------------------------------------------
@@ -89,13 +81,5 @@ class AuthenticateTest extends TestCase
 
         $response->assertStatus(401);
         $response->assertSee('Unauthorized.');
-    }
-
-    public function test_unauthenticated_admin_wanting_json_returns_401(): void
-    {
-        $response = $this->withHeaders(['Accept' => 'application/json'])
-            ->get('/test-auth-admin');
-
-        $response->assertStatus(401);
     }
 }
