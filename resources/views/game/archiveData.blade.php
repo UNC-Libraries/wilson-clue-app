@@ -35,11 +35,11 @@
                 {{ html()->label('Gallery/Album ID', 'flickr') }}
                 {{ html()->text('flickr')->class('form-control') }}
                 <span class="form-text">
-                    The link for the Clue PhotoShelter gallery.
+                    The link for the Clue Mediagraph gallery.
                     <ol>
-                        <li>Select the gallery from the Clue games in PhotoShelter, https://unclibraries.photoshelter.com/galleries/C0000EdqU8HktBw8/Clue-Games</li>
-                        <li>Paste the gallery URL in the input box above. Your gallery url should be similar to this one for the Spring 2024 game:
-                            <span class="photoshelter-notes">https://unclibraries.photoshelter.com/galleries/C0000EdqU8HktBw8/G0000N8kjElu0Rx8/2024-04-Spring-Clue-Game</span></li>
+                        <li>Select the gallery from the Clue games in Mediagraph, https://mediagraph.io/unclibrary/explore/collections/clue-at-wilson-library</li>
+                        <li>Paste the gallery URL in the input box above. Your gallery url should be similar to this one for the Spring 2026 game:
+                            <span class="photoshelter-notes">https://mediagraph.io/unclibrary/explore/collections/2026-04-spring-clue-game</span></li>
                     </ol>
                 </span>
             </div>
@@ -47,12 +47,15 @@
                 {{ html()->label('Start Image', 'flickr_start_img') }}
                 {{ html()->text('flickr_start_img')->class('form-control') }}
                 <span class="form-text">
-                    The url for the image for PhotoShelter on the homepage. To retrieve a single image's URL from PhotoShelter.
+                    The url for the image from Mediagraph on the homepage. To retrieve a single image's URL from Mediagraph.
                     <ol>
-                        <li>Select the image from the PhotoShelter gallery.</li>
-                        <li>Find the image id in the url. It will follow a format like this: <span class="photoshelter-notes">I0000Y7VrhVfzBIw</span></li>
-                        <li>Paste the image id into the input box above and precede it with: <span class="photoshelter-notes">https://m.psecn.photoshelter.com/img-get2/</span></li>
-                        <li>Your final url in the input box should look like this: <span class="photoshelter-notes">https://m.psecn.photoshelter.com/img-get2/I0000Y7VrhVfzBIw</span></li>
+                        <li>Select the image from the Mediagraph gallery and click the gear menu.</li>
+                        <li>From the gear menu, select "share"</li>
+                        <li>Scroll to the bottom of the modal form that pops up and click the "Get Share Link" button</li>
+                        <li>Copy the "Direct Link" URL and enter it above: <span class="photoshelter-notes">https://dvnyn05pgqkzt.cloudfront.net/4288/492b76668e8d5891/82f218e5d286e77d/1946a0e2-41ee-498a-98e6-ea670c3d3e72.jpg</span></li>
+                        <li>If you don't see a "Direct Link" option. You've selected more than one image and the link will
+                        be to a slideshow and not the image you selected. You'll need to back out of the Mediagraph modal and
+                        make sure only one image is selected.</li>
                     </ol>
                 </span>
             </div>
