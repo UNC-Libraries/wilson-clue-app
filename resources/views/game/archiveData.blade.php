@@ -52,7 +52,7 @@
                         <li>Select the image from the Mediagraph gallery and click the gear menu.</li>
                         <li>From the gear menu, select "share"</li>
                         <li>Scroll to the bottom of the modal form that pops up and click the "Get Share Link" button</li>
-                        <li>Copy the "Direct Link" URL and enter it above: <span class="photoshelter-notes">https://dvnyn05pgqkzt.cloudfront.net/4288/492b76668e8d5891/82f218e5d286e77d/1946a0e2-41ee-498a-98e6-ea670c3d3e72.jpg</span></li>
+                        <li>Copy the "Direct Link" URL and enter it above. Example URL: <span class="photoshelter-notes">https://dvnyn05pgqkzt.cloudfront.net/4288/492b76668e8d5891/82f218e5d286e77d/1946a0e2-41ee-498a-98e6-ea670c3d3e72.jpg</span></li>
                         <li>If you don't see a "Direct Link" option. You've selected more than one image and the link will
                         be to a slideshow and not the image you selected. You'll need to back out of the Mediagraph modal and
                         make sure only one image is selected.</li>
