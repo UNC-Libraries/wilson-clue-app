@@ -6,6 +6,7 @@ use App\Ldap\PlayerUser;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Log;
 use LdapRecord\Laravel\Auth\AuthenticatesWithLdap;
 use LdapRecord\Laravel\Auth\LdapAuthenticatable;
 use LdapRecord\Models\ActiveDirectory\User;
@@ -163,8 +164,14 @@ class Player extends Authenticatable implements LdapAuthenticatable
                 $this->student = false;
             } else {
                 $getStudentInfo = PlayerUser::query()->find($uncPerson->uncstudentrecord[0]);
-                $this->academic_group_code = $getStudentInfo->uncacademicgroupcode[0];
-                $this->class_code = $getStudentInfo->unccareercode[0];
+                if (empty($getStudentInfo)) {
+                    Log::warning('Unable to retrieve student info from ' . print_r($uncPerson, true));
+                    $this->academic_group_code = 'NONS';
+                    $this->class_code = 'NONS';
+                } else {
+                    $this->academic_group_code = $getStudentInfo->uncacademicgroupcode[0] || 'NONS';
+                    $this->class_code = $getStudentInfo->unccareercode[0];
+                }
                 $this->student = true;
             }
         }
