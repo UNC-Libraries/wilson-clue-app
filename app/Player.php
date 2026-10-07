@@ -163,8 +163,13 @@ class Player extends Authenticatable implements LdapAuthenticatable
                 $this->student = false;
             } else {
                 $getStudentInfo = PlayerUser::query()->find($uncPerson->uncstudentrecord[0]);
-                $this->academic_group_code = $getStudentInfo->uncacademicgroupcode[0];
-                $this->class_code = $getStudentInfo->unccareercode[0];
+                if (empty($getStudentInfo)) {
+                    $this->academic_group_code = 'NONS';
+                    $this->class_code = 'NONS';
+                } else {
+                    $this->academic_group_code = $getStudentInfo->uncacademicgroupcode[0] || 'NONS';
+                    $this->class_code = $getStudentInfo->unccareercode[0];
+                }
                 $this->student = true;
             }
         }
