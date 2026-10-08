@@ -169,8 +169,8 @@ class Player extends Authenticatable implements LdapAuthenticatable
                     $this->academic_group_code = 'NONS';
                     $this->class_code = 'NONS';
                 } else {
-                    $this->academic_group_code = $getStudentInfo->uncacademicgroupcode[0] || 'NONS';
-                    $this->class_code = $getStudentInfo->unccareercode[0];
+                    $this->academic_group_code = $getStudentInfo->uncacademicgroupcode[0] ?? '';
+                    $this->class_code = $getStudentInfo->unccareercode[0] ?? '';
                 }
                 $this->student = true;
             }
@@ -262,7 +262,7 @@ class Player extends Authenticatable implements LdapAuthenticatable
      */
     public function getClassAttribute($all = false)
     {
-        return self::CLASS_OPTIONS[$this->class_code];
+        return self::CLASS_OPTIONS[$this->class_code] ?? self::CLASS_OPTIONS[''];
     }
 
     /**
@@ -273,7 +273,7 @@ class Player extends Authenticatable implements LdapAuthenticatable
      */
     public function getAcademicGroupAttribute()
     {
-        return self::ACADEMIC_GROUP_OPTIONS[$this->academic_group_code];
+        return self::ACADEMIC_GROUP_OPTIONS[$this->academic_group_code] ?? self::ACADEMIC_GROUP_OPTIONS[''];
     }
 
     /***********************************
