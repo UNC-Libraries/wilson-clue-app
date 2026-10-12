@@ -134,10 +134,10 @@ class Player extends Authenticatable implements LdapAuthenticatable
     /**
      * Check for valid onyen
      *
-     * @param onyen string
+     * @param string $onyen
      * @return bool
      */
-    public function validOnyen($onyen)
+    public function validOnyen(string $onyen): bool
     {
         $search = User::where('uid', '=', $onyen)->get();
 
@@ -147,9 +147,11 @@ class Player extends Authenticatable implements LdapAuthenticatable
     /**
      * Update a player from an onyen
      *
-     * @param onyen string
+     * @param string $onyen
+     * @param bool $override_student
+     * @return void
      */
-    public function updateFromOnyen($onyen, $override_student = false): void
+    public function updateFromOnyen(string $onyen, bool $override_student = false): void
     {
         if ($this->validOnyen($onyen)) {
             $getPerson = PlayerUser::query()->where('uid', '=', $onyen)->get();
@@ -227,7 +229,7 @@ class Player extends Authenticatable implements LdapAuthenticatable
     /**
      * Get the player's first name.
      *
-     * @param  string  $value
+     * @param string|null $value
      * @return string
      */
     public function getFirstNameAttribute(?string $value): string
@@ -238,7 +240,7 @@ class Player extends Authenticatable implements LdapAuthenticatable
     /**
      * Get the player's last name.
      *
-     * @param string $value
+     * @param string|null $value
      * @return string
      */
     public function getLastNameAttribute(?string $value): string
@@ -305,7 +307,7 @@ class Player extends Authenticatable implements LdapAuthenticatable
     /**
      * Set the class code attribute
      *
-     * @param  string  $value
+     * @param string|null $value
      * @return void
      */
     public function setClassCodeAttribute(?string $value): void
@@ -316,7 +318,7 @@ class Player extends Authenticatable implements LdapAuthenticatable
     /**
      * Set the academic group code attribute
      *
-     * @param  string  $value
+     * @param string|null $value
      * @return void
      */
     public function setAcademicGroupCodeAttribute(?string $value): void
