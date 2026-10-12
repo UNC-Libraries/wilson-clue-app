@@ -110,9 +110,9 @@ class Agent extends Authenticatable implements LdapAuthenticatable
      * @param string $value
      * @return string
      */
-    public function getFirstNameAttribute(string $value): string
+    public function getFirstNameAttribute(?string $value): string
     {
-        return ucfirst($value);
+        return $value ? ucfirst($value) : '';
     }
 
     /**
@@ -121,9 +121,9 @@ class Agent extends Authenticatable implements LdapAuthenticatable
      * @param string $value
      * @return string
      */
-    public function getLastNameAttribute(string $value): string
+    public function getLastNameAttribute(?string $value): string
     {
-        return ucfirst($value);
+        return $value ? ucfirst($value) : '';
     }
 
     /**
@@ -142,9 +142,9 @@ class Agent extends Authenticatable implements LdapAuthenticatable
      * @param string $value
      * @return string
      */
-    public function getSrcAttribute(string $value): string
+    public function getSrcAttribute(?string $value): string
     {
-        return env('PUBLIC_UPLOADS_PATH')."/$value";
+        return $value ? env('PUBLIC_UPLOADS_PATH')."/$value" : env('PUBLIC_UPLOADS_PATH').'/';
     }
 
     /***********************************

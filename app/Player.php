@@ -222,9 +222,9 @@ class Player extends Authenticatable implements LdapAuthenticatable
      * @param  string  $value
      * @return string
      */
-    public function getFirstNameAttribute(string $value): string
+    public function getFirstNameAttribute(?string $value): string
     {
-        return ucfirst($value);
+        return $value ? ucfirst($value) : '';
     }
 
     /**
@@ -233,9 +233,9 @@ class Player extends Authenticatable implements LdapAuthenticatable
      * @param string $value
      * @return string
      */
-    public function getLastNameAttribute(string $value): string
+    public function getLastNameAttribute(?string $value): string
     {
-        return ucfirst($value);
+        return $value ? ucfirst($value) : '';
     }
 
     /**
@@ -251,12 +251,11 @@ class Player extends Authenticatable implements LdapAuthenticatable
     /**
      * Get the player's class.
      *
-     * @param bool $all
      * @return string
      */
-    public function getClassAttribute(bool $all = false): string
+    public function getClassAttribute(): string
     {
-        return self::CLASS_OPTIONS[$this->class_code];
+        return self::CLASS_OPTIONS[$this->class_code ?? ''] ?? 'Not Found';
     }
 
     /**
@@ -266,7 +265,7 @@ class Player extends Authenticatable implements LdapAuthenticatable
      */
     public function getAcademicGroupAttribute(): string
     {
-        return self::ACADEMIC_GROUP_OPTIONS[$this->academic_group_code];
+        return self::ACADEMIC_GROUP_OPTIONS[$this->academic_group_code ?? ''] ?? 'Not Found';
     }
 
     /***********************************
@@ -301,7 +300,7 @@ class Player extends Authenticatable implements LdapAuthenticatable
      * @param  string  $value
      * @return void
      */
-    public function setClassCodeAttribute(string $value): void
+    public function setClassCodeAttribute(?string $value): void
     {
         $this->attributes['class_code'] = $value ? $value : '';
     }
@@ -312,7 +311,7 @@ class Player extends Authenticatable implements LdapAuthenticatable
      * @param  string  $value
      * @return void
      */
-    public function setAcademicGroupCodeAttribute(string $value): void
+    public function setAcademicGroupCodeAttribute(?string $value): void
     {
         $this->attributes['academic_group_code'] = $value ? $value : '';
     }
