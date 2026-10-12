@@ -172,9 +172,9 @@ class Game extends Model
     /**
      * Set the spots left in registration
      *
-     * @return string
+     * @return int
      */
-    public function getSpotsLeftAttribute()
+    public function getSpotsLeftAttribute(): int
     {
         return $this->attributes['max_teams'] - $this->teams()->where('waitlist', '=', 0)->get()->count();
     }
@@ -182,11 +182,11 @@ class Game extends Model
     /**
      * Set and active (in progress) game
      *
-     * @return string
+     * @return bool
      */
-    public function getInProgressAttribute()
+    public function getInProgressAttribute(): bool
     {
-        return time() > $this->start_time->getTimestamp() && time() < $this->end_time->getTimestamp() ? true : false;
+        return time() > $this->start_time->getTimestamp() && time() < $this->end_time->getTimestamp();
     }
 
     public function getCaseFileItemsAttribute($value)
@@ -194,7 +194,7 @@ class Game extends Model
         return json_decode($value);
     }
 
-    public function getStatusTextAttribute()
+    public function getStatusTextAttribute(): string
     {
         if ($this->inProgress) {
             return 'In Progress';
@@ -212,7 +212,7 @@ class Game extends Model
      *
      * @return array
      */
-    public function getSolutionAttribute()
+    public function getSolutionAttribute(): array
     {
         return ['suspect' => $this->suspect_id, 'location' => $this->location_id, 'evidence' => $this->evidence_id];
     }

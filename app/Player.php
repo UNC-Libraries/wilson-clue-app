@@ -147,7 +147,7 @@ class Player extends Authenticatable implements LdapAuthenticatable
      *
      * @param onyen string
      */
-    public function updateFromOnyen($onyen, $override_student = false)
+    public function updateFromOnyen($onyen, $override_student = false): void
     {
         if ($this->validOnyen($onyen)) {
             $getPerson = PlayerUser::query()->where('uid', '=', $onyen)->get();
@@ -178,9 +178,10 @@ class Player extends Authenticatable implements LdapAuthenticatable
     /**
      * Set player warnings
      *
+     * @param Game|null $game
      * @return array
      */
-    public function getWarnings(?Game $game = null)
+    public function getWarnings(?Game $game = null): array
     {
         $warnings = [];
 
@@ -221,7 +222,7 @@ class Player extends Authenticatable implements LdapAuthenticatable
      * @param  string  $value
      * @return string
      */
-    public function getFirstNameAttribute($value)
+    public function getFirstNameAttribute(string $value): string
     {
         return ucfirst($value);
     }
@@ -229,10 +230,10 @@ class Player extends Authenticatable implements LdapAuthenticatable
     /**
      * Get the player's last name.
      *
-     * @param  string  $value
+     * @param string $value
      * @return string
      */
-    public function getLastNameAttribute($value)
+    public function getLastNameAttribute(string $value): string
     {
         return ucfirst($value);
     }
@@ -240,10 +241,9 @@ class Player extends Authenticatable implements LdapAuthenticatable
     /**
      * Get the player's full name.
      *
-     * @param  string  $value
      * @return string
      */
-    public function getFullNameAttribute()
+    public function getFullNameAttribute(): string
     {
         return $this->first_name.' '.$this->last_name;
     }
@@ -251,10 +251,10 @@ class Player extends Authenticatable implements LdapAuthenticatable
     /**
      * Get the player's class.
      *
-     * @param  string  $value
+     * @param bool $all
      * @return string
      */
-    public function getClassAttribute($all = false)
+    public function getClassAttribute(bool $all = false): string
     {
         return self::CLASS_OPTIONS[$this->class_code];
     }
@@ -262,10 +262,9 @@ class Player extends Authenticatable implements LdapAuthenticatable
     /**
      * Get the player's academic group.
      *
-     * @param  string  $value
      * @return string
      */
-    public function getAcademicGroupAttribute()
+    public function getAcademicGroupAttribute(): string
     {
         return self::ACADEMIC_GROUP_OPTIONS[$this->academic_group_code];
     }
@@ -277,23 +276,23 @@ class Player extends Authenticatable implements LdapAuthenticatable
     /**
      * Set the player's first name.
      *
-     * @param  string  $value
+     * @param string $value
      * @return void
      */
-    public function setFirstNameAttribute($value)
+    public function setFirstNameAttribute(string $value): void
     {
-        $this->attributes['first_name'] = utf8_encode(strtolower($value));
+        $this->attributes['first_name'] = mb_convert_encoding(strtolower($value), 'UTF-8', 'ISO-8859-1');
     }
 
     /**
      * Set the player's last name.
      *
-     * @param  string  $value
+     * @param string $value
      * @return void
      */
-    public function setLastNameAttribute($value)
+    public function setLastNameAttribute(string $value): void
     {
-        $this->attributes['last_name'] = utf8_encode(strtolower($value));
+        $this->attributes['last_name'] = mb_convert_encoding(strtolower($value), 'UTF-8', 'ISO-8859-1');
     }
 
     /**
@@ -302,7 +301,7 @@ class Player extends Authenticatable implements LdapAuthenticatable
      * @param  string  $value
      * @return void
      */
-    public function setClassCodeAttribute($value)
+    public function setClassCodeAttribute(string $value): void
     {
         $this->attributes['class_code'] = $value ? $value : '';
     }
@@ -313,7 +312,7 @@ class Player extends Authenticatable implements LdapAuthenticatable
      * @param  string  $value
      * @return void
      */
-    public function setAcademicGroupCodeAttribute($value)
+    public function setAcademicGroupCodeAttribute(string $value): void
     {
         $this->attributes['academic_group_code'] = $value ? $value : '';
     }

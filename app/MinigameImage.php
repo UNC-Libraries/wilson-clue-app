@@ -40,7 +40,7 @@ class MinigameImage extends Model
     /***********************************
      * METHODS
      ***********************************/
-    public function deleteImage()
+    public function deleteImage(): void
     {
         $upload_path = config('filesystems.disks.public.root');
         $image_path = $this->attributes['src'];
@@ -52,7 +52,7 @@ class MinigameImage extends Model
     /***********************************
      * ACCESSORS
      ***********************************/
-    public function getSrcAttribute($value)
+    public function getSrcAttribute(string $value): string
     {
         return env('PUBLIC_UPLOADS_PATH')."/$value";
     }

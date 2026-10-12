@@ -91,7 +91,7 @@ class Agent extends Authenticatable implements LdapAuthenticatable
      * METHODS
      ***********************************/
 
-    public function deleteImage()
+    public function deleteImage(): void
     {
         $upload_path = config('filesystems.disks.public.root');
         $image_path = $this->attributes['src'];
@@ -107,10 +107,10 @@ class Agent extends Authenticatable implements LdapAuthenticatable
     /**
      * Get the agents's first name.
      *
-     * @param  string  $value
+     * @param string $value
      * @return string
      */
-    public function getFirstNameAttribute($value)
+    public function getFirstNameAttribute(string $value): string
     {
         return ucfirst($value);
     }
@@ -118,10 +118,10 @@ class Agent extends Authenticatable implements LdapAuthenticatable
     /**
      * Get the agents's last name.
      *
-     * @param  string  $value
+     * @param string $value
      * @return string
      */
-    public function getLastNameAttribute($value)
+    public function getLastNameAttribute(string $value): string
     {
         return ucfirst($value);
     }
@@ -129,15 +129,20 @@ class Agent extends Authenticatable implements LdapAuthenticatable
     /**
      * Get the agents's full name.
      *
-     * @param  string  $value
      * @return string
      */
-    public function getFullNameAttribute()
+    public function getFullNameAttribute(): string
     {
         return $this->first_name.' '.$this->last_name;
     }
 
-    public function getSrcAttribute($value)
+    /**
+     * Get the agents's image source.
+     *
+     * @param string $value
+     * @return string
+     */
+    public function getSrcAttribute(string $value): string
     {
         return env('PUBLIC_UPLOADS_PATH')."/$value";
     }
@@ -152,9 +157,9 @@ class Agent extends Authenticatable implements LdapAuthenticatable
      * @param  string  $value
      * @return void
      */
-    public function setFirstNameAttribute($value)
+    public function setFirstNameAttribute(string $value): void
     {
-        $this->attributes['first_name'] = utf8_encode(strtolower($value));
+        $this->attributes['first_name'] = mb_convert_encoding(strtolower($value), 'UTF-8', 'ISO-8859-1');
     }
 
     /**
@@ -163,8 +168,8 @@ class Agent extends Authenticatable implements LdapAuthenticatable
      * @param  string  $value
      * @return void
      */
-    public function setLastNameAttribute($value)
+    public function setLastNameAttribute(string $value): void
     {
-        $this->attributes['last_name'] = utf8_encode(strtolower($value));
+        $this->attributes['last_name'] = mb_convert_encoding(strtolower($value), 'UTF-8', 'ISO-8859-1');
     }
 }

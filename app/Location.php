@@ -45,7 +45,7 @@ class Location extends Model
      * ACCESSORS
      ***********************************/
 
-    public function getFloorNthAttribute()
+    public function getFloorNthAttribute(): string
     {
         $number = $this->floor;
         $ends = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];

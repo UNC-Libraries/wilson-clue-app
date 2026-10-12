@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 class Team extends Model
 {
@@ -64,11 +65,11 @@ class Team extends Model
     /**
      * Check if an indictment has been made.
      *
-     * @return string
+     * @return bool|string
      */
-    public function getIndictmentMadeAttribute()
+    public function getIndictmentMadeAttribute(): bool|string
     {
-        return $this->indictment_time ? $this->indictment_time->year !== -1 : false;
+        return $this->indictment_time && $this->indictment_time->year !== -1;
     }
 
     /**
@@ -76,7 +77,7 @@ class Team extends Model
      *
      * @return bool
      */
-    public function getIndictmentCorrectAttribute()
+    public function getIndictmentCorrectAttribute(): bool
     {
         if (empty($this->game->solution)) {
             return false;
@@ -92,9 +93,9 @@ class Team extends Model
     /**
      * Get the teams status
      *
-     * @return array
+     * @return Collection
      */
-    public function getGameStatusAttribute()
+    public function getGameStatusAttribute(): Collection
     {
         $status = [];
 
@@ -134,52 +135,52 @@ class Team extends Model
 
     public function game(): BelongsTo
     {
-        return $this->belongsTo(\App\Game::class);
+        return $this->belongsTo(Game::class);
     }
 
     public function players(): BelongsToMany
     {
-        return $this->belongsToMany(\App\Player::class);
+        return $this->belongsToMany(Player::class);
     }
 
     public function checkedInPlayers(): BelongsToMany
     {
-        return $this->belongsToMany(\App\Player::class)->checkedIn();
+        return $this->belongsToMany(Player::class)->checkedIn();
     }
 
     public function suspect(): BelongsTo
     {
-        return $this->belongsTo(\App\Suspect::class);
+        return $this->belongsTo(Suspect::class);
     }
 
     public function location(): BelongsTo
     {
-        return $this->belongsTo(\App\Location::class);
+        return $this->belongsTo(Location::class);
     }
 
     public function evidence(): BelongsTo
     {
-        return $this->belongsTo(\App\Evidence::class);
+        return $this->belongsTo(Evidence::class);
     }
 
     public function correctQuestions(): BelongsToMany
     {
-        return $this->belongsToMany(\App\Question::class)->withTimestamps();
+        return $this->belongsToMany(Question::class)->withTimestamps();
     }
 
     public function completedQuests(): BelongsToMany
     {
-        return $this->belongsToMany(\App\Quest::class)->withTimestamps();
+        return $this->belongsToMany(Quest::class)->withTimestamps();
     }
 
     public function foundDna(): BelongsToMany
     {
-        return $this->belongsToMany(\App\GhostDna::class)->withTimestamps();
+        return $this->belongsToMany(GhostDna::class)->withTimestamps();
     }
 
     public function incorrectAnswers(): HasMany
     {
-        return $this->hasMany(\App\IncorrectAnswer::class);
+        return $this->hasMany(IncorrectAnswer::class);
     }
 
     /***********************************
@@ -210,7 +211,7 @@ class Team extends Model
      * METHODS
      ***********************************/
 
-    public function checkPlayerWarnings()
+    public function checkPlayerWarnings(): bool
     {
         foreach ($this->players as $player) {
             foreach ($player->warnings as $warning) {

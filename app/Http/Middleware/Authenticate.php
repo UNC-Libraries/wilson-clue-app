@@ -12,10 +12,12 @@ class Authenticate
     /**
      * Handle an incoming request.
      *
-     * @param  string|null  $guard
+     * @param Request $request
+     * @param Closure $next
+     * @param string|null $guard
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $guard = null): Response
+    public function handle(Request $request, Closure $next, string $guard = null): Response
     {
         if (Auth::guard($guard)->guest()) {
             if ($request->ajax() || $request->wantsJson()) {

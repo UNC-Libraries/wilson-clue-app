@@ -52,7 +52,7 @@ class Evidence extends Model
     /***********************************
      * ACCESSORS
      ***********************************/
-    public function getSrcAttribute($value)
+    public function getSrcAttribute(string $value): string
     {
         return env('PUBLIC_UPLOADS_PATH')."/$value";
     }
