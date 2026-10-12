@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-sm-12 col-md-4">
                 <blockquote>
-                    <p class="footer-company-name">UNC Libraries © {{ date('Y',time()) }}</p>
+                    <p class="footer-company-name">UNC Library © {{ date('Y',time()) }}</p>
                     <p><a href="http://unc.edu">UNC - Chapel Hill</a></p>
                 </blockquote>
             </div>
