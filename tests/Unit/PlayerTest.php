@@ -391,7 +391,7 @@ class PlayerTest extends TestCase
             'SOE' => 'School of Education',
             'KFBS' => 'Kenan-Flagler Business School',
             'SON' => 'School of Nursing',
-            'SIDS' => 'School of Data and Information Sciences',
+            'SDIS' => 'School of Data and Information Sciences',
             'SILS' => 'School of Information and Library Sciences (inactive)',
             'SOJ' => 'School of Journalism',
             'SOG' => 'School of Government',
