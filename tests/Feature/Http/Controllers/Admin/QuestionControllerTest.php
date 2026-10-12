@@ -602,7 +602,14 @@ class QuestionControllerTest extends TestCase
 
     public function test_new_answer_returns_answer_input_partial(): void
     {
-        $this->markTestSkipped('No route is registered for QuestionController::newAnswer in routes/web.php.');
+        $response = $this->actingAsAdmin()
+            ->get(route('admin.new.answer'));
+
+        $response->assertStatus(200);
+        $response->assertViewIs('question._answer_input');
+        $response->assertViewHas('answer', function ($answer) {
+            return $answer instanceof \App\Answer && ! $answer->exists;
+        });
     }
 }
 

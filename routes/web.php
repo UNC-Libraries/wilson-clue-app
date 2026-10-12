@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UiController;
 use App\Http\Controllers\WebController;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -132,6 +133,8 @@ Route::middleware('auth:admin', 'admin')->group(function () {
             ],
         ]);
 
+        Route::get('evidence/data', [Admin\EvidenceController::class, 'getEvidence'])->name('admin.evidence.getEvidence');
+
         // EVIDENCE
         Route::resource('evidence', Admin\EvidenceController::class, [
             'names' => [
@@ -145,6 +148,9 @@ Route::middleware('auth:admin', 'admin')->group(function () {
         ]);
 
         Route::prefix('game/{id}')->group(function () {
+
+            // Quests
+            Route::get('/quests', [Admin\GameController::class, 'quests'])->where('id', '[0-9]+')->name('admin.game.quests');
 
             // Activate
             Route::get('/activate', [Admin\GameController::class, 'activate'])->where('id', '[0-9]+')->name('admin.game.activate');

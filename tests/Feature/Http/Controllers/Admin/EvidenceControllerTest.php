@@ -57,7 +57,13 @@ class EvidenceControllerTest extends TestCase
 
     public function test_get_evidence_route_is_not_registered_in_web_routes(): void
     {
-        $this->markTestSkipped('No route is registered for EvidenceController::getEvidence; tests removed until route is added.');
+        $evidence = Evidence::factory()->create(['title' => 'Lookup Evidence']);
+
+        $response = $this->actingAsAdmin()
+            ->get(route('admin.evidence.getEvidence'));
+
+        $response->assertStatus(200);
+        $response->assertJsonFragment(['title' => 'Lookup Evidence']);
     }
 
     // -------------------------------------------------------------------------

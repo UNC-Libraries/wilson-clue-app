@@ -627,7 +627,23 @@ class GameControllerTest extends TestCase
 
     public function test_quests_displays_all_quests_for_game(): void
     {
-        $this->markTestSkipped('No named admin.game.quests route is registered in routes/web.php.');
+        $game = Game::factory()->create();
+        $suspect = Suspect::factory()->create();
+        $location = Location::factory()->create();
+        Quest::factory()->create([
+            'game_id' => $game->id,
+            'suspect_id' => $suspect->id,
+            'location_id' => $location->id,
+        ]);
+
+        $response = $this->actingAsAdmin()
+            ->get(route('admin.game.quests', $game->id));
+
+        $response->assertStatus(200);
+        $response->assertViewIs('quest.index');
+        $response->assertViewHas('game', function ($g) use ($game) {
+            return $g->id === $game->id && $g->quests->isNotEmpty();
+        });
     }
 
     // -------------------------------------------------------------------------

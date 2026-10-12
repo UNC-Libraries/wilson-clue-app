@@ -33,7 +33,7 @@ class EvidenceController extends Controller
      */
     public function getEvidence(Request $request): Factory|View|JsonResponse
     {
-        $evidence = Evidence::select();
+        $evidence = Evidence::query();
 
         $gameId = $request->input('game_id');
         $exclude_evidence = $request->input('exclude_evidence');
@@ -50,9 +50,9 @@ class EvidenceController extends Controller
         }
 
         if ($view) {
-            return view($view, compact('questions'));
+            return view($view, ['questions' => $evidence->get()]);
         } else {
-            return response()->json($evidence);
+            return response()->json($evidence->get());
         }
     }
 
