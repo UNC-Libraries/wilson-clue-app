@@ -9,18 +9,18 @@
         "@eonasdan/tempus-dominus": "^6.10.4",
         "@popperjs/core": "^2.11.8",
         "@rollup/plugin-inject": "^5.0.5",
-        "bootstrap": "^5.3.7",
+        "bootstrap": "^5.3.8",
         "clipboard": "^2.0.11",
         "concurrently": "^9.0.1",
         "font-awesome": "^4.7.0",
         "jquery": "^3.7.1",
         "laravel-vite-plugin": "^1.3.0",
-        "postcss": "^8.4.38",
+        "postcss": "^8.5.29",
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.97.3",
         "sass-loader": "^16.0.7",
         "sortablejs": "^1.15.6",
         "swiper": "^12.1.2",
-        "vite": "^6.4.1"
+        "vite": "^6.4.4"
     }
 }
