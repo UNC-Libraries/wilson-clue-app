@@ -100,11 +100,11 @@ class RegistrationController extends Controller
         }
 
         // Does the player already have an account?
-        $match = Player::where('onyen', '=', $onyen)->first();
+        $match = $this->findPlayerByOnyen($onyen);
         $player = $match ? $match : new Player(['onyen' => $onyen]);
         // Update the player using the provided onyen
-        $player->updateFromOnyen($onyen);
-        $warnings = $player->getWarnings($game);
+        $this->updatePlayerFromOnyen($player, $onyen);
+        $warnings = $this->getPlayerWarnings($player, $game);
 
         if (! empty($warnings)) {
             return redirect()->back()->withErrors($warnings)->withInput();
@@ -156,18 +156,18 @@ class RegistrationController extends Controller
         $teamName = $request->get('teamName');
 
         // Get the active game
-        $game = Game::active()->with('registeredTeams')->where('registration', '=', '1')->orderBy('start_time', 'desc')->first();
+        $game = Game::query()->active()->with('registeredTeams')->where('registration', '=', '1')->orderBy('start_time', 'desc')->first();
 
         if (empty($game) || ! $game->registration) {
             return redirect()->back()->withErrors(['enlist.no_game'])->withInput();
         }
 
         // Does the player already have an account?
-        $match = Player::where('onyen', '=', $onyen)->first();
+        $match = $this->findPlayerByOnyen($onyen);
         $player = $match ? $match : new Player(['onyen' => $onyen]);
         // Update the player using the provided onyen
-        $player->updateFromOnyen($onyen);
-        $warnings = $player->getWarnings($game);
+        $this->updatePlayerFromOnyen($player, $onyen);
+        $warnings = $this->getPlayerWarnings($player, $game);
 
         if (! empty($warnings)) {
             return redirect()->back()->withErrors($warnings)->withInput();
@@ -211,5 +211,20 @@ class RegistrationController extends Controller
         }
 
         Mail::to($team->players)->send(new Registered($team, $email_text));
+    }
+
+    protected function findPlayerByOnyen(string $onyen): ?Player
+    {
+        return Player::where('onyen', '=', $onyen)->first();
+    }
+
+    protected function updatePlayerFromOnyen(Player $player, string $onyen): void
+    {
+        $player->updateFromOnyen($onyen);
+    }
+
+    protected function getPlayerWarnings(Player $player, Game $game): array
+    {
+        return $player->getWarnings($game);
     }
 }

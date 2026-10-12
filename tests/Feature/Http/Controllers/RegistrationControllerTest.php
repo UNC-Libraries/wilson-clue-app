@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Game;
+use App\Http\Controllers\RegistrationController;
 use App\Player;
 use App\Team;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,6 +13,12 @@ use Tests\TestCase;
 class RegistrationControllerTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function tearDown(): void
+    {
+        \Mockery::close();
+        parent::tearDown();
+    }
 
     // -------------------------------------------------------------------------
     // index
@@ -82,7 +89,42 @@ class RegistrationControllerTest extends TestCase
     
     public function test_enlist_creates_team_and_redirects_to_team_management(): void
     {
-        $this->markTestSkipped('Enlist success path depends on LDAP-backed updateFromOnyen/getWarnings.');
+        $game = Game::factory()->create(['registration' => true, 'active' => true]);
+        $player = Player::factory()->make([
+            'onyen' => 'testuser',
+            'email' => 'testuser@example.com',
+        ]);
+
+        $this->partialMock(RegistrationController::class, function ($mock) use ($player, $game) {
+            $mock->shouldAllowMockingProtectedMethods();
+            $mock->shouldReceive('findPlayerByOnyen')
+                ->once()
+                ->with('testuser')
+                ->andReturn($player);
+            $mock->shouldReceive('updatePlayerFromOnyen')
+                ->once()
+                ->with($player, 'testuser');
+            $mock->shouldReceive('getPlayerWarnings')
+                ->once()
+                ->withArgs(function ($playerArg, $gameArg) use ($player, $game) {
+                    return $playerArg === $player && $gameArg->id === $game->id;
+                })
+                ->andReturn([]);
+            $mock->shouldReceive('emailTeam')->once();
+        });
+
+        $response = $this->post(route('enlist.submit'), [
+            'onyen' => 'testuser',
+            'teamName' => 'Test Team',
+        ]);
+
+        $response->assertRedirect(route('enlist.teamManagement'));
+        $response->assertSessionHas('status', 'newTeam');
+
+        $this->assertDatabaseHas('teams', [
+            'name' => 'Test Team',
+            'game_id' => $game->id,
+        ]);
     }
 
     // -------------------------------------------------------------------------
