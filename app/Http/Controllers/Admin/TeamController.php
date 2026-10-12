@@ -9,10 +9,22 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 
 class TeamController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+//    public function index()
+//    {
+//        $teams = Team::with('teams.players','game')->where('game_id','=',$id)->firstOrFail();
+//        return view('game.teams',['teams'=>$teams]);
+//    }
+
     /**
      * Show the form for editing the specified resource.
      *
