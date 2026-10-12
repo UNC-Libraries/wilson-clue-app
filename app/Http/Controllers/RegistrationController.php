@@ -6,18 +6,21 @@ use App\Game;
 use App\Mail\Registered;
 use App\Player;
 use App\Team;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 
 class RegistrationController extends Controller
 {
     /**
      * Show the enlistment form
      */
-    public function index(Request $request)
+    public function index(Request $request): View|Factory|Redirector|RedirectResponse
     {
         $game = Game::findOrFail($request->session()->get('gameId'));
         if ($game->registration) {
@@ -30,7 +33,7 @@ class RegistrationController extends Controller
     /**
      * Show the team management form
      */
-    public function teamManagement(Request $request)
+    public function teamManagement(Request $request): Factory|View|RedirectResponse
     {
         $game = Game::find($request->session()->get('gameId'));
         $user = Auth::guard('player')->user();
@@ -60,7 +63,10 @@ class RegistrationController extends Controller
         return view('web.registration.team_management', compact('user', 'team', 'game', 'canRemove', 'status_message'));
     }
 
-    public function updateTeam(Request $request)
+    /**
+     * Update the team
+     */
+    public function updateTeam(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => 'required',
@@ -74,13 +80,16 @@ class RegistrationController extends Controller
         return redirect()->route('enlist.teamManagement');
     }
 
-    public function addPlayer(Request $request)
+    /**
+     * Add a player to the team
+     */
+    public function addPlayer(Request $request): RedirectResponse
     {
         $request->validate([
             'onyen' => 'required',
         ]);
 
-        $onyen = $request->get('onyen');
+        $onyen = $request->input('onyen');
         $game = Game::with('registeredTeams')->find($request->session()->get('gameId'));
         $user = Auth::guard('player')->user();
         $team = $user->teams()->with('players')->active()->first();
@@ -115,7 +124,7 @@ class RegistrationController extends Controller
         return redirect()->route('enlist.teamManagement');
     }
 
-    public function removePlayer(Request $request, $playerId)
+    public function removePlayer(Request $request, $playerId): RedirectResponse
     {
         $player = Player::findOrFail($playerId);
         $user = Auth::guard('player')->user();
@@ -132,9 +141,10 @@ class RegistrationController extends Controller
     /**
      * Enlist a team
      *
+     * @param Request $request
      * @return RedirectResponse
      */
-    public function enlist(Request $request)
+    public function enlist(Request $request): RedirectResponse
     {
 
         // Validate Form
@@ -181,7 +191,14 @@ class RegistrationController extends Controller
         return redirect()->route('enlist.teamManagement')->with('status', 'newTeam');
     }
 
-    public function emailTeam($id, $email_text_key)
+    /**
+     * Email the team
+     *
+     * @param int $id
+     * @param string $email_text_key
+     * @return void
+     */
+    public function emailTeam(int $id, string $email_text_key): void
     {
         $team = Team::with([
             'players',

@@ -247,6 +247,7 @@ Route::middleware('auth:admin', 'admin')->group(function () {
         Route::post('quest/{id}/remove/{questionId}', [Admin\QuestController::class, 'removeQuestion'])->where('id', '[0-9]+')->where('questionId', '[0-9]+');
         Route::post('quest/{id}/reorder/{questionId}', [Admin\QuestController::class, 'reorderQuestions'])->where('id', '[0-9]+')->where('questionId', '[0-9]+');
         Route::resource('game.quest', Admin\QuestController::class, [
+            'only' => ['edit', 'update'],
             'names' => [
                 'edit' => 'admin.game.quest.edit',
                 'update' => 'admin.game.quest.update',
@@ -281,6 +282,7 @@ Route::middleware('auth:admin', 'admin')->group(function () {
         Route::delete('team/{id}/removePlayer/{playerId}', [Admin\TeamController::class, 'removePlayer'])->where('id', '[0-9]+')->where('playerId', '[0-9]+')->name('admin.team.removePlayer');
         Route::post('team/{id}/addPlayer', [Admin\TeamController::class, 'addPlayer'])->where('id', '[0-9]+')->name('admin.team.addPlayer');
         Route::resource('team', Admin\TeamController::class, [
+            'only' => ['edit', 'update', 'destroy'],
             'names' => [
                 'edit' => 'admin.team.edit',
                 'update' => 'admin.team.update',

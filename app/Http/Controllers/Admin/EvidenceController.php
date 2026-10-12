@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Evidence;
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,9 +16,9 @@ class EvidenceController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
-    public function index()
+    public function index(): Factory|View
     {
         $evidence = Evidence::get();
 
@@ -24,9 +28,10 @@ class EvidenceController extends Controller
     /**
      * Return a json list of evidence
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Factory|View|JsonResponse
      */
-    public function getEvidence(Request $request)
+    public function getEvidence(Request $request): Factory|View|JsonResponse
     {
         $evidence = Evidence::select();
 
@@ -54,9 +59,9 @@ class EvidenceController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
-    public function create()
+    public function create(): Factory|View
     {
         $evidence = new Evidence;
 
@@ -66,9 +71,10 @@ class EvidenceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         // Validate
         $request->validate([
@@ -97,9 +103,9 @@ class EvidenceController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
-    public function edit($id)
+    public function edit($id): Factory|View
     {
         $evidence = Evidence::findOrFail($id);
 
@@ -109,9 +115,11 @@ class EvidenceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return RedirectResponse
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $id): RedirectResponse
     {
         // Validate
         $request->validate([
@@ -143,9 +151,9 @@ class EvidenceController extends Controller
      * Destroy the specified resource
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         $evidence = Evidence::with('games')->findOrFail($id);
         if ($evidence->games->isEmpty()) {

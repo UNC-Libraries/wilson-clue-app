@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Game;
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
-    public function index()
+    public function index(): Factory|View
     {
         $globals = DB::table('globals')->where('key', 'homepage')->first();
         $homepageAlert = $globals ? $globals->message : '';
@@ -17,14 +20,14 @@ class AdminController extends Controller
         return view('admin.index', compact('homepageAlert'));
     }
 
-    public function trash()
+    public function trash(): Factory|View
     {
         $games = Game::onlyTrashed()->get();
 
         return view('admin.trash', compact('games'));
     }
 
-    public function restore($id)
+    public function restore($id): RedirectResponse
     {
         $game = Game::withTrashed()->findOrFail($id);
         $game->teams()->restore();
@@ -34,7 +37,7 @@ class AdminController extends Controller
         return redirect()->route('admin');
     }
 
-    public function delete($id)
+    public function delete($id): RedirectResponse
     {
         $game = Game::withTrashed()->with('teams', 'quests')->findOrFail($id);
 
@@ -58,7 +61,7 @@ class AdminController extends Controller
         return redirect()->route('admin');
     }
 
-    public function siteMessages()
+    public function siteMessages(): Factory|View
     {
         $messages = collect(config('site_messages'));
 
@@ -77,7 +80,7 @@ class AdminController extends Controller
         return view('admin.siteMessages', compact('messages'));
     }
 
-    public function updateSiteMessage(Request $request, $key)
+    public function updateSiteMessage(Request $request, $key): RedirectResponse
     {
         if ($request->{$key}) {
             DB::table('globals')->where('key', '=', $key)->update(['message' => $request->{$key}]);

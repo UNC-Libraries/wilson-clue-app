@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Game;
 use App\Http\Controllers\Controller;
 use App\Quest;
 use App\Team;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
 
 class GladosController extends Controller
@@ -16,10 +17,10 @@ class GladosController extends Controller
     /**
      * Get the current viewing stats for a game
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Factory|View
      */
-    public function viewing($id)
+    public function viewing(int $id): Factory|View
     {
         $viewing = collect(DB::table('viewing')
             ->where('game_id', $id)
@@ -54,9 +55,9 @@ class GladosController extends Controller
      * Get the current status of all teams
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
-    public function status($id)
+    public function status(int $id): Factory|View
     {
         $teams = Team::where('game_id', $id)->registered()->get();
         $quests = Quest::where('game_id', $id)->with('completedBy', 'suspect')->get();

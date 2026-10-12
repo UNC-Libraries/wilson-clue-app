@@ -4,15 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\GhostDna;
 use App\Http\Controllers\Controller;
-use DB;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GhostDnaController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
     public function index()
     {
@@ -25,9 +28,10 @@ class GhostDnaController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'sequence' => 'required|check_dna_sequence|size:6|min:6|unique:ghost_dnas,sequence',
@@ -52,10 +56,10 @@ class GhostDnaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $pairId
-     * @return \Illuminate\Http\Response
+     * @param int $pairId
+     * @return RedirectResponse
      */
-    public function destroy($pairId)
+    public function destroy(int $pairId): RedirectResponse
     {
         $dna = GhostDna::with('teams')->where('pair', '=', $pairId)->get();
         $delete = true;
@@ -76,7 +80,7 @@ class GhostDnaController extends Controller
         return redirect()->route('admin.ghostDna.index')->with('alert', $alert);
     }
 
-    private function generateMatchingSequence($sequence)
+    private function generateMatchingSequence($sequence): string
     {
         $match = function ($char) {
             switch ($char) {

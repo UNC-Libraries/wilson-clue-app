@@ -7,6 +7,9 @@ use App\Game;
 use App\Http\Controllers\Controller;
 use App\Location;
 use App\Question;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
@@ -14,9 +17,10 @@ class QuestionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Factory|View
      */
-    public function index(Request $request)
+    public function index(Request $request): Factory|View
     {
         $locations = Location::get();
         $games = Game::get();
@@ -50,9 +54,9 @@ class QuestionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
-    public function create()
+    public function create(): Factory|View
     {
         $question = new Question;
         $locations = Location::get();
@@ -63,9 +67,10 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
 
         // Validate
@@ -114,10 +119,10 @@ class QuestionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Factory|View
      */
-    public function edit($id)
+    public function edit(int $id): Factory|View
     {
         $question = Question::with('answers', 'incorrectAnswers')->findOrFail($id);
         $incorrect = [];
@@ -133,10 +138,11 @@ class QuestionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): RedirectResponse
     {
 
         // Validate
@@ -186,10 +192,10 @@ class QuestionController extends Controller
     /**
      * Destroy the specified resource
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): RedirectResponse
     {
         $question = Question::with('completedBy')->findOrFail($id);
         if ($question->completedBy->isEmpty()) {
@@ -210,9 +216,10 @@ class QuestionController extends Controller
     /**
      * Destroy the question's answer
      *
-     * @param  int  $id
+     * @param int $id
+     * @return void
      */
-    public function destroyAnswer($id)
+    public function destroyAnswer(int $id): void
     {
         $answer = Answer::findOrFail($id);
         $answer->delete();
@@ -221,9 +228,9 @@ class QuestionController extends Controller
     /**
      * Get input HTML for a new answer
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
-    public function newAnswer()
+    public function newAnswer(): Factory|View
     {
         $answer = new Answer;
 

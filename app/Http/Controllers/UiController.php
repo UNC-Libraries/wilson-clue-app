@@ -9,6 +9,10 @@ use App\Quest;
 use App\Question;
 use App\Team;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class UiController extends Controller
@@ -16,9 +20,10 @@ class UiController extends Controller
     /**
      * Show the game dashboard
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Factory|View
      */
-    public function index(Request $request)
+    public function index(Request $request): Factory|View
     {
         $game = Game::with('quests', 'quests.suspect', 'quests.questions')->find($request->session()->get('gameId'));
         if ($request->session()->has('override_in_progress')) {
@@ -73,9 +78,9 @@ class UiController extends Controller
     /**
      * Show the game info
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
-    public function info()
+    public function info(): Factory|View
     {
         return view('ui.info');
     }
@@ -83,9 +88,10 @@ class UiController extends Controller
     /**
      * Show the game map
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Factory|View
      */
-    public function map(Request $request)
+    public function map(Request $request): Factory|View
     {
         $game = Game::with('evidenceLocation', 'geographicInvestigationLocation')->find($request->session()->get('gameId'));
         $floors = Location::has('quests')->with([
@@ -102,9 +108,10 @@ class UiController extends Controller
     /**
      * Show the evidence minigame
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Factory|View
      */
-    public function evidence(Request $request)
+    public function evidence(Request $request): Factory|View
     {
         $team = Team::with('evidence')->find($request->session()->get('teamId'));
         $game = Game::with('evidence', 'evidenceLocation')->find($request->session()->get('gameId'));
@@ -115,9 +122,10 @@ class UiController extends Controller
     /**
      * Show the geographic investigation information
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Factory|View
      */
-    public function geographicInvestigation(Request $request)
+    public function geographicInvestigation(Request $request): Factory|View
     {
         $game = Game::with('geographicInvestigationLocation')->find($request->session()->get('gameId'));
 
@@ -127,9 +135,11 @@ class UiController extends Controller
     /**
      * Show a quest location
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return Factory|View
      */
-    public function quest(Request $request, $id)
+    public function quest(Request $request, $id): Factory|View
     {
         $quest = Quest::with('suspect')->findOrFail($id);
 
@@ -150,9 +160,10 @@ class UiController extends Controller
     /**
      * Show the indictment interface
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Factory|View
      */
-    public function indictment(Request $request)
+    public function indictment(Request $request): Factory|View
     {
         $team = Team::with('completedQuests', 'evidence', 'suspect', 'location')->find($request->session()->get('teamId'));
         $game = Game::with('quests', 'quests.suspect', 'quests.location')->find($request->session()->get('gameId'));
@@ -179,9 +190,10 @@ class UiController extends Controller
     /**
      * Sets the teams indictment
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function setIndictment(Request $request)
+    public function setIndictment(Request $request): RedirectResponse
     {
         $team = Team::find($request->session()->get('teamId'));
         $request->validate([
@@ -206,10 +218,11 @@ class UiController extends Controller
     /**
      * Attempt a question, runs regex match of all the question's answers and the input attempt
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
      */
-    public function attemptQuestion(Request $request, $id)
+    public function attemptQuestion(Request $request, int $id): JsonResponse
     {
         $request->validate([
             'attempt' => 'required',
@@ -242,10 +255,11 @@ class UiController extends Controller
     /**
      * Attempt a minigame answer
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
      */
-    public function attemptMinigame(Request $request, $id)
+    public function attemptMinigame(Request $request, int $id): JsonResponse
     {
         $request->validate([
             'attempt' => 'required',
@@ -270,9 +284,10 @@ class UiController extends Controller
     /**
      * Show the DNA interface
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Factory|View
      */
-    public function dna(Request $request)
+    public function dna(Request $request): Factory|View
     {
         $sequences = GhostDna::get();
         $team = Team::with('foundDna')->find($request->session()->get('teamId'));
@@ -291,9 +306,10 @@ class UiController extends Controller
     /**
      * Attempt DNA answer
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function attemptDna(Request $request)
+    public function attemptDna(Request $request): JsonResponse
     {
         $request->validate([
             'attempt' => 'required',
@@ -324,9 +340,10 @@ class UiController extends Controller
     /**
      * Set a team's evidence choice
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function setEvidence(Request $request)
+    public function setEvidence(Request $request): JsonResponse
     {
         $request->validate([
             'evidence' => 'required',
@@ -343,10 +360,11 @@ class UiController extends Controller
     /**
      * Get a team's quest status
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
      */
-    public function questStatus(Request $request, $id)
+    public function questStatus(Request $request, int $id): JsonResponse
     {
         $teamId = $request->session()->get('teamId');
         $team = Team::with('completedQuests')->findOrFail($teamId);
@@ -392,9 +410,10 @@ class UiController extends Controller
     /**
      * Retrieves any unread alerts
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function alert(Request $request)
+    public function alert(Request $request): JsonResponse
     {
         $team = Team::with('game', 'game.alerts')->find($request->session()->get('teamId'));
         $seen = $request->session()->get('seen') ? $request->session()->get('seen') : [];
@@ -415,12 +434,12 @@ class UiController extends Controller
     /**
      * Sets an alert as seen
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
      */
-    public function seen(Request $request, $id)
+    public function seen(Request $request, int $id): JsonResponse
     {
-        $team = Team::find($request->session()->get('teamId'))->first();
         $seen = $request->session()->get('seen') ? $request->session()->get('seen') : [];
         $seen[] = $id;
         $request->session()->put('seen', $seen);

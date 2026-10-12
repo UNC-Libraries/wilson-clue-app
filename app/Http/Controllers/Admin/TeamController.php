@@ -5,60 +5,21 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Player;
 use App\Team;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class TeamController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        // $teams = Team::with('teams.players','game')->where('game_id','=',$id)->firstOrFail();
-        // return view('game.teams',['teams'=>$teams]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Factory|View
      */
-    public function edit($id)
+    public function edit(int $id): Factory|View
     {
         $team = Team::with('game', 'players')->findOrFail($id);
         $game = $team->game;
@@ -72,10 +33,11 @@ class TeamController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): RedirectResponse
     {
         $request->validate([
             'name' => 'required',
@@ -97,10 +59,10 @@ class TeamController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): RedirectResponse
     {
         $team = Team::findOrFail($id);
         $team->foundDna()->detach();
@@ -115,10 +77,10 @@ class TeamController extends Controller
     /**
      * Toggle team's waitlist
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return RedirectResponse
      */
-    public function toggleWaitlist($id)
+    public function toggleWaitlist(int $id): RedirectResponse
     {
         $team = Team::findOrFail($id);
         $team->waitlist = ! $team->waitlist;
@@ -133,19 +95,20 @@ class TeamController extends Controller
     /**
      * Add Player to team
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @param int $id
+     * @return RedirectResponse
      */
-    public function addPlayer(Request $request, $id)
+    public function addPlayer(Request $request, int $id): RedirectResponse
     {
         $team = Team::with('game', 'players')->findOrFail($id);
 
         if ($team->players->count() == 5) {
-            redirect()->back()->with('alert', ['type' => 'danger', 'message' => 'Team has 5 players']);
+            return redirect()->back()->with('alert', ['type' => 'danger', 'message' => 'Team has 5 players']);
         }
 
-        $onyen = $request->get('onyen');
-        $override = $request->get('override_non_student') ? true : false;
+        $onyen = $request->input('onyen');
+        $override = (bool)$request->input('override_non_student');
 
         if ($onyen) {
 
@@ -173,8 +136,8 @@ class TeamController extends Controller
 
             $player = new Player;
             $player->fill($request->all());
-            $player->onyen = $request->get('email');
-            $player->password = Hash::make($request->get('password'));
+            $player->onyen = $request->input('email');
+            $player->password = Hash::make($request->input('password'));
             $player->manual = true;
         }
 
@@ -189,11 +152,12 @@ class TeamController extends Controller
     /**
      * Remove Player from team
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @param int $id
+     * @param int $playerId
+     * @return RedirectResponse
      */
-    public function removePlayer($id, $playerId)
+    public function removePlayer(Request $request, int $id, int $playerId): RedirectResponse
     {
         $team = Team::findOrFail($id);
         $team->players()->detach($playerId);

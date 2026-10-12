@@ -11,7 +11,11 @@ use App\Quest;
 use App\Suspect;
 use App\Team;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class GameController extends Controller
@@ -21,7 +25,7 @@ class GameController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function index()
     {
@@ -31,9 +35,9 @@ class GameController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
-    public function create()
+    public function create(): Factory|View
     {
         $game = new Game;
 
@@ -43,9 +47,10 @@ class GameController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => 'required',
@@ -91,10 +96,10 @@ class GameController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Factory|View
      */
-    public function show($id)
+    public function show(int $id): Factory|View
     {
         $game = Game::with(
             ['registeredTeams' => function ($query) {
@@ -122,10 +127,10 @@ class GameController extends Controller
      * Display the game settings, quest locations, solution, and evidence information
      * with edit modals for solution and settings
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Factory|View
      */
-    public function edit($id)
+    public function edit(int $id): Factory|View
     {
         $game = Game::with(
             'solutionSuspect',
@@ -148,10 +153,11 @@ class GameController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): RedirectResponse
     {
         $game = Game::findOrFail($id);
 
@@ -206,10 +212,10 @@ class GameController extends Controller
     /**
      * Soft delete a game from storage
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): RedirectResponse
     {
         $game = Game::findOrFail($id);
         $game->teams()->delete();
@@ -225,9 +231,9 @@ class GameController extends Controller
      * Activate the game
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function activate($id)
+    public function activate(int $id): RedirectResponse
     {
         $activeGame = Game::active()->get()->first();
         $game = Game::findOrFail($id);
@@ -247,9 +253,9 @@ class GameController extends Controller
      * Deactivate the game
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function deactivate($id)
+    public function deactivate(int $id): RedirectResponse
     {
         $game = Game::findOrFail($id);
         $game->active = false;
@@ -262,7 +268,7 @@ class GameController extends Controller
      * Show the form for editing the post game display
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
     public function editArchive($id)
     {
@@ -274,10 +280,10 @@ class GameController extends Controller
     /**
      * Show the form for editing the game's evidence room
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Factory|View
      */
-    public function editEvidence($id)
+    public function editEvidence(int $id): Factory|View
     {
         $game = Game::with('evidence', 'evidenceLocation')->findOrFail($id);
         $attachedEvidence = $game->evidence ? $game->evidence->pluck('id')->all() : [];
@@ -292,10 +298,10 @@ class GameController extends Controller
     /**
      * Import evidence room information from a previous game
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return RedirectResponse
      */
-    public function importEvidenceRoom(Request $request, $id)
+    public function importEvidenceRoom(Request $request, int $id): RedirectResponse
     {
         $request->validate([
             'game_id' => 'required',
@@ -321,10 +327,10 @@ class GameController extends Controller
     /**
      * Show the list of teams associated with a game
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Factory|View
      */
-    public function teams($id)
+    public function teams(int $id): Factory|View
     {
         $game = Game::with(
             ['registeredTeams' => function ($query) {
@@ -343,10 +349,10 @@ class GameController extends Controller
     /**
      * Show the list of quests associated with a game
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Factory|View
      */
-    public function quests($id)
+    public function quests(int $id): Factory|View
     {
         $game = Game::with(['quests.location', 'quests.suspect', 'quests.questions'])->findOrFail($id);
 
@@ -356,10 +362,11 @@ class GameController extends Controller
     /**
      * Associated a new team with a game
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return RedirectResponse
      */
-    public function addTeam(Request $request, $id)
+    public function addTeam(Request $request, int $id): RedirectResponse
     {
         $request->validate(['name' => 'required']);
         $team = new Team;
@@ -374,9 +381,9 @@ class GameController extends Controller
      * Show the judge questions interface
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
-    public function judgement($id)
+    public function judgement(int $id): Factory|View
     {
         $game = Game::with('quests')->findOrFail($id);
         $quests = $game->quests;
@@ -387,12 +394,14 @@ class GameController extends Controller
     /**
      * Set a question to correct and mark all answers as judged
      *
-     * @param  int  $id
-     * @param  int  $questionId
-     * @param  int  $teamId
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @param int $questId
+     * @param int $questionId
+     * @param int $teamId
+     * @return RedirectResponse
      */
-    public function judgeAnswers(Request $request, $id, $questId, $questionId, $teamId)
+    public function judgeAnswers(Request $request, int $id, int $questId, int $questionId, int $teamId): RedirectResponse
     {
         $request->validate(['judgement' => 'required']);
         $team = Team::findOrFail($teamId);
@@ -414,10 +423,11 @@ class GameController extends Controller
     /**
      * Tally team scores and display results
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @param bool $includeWaitlist
+     * @return Factory|View
      */
-    public function score($id, $includeWaitlist = false)
+    public function score(int $id, bool $includeWaitlist = false): Factory|View
     {
         $scoring = config('scoring');
         $game = Game::with('solutionSuspect', 'solutionLocation', 'solutionEvidence')->findOrFail($id);
@@ -456,9 +466,11 @@ class GameController extends Controller
     /**
      * Add bonus points to a team
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @param int $id
+     * @return RedirectResponse
      */
-    public function bonusPoints(Request $request, $id)
+    public function bonusPoints(Request $request, int $id): RedirectResponse
     {
         $request->validate([
             'team_id' => 'required|exists:teams,id',
@@ -476,9 +488,9 @@ class GameController extends Controller
      * Show the interface for checking in players
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
-    public function checkIn($id)
+    public function checkIn(int $id): Factory|View
     {
         $game = Game::with('registeredTeams', 'registeredTeams.players')->findOrFail($id);
 
@@ -488,10 +500,12 @@ class GameController extends Controller
     /**
      * Check-in the player
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @param bool $playerId
+     * @return RedirectResponse
      */
-    public function checkInPlayer(Request $request, $id, $playerId = false)
+    public function checkInPlayer(Request $request, int $id, $playerId = false): RedirectResponse
     {
         if ($playerId) {
             $player = Player::find($playerId);
@@ -533,9 +547,10 @@ class GameController extends Controller
     /**
      * Sets a session variable that allows users to test the game even if it is not in progress
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function overrideInProgress(Request $request)
+    public function overrideInProgress(Request $request): RedirectResponse
     {
         $game = Game::active()->first();
         $request->session()->push('override_in_progress', $game->id);
@@ -543,7 +558,7 @@ class GameController extends Controller
         return redirect()->route('ui.index');
     }
 
-    public function getWarnings(Game $game)
+    public function getWarnings(Game $game): array
     {
         $warnings = [];
         if (empty($game->solutionSuspect)) {

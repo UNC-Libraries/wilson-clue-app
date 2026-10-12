@@ -9,55 +9,21 @@ use App\MinigameImage;
 use App\Quest;
 use App\Question;
 use App\Suspect;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class QuestController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index() {}
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $gameId
+     * @param $questId
+     * @return Factory|View
      */
-    public function edit($gameId, $questId)
+    public function edit($gameId, $questId): Factory|View
     {
         $game = Game::findOrFail($gameId);
         $suspects = Suspect::get();
@@ -85,10 +51,12 @@ class QuestController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $gameId
+     * @param $questId
+     * @return RedirectResponse
      */
-    public function update(Request $request, $gameId, $questId)
+    public function update(Request $request, $gameId, $questId): RedirectResponse
     {
         $quest = Quest::with('location')->findOrFail($questId);
         $game = Game::findOrFail($gameId);
@@ -137,14 +105,4 @@ class QuestController extends Controller
         return redirect()->route('admin.game.edit', $gameId)->with('alert', ['message' => $quest->location->name.' updated', 'type' => 'success']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
