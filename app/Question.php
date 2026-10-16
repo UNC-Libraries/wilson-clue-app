@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\File;
 
 class Question extends Model
 {
+    use HasFactory;
+
     /***********************************
      * ATTRIBUTES
      ***********************************/
@@ -46,27 +49,27 @@ class Question extends Model
 
     public function answers(): HasMany
     {
-        return $this->hasMany(\App\Answer::class);
+        return $this->hasMany(Answer::class);
     }
 
     public function quests(): BelongsToMany
     {
-        return $this->belongsToMany(\App\Quest::class);
+        return $this->belongsToMany(Quest::class);
     }
 
     public function incorrectAnswers(): HasMany
     {
-        return $this->hasMany(\App\IncorrectAnswer::class);
+        return $this->hasMany(IncorrectAnswer::class);
     }
 
     public function location(): BelongsTo
     {
-        return $this->belongsTo(\App\Location::class);
+        return $this->belongsTo(Location::class);
     }
 
     public function completedBy(): BelongsToMany
     {
-        return $this->belongsToMany(\App\Team::class)->withTimestamps();
+        return $this->belongsToMany(Team::class)->withTimestamps();
     }
 
     /***********************************
@@ -83,7 +86,7 @@ class Question extends Model
     /***********************************
      * METHODS
      ***********************************/
-    public function deleteImage()
+    public function deleteImage(): void
     {
         $upload_path = config('filesystems.disks.public.root');
         $image_path = $this->attributes['src'];
@@ -101,7 +104,7 @@ class Question extends Model
      *
      * @return Collection
      */
-    public function getNotJudgedAnswersAttribute()
+    public function getNotJudgedAnswersAttribute(): Collection
     {
         return $this->incorrectAnswers->reject(function ($value, $key) {
             return $value->judged === true ||
@@ -115,12 +118,12 @@ class Question extends Model
      *
      * @return bool
      */
-    public function getNeedsJudgementAttribute()
+    public function getNeedsJudgementAttribute(): bool
     {
         return ! $this->not_judged_answers->isEmpty();
     }
 
-    public function getSrcAttribute($value)
+    public function getSrcAttribute($value): string
     {
         return env('PUBLIC_UPLOADS_PATH')."/$value";
     }

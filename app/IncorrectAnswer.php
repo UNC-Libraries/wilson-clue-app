@@ -4,10 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class IncorrectAnswer extends Model
 {
+    use HasFactory;
+
     /***********************************
      * ATTRIBUTES
      ***********************************/

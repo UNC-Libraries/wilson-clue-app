@@ -3,10 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Location extends Model
 {
+    use HasFactory;
+
     /***********************************
      * ATTRIBUTES
      ***********************************/
@@ -42,7 +45,7 @@ class Location extends Model
      * ACCESSORS
      ***********************************/
 
-    public function getFloorNthAttribute()
+    public function getFloorNthAttribute(): string
     {
         $number = $this->floor;
         $ends = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];

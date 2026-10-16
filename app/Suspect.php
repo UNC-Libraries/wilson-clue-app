@@ -3,10 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Suspect extends Model
 {
+    use HasFactory;
+
     /***********************************
      * ATTRIBUTES
      ***********************************/
@@ -55,9 +58,9 @@ class Suspect extends Model
     /**
      * Get the bootstrap related color
      *
-     * return @string
+     * @return string
      */
-    public function getBootstrapColorAttribute()
+    public function getBootstrapColorAttribute(): string
     {
         $bootstrapOptions = [
             'white' => 'dark',
@@ -71,7 +74,7 @@ class Suspect extends Model
         return $bootstrapOptions[$this->attributes['machine']];
     }
 
-    public function getSideAttribute()
+    public function getSideAttribute(): string
     {
         if (in_array($this->machine, ['plum', 'mustard', 'green'])) {
             return 'char-right-page';
@@ -80,27 +83,27 @@ class Suspect extends Model
         }
     }
 
-    public function getImagePathAttribute()
+    public function getImagePathAttribute(): string
     {
         return 'images/suspects/';
     }
 
-    public function getFaceImageAttribute()
+    public function getFaceImageAttribute(): string
     {
         return $this->image_path.$this->machine.'_face.jpg';
     }
 
-    public function getCardImageAttribute()
+    public function getCardImageAttribute(): string
     {
         return $this->image_path.$this->machine.'_card.jpg';
     }
 
-    public function getTinyImageAttribute()
+    public function getTinyImageAttribute(): string
     {
         return $this->image_path.$this->machine.'_tiny.jpg';
     }
 
-    public function getLogoAttribute()
+    public function getLogoAttribute(): string
     {
         return $this->image_path.$this->machine.'_logo.jpg';
     }

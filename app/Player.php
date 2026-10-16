@@ -4,6 +4,7 @@ namespace App;
 
 use App\Ldap\PlayerUser;
 use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Log;
@@ -13,7 +14,7 @@ use LdapRecord\Models\ActiveDirectory\User;
 
 class Player extends Authenticatable implements LdapAuthenticatable
 {
-    use AuthenticatesWithLdap;
+    use AuthenticatesWithLdap, HasFactory;
     /***********************************
      * ATTRIBUTES
      ***********************************/
@@ -24,9 +25,9 @@ class Player extends Authenticatable implements LdapAuthenticatable
      * @var array
      */
     protected $appends = [
-        'full_name' => '',
-        'class' => '',
-        'academic_group' => '',
+        'full_name',
+        'class',
+        'academic_group',
     ];
 
     protected $fillable = [
@@ -68,7 +69,8 @@ class Player extends Authenticatable implements LdapAuthenticatable
         'SOE' => 'School of Education',
         'KFBS' => 'Kenan-Flagler Business School',
         'SON' => 'School of Nursing',
-        'SILS' => 'School of Information and Library Science',
+        'SDIS' => 'School of Data and Information Sciences',
+        'SILS' => 'School of Information and Library Sciences (inactive)',
         'SOJ' => 'School of Journalism',
         'SOG' => 'School of Government',
         'SOD' => 'School of Dentistry',
@@ -132,10 +134,10 @@ class Player extends Authenticatable implements LdapAuthenticatable
     /**
      * Check for valid onyen
      *
-     * @param onyen string
+     * @param string $onyen
      * @return bool
      */
-    public function validOnyen($onyen)
+    public function validOnyen(string $onyen): bool
     {
         $search = User::where('uid', '=', $onyen)->get();
 
@@ -145,9 +147,11 @@ class Player extends Authenticatable implements LdapAuthenticatable
     /**
      * Update a player from an onyen
      *
-     * @param onyen string
+     * @param string $onyen
+     * @param bool $override_student
+     * @return void
      */
-    public function updateFromOnyen($onyen, $override_student = false)
+    public function updateFromOnyen(string $onyen, bool $override_student = false): void
     {
         if ($this->validOnyen($onyen)) {
             $getPerson = PlayerUser::query()->where('uid', '=', $onyen)->get();
@@ -184,9 +188,10 @@ class Player extends Authenticatable implements LdapAuthenticatable
     /**
      * Set player warnings
      *
+     * @param Game|null $game
      * @return array
      */
-    public function getWarnings(?Game $game = null)
+    public function getWarnings(?Game $game = null): array
     {
         $warnings = [];
 
@@ -224,32 +229,31 @@ class Player extends Authenticatable implements LdapAuthenticatable
     /**
      * Get the player's first name.
      *
-     * @param  string  $value
+     * @param string|null $value
      * @return string
      */
-    public function getFirstNameAttribute($value)
+    public function getFirstNameAttribute(?string $value): string
     {
-        return ucfirst($value);
+        return $value ? ucfirst($value) : '';
     }
 
     /**
      * Get the player's last name.
      *
-     * @param  string  $value
+     * @param string|null $value
      * @return string
      */
-    public function getLastNameAttribute($value)
+    public function getLastNameAttribute(?string $value): string
     {
-        return ucfirst($value);
+        return $value ? ucfirst($value) : '';
     }
 
     /**
      * Get the player's full name.
      *
-     * @param  string  $value
      * @return string
      */
-    public function getFullNameAttribute()
+    public function getFullNameAttribute(): string
     {
         return $this->first_name.' '.$this->last_name;
     }
@@ -257,23 +261,21 @@ class Player extends Authenticatable implements LdapAuthenticatable
     /**
      * Get the player's class.
      *
-     * @param  string  $value
      * @return string
      */
-    public function getClassAttribute($all = false)
+    public function getClassAttribute(): string
     {
-        return self::CLASS_OPTIONS[$this->class_code];
+        return self::CLASS_OPTIONS[$this->class_code ?? ''] ?? 'Not Found';
     }
 
     /**
      * Get the player's academic group.
      *
-     * @param  string  $value
      * @return string
      */
-    public function getAcademicGroupAttribute()
+    public function getAcademicGroupAttribute(): string
     {
-        return self::ACADEMIC_GROUP_OPTIONS[$this->academic_group_code];
+        return self::ACADEMIC_GROUP_OPTIONS[$this->academic_group_code ?? ''] ?? 'Not Found';
     }
 
     /***********************************
@@ -283,32 +285,32 @@ class Player extends Authenticatable implements LdapAuthenticatable
     /**
      * Set the player's first name.
      *
-     * @param  string  $value
+     * @param string $value
      * @return void
      */
-    public function setFirstNameAttribute($value)
+    public function setFirstNameAttribute(string $value): void
     {
-        $this->attributes['first_name'] = utf8_encode(strtolower($value));
+        $this->attributes['first_name'] = mb_convert_encoding(strtolower($value), 'UTF-8', 'ISO-8859-1');
     }
 
     /**
      * Set the player's last name.
      *
-     * @param  string  $value
+     * @param string $value
      * @return void
      */
-    public function setLastNameAttribute($value)
+    public function setLastNameAttribute(string $value): void
     {
-        $this->attributes['last_name'] = utf8_encode(strtolower($value));
+        $this->attributes['last_name'] = mb_convert_encoding(strtolower($value), 'UTF-8', 'ISO-8859-1');
     }
 
     /**
      * Set the class code attribute
      *
-     * @param  string  $value
+     * @param string|null $value
      * @return void
      */
-    public function setClassCodeAttribute($value)
+    public function setClassCodeAttribute(?string $value): void
     {
         $this->attributes['class_code'] = $value ? $value : '';
     }
@@ -316,10 +318,10 @@ class Player extends Authenticatable implements LdapAuthenticatable
     /**
      * Set the academic group code attribute
      *
-     * @param  string  $value
+     * @param string|null $value
      * @return void
      */
-    public function setAcademicGroupCodeAttribute($value)
+    public function setAcademicGroupCodeAttribute(?string $value): void
     {
         $this->attributes['academic_group_code'] = $value ? $value : '';
     }

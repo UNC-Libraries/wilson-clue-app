@@ -3,11 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\File;
 
 class Evidence extends Model
 {
+    use HasFactory;
+
     /***********************************
      * ATTRIBUTES
      ***********************************/
@@ -49,9 +52,9 @@ class Evidence extends Model
     /***********************************
      * ACCESSORS
      ***********************************/
-    public function getSrcAttribute($value)
+    public function getSrcAttribute(?string $value): string
     {
-        return env('PUBLIC_UPLOADS_PATH')."/$value";
+        return $value ? env('PUBLIC_UPLOADS_PATH')."/$value" : env('PUBLIC_UPLOADS_PATH').'/';
     }
 
     /***********************************

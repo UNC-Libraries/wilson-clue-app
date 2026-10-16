@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Game;
 use App\Http\Controllers\Controller;
 use App\Player;
-use Hash;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class PlayerController extends Controller
@@ -13,9 +16,10 @@ class PlayerController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Factory|View
      */
-    public function index(Request $request)
+    public function index(Request $request): Factory|View
     {
         $games = Game::get();
         $sortOptions = [
@@ -23,35 +27,35 @@ class PlayerController extends Controller
             'onyen' => 'Onyen',
             'team' => 'Team Count',
         ];
-        $selectedSort = $request->get('sort_by') ? $request->get('sort_by') : 'last_name';
+        $selectedSort = $request->input('sort_by') ? $request->input('sort_by') : 'last_name';
         $sortOrder = [
             'asc' => 'asc',
             'desc' => 'desc',
         ];
-        $selectedSortOrder = $request->get('sort_order') ? $request->get('sort_order') : 'asc';
+        $selectedSortOrder = $request->input('sort_order') ? $request->input('sort_order') : 'asc';
 
         $dummy = new Player;
         $academic_group_options = $dummy::ACADEMIC_GROUP_OPTIONS;
         $class_options = $dummy::CLASS_OPTIONS;
 
         // Request Vars
-        $game = $request->get('game');
-        $class = $request->get('class');
+        $game = $request->input('game');
+        $class = $request->input('class');
         if ($class) {
             array_walk($class, function (&$v) {
                 $v = $v === null ? '' : $v;
             });
         }
-        $group = $request->get('group');
+        $group = $request->input('group');
         if ($group) {
             array_walk($group, function (&$v) {
                 $v = $v === null ? '' : $v;
             });
         }
-        $played = $request->get('played');
-        $nonStudent = $request->get('non_student');
-        $manual = $request->get('manual');
-        $search = $request->get('search');
+        $played = $request->input('played');
+        $nonStudent = $request->input('non_student');
+        $manual = $request->input('manual');
+        $search = $request->input('search');
 
         $players = Player::select();
 
@@ -126,10 +130,10 @@ class PlayerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Factory|View
      */
-    public function edit($id)
+    public function edit(int $id): Factory|View
     {
         $player = Player::with('teams', 'teams.game')->findOrFail($id);
 
@@ -139,17 +143,18 @@ class PlayerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): RedirectResponse
     {
         $player = Player::findOrFail($id);
         $player->checked_in = false;
         $player->fill($request->all());
-        if ($request->get('password')) {
-            $player->onyen = $request->get('email');
-            $player->password = Hash::make($request->get('password'));
+        if ($request->input('password')) {
+            $player->onyen = $request->input('email');
+            $player->password = Hash::make($request->input('password'));
         }
         $player->save();
 
@@ -159,10 +164,10 @@ class PlayerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(int $id): RedirectResponse
     {
         $player = Player::findOrFail($id);
         $message = $player->full_name.' removed';

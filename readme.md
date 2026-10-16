@@ -7,10 +7,16 @@ See https://gitlab.lib.unc.edu/cappdev/clue-vm for local development set up
 ### Note
 Any emails write to the log
 
+### Running tests
+From within the VM, navigate to the project directory and run:
+```bash
+cd /clue
+php artisan test
+```
 ## Asset Compilation
 1. Watch for changes to assets in development and for production:
    ```bash
-   $ cd $CLUE_HOME
+   $ cd /clue
    $ npm run build
    ```
 

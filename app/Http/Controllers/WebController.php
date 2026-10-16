@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Agent;
 use App\Game;
 use App\Suspect;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,9 +17,9 @@ class WebController extends Controller
     /**
      * Show the homepage
      *
-     * @return welcome view
+     * @return Factory|View view
      */
-    public function index()
+    public function index(): Factory|View
     {
         $suspects = Suspect::get();
 
@@ -51,10 +53,11 @@ class WebController extends Controller
     /**
      * Show a game archive
      *
-     * @param  string  $id
-     * @return archive view
+     * @param Request $request
+     * @param string $id
+     * @return Factory|View view
      */
-    public function archive(Request $request, $id)
+    public function archive(Request $request, string $id): Factory|View
     {
         $game = Game::with('registeredTeams', 'registeredTeams.players')->findOrFail($id);
         $teams = $game->registeredTeams;
@@ -78,11 +81,9 @@ class WebController extends Controller
     /**
      * Show a login form
      *
-     * @param  Request  $request
-     * @param  string  $id
-     * @return login view
+     * @return Factory|View view
      */
-    public function login()
+    public function login(): Factory|View
     {
         return view('auth.login');
     }

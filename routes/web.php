@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UiController;
 use App\Http\Controllers\WebController;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -132,6 +133,8 @@ Route::middleware('auth:admin', 'admin')->group(function () {
             ],
         ]);
 
+        Route::get('evidence/data', [Admin\EvidenceController::class, 'getEvidence'])->name('admin.evidence.getEvidence');
+
         // EVIDENCE
         Route::resource('evidence', Admin\EvidenceController::class, [
             'names' => [
@@ -145,6 +148,9 @@ Route::middleware('auth:admin', 'admin')->group(function () {
         ]);
 
         Route::prefix('game/{id}')->group(function () {
+
+            // Quests
+            Route::get('/quests', [Admin\GameController::class, 'quests'])->where('id', '[0-9]+')->name('admin.game.quests');
 
             // Activate
             Route::get('/activate', [Admin\GameController::class, 'activate'])->where('id', '[0-9]+')->name('admin.game.activate');
@@ -247,6 +253,7 @@ Route::middleware('auth:admin', 'admin')->group(function () {
         Route::post('quest/{id}/remove/{questionId}', [Admin\QuestController::class, 'removeQuestion'])->where('id', '[0-9]+')->where('questionId', '[0-9]+');
         Route::post('quest/{id}/reorder/{questionId}', [Admin\QuestController::class, 'reorderQuestions'])->where('id', '[0-9]+')->where('questionId', '[0-9]+');
         Route::resource('game.quest', Admin\QuestController::class, [
+            'only' => ['edit', 'update'],
             'names' => [
                 'edit' => 'admin.game.quest.edit',
                 'update' => 'admin.game.quest.update',
@@ -281,6 +288,7 @@ Route::middleware('auth:admin', 'admin')->group(function () {
         Route::delete('team/{id}/removePlayer/{playerId}', [Admin\TeamController::class, 'removePlayer'])->where('id', '[0-9]+')->where('playerId', '[0-9]+')->name('admin.team.removePlayer');
         Route::post('team/{id}/addPlayer', [Admin\TeamController::class, 'addPlayer'])->where('id', '[0-9]+')->name('admin.team.addPlayer');
         Route::resource('team', Admin\TeamController::class, [
+            'only' => ['edit', 'update', 'destroy'],
             'names' => [
                 'edit' => 'admin.team.edit',
                 'update' => 'admin.team.update',

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Game;
 use App\Http\Controllers\Controller;
 use App\Location;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class LocationController extends Controller
@@ -12,9 +15,9 @@ class LocationController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
-    public function index()
+    public function index(): Factory|View
     {
         $locations = Location::get();
 
@@ -24,9 +27,9 @@ class LocationController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
-    public function create()
+    public function create(): Factory|View
     {
         $location = new Location;
         $mapSections = config('map_sections');
@@ -37,9 +40,10 @@ class LocationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => 'required',

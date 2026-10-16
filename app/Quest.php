@@ -4,13 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Quest extends Model
 {
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     /***********************************
      * ATTRIBUTES
@@ -37,32 +38,32 @@ class Quest extends Model
      ***********************************/
     public function location(): BelongsTo
     {
-        return $this->belongsTo(\App\Location::class);
+        return $this->belongsTo(Location::class);
     }
 
     public function suspect(): BelongsTo
     {
-        return $this->belongsTo(\App\Suspect::class);
+        return $this->belongsTo(Suspect::class);
     }
 
     public function questions(): BelongsToMany
     {
-        return $this->belongsToMany(\App\Question::class)->withPivot('order')->orderBy('order');
+        return $this->belongsToMany(Question::class)->withPivot('order')->orderBy('order');
     }
 
     public function minigameImages(): BelongsToMany
     {
-        return $this->belongsToMany(\App\MinigameImage::class);
+        return $this->belongsToMany(MinigameImage::class);
     }
 
     public function completedBy(): BelongsToMany
     {
-        return $this->belongsToMany(\App\Team::class)->registered()->withTimestamps();
+        return $this->belongsToMany(Team::class)->registered()->withTimestamps();
     }
 
     public function game(): BelongsTo
     {
-        return $this->belongsTo(\App\Game::class);
+        return $this->belongsTo(Game::class);
     }
 
     /***********************************
@@ -88,7 +89,7 @@ class Quest extends Model
      * ACCESSORS
      ***********************************/
 
-    public function getTypesAttribute()
+    public function getTypesAttribute(): array
     {
         return $this->attributes['types'] = [
             'question' => 'Question',
@@ -96,12 +97,12 @@ class Quest extends Model
         ];
     }
 
-    public function getTeamCompletedAttribute($teamId)
+    public function getTeamCompletedAttribute(string $teamId): bool
     {
         return in_array($teamId, $this->completedBy()->pluck('id')->all());
     }
 
-    public function getNeedsJudgementAttribute()
+    public function getNeedsJudgementAttribute(): bool
     {
         return ! $this->questions->where('needs_judgement', true)->isEmpty();
     }

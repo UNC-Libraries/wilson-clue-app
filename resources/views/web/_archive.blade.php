@@ -9,7 +9,7 @@
                 <div class="col-12 col-sm-6 col-md-4">
                     <!-- Sideswipe -->
                     <div class="archive-card-wrapper">
-                        <div class="archive-card {{ next($colors) == FALSE ? reset($colors) : current($colors) }}">
+                        <div class="archive-card {{ next($colors) === false ? reset($colors) : current($colors) }}">
                             <a href="{{ route('web.archive', $game->id) }}" class="web-link"></a>
                             <div class="img-container">
                                 <div class="img" style="background-image: url({{ $game->flickr_start_img }}" aria-label="{{ $game->name }}"></div>
