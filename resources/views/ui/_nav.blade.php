@@ -10,7 +10,12 @@
                     <li class="nav-item"><a class="nav-item" href="{{ route('ui.map') }}">Wilson Map</a></li>
                     <!--<li class="nav-item"><a class="nav-item" href="{{ route('ui.dna') }}">Ghost DNA</a></li>-->
                     <li class="nav-item"><a class="nav-item" href="{{ route('ui.indictment') }}">Indictment</a></li>
-                    <li class="nav-item"><a class="nav-item" href="{{ route('player.logout') }}">Logout</a></li>
+                    <li class="nav-item">
+                        <form method="POST" action="{{ route('player.logout') }}">
+                            @csrf
+                            <button type="submit" class="nav-item border-0 bg-transparent">Logout</button>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>

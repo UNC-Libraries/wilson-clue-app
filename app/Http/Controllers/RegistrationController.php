@@ -37,7 +37,9 @@ class RegistrationController extends Controller
         $team = $user->teams()->with('players')->active()->first();
 
         if (empty($team)) {
-            return redirect()->route('player.logout');
+            Auth::guard('player')->logout();
+
+            return redirect()->route('player.login.form');
         }
 
         if (! $team->waitlist) {

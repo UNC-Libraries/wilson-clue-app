@@ -23,9 +23,15 @@
                             <td>{{ $game->statusText }}</td>
                             <td>
                                 @if(!$game->active)
-                                    <a href="{{ route('admin.game.activate', $game->id) }}" class="btn btm-primary btn-sm">Activate</a>
+                                    <form method="POST" action="{{ route('admin.game.activate', $game->id) }}" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btm-primary btn-sm">Activate</button>
+                                    </form>
                                 @else
-                                    <a href="{{ route('admin.game.deactivate', $game->id) }}" class="btn btn-danger btn-sm">Deactivate</a>
+                                    <form method="POST" action="{{ route('admin.game.deactivate', $game->id) }}" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger btn-sm">Deactivate</button>
+                                    </form>
                                 @endif
 
                             </td>

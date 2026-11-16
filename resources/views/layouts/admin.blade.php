@@ -36,7 +36,12 @@
                 </li>
             </ul>
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="{{ route('admin.logout') }}">Logout</a></li>
+                <li class="nav-item">
+                    <form method="POST" action="{{ route('admin.logout') }}">
+                        @csrf
+                        <button type="submit" class="nav-link border-0 bg-transparent">Logout</button>
+                    </form>
+                </li>
             </ul>
         </div>
     </nav>

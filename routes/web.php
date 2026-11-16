@@ -94,11 +94,11 @@ Route::middleware('activeGame')->group(function () {
 // ADMIN
 Route::get('login', [Auth\AdminLoginController::class, 'showLoginForm'])->name('admin.login.form');
 Route::post('login', [Auth\AdminLoginController::class, 'login'])->name('admin.login');
-Route::get('logout', [Auth\AdminLoginController::class, 'logout'])->name('admin.logout');
+Route::post('logout', [Auth\AdminLoginController::class, 'logout'])->name('admin.logout');
 // PLAYER
 Route::get('go', [Auth\LoginController::class, 'showLoginForm'])->name('player.login.form');
 Route::post('go', [Auth\LoginController::class, 'login'])->name('player.login');
-Route::get('leave', [Auth\LoginController::class, 'logout'])->name('player.logout');
+Route::post('leave', [Auth\LoginController::class, 'logout'])->name('player.logout');
 
 /***************************
  * Admin routes...
@@ -147,8 +147,8 @@ Route::middleware('auth:admin', 'admin')->group(function () {
         Route::prefix('game/{id}')->group(function () {
 
             // Activate
-            Route::get('/activate', [Admin\GameController::class, 'activate'])->where('id', '[0-9]+')->name('admin.game.activate');
-            Route::get('/deactivate', [Admin\GameController::class, 'deactivate'])->where('id', '[0-9]+')->name('admin.game.deactivate');
+            Route::post('/activate', [Admin\GameController::class, 'activate'])->where('id', '[0-9]+')->name('admin.game.activate');
+            Route::post('/deactivate', [Admin\GameController::class, 'deactivate'])->where('id', '[0-9]+')->name('admin.game.deactivate');
             // Archive
             Route::get('/archive', [Admin\GameController::class, 'editArchive'])->where('id', '[0-9]+')->name('admin.game.edit.archive');
             // Evidence Room

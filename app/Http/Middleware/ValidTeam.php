@@ -34,7 +34,9 @@ class ValidTeam
 
         if (!$team) {
             $request->session()->forget('teamId');
-            return redirect()->route('player.logout');
+            Auth::guard('player')->logout();
+
+            return redirect()->route('player.login.form');
         }
 
         $request->attributes->set('currentTeam', $team);
