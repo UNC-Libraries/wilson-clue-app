@@ -43,7 +43,7 @@ Route::middleware('activeGame')->group(function () {
      * Registration routes...
     */
     Route::get('enlist', [RegistrationController::class, 'index'])->name('enlist.index');
-    Route::post('enlist', [RegistrationController::class, 'enlist'])->name('enlist.submit');
+    Route::post('enlist', [RegistrationController::class, 'enlist'])->middleware('throttle:registration')->name('enlist.submit');
 
     /***************************
      * Requires authentication routes...
@@ -61,7 +61,7 @@ Route::middleware('activeGame')->group(function () {
                     Route::get('dna', [UiController::class, 'dna'])->name('ui.dna');
                 });
                 // Ajax routes
-                Route::post('attempt/question/{id}', [UiController::class, 'attemptQuestion'])->name('ui.attempt.question');
+                Route::post('attempt/question/{id}', [UiController::class, 'attemptQuestion'])->middleware('throttle:game-actions')->name('ui.attempt.question');
                 Route::post('attempt/dna', [UiController::class, 'attemptDna'])->name('ui.attempt.dna');
                 Route::post('attempt/minigame/{id}', [UiController::class, 'attemptMinigame'])->name('ui.attempt.minigame');
                 Route::post('set/evidence', [UiController::class, 'setEvidence'])->name('ui.set.evidence');
@@ -93,11 +93,11 @@ Route::middleware('activeGame')->group(function () {
  */
 // ADMIN
 Route::get('login', [Auth\AdminLoginController::class, 'showLoginForm'])->name('admin.login.form');
-Route::post('login', [Auth\AdminLoginController::class, 'login'])->name('admin.login');
+Route::post('login', [Auth\AdminLoginController::class, 'login'])->middleware('throttle:admin-login')->name('admin.login');
 Route::post('logout', [Auth\AdminLoginController::class, 'logout'])->name('admin.logout');
 // PLAYER
 Route::get('go', [Auth\LoginController::class, 'showLoginForm'])->name('player.login.form');
-Route::post('go', [Auth\LoginController::class, 'login'])->name('player.login');
+Route::post('go', [Auth\LoginController::class, 'login']) ->middleware('throttle:player-login')->name('player.login');
 Route::post('leave', [Auth\LoginController::class, 'logout'])->name('player.logout');
 
 /***************************
