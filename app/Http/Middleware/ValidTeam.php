@@ -11,11 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 class ValidTeam
 {
     /**
-     * Handle an incoming request.
+     * Verify that the session team belongs to the authenticated player and game.
      *
-     * @param Request $request
-     * @param Closure $next
-     * @return mixed
+     * Invalid or stale team selections are cleared before the player is sent
+     * back to the login page.
      */
     public function handle(Request $request, Closure $next): Response
     {
@@ -23,6 +22,7 @@ class ValidTeam
         $gameId = $request->session()->get('gameId');
         $teamId = $request->session()->get('teamId');
 
+        // Re-query the team so session values are not trusted as authorization.
         $team = Team::query()
             ->whereKey($teamId)
             ->where('game_id', $gameId)
