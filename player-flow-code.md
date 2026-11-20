@@ -2,7 +2,7 @@
 
 This is the code-level trace of a player journey from team creation through registration, game play, indictment, and game completion. It includes the runtime path, persistent state, branch behavior, and the source locations that implement each step.
 
-All paths below describe the current code after the `teamId` regression fix. `.env` files are intentionally excluded from this analysis.
+`.env` files are intentionally excluded from this analysis.
 
 ## Architecture and request boundaries
 
