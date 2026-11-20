@@ -87,7 +87,7 @@ Relevant model behavior:
 1. Validate required `onyen` and `teamName` (`:142-146`). Failure redirects back with old input/errors.
 2. Query the newest active game with registration enabled and eager-load registered teams (`:150-152`). If absent, return `enlist.no_game` (`:153-155`).
 3. Reuse or instantiate a `Player` based on Onyen (`:157-160`).
-4. Refresh identity/student fields with `Player::updateFromOnyen()` (`app/Player.php:146-182`), which validates LDAP identity and copies name, PID, email, academic group, class, and student status.
+4. Refresh identity/student fields with `Player::updateFromOnyen()` (`app/Player.php:146-182`), which validates LDAP identity and copies name, PID, email, academic group, class, and student status. Missing LDAP academic-group or class attributes are stored as empty option codes, and unrecognized or missing option codes display as `Not Found` through `Player::getAcademicGroupAttribute()` (`app/Player.php:274-277`) and `Player::getClassAttribute()` (`app/Player.php:263-266`). This affects display only; student eligibility is still evaluated separately.
 5. Run `Player::getWarnings($game)` (`app/Player.php:189-217`). Any warning returns to the form (`RegistrationController.php:162-166`):
    - LDAP Onyen not found (`Player.php:193-195`).
    - Player was previously checked in (`:197-200`).

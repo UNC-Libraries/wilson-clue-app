@@ -211,6 +211,7 @@ Because the `Team` migration defaults to waitlisted, an admin-created team needs
 - Team edit/update: `Admin\TeamController::edit/update()` (`app/Http/Controllers/Admin/TeamController.php:61-95`). Name is required; other matching attributes are copied from the request.
 - Toggle registration: `toggleWaitlist()` (`:121-130`) flips `waitlist` and reports either “registered” or “moved to waitlist.” It does not check capacity or game ownership beyond the supplied team lookup.
 - Add a player: `addPlayer()` (`:139-187`) supports an Onyen/LDAP player or a manual player with email, password, names, class, and academic group. It checks player warnings for LDAP players and supports `override_non_student` (`:147-162`), then attaches the player (`:181-184`).
+- When LDAP data does not include a recognized class or academic group, the player attributes fall back safely and display `Not Found` through `Player::getClassAttribute()` and `Player::getAcademicGroupAttribute()`. Missing or unfamiliar academic metadata does not by itself prevent adding the player; the normal student eligibility checks still apply unless the administrator explicitly uses the non-student override.
 - Remove a player: `removePlayer()` (`:196-202`) detaches the supplied player ID.
 - Delete a team: `destroy()` (`:103-113`) detaches progress/player relationships, soft-deletes the team, and returns to the game team list.
 

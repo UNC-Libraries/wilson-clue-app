@@ -6,6 +6,10 @@ This document traces the player-facing flow from creating a team through registr
 
 Git history shows the missing fallback was a regression: before commit `4e4ae6b` (`Ensure that players and game components are restricted to their own team and the current game`), `ValidTeam` automatically selected the authenticated player’s first active team and stored its ID in the session. The current implementation restores that behavior while adding current-game and player-membership validation.
 
+## Player information
+
+Player directory information is now tolerant of incomplete or unfamiliar academic data. If a player’s class or academic group is missing from directory results, or uses an option the application does not recognize, the player can still continue through registration and team management. The affected field is displayed as **Not Found** instead of causing the page or registration request to fail. This does not bypass the student-only eligibility check; the player’s student status is still evaluated separately.
+
 ## Actors and state
 
 - **Player:** authenticated through the `player` guard using an Onyen and password/LDAP credentials.
@@ -58,6 +62,8 @@ The submitted Onyen is looked up in the local `players` table. Existing records 
 - The game is student-only and the player is not a student (`enlist.add_player.not_student`).
 
 Any warning returns to the form with errors; no team is created.
+
+Incomplete class or academic-group metadata is not itself a registration failure. It is displayed as **Not Found** when shown to administrators or players; the player is rejected only when the normal eligibility rules fail, such as an invalid Onyen or a non-student entering a student-only game.
 
 ### Successful creation
 

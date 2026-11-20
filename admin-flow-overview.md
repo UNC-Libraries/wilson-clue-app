@@ -72,6 +72,8 @@ For each team:
 6. Keep full teams registered and move incomplete teams back to the waitlist when necessary.
 7. Resolve duplicate-player, prior-participation, or invalid-Onyen issues.
 
+Incomplete or unfamiliar class and academic-group information is shown as **Not Found** rather than preventing the player record from being displayed or added. This does not bypass the normal student eligibility rules.
+
 If all team capacity is used, additional qualifying teams remain waitlisted until a spot becomes available or an administrator promotes them.
 
 ## 6. Check in players
