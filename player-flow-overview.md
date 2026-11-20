@@ -2,9 +2,6 @@
 
 This document traces the player-facing flow from creating a team through registration, entering the game, completing its activities, and submitting an indictment. It follows the current Laravel routes, middleware, controllers, models, Blade views, and game JavaScript.
 
-> **Implementation note:** `ValidTeam` now securely derives `teamId` when it is absent by querying for a team owned by the authenticated player in the current game. A supplied `teamId` is still revalidated and is never trusted by itself.
-
-Git history shows the missing fallback was a regression: before commit `4e4ae6b` (`Ensure that players and game components are restricted to their own team and the current game`), `ValidTeam` automatically selected the authenticated player’s first active team and stored its ID in the session. The current implementation restores that behavior while adding current-game and player-membership validation.
 
 ## Player information
 
