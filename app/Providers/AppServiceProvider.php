@@ -36,6 +36,25 @@ class AppServiceProvider extends ServiceProvider
             return;
         }
 
+        RateLimiter::for('admin-login', function ($request) {
+            return Limit::perMinute(5)
+                ->by(strtolower($request->input('onyen')).'|'.$request->ip());
+        });
+
+        RateLimiter::for('player-login', function ($request) {
+            return Limit::perMinute(10)
+                ->by(strtolower($request->input('onyen')).'|'.$request->ip());
+        });
+
+        RateLimiter::for('registration', function ($request) {
+            return Limit::perMinute(5)->by($request->ip());
+        });
+
+        RateLimiter::for('game-actions', function ($request) {
+            return Limit::perMinute(60)
+                ->by(optional($request->user('player'))->getAuthIdentifier().'|'.$request->ip());
+        });
+
         // Make the controller and action names available to views
         app('view')->composer('layouts.master', function ($view) {
             $action = app('request')->route()->getAction();
